@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/30 14:10:12 by wveta             #+#    #+#             */
-/*   Updated: 2019/09/04 21:29:10 by wveta            ###   ########.fr       */
+/*   Updated: 2019/09/06 14:56:39 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,10 @@ void		ft_cd(char *path2, int flag)
 			exit_shell();
 		getcwd(full, 255);
 		if (flag == 0 && p[0] == '/')
-			ft_set_env("PWD", p);
+			ft_set_shell("PWD", p);
 		else
-			ft_set_env("PWD", full);
-		ft_set_env("OLDPWD", tmp);
+			ft_set_shell("PWD", full);
+		ft_set_shell("OLDPWD", tmp);
 		free(full);
 	}
 	free(p);

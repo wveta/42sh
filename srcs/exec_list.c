@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/30 14:10:12 by wveta             #+#    #+#             */
-/*   Updated: 2019/08/29 21:06:12 by wveta            ###   ########.fr       */
+/*   Updated: 2019/09/06 20:23:08 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,23 +34,23 @@ void	ft_get_cmd_matr(t_listf *lst)
 		j++;
 	}
 	g_cmd->cmd_list[j] = ft_strdup("exit");
-	g_cmd->cmd_list[j + 1] = ft_strdup("setenv");
-	g_cmd->cmd_list[j + 2] = ft_strdup("unsetenv");
-	g_cmd->cmd_list[j + 3] = ft_strdup("env");
+	g_cmd->cmd_list[j + 1] = ft_strdup("export");
+	g_cmd->cmd_list[j + 2] = ft_strdup("unset");
+	g_cmd->cmd_list[j + 3] = ft_strdup("set");
 	g_cmd->cmd_list[j + 4] = NULL;
 }
 
-int		ft_get_ind_env(char *s)
+int		ft_get_ind_env(char *s, char **shell)
 {
 	int i;
 
-	if (!(g_envi->env) || !(s))
+	if (!(shell) || !(s))
 		return (-1);
 	i = 0;
-	while (g_envi->env[i])
+	while (shell[i])
 	{
-		if (ft_strncmp(g_envi->env[i], s, ft_strlen(s)) == 0
-		&& g_envi->env[i][ft_strlen(s)] == '=')
+		if (ft_strncmp(shell[i], s, ft_strlen(s)) == 0
+		&& shell[i][ft_strlen(s)] == '=')
 			return (i);
 		i++;
 	}
@@ -103,17 +103,17 @@ t_listf	*ft_add_exe_list(char *paths, int lpath, t_listf *first_list)
 
 t_listf	*ft_create_exe_list(void)
 {
-	int i;
-	int j;
-	int l;
+	int 	j;
+	int 	l;
+	char	*paths;
 
 	g_envi->first_list = NULL;
-	ft_set_var_ex_lst(&i, &j, &l);
-	while (i != -1 && g_envi->env[i][j + l])
+	paths = ft_set_var_ex_lst(&j, &l);
+	while (paths && paths[j + l])
 	{
-		if (g_envi->env[i][j + l] == ':')
+		if (paths[j + l] == ':')
 		{
-			g_envi->first_list = ft_add_exe_list(&g_envi->env[i][j],
+			g_envi->first_list = ft_add_exe_list(&paths[j],
 			l, g_envi->first_list);
 			j = j + l + 1;
 			l = 0;
@@ -121,9 +121,9 @@ t_listf	*ft_create_exe_list(void)
 		else
 			l++;
 	}
-	if (i > -1)
-		g_envi->first_list = ft_add_exe_list(&g_envi->env[i][j],
-		l, g_envi->first_list);
+	if ((paths) && (g_envi->first_list = ft_add_exe_list(&paths[j],
+		l, g_envi->first_list)))
+		free (paths);
 	ft_merge_sort(&g_envi->first_list);
 	ft_get_cmd_matr(g_envi->first_list);
 	return (g_envi->first_list);

@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 15:38:41 by wveta             #+#    #+#             */
-/*   Updated: 2019/08/30 11:15:13 by wveta            ###   ########.fr       */
+/*   Updated: 2019/09/06 19:43:14 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@ int			ft_test_built_in(char *path, char **av)
 	(void)av;
 	if (path && ft_strcmp(path, "exit") == 0)
 		return (1);
-	else if (path && g_envi->env && ft_strcmp(path, "env") == 0)
+	else if (path && g_envi->env && ft_strcmp(path, "set") == 0)
 		return (1);
 	else if (path && ft_strcmp(path, "cd") == 0)
 		return (1);
-	else if (path && ft_strcmp(path, "setenv") == 0)
+	else if (path && ft_strcmp(path, "export") == 0)
 		return (1);
-	else if (path && ft_strcmp(path, "unsetenv") == 0)
+	else if (path && ft_strcmp(path, "unset") == 0)
 		return (1);
 	else if (path && ft_strcmp(path, "echo") == 0)
 		return (1);
@@ -60,7 +60,7 @@ void		ft_do_cmd_list(t_pipe *p_head, int flpi)
 	p_head->cur_cmd = p_head->first_cmd;
 	while (p_head->cur_cmd)
 	{
-		ft_set_env("_", p_head->cur_cmd->avcmd[0]);
+		ft_set_shell("_", p_head->cur_cmd->avcmd[0]);
 		if (flpi > 0 && ((ft_get_heretext(p_head->cur_cmd) == -1) ||
 			(ft_set_fd_pipes(p_head, fd0, fd1) == -1)))
 			return ;

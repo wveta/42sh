@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 19:25:12 by wveta             #+#    #+#             */
-/*   Updated: 2019/08/30 11:06:51 by wveta            ###   ########.fr       */
+/*   Updated: 2019/09/06 15:38:06 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,13 +76,15 @@ int		ft_repl_sym(char *s, int j)
 	i = 1;
 	while (s[j + i])
 	{
-		if (s[j + i] < 'A' || s[j + i] > 'Z')
+		if (ft_strchr("!#%:", s[j + i]))
+			break ;
+/*		if (s[j + i] < 'A' || s[j + i] > 'Z')
 		{
 			if (s[j + i] >= 'a' && s[j + i] <= 'z')
 				s[j + i] = s[j + i] - 32;
 			else if (s[j + i] != '_')
 				break ;
-		}
+		}*/
 		i++;
 	}
 	return (i);

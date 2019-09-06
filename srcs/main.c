@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 10:27:38 by wveta             #+#    #+#             */
-/*   Updated: 2019/09/04 21:15:59 by wveta            ###   ########.fr       */
+/*   Updated: 2019/09/06 15:14:04 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ void		ft_final_free(void)
 	free(g_envi);
 	g_cmd->cmd_list = ft_free_char_matr(g_cmd->cmd_list);
 	free(g_cmd);
+	g_shell = ft_free_char_matr(g_shell);
+	g_locals = ft_free_char_matr(g_locals);
 	i = get_next_line(-7, NULL);
 	ft_history_put();
 }
@@ -98,16 +100,14 @@ int			main(int argc, char **argv, char **environ)
 	char	*pr;
 
 	(void)argc;
-	g_app_name = argv[0];
-	g_check = 0;
-	g_color = 1;
 	if (!(g_cmd = malloc(sizeof(t_cmd))))
 		exit_shell();
 	if (!(g_envi = malloc(sizeof(t_env))))
 		exit_shell();
 	g_envi->first_list = NULL;
-	if ((g_envi->env = ft_dup_char_matr(environ)) != NULL)
-		g_envi->first_list = ft_create_exe_list();
+	g_envi->env = ft_dup_char_matr(environ);
+	ft_init_glvar(argv);
+	g_envi->first_list = ft_create_exe_list();
 	g_cmd->jmp_code = setjmp(g_cmd->ebuf);
 	while (1)
 	{

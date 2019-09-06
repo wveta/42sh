@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/07 10:50:36 by wveta             #+#    #+#             */
-/*   Updated: 2019/09/04 21:23:35 by wveta            ###   ########.fr       */
+/*   Updated: 2019/09/06 14:56:39 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,19 @@ int		fd_set_nopipe(t_pipe *p_head)
 
 void	ft_parent_wait(t_pipe *p_head, int flpi, t_cmdlist *first_cmd)
 {
-	int	status;
+	int		status;
+	int 	i;
 
 	if (flpi == 0)
 	{
 		waitpid(p_head->first_cmd->pid, &status, 0);
+		if (WIFEXITED(status))
+		{
+			if ((i = WEXITSTATUS(status)) != 0)
+				ft_set_shell("?", "1");
+			else
+				ft_set_shell("?", "0");			
+		}
 		first_cmd = ft_redir_io_restore(first_cmd);
 		return ;
 	}

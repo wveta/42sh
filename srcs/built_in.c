@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 15:38:41 by wveta             #+#    #+#             */
-/*   Updated: 2019/09/04 21:21:12 by wveta            ###   ########.fr       */
+/*   Updated: 2019/09/06 16:41:37 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,24 +100,29 @@ int			ft_built_in(char *path, char **av)
 		ft_final_free();
 		exit(0);
 	}
-	else if (path && g_envi->env && ft_strncmp(path, "env", 3) == 0)
+	else if (path && g_envi->env && ft_strcmp(path, "set") == 0)
 		return (ft_print_env());
 	else if (path && ft_strncmp(path, "cd", 2) == 0)
 		return (ft_built_cd(av));
-	else if (path && ft_strncmp(path, "setenv", 6) == 0)
-	{
-		if (ft_calc_matr_rows(av) > 3)
-			ft_print_msg(" : incorrect count of arguments: ", path);
-		else if (ft_calc_matr_rows(av) == 3)
-			g_envi->env = ft_set_env(av[1], av[2]);
-		return (1);
-	}
-	else if (path && ft_strncmp(path, "unsetenv", 8) == 0)
-		if (ft_calc_matr_rows(av) != 2)
-			ft_print_msg(" : incorrect count of arguments: ", path);
-		else
-			return (ft_unset_env(av[1]));
+	else if (path && ft_strncmp(path, "export", 6) == 0)
+		return (ft_export(av));
+	else if (path && ft_strncmp(path, "unset", 5) == 0)
+		return (ft_unset_env(av));
 	else if (path && ft_strncmp(path, "echo", 4) == 0)
 		return (ft_echo(av));
 	return (0);
+}
+
+char		*ft_get_app_name(char *s)
+{
+	int		j;
+
+	j = ft_strlen(s) - 1;
+	while (j >= 0 && s[j])
+	{
+		if (s[j] == '/')
+			break ;
+		j--;
+	}
+	return (s + j + 1);
 }

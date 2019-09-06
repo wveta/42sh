@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 22:03:52 by thaley            #+#    #+#             */
-/*   Updated: 2019/08/25 15:21:25 by wveta            ###   ########.fr       */
+/*   Updated: 2019/09/06 10:34:09 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,13 +76,17 @@ char			*ft_repl_tilda(char *s, int j)
 	tmp = ft_strncpy(tmp, s, j);
 	tmp[j] = '\0';
 	tmp = ft_tilda_path(tmp);
-	tmp2 = ft_alloc_char(ft_strlen(s) + ft_strlen(tmp) + 1);
-	tmp2[0] = '\0';
-	tmp2 = ft_strcat(tmp2, tmp);
-	tmp2 = ft_strcat(tmp2, s + j);
-	free(s);
-	free(tmp);
-	return (tmp2);
+	if (*(s + j) != '\0')
+	{
+		tmp2 = ft_alloc_char(ft_strlen(s) + ft_strlen(tmp) + 1);
+		tmp2[0] = '\0';
+		tmp2 = ft_strfjoin(tmp2, tmp);
+		tmp2 = ft_strcat(tmp2, s + j);
+		free(s);
+		return (tmp2);
+	}
+	free (s);
+	return (tmp);
 }
 
 char			*ft_repl_end_til(char *s, int j, int *flag)

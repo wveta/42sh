@@ -6,17 +6,21 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/29 21:00:14 by wveta             #+#    #+#             */
-/*   Updated: 2019/09/04 21:18:58 by wveta            ###   ########.fr       */
+/*   Updated: 2019/09/06 13:27:05 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	ft_set_var_ex_lst(int *i, int *j, int *l)
+char	*ft_set_var_ex_lst(int *j, int *l)
 {
-	*i = ft_get_ind_env("PATH");
+	char	*ret;
+	
+//	*i = ft_get_ind_env("PATH", g_envi->env);
+	ret = ft_get_env("PATH");
 	*j = 5;
 	*l = 0;
+	return (ret);
 }
 
 int		ft_test_cmd_file(t_cmdlist *cur_cmd)

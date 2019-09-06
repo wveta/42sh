@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/30 18:17:22 by wveta             #+#    #+#             */
-/*   Updated: 2019/08/22 18:16:50 by wveta            ###   ########.fr       */
+/*   Updated: 2019/09/06 14:31:33 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ int		ft_print_env(void)
 	int i;
 
 	i = 0;
-	while (g_envi->env[i])
+	while (g_shell[i])
 	{
-		ft_putstr(g_envi->env[i]);
+		ft_putstr(g_shell[i]);
 		ft_putstr("\n");
 		i++;
 	}
@@ -50,7 +50,7 @@ char	*ft_get_usr_tilda(char *path)
 	{
 		home = ft_get_home(path, (tmp - path));
 		if (home)
-			home = ft_strcat(home, tmp);
+			home = ft_strfjoin(home, tmp);
 	}
 	else
 		home = ft_get_home(path, ft_strlen(path));

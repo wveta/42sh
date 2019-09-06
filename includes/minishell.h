@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 11:01:23 by wveta             #+#    #+#             */
-/*   Updated: 2019/09/04 21:24:41 by wveta            ###   ########.fr       */
+/*   Updated: 2019/09/06 20:46:47 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,9 @@ pid_t					g_pidchild;
 int						g_level;
 int						g_check;
 int						g_color;
+char					**g_locals;
+char					**g_shell;
+int						g_local_equ;
 
 typedef struct			s_cmd
 {
@@ -136,7 +139,7 @@ void					exit_shell();
 int						ft_calc_matr_rows(char **in);
 char					**ft_free_char_matr(char **matrix);
 char					**ft_dup_char_matr(char **in);
-int						ft_get_ind_env(char *s);
+int						ft_get_ind_env(char *s, char **shell);
 t_listf					*ft_create_exe_list();
 t_listf					*ft_add_exe_list(char *paths, int lpath,
 						t_listf *first_list);
@@ -157,9 +160,8 @@ void					ft_main_signal_handler(int signo, char *line_read);
 int						ft_built_cd(char **av);
 void					ft_cd(char *path, int flag);
 char					*ft_get_env(char *parm);
-char					**ft_add_env(char *str);
-char					**ft_set_env(char *parm, char *value);
-int						ft_unset_env(char *parm);
+char					**ft_set_shell(char *parm, char *value);
+int						ft_unset_env(char **parm);
 void					ft_echo_parm(char *s, int flag, int len);
 int						ft_echo(char **av);
 int						ft_tst_home(char *s, int len);
@@ -275,9 +277,18 @@ char					*ft_repl_env(char *s, int j);
 char					*ft_repl_tilda(char *s, int j);
 char					*ft_repl_end_til(char *s, int j, int *flag);
 int						ft_repl_sym(char *s, int j);
-void					ft_set_var_ex_lst(int *i, int *j, int *l);
+char					*ft_set_var_ex_lst(int *j, int *l);
 char					*ft_path_level_up(char *tmp);
 char					*ft_tst_cdpath(char *str);
 int						ft_test_cmd_file(t_cmdlist *cur_cmd);
+char					*ft_get_app_name(char *s);
+char					**ft_init_shell(void);
+void					ft_init_glvar(char **av);
+char					**ft_add_shell(char *str, char **shell);
+int						ft_unset_shell(char *parm);
+int						ft_export(char **av);
+int						ft_check_exp_name(char *str, int j);
+char					*ft_get_env2(char *parm, char **shell);
+void					ft_unset_env_parm(char *str);
 
 #endif

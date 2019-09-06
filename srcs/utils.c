@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 11:32:55 by wveta             #+#    #+#             */
-/*   Updated: 2019/08/31 22:21:50 by wveta            ###   ########.fr       */
+/*   Updated: 2019/09/06 14:40:42 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int		ft_calc_matr_rows(char **in)
 	int i;
 
 	i = 0;
-	while (in[i])
+	while (in && in[i])
 		i++;
 	return (i);
 }
@@ -45,11 +45,13 @@ char	**ft_dup_char_matr(char **in)
 	int		i;
 	int		j;
 
+
 	if (!(in))
 		return (NULL);
 	i = ft_calc_matr_rows(in);
-	if (!(out = (char **)malloc(sizeof(char *) * (i + 10))))
+	if (!(out = (char **)malloc(sizeof(char *) * (i + 1))))
 		exit_shell();
+	out[i] = NULL;
 	j = 0;
 	while (j < i && in[j])
 	{
@@ -60,7 +62,6 @@ char	**ft_dup_char_matr(char **in)
 		}
 		j++;
 	}
-	out[j] = NULL;
 	return (out);
 }
 
