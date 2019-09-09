@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 17:30:15 by wveta             #+#    #+#             */
-/*   Updated: 2019/09/04 21:23:35 by wveta            ###   ########.fr       */
+/*   Updated: 2019/09/09 17:24:53 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,8 @@ int		ft_great_dup1(int pref_fd, int out_fd, t_cmdlist *cmd)
 			return (-1);
 		}
 		cmd->fd1 = out_fd;
-		close(out_fd);
+		if (out_fd > 2)	
+			close(out_fd);
 	}
 	if (pref_fd == 2)
 	{
@@ -78,7 +79,8 @@ int		ft_great_dup1(int pref_fd, int out_fd, t_cmdlist *cmd)
 			return (-1);
 		}
 		cmd->fd2 = out_fd;
-		close(out_fd);
+		if (out_fd > 2)			/* !!!!!!*/
+			close(out_fd);
 	}
 	return (ft_great_dup2(pref_fd, out_fd, cmd));
 }

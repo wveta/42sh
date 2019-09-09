@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/29 21:00:14 by wveta             #+#    #+#             */
-/*   Updated: 2019/09/06 13:27:05 by wveta            ###   ########.fr       */
+/*   Updated: 2019/09/09 10:43:39 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int		ft_test_cmd_file(t_cmdlist *cur_cmd)
 		ft_putstr_fd(": ", 2);
 		ft_putstr_fd(cur_cmd->find_path, 2);
 		ft_putstr_fd(" : is a directory\n", 2);
+		ft_set_shell("?", "1");
 		return (-1);
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 14:40:31 by wveta             #+#    #+#             */
-/*   Updated: 2019/09/04 21:23:35 by wveta            ###   ########.fr       */
+/*   Updated: 2019/09/09 17:55:48 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,9 @@ void	ft_init_curcmd(t_cmdlist *cur_cmd)
 		cur_cmd->fd2 = STDERR_FILENO;
 		cur_cmd->here = NULL;
 		cur_cmd->child_pid = -777;
+		cur_cmd->andor = 0;
+		cur_cmd->locals = NULL;
+		cur_cmd->find_path = NULL;
 	}
 }
 
@@ -76,29 +79,16 @@ void	ft_set_cmd(t_pipe *p_head)
 
 int		ft_test_cmd_pipe(char **av, int start, t_pipe *p)
 {
-//	struct stat	buff;
-//	int			k;
-
 	if (!(p->cur_cmd->avcmd = ft_get_pipe_av(av, start)))
 		return (-1);
+
 	p->cur_cmd->built_in = ft_test_built_in(p->cur_cmd->avcmd[0],
 	p->cur_cmd->avcmd);
-	if (p->cur_cmd->built_in == 0)
+/*	if (p->cur_cmd->built_in == 0)
 	{
 		if (!(p->cur_cmd->find_path = ft_get_file_path(
 			p->cur_cmd->avcmd[0], g_envi->first_list)))
 			p->cur_cmd->find_path = ft_strdup(p->cur_cmd->avcmd[0]);
-//		if (ft_check_file(p->cur_cmd->find_path) == 777)
-//		!= 0)
-//			return (-1);
-/*		if ((k = stat(p->cur_cmd->find_path, &buff)) == 0 &&
-			(buff.st_mode & S_IFMT) == S_IFDIR)
-		{
-			ft_putstr(" : ");
-			ft_putstr(p->cur_cmd->find_path);
-			ft_putstr(" : is a directory\n");
-			return (-1);
-		}*/
-	}
+	}*/
 	return (0);
 }

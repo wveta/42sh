@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 10:27:38 by wveta             #+#    #+#             */
-/*   Updated: 2019/09/06 15:14:04 by wveta            ###   ########.fr       */
+/*   Updated: 2019/09/09 10:06:23 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void		ft_final_free(void)
 	g_cmd->cmd_list = ft_free_char_matr(g_cmd->cmd_list);
 	free(g_cmd);
 	g_shell = ft_free_char_matr(g_shell);
-	g_locals = ft_free_char_matr(g_locals);
+//	g_locals = ft_free_char_matr(g_locals);
 	i = get_next_line(-7, NULL);
 	ft_history_put();
 }

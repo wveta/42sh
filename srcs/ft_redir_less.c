@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 19:25:12 by wveta             #+#    #+#             */
-/*   Updated: 2019/09/04 21:22:08 by wveta            ###   ########.fr       */
+/*   Updated: 2019/09/09 17:53:46 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int		ft_get_fd_bynum(int i, int j, t_cmdlist *cmd)
 		in_fd = ft_get_next_num(cmd->avcmd[i] + j + 2);
 		if (in_fd > 2 && read(in_fd, buf, 0) == -1)
 		{
-			ft_print_msg(" : fd error ", cmd->avcmd[i]);
+			ft_print_msg(" : Bad file descriptor ", cmd->avcmd[i] + j + 2);
 			in_fd = -2;
 		}
 	}

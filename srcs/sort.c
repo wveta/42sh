@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 11:17:05 by wveta             #+#    #+#             */
-/*   Updated: 2019/09/04 21:31:33 by wveta            ###   ########.fr       */
+/*   Updated: 2019/09/09 10:40:08 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ int		ft_check_file(char *find_path)
 			ft_putstr_fd(" : command not found: ", 2);
 		ft_putstr_fd(find_path, 2);
 		ft_putstr_fd("\n", 2);
+		ft_set_shell("?", "1");
 		return (-1);
 	}
 	else if ((access(find_path, X_OK)) == -1)
@@ -120,6 +121,7 @@ int		ft_check_file(char *find_path)
 		ft_putstr(" : permission denied: ");
 		ft_putstr(find_path);
 		ft_putstr("\n");
+		ft_set_shell("?", "1");
 		return (-1);
 	}
 	return (0);

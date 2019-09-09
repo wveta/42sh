@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 15:38:41 by wveta             #+#    #+#             */
-/*   Updated: 2019/09/06 19:43:14 by wveta            ###   ########.fr       */
+/*   Updated: 2019/09/09 19:38:08 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,12 @@ void		ft_do_cmd_list(t_pipe *p_head, int flpi)
 	p_head->cur_cmd = p_head->first_cmd;
 	while (p_head->cur_cmd)
 	{
-		ft_set_shell("_", p_head->cur_cmd->avcmd[0]);
-		if (flpi > 0 && ((ft_get_heretext(p_head->cur_cmd) == -1) ||
+		ft_get_heretext(p_head->cur_cmd);
+		if (flpi > 0 && (/*(ft_get_heretext(p_head->cur_cmd) == -1) ||*/
 			(ft_set_fd_pipes(p_head, fd0, fd1) == -1)))
 			return ;
-		else if (flpi < 1 && fd_set_nopipe(p_head) == -1)
+		else if (flpi < 1 && ( /*ft_get_heretext(p_head->cur_cmd) ||*/
+		fd_set_nopipe(p_head) == -1))
 			return ;
 		if (ft_fork(p_head) == -1)
 			return ;

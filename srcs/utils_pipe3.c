@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/07 10:50:36 by wveta             #+#    #+#             */
-/*   Updated: 2019/09/06 14:56:39 by wveta            ###   ########.fr       */
+/*   Updated: 2019/09/09 21:01:09 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,20 @@ int		fd_set_nopipe(t_pipe *p_head)
 {
 	if (ft_do_redir(p_head->cur_cmd) != 0)
 		return (-1);
+	p_head->cur_cmd = ft_local_assig(p_head->cur_cmd);
+	p_head->cur_cmd->avcmd = ft_cmd_replays(p_head->cur_cmd->avcmd);
+	if (p_head->cur_cmd->built_in == 0)
+	{
+		if (!(p_head->cur_cmd->find_path = ft_get_file_path(
+			p_head->cur_cmd->avcmd[0], g_envi->first_list)))
+			p_head->cur_cmd->find_path = ft_strdup(p_head->cur_cmd->avcmd[0]);
+	}
+	else
+	{
+		if (p_head->cur_cmd->here && ft_get_redir_hd(p_head->cur_cmd) != 0)
+			exit(1);
+	}
+	ft_set_shell("_", p_head->cur_cmd->avcmd[0]);
 	if (ft_built_in(p_head->cur_cmd->avcmd[0], p_head->cur_cmd->avcmd) == 1)
 	{
 		p_head->cur_cmd = ft_redir_io_restore(p_head->cur_cmd);

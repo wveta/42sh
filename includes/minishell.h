@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 11:01:23 by wveta             #+#    #+#             */
-/*   Updated: 2019/09/06 20:46:47 by wveta            ###   ########.fr       */
+/*   Updated: 2019/09/09 21:47:09 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ pid_t					g_pidchild;
 int						g_level;
 int						g_check;
 int						g_color;
-char					**g_locals;
 char					**g_shell;
 int						g_local_equ;
 
@@ -108,6 +107,9 @@ typedef struct			s_cmdlist
 	int					fd2;
 	pid_t				pid;
 	char				*here;
+	char				**locals;
+	int					flag_not;
+	int					andor;
 	struct s_cmdlist	*next;
 }						t_cmdlist;
 typedef struct			s_pipe
@@ -191,6 +193,7 @@ char					*ft_get_file(char *path);
 char					**ft_split_pipes(char *cmd);
 int						ft_get_count_in_pipe(char **av, int start);
 char					**ft_get_pipe_av(char **av, int start);
+//void					ft_get_redir_list(char **av, int start, t_cmdlist *cur_cmd);
 int						ft_test_pipe(char **av, int start);
 int						ft_test_built_in(char *path, char **av);
 t_cmdlist				*ft_free_cmd_list(t_cmdlist *first);
@@ -290,5 +293,7 @@ int						ft_export(char **av);
 int						ft_check_exp_name(char *str, int j);
 char					*ft_get_env2(char *parm, char **shell);
 void					ft_unset_env_parm(char *str);
+char					**ft_cmd_replays(char **str);
+t_cmdlist				*ft_local_assig(t_cmdlist *cur_cmd);
 
 #endif

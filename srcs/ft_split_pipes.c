@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 16:34:55 by wveta             #+#    #+#             */
-/*   Updated: 2019/09/05 15:52:38 by wveta            ###   ########.fr       */
+/*   Updated: 2019/09/09 13:29:31 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int			ft_get_word(char **ret, int count, int size, char const *s)
 		return (-1);
 	ret[count][size + 0] = '\0';
 	ret[count] = ft_strncpy(ret[count], s, (size_t)(size));
-	ret[count] = ft_replays(ret[count]);
+//	ret[count] = ft_replays(ret[count]);
 	return (0);
 }
 
