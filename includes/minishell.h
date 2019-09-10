@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 11:01:23 by wveta             #+#    #+#             */
-/*   Updated: 2019/09/09 21:47:09 by wveta            ###   ########.fr       */
+/*   Updated: 2019/09/10 20:41:58 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,10 @@ int						g_level;
 int						g_check;
 int						g_color;
 char					**g_shell;
-int						g_local_equ;
+int						g_and_or;
+int						g_not;
+int						g_rc;
+int						g_built_rc;
 
 typedef struct			s_cmd
 {
@@ -295,5 +298,10 @@ char					*ft_get_env2(char *parm, char **shell);
 void					ft_unset_env_parm(char *str);
 char					**ft_cmd_replays(char **str);
 t_cmdlist				*ft_local_assig(t_cmdlist *cur_cmd);
+char					**ft_put_locals(char **av);
+void					ft_go_export(char *str, int flag);
+int						ft_test_andor(void);
+int						ft_exit(char **av);
+char					**ft_isnot(char **in);
 
 #endif

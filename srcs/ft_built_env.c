@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 18:24:59 by wveta             #+#    #+#             */
-/*   Updated: 2019/09/06 16:33:00 by wveta            ###   ########.fr       */
+/*   Updated: 2019/09/10 16:36:48 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,12 @@ char	**ft_set_shell(char *parm, char *value)
 
 	if (!(value) || !(parm))
 		return (NULL);
+	if (ft_strcmp(parm, "?") == 0)
+	{
+		g_rc = 1;
+		if (ft_strcmp(value, "0") == 0)
+			g_rc = 0;
+	}
 	if (!(str = malloc(sizeof(char) * (2 + ft_strlen(parm) +
 			ft_strlen(value)))))
 		exit_shell(1);

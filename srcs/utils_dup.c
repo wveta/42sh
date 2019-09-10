@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 14:40:31 by wveta             #+#    #+#             */
-/*   Updated: 2019/09/09 17:55:48 by wveta            ###   ########.fr       */
+/*   Updated: 2019/09/10 15:22:36 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ void	ft_init_curcmd(t_cmdlist *cur_cmd)
 		cur_cmd->fd2 = STDERR_FILENO;
 		cur_cmd->here = NULL;
 		cur_cmd->child_pid = -777;
-		cur_cmd->andor = 0;
+		cur_cmd->andor = g_and_or;
+		g_and_or = 0;
 		cur_cmd->locals = NULL;
 		cur_cmd->find_path = NULL;
 	}

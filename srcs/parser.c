@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 16:17:45 by wveta             #+#    #+#             */
-/*   Updated: 2019/08/24 19:43:43 by wveta            ###   ########.fr       */
+/*   Updated: 2019/09/10 21:06:15 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	ft_parse_cmd(char *str, int len)
 	char *cmd;
 	char **args;
 
-	if (!str || str[0] == '\0' || str[0] == ';')
+	if (!(str) || str[0] == '\0' || str[0] == ';' || ft_test_andor() == 0)
 		return ;
 	if (!(cmd = ft_strnew((size_t)len)))
 		exit_shell();
@@ -83,6 +83,20 @@ void	ft_parse_line(char *str)
 			i_cmd = i_cmd + i + 1;
 			i = 0;
 		}
+		else if (qflag == 0 && ft_strncmp(str + i + i_cmd, "&&", 2) ==0)
+		{
+			ft_parse_cmd(str + i_cmd, i);
+			i_cmd = i_cmd + i + 2;
+			i = 0;
+			g_and_or = 1;
+		}
+		else if (qflag == 0 && ft_strncmp(str + i + i_cmd, "||", 2) ==0)
+		{
+			ft_parse_cmd(str + i_cmd, i);
+			i_cmd = i_cmd + i + 2;
+			i = 0;
+			g_and_or = 2;
+		}	
 		i++;
 	}
 	ft_parse_cmd(str + i_cmd, i);

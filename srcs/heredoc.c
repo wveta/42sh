@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 22:03:52 by thaley            #+#    #+#             */
-/*   Updated: 2019/09/09 22:20:43 by wveta            ###   ########.fr       */
+/*   Updated: 2019/09/10 18:18:43 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,22 +75,19 @@ t_cmdlist		*ft_local_assig(t_cmdlist *cur_cmd)
 	if (cur_cmd && cur_cmd->avcmd)
 	{
 		i = 0;
-		if (ft_strcmp(cur_cmd->avcmd[0], "!") == 0)
-		{
-			cur_cmd->flag_not = 1;
-			i++;
-		}
 		while (cur_cmd->avcmd[i])
 		{
 			if ((tmp = ft_strchr(cur_cmd->avcmd[i], '=')) &&
-				((j = tmp - cur_cmd->avcmd[i] - 1) > 0))
+				((j = tmp - cur_cmd->avcmd[i] - 1) > -1))
 			{
 				while ((j >= 0) && (cur_cmd->avcmd[i][j]))
 				{
-					if (j == 0 && (ft_isalpha(cur_cmd->avcmd[i][j])))
+					if (j == 0 && (ft_isalpha(cur_cmd->avcmd[i][j]) ||
+						 (cur_cmd->avcmd[i][j] == '_')))
 						cur_cmd->locals = ft_assig_add(cur_cmd, i);
 					else if (j > 0 && (!(ft_isalpha(cur_cmd->avcmd[i][j])))
-					&& (!(ft_isdigit(cur_cmd->avcmd[i][j]))))
+					&& (!(ft_isdigit(cur_cmd->avcmd[i][j])))
+					&& (cur_cmd->avcmd[i][j] != '_'))
 						return (cur_cmd);
 					j--;
 				}

@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 14:58:38 by wveta             #+#    #+#             */
-/*   Updated: 2019/09/04 21:23:35 by wveta            ###   ########.fr       */
+/*   Updated: 2019/09/10 20:47:31 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,19 @@ int		ft_check_dir(char *find_path)
 	if ((access(find_path, F_OK)) == -1)
 	{
 		ft_print_msg(" : no such file or directory: ", find_path);
+		g_built_rc = 1;
 		return (-1);
 	}
 	else if ((access(find_path, X_OK)) == -1)
 	{
 		ft_print_msg(" : permission denied: ", find_path);
+		g_built_rc = 1;
 		return (-1);
 	}
 	if (!(ft_is_dir(find_path)))
 	{
 		ft_print_msg(" : not a directory: ", find_path);
+		g_built_rc = 1;
 		return (-1);
 	}
 	return (0);

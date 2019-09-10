@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 19:25:12 by wveta             #+#    #+#             */
-/*   Updated: 2019/09/09 17:00:18 by wveta            ###   ########.fr       */
+/*   Updated: 2019/09/10 14:13:59 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int		ft_repl_check(char *s, int len, char *q, int j)
 		*q = s[j];
 		tmp = s + j;
 		ft_strcpy(tmp, s + j + 1);
-		return (1);
+		return (-1);
 	}
 	else if (*q != ' ' && (s[j] == *q))
 	{
@@ -37,6 +37,11 @@ int		ft_repl_check(char *s, int len, char *q, int j)
 		ft_strcpy(tmp, s + j + 1);
 		return (1);
 	}
+	else if (s[j] == '\\' && *q != '\'')
+	{
+		tmp = s + j;
+		ft_strcpy(tmp, s + j + 1);
+	}
 	return (0);
 }
 
@@ -44,13 +49,20 @@ char	*ft_repl_parm(char *s, int flag, int len)
 {
 	int		j;
 	char	q;
+	int		k;
 
 	j = -1;
 	q = ' ';
 	while (++j < len)
 	{
-		if (ft_repl_check(s, len, &q, j) == 1)
+		k = ft_repl_check(s, len, &q, j);
+		if (k == 1)
 			continue;
+		else if (k == -1)
+		{
+			j--;
+			continue;
+		}
 		if (q == ' ' && flag == 1)
 			s = ft_repl_end_til(s, j, &flag);
 		else if (q != '\'' && s[j] == '$')
@@ -76,15 +88,8 @@ int		ft_repl_sym(char *s, int j)
 	i = 1;
 	while (s[j + i])
 	{
-		if (ft_strchr("!#%:", s[j + i]))
+		if (ft_strchr("!#%@\"\'^*()=/\\.:", s[j + i]))
 			break ;
-/*		if (s[j + i] < 'A' || s[j + i] > 'Z')
-		{
-			if (s[j + i] >= 'a' && s[j + i] <= 'z')
-				s[j + i] = s[j + i] - 32;
-			else if (s[j + i] != '_')
-				break ;
-		}*/
 		i++;
 	}
 	return (i);

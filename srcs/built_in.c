@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 15:38:41 by wveta             #+#    #+#             */
-/*   Updated: 2019/09/06 16:41:37 by wveta            ###   ########.fr       */
+/*   Updated: 2019/09/10 20:51:40 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,16 +90,15 @@ int			ft_echo(char **av)
 	}
 	if (flag[0] != 1)
 		ft_putstr("\n");
+	ft_set_shell("?", "0");
 	return (1);
 }
 
 int			ft_built_in(char *path, char **av)
 {
-	if (path && ft_strequ(path, "exit") == 1)
-	{
-		ft_final_free();
-		exit(0);
-	}
+	g_built_rc = 0;
+	if (path && ft_strequ(path, "exit") == 1 )
+		return(ft_exit(av));
 	else if (path && g_envi->env && ft_strcmp(path, "set") == 0)
 		return (ft_print_env());
 	else if (path && ft_strncmp(path, "cd", 2) == 0)

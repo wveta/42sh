@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   readline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
+/*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/05 17:44:03 by thaley            #+#    #+#             */
-/*   Updated: 2019/08/29 20:16:51 by thaley           ###   ########.fr       */
+/*   Updated: 2019/09/10 22:22:33 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,33 @@
 
 void			open_fd(void)
 {
-	if (!isatty(STDIN_FILENO) || !isatty(STDOUT_FILENO)\
-		|| !isatty(STDERR_FILENO))
+	char	*tmp;
+	int		fd1;
+	int 	fd2;
+	
+	tmp = NULL;
+	if (!isatty(STDIN_FILENO))
 		exit(EXIT_FAILURE);
+	if (!isatty(STDOUT_FILENO))
+	{
+		tmp = ttyname(STDIN_FILENO);
+		fd1 = open(tmp, O_RDWR | O_APPEND , S_IRUSR | S_IWUSR);
+		if (fd1 == -1)
+		{
+			ft_print_msg(" : Error open STDOUT: ", tmp);
+			exit(EXIT_FAILURE);
+		}
+	}
+	if (!isatty(STDERR_FILENO))
+	{
+		tmp = ttyname(STDIN_FILENO);
+		fd2 = open(tmp, O_RDWR | O_APPEND, S_IRUSR | S_IWUSR);
+		if (fd2 == -1)
+		{
+			ft_print_msg(" : Error open STDERR: ", tmp);
+			exit(EXIT_FAILURE);
+		}	
+	}
 }
 
 /*

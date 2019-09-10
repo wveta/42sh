@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/30 14:10:12 by wveta             #+#    #+#             */
-/*   Updated: 2019/09/06 14:56:39 by wveta            ###   ########.fr       */
+/*   Updated: 2019/09/10 20:53:08 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,21 +105,21 @@ int			ft_built_cd(char **av)
 	int		i;
 	int		flag;
 
-	i = 1;
+	i = 0;
 	flag = 0;
-	while (av[i])
+	while (av[++i])
 	{
 		if ((ft_cd_flag(av[i], &flag) == 1))
 		{
 			if ((av[i + 1]) && av[i + 1][0] != '\0')
 			{
 				ft_putstr_fd("cd : too many arguments\n", 2);
+				g_built_rc = 1;
 				return (1);
 			}
 			else
 				break ;
 		}
-		i++;
 	}
 	s = ft_cd_setpath(av[i]);
 	ft_cd(s, flag);
