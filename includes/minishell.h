@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 11:01:23 by wveta             #+#    #+#             */
-/*   Updated: 2019/09/10 20:41:58 by wveta            ###   ########.fr       */
+/*   Updated: 2019/09/11 20:20:31 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,7 +198,7 @@ int						ft_get_count_in_pipe(char **av, int start);
 char					**ft_get_pipe_av(char **av, int start);
 //void					ft_get_redir_list(char **av, int start, t_cmdlist *cur_cmd);
 int						ft_test_pipe(char **av, int start);
-int						ft_test_built_in(char *path, char **av);
+int						ft_test_built_in(char *path);
 t_cmdlist				*ft_free_cmd_list(t_cmdlist *first);
 void					ft_do_cmd_list(t_pipe *p_head, int flagpipe);
 void					ft_do_cmd_shell(char **av, int start, int flagpipe);
@@ -303,5 +303,9 @@ void					ft_go_export(char *str, int flag);
 int						ft_test_andor(void);
 int						ft_exit(char **av);
 char					**ft_isnot(char **in);
+int						ft_shell_put_test(char *str);
+int						ft_type(char **av);
+void					ft_test_put_env(char *str);
+int						ft_printenv(char **av);
 
 #endif

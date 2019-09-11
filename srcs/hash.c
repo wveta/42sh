@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 22:03:52 by thaley            #+#    #+#             */
-/*   Updated: 2019/09/06 21:41:45 by wveta            ###   ########.fr       */
+/*   Updated: 2019/09/11 12:02:59 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ char			*ft_repl_tilda(char *s, int j)
 
 char			*ft_repl_end_til(char *s, int j, int *flag)
 {
-	if (ft_strchr("!#%@\"\'^*()=/\\.:", s[j]) && *flag == 1)
+	if (ft_strchr("!#%@\"\'^*()=\\.:", s[j]) && *flag == 1)
 	{
 		s = ft_repl_tilda(s, j - 1);
 		*flag = 0;

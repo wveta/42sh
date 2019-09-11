@@ -6,15 +6,14 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 15:38:41 by wveta             #+#    #+#             */
-/*   Updated: 2019/09/10 18:34:13 by wveta            ###   ########.fr       */
+/*   Updated: 2019/09/11 20:34:06 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int			ft_test_built_in(char *path, char **av)
+int			ft_test_built_in(char *path)
 {
-	(void)av;
 	if (path && ft_strcmp(path, "exit") == 0)
 		return (1);
 	else if (path && g_envi->env && ft_strcmp(path, "set") == 0)
@@ -26,6 +25,10 @@ int			ft_test_built_in(char *path, char **av)
 	else if (path && ft_strcmp(path, "unset") == 0)
 		return (1);
 	else if (path && ft_strcmp(path, "echo") == 0)
+		return (1);
+	else if (path && ft_strcmp(path, "type") == 0)
+		return (1);
+	else if (path && ft_strcmp(path, "printenv") == 0)
 		return (1);
 	return (0);
 }

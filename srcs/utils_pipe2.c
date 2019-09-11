@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/07 10:50:36 by wveta             #+#    #+#             */
-/*   Updated: 2019/09/10 20:55:55 by wveta            ###   ########.fr       */
+/*   Updated: 2019/09/11 13:16:43 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,8 @@ void	ft_child_pipe_exec(t_cmdlist *cur_cmd, int flpi)
 			cur_cmd->locals = ft_put_locals(cur_cmd->locals);
 			exit(0);
 		}
-		if (cur_cmd->built_in == 1 && ft_built_in(cur_cmd->avcmd[0],
-			cur_cmd->avcmd) == 1)
+		if ((ft_test_built_in(cur_cmd->avcmd[0]) == 1)
+			&& ft_built_in(cur_cmd->avcmd[0], cur_cmd->avcmd) == 1)
 			exit(g_built_rc);
 	}
 	else
