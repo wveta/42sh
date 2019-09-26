@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 11:01:23 by wveta             #+#    #+#             */
-/*   Updated: 2019/09/26 15:16:28 by wveta            ###   ########.fr       */
+/*   Updated: 2019/09/26 22:21:04 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,9 @@ typedef struct			s_env
 typedef struct			s_job
 {
 	char				*orig_cmd;
+	char				*stat_job;
 	int					num;
+	int					ind;
 	char				flag;
 	pid_t				pgid;
 	int					ready;
@@ -155,6 +157,7 @@ pid_t 					g_pgid;
 struct termios			g_tmodes;
 int 					g_terminal;
 int						g_is_interactive;
+int						g_job_ind;
 
 typedef struct			s_cmd
 {
@@ -382,5 +385,10 @@ char					*ft_print_job_pref(t_job *cur_job);
 void					ft_update_job_status(t_job *cur);
 void					ft_print_jobs(void);
 void					ft_del_proc_list(t_proc *proc);
+void					ft_print_job_list(int i, int start, int fl, char **av);
+void					ft_print_job_line(t_job *job, int fl);
+void					ft_print_if_job_(char *str, int fl);
+int						ft_cmd_jobs(char **av);
+char					*ft_num_to_str(int i);
 
 #endif
