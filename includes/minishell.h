@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 11:01:23 by wveta             #+#    #+#             */
-/*   Updated: 2019/09/25 20:37:56 by wveta            ###   ########.fr       */
+/*   Updated: 2019/09/26 15:16:28 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ typedef struct			s_job
 	int					num;
 	char				flag;
 	pid_t				pgid;
+	int					ready;
 	t_proc				*first_proc;
 	struct s_job		*next;
 }						t_job;
@@ -378,5 +379,8 @@ void					ft_print_job_stop(t_job *cur_job);
 int						ft_set_job_str(char *start, int end);
 void					ft_add_proc(t_cmdlist *cur_cmd);
 char					*ft_print_job_pref(t_job *cur_job);
+void					ft_update_job_status(t_job *cur);
+void					ft_print_jobs(void);
+void					ft_del_proc_list(t_proc *proc);
 
 #endif

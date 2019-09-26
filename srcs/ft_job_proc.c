@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 19:25:12 by wveta             #+#    #+#             */
-/*   Updated: 2019/09/25 20:35:57 by wveta            ###   ########.fr       */
+/*   Updated: 2019/09/26 15:20:45 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,5 +68,36 @@ void	ft_add_proc(t_cmdlist *cur_cmd)
 			}
 			job = job->next;
 		}
+	}
+}
+
+void	ft_update_job_status(t_job *cur)
+{
+	t_proc *tmp;
+
+	if (cur && ((tmp = cur->first_proc)))
+	{
+		while (tmp)
+		{
+			if (tmp->completed != 1)
+				return ;
+			tmp = tmp->next;
+		}
+		cur->ready = 1;
+	}
+}
+
+void	ft_del_proc_list(t_proc *proc)
+{
+	t_proc	*cur;
+	t_proc	*next;
+
+	cur = proc;
+	while (cur)
+	{
+		next = cur->next;
+		cur->argv = ft_free_char_matr(cur->argv);
+		free(cur);
+		cur = next;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 11:32:55 by wveta             #+#    #+#             */
-/*   Updated: 2019/09/25 20:33:14 by wveta            ###   ########.fr       */
+/*   Updated: 2019/09/26 14:45:20 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	ft_signal_handler_rl(int signo)
 							proc->stopped = 1;
 						else
 							proc->completed = 1;
-//						ft_update_job_status(cur);
+						ft_update_job_status(cur);
 						i = 1;
 					}
 					proc = proc->next;

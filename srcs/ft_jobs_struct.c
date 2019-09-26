@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 19:25:12 by wveta             #+#    #+#             */
-/*   Updated: 2019/09/25 21:00:28 by wveta            ###   ########.fr       */
+/*   Updated: 2019/09/26 16:08:19 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ t_job	*ft_del_job(t_job *del)
 			}
 			if (del->orig_cmd)
 				free(del->orig_cmd);
+			if (del->first_proc)
+				ft_del_proc_list(del->first_proc);
 			free(del);
 			break ;
 		}

@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 19:25:12 by wveta             #+#    #+#             */
-/*   Updated: 2019/09/25 20:52:27 by wveta            ###   ########.fr       */
+/*   Updated: 2019/09/26 14:57:44 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	ft_print_start_job(t_job *cur_job)
 	char	*tmp;
 	char	*num;
 
+	cur_job->ready = 0;
 	if ((tmp = ft_print_job_pref(cur_job)))
 	{
 		num = ft_num_to_str(cur_job->pgid);
