@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 15:38:41 by wveta             #+#    #+#             */
-/*   Updated: 2019/10/15 12:43:13 by wveta            ###   ########.fr       */
+/*   Updated: 2019/10/16 21:04:20 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,10 +130,3 @@ void	ft_test_tstp(pid_t pid2)
 		ft_add_proc(cmd);
 	}
 }
-
-int		ft_cmd_kill(char **av)
-{
-	(void)av;
-	return (1);
-}
-

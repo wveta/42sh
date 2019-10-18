@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 11:32:55 by wveta             #+#    #+#             */
-/*   Updated: 2019/10/15 14:17:25 by wveta            ###   ########.fr       */
+/*   Updated: 2019/10/18 20:43:34 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,34 +17,28 @@ void	ft_sig_set(void)
 	signal(SIGCHLD, ft_signal_handler_rl);
 	signal(SIGINT, ft_signal_handler_rl);
 	signal(SIGTTIN, ft_signal_handler_rl);
-//	signal(SIGTTOU, ft_signal_handler_rl);
-//	signal(SIGTTOU, SIG_DFL);
-//	signal(SIGTTIN, SIG_DFL);
+	signal(SIGTTOU, ft_signal_handler_rl);
 	signal(SIGTSTP, ft_signal_handler_rl);
 	signal(SIGQUIT, ft_signal_handler_rl);
-//	signal(SIGKILL, ft_signal_handler_rl);
-//	signal(SIGTERM, ft_signal_handler_rl);
 	signal(SIGCONT, ft_signal_handler_rl);
 }
 
 void	ft_test_cmd_list(pid_t pid, int status)
 {
-	t_cmdlist *cur_cmd;
+	t_cmdlist	*cur_cmd;
+	int			i;
 
 	if (g_job == 0 && g_pipe && ((cur_cmd = g_pipe->first_cmd)))
 	{
 		while (cur_cmd)
 		{
-			if (cur_cmd->pid_z != 0)
+			if ((cur_cmd->pid_z != 0) && (cur_cmd->pid_z == pid))
 			{
-				if (cur_cmd->pid_z == pid)
-				{
-					if ((!(cur_cmd->next)) && (WIFEXITED(status)))
-						ft_set_shell("?", "0"); /*1*/
-					else
-						ft_set_shell("?", "1"); /*0*/
-					cur_cmd->pid = 0;
-				}
+				if ((!(cur_cmd->next)) && (i = WEXITSTATUS(status)) != 0)
+					ft_set_shell("?", "1");
+				else if ((!(cur_cmd->next)) && (i = WEXITSTATUS(status)) == 0)
+					ft_set_shell("?", "0");
+				cur_cmd->pid = 0;
 			}
 			cur_cmd = cur_cmd->next;
 		}
@@ -61,28 +55,38 @@ int		ft_test_sig_list(int signo)
 
 int		ft_job_stopped(t_job *j)
 {
-	t_proc *p;
+	t_proc	*p;
+	int		i;
 
 	p = j->first_proc;
 	while (p)
 	{
+		if ((i = kill(p->pid, 0)) == 0)
+			p->completed = 1;
 		if ((p->completed != 1) && (p->stopped != 1))
 			return (0);
 		p = p->next;
 	}
+	j->stat_job = ft_strcpy(j->stat_job, "Done                     ");
+	j->ready = 1;
 	return (1);
 }
 
 int		ft_job_completed(t_job *j)
 {
-	t_proc *p;
+	t_proc	*p;
+	int		i;
 
 	p = j->first_proc;
 	while (p)
 	{
+		if ((i = kill(p->pid, 0)) == 0)
+			p->completed = 1;
 		if ((p->completed != 1))
 			return (0);
 		p = p->next;
 	}
+	j->stat_job = ft_strcpy(j->stat_job, "Done                     ");
+	j->ready = 1;
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/07 10:50:36 by wveta             #+#    #+#             */
-/*   Updated: 2019/09/28 15:01:41 by wveta            ###   ########.fr       */
+/*   Updated: 2019/10/17 15:48:28 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,11 +103,12 @@ void	ft_parent_wait(t_pipe *p_head, int flpi/*, t_cmdlist *first_cmd*/)
 {
 /*	int		status;
 	int		flag;
-	char	*tmp;*/
+	char	*tmp;
+	int		i;
 
 //	if (g_job == 1 && g_subshell == 0)
 //		return ;
-/*	if (flpi == 0)
+	if (g_job != 1 && flpi == 0)
 	{
 		flag = 0;
 		tmp = malloc(sizeof(char) * 1);
@@ -115,10 +116,14 @@ void	ft_parent_wait(t_pipe *p_head, int flpi/*, t_cmdlist *first_cmd*/)
 		while (flag == 0)
 		{
 			waitpid(p_head->first_cmd->pid, &status, 0);
-			if (WIFEXITED(status) 
-			&& (flag =1)
-			)
-				ft_set_shell("?", "0");
+//			if (WIFEXITED(status) 
+//			&& (flag =1))
+//			{
+			if ((i = WEXITSTATUS(status)) != 0 && (flag =1))
+				ft_set_shell("?", "1");
+			else if ((i = WEXITSTATUS(status)) == 0 && (flag =1))
+				ft_set_shell("?", "0");			
+//			}
 			else if (WIFSTOPPED(status) && (flag = 1))
 				ft_set_shell("?", ft_putfnbr(WSTOPSIG(status), tmp));
 			else if (WIFSIGNALED(status) && (flag = 1))

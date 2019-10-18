@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 18:25:30 by wveta             #+#    #+#             */
-/*   Updated: 2019/09/04 21:23:35 by wveta            ###   ########.fr       */
+/*   Updated: 2019/10/17 22:58:45 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,10 @@ int			ft_tst_great_getfile(t_greatflag *f, t_cmdlist *cmd, int i)
 
 	l = f->j + 1 + f->flag_all + f->flag_add;
 	if (f->flag_all == 1 && cmd->avcmd[i][l] == '-')
+	{
 		f->file_redir = ft_strdup("/dev/null");
+		g_redir_block = 1;
+	}
 	else if ((int)ft_strlen(cmd->avcmd[i]) > l)
 		f->file_redir = ft_strdup(f->ind + l - f->j);
 	else if (cmd->avcmd[i + 1])
@@ -90,6 +93,7 @@ int			ft_great_testfile(t_greatflag *f)
 			free(f->file_redir);
 			return (-1);
 		}
+		g_redir_block = f->out_fd;
 		free(f->file_redir);
 		f->file_redir = NULL;
 		return (0);

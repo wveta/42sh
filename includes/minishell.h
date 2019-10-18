@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 11:01:23 by wveta             #+#    #+#             */
-/*   Updated: 2019/10/16 17:22:06 by wveta            ###   ########.fr       */
+/*   Updated: 2019/10/17 22:33:38 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,6 +169,7 @@ int						g_job_ind;
 int						g_std_in;
 int						g_std_out;
 int						g_stderr;
+int						g_redir_block;
 
 typedef struct			s_cmd
 {

@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 15:38:41 by wveta             #+#    #+#             */
-/*   Updated: 2019/09/27 12:54:41 by wveta            ###   ########.fr       */
+/*   Updated: 2019/10/17 18:48:13 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void		ft_upr_sym(int flag, char *str)
 		}
 	}
 	write(STDOUT_FILENO, str, len);
+
 }
 
 int			ft_echo(char **av)
@@ -76,6 +77,7 @@ int			ft_echo(char **av)
 	j = 0;
 	flag[0] = 0;
 	flag[1] = 0;
+	ft_set_shell("?", "0");
 	while (av[i])
 	{
 		if (ft_echo_flag(av[i], &flag[0], &flag[1]) == 1)
@@ -90,7 +92,6 @@ int			ft_echo(char **av)
 	}
 	if (flag[0] != 1)
 		ft_putstr("\n");
-	ft_set_shell("?", "0");
 	return (1);
 }
 

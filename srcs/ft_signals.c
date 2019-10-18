@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 11:32:55 by wveta             #+#    #+#             */
-/*   Updated: 2019/10/16 12:55:18 by wveta            ###   ########.fr       */
+/*   Updated: 2019/10/17 11:37:23 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,6 @@ int		ft_set_job_status(t_job *job, int n, int status)
 		job->stat_job = ft_strdup("Terminated by signal ");
 		job->stat_job = ft_add_strnum(job->stat_job, WTERMSIG(status));
 		job->stat_job = ft_strfjoin(job->stat_job, " ");
-//		if (WTERMSIG(status) != 9 && WTERMSIG(status) != 2)
-//			job->ready = 2;
 	}
 	else if (n == 4)
 	{

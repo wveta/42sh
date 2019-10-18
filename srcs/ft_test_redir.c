@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 15:39:53 by wveta             #+#    #+#             */
-/*   Updated: 2019/09/09 19:07:57 by wveta            ###   ########.fr       */
+/*   Updated: 2019/10/17 22:58:45 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int			ft_do_redir(t_cmdlist *cmd)
 	i = 0;
 	while (cmd->avcmd[i])
 	{
+		g_redir_block = 0;
 		j = ft_strlen(cmd->avcmd[i]);
 		if ((j > 0) && ((tmp = (ft_strchr(cmd->avcmd[i], '>'))) ||
 		(tmp = (ft_strchr(cmd->avcmd[i], '<')))))

@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 19:25:12 by wveta             #+#    #+#             */
-/*   Updated: 2019/09/29 23:17:45 by wveta            ###   ########.fr       */
+/*   Updated: 2019/10/18 17:15:31 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	ft_init_glvar(char **av)
         	perror ("Couldn't put the shell in its own process group");
         	exit (1);
         }
-		tcsetpgrp(g_terminal, g_pgid);
+//		tcsetpgrp(g_terminal, g_pgid);
 		tcgetattr(g_terminal, &g_tmodes);
     }
 }

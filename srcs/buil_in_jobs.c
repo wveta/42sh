@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 15:38:41 by wveta             #+#    #+#             */
-/*   Updated: 2019/10/16 17:22:06 by wveta            ###   ########.fr       */
+/*   Updated: 2019/10/18 20:58:23 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,23 +23,25 @@ void	ft_restore_io(void)
 }
 void	ft_job_fg(t_job *j)
 {
-//	int 	status;
-//	pid_t	pid;
-	tcsetpgrp(g_terminal, j->pgid);
-	if (kill(j->pgid, SIGCONT) < 0)
+	t_proc	*p;
+	struct termios	tmodes;
+
+	tcgetattr(0, &tmodes);
+	tcsetpgrp(0, j->pgid);
+	j->stat_job = ft_strdup("Running           ");
+	p = j->first_proc;
+	while (p)
 	{
-    	ft_print_msg(": SIGCONT error ", " ");
-		return ;
+		if (kill(p->pid, SIGCONT) < 0)
+    		ft_print_msg(": SIGCONT error ", " ");
+		p = p->next;
 	}
-	ft_set_job_cont(j);
 	while (1)
 	{
-//		if ((pid = waitpid (WAIT_ANY, &status, WNOHANG | WUNTRACED)) > 0)
-//			ft_test_job_status(pid, status);
 			if ((ft_job_stopped(j)) || (ft_job_completed(j)))
 				break ;
 	}
-	tcsetpgrp(g_terminal, g_parent_pid);
+	tcsetattr(0, TCSADRAIN, &tmodes);
 }
 
 int		ft_cmd_fg(char **av)

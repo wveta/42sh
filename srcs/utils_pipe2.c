@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/07 10:50:36 by wveta             #+#    #+#             */
-/*   Updated: 2019/10/16 12:57:55 by wveta            ###   ########.fr       */
+/*   Updated: 2019/10/18 17:31:56 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,23 +49,11 @@ void	ft_child_pipe_exec(t_cmdlist *cur_cmd, int flpi)
 	g_check = 1;
 	if (g_subs_rc == 1)
 		exit(1);
-	if (g_job == 1)
-	{
-		if (g_pgid == 0)
-			g_pgid = cur_cmd->pid;
-		if (flpi == 0)
-			setpgrp();
-		else
-			setpgid(cur_cmd->pid, g_pgid);
-	}
-/*
 	if (g_pgid == 0)
-			g_pgid = getpid();
+		g_pgid = getpid();
 	setpgid(getpid(), g_pgid);
 	if (g_job == 0)
-		tcsetpgrp(0, g_pgid);
-
-*/
+		tcsetpgrp(0,  g_pgid);
 	if (flpi > 0)
 	{
 		ft_pipe_dup_ch_in(cur_cmd);
@@ -119,18 +107,30 @@ void	ft_child_pipe_exec(t_cmdlist *cur_cmd, int flpi)
 
 void	ft_pipe_wait_ch_fin(t_cmdlist *cur_cmd, t_cmdlist *first_cmd, t_cmdlist *last_cmd, int flpi)
 {
-	int 		i;
+	int			status;
+	int			i;
 
 	if (g_job == 0)
+	{
 		while (1)
 		{	
-			i = 0;
 			cur_cmd = first_cmd;
 			while (cur_cmd)
 			{
 				if (cur_cmd->pid != 0)
 				{
-					i++;
+					status = 0;
+					if (cur_cmd->pid == waitpid(cur_cmd->pid, &status, 0))
+					{
+						if ((!(cur_cmd->next)) && (WIFEXITED(status)))
+						{
+							if ((i = WEXITSTATUS(status)) != 0)
+								ft_set_shell("?", "1");
+							else
+								ft_set_shell("?", "0");
+						}		
+					}
+					cur_cmd->pid = 0;
 				}
 				cur_cmd = cur_cmd->next;
 				if (last_cmd->pid == 0)
@@ -141,6 +141,7 @@ void	ft_pipe_wait_ch_fin(t_cmdlist *cur_cmd, t_cmdlist *first_cmd, t_cmdlist *la
 				}
 			}
 		}
+	}
 	else
 	{
 		first_cmd = ft_redir_io_restore(first_cmd);
