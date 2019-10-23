@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 19:25:12 by wveta             #+#    #+#             */
-/*   Updated: 2019/10/17 22:30:37 by wveta            ###   ########.fr       */
+/*   Updated: 2019/10/22 18:14:39 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@ int		ft_get_fd_byname(int i, t_cmdlist *cmd, char *ind)
 
 	if (((int)ft_strlen(cmd->avcmd[i]) >= ind - cmd->avcmd[i] + 2) &&
 		(cmd->avcmd[i][ind - cmd->avcmd[i] + 2] == '-'))
+	{
 		file_redir = ft_strdup("/dev/null");
+		g_redir_block = 1;
+	}
 	else if ((int)ft_strlen(cmd->avcmd[i]) > ind - cmd->avcmd[i] + 1)
 		file_redir = ft_strdup(ind + 1);
 	else if (cmd->avcmd[i + 1])

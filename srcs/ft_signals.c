@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 11:32:55 by wveta             #+#    #+#             */
-/*   Updated: 2019/10/17 11:37:23 by wveta            ###   ########.fr       */
+/*   Updated: 2019/10/22 18:39:54 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,9 +125,10 @@ void	ft_signal_handler_rl(int signo)
 	}
 	if (signo == SIGINT)
 	{
+		ft_set_shell("?", "1");
 		if (g_check == 0)
 			ft_putchar('\n');
 		else
-			exit(0);
+			exit(1);
 	}
 }

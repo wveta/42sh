@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 17:30:15 by wveta             #+#    #+#             */
-/*   Updated: 2019/09/09 17:24:53 by wveta            ###   ########.fr       */
+/*   Updated: 2019/10/22 17:45:52 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ int		ft_great_dup1(int pref_fd, int out_fd, t_cmdlist *cmd)
 		cmd->fd1 = out_fd;
 		if (out_fd > 2)	
 			close(out_fd);
+		if (g_redir_block == 1)
+			close(STDOUT_FILENO);
 	}
 	if (pref_fd == 2)
 	{
@@ -79,8 +81,10 @@ int		ft_great_dup1(int pref_fd, int out_fd, t_cmdlist *cmd)
 			return (-1);
 		}
 		cmd->fd2 = out_fd;
-		if (out_fd > 2)			/* !!!!!!*/
+		if (out_fd > 2)			
 			close(out_fd);
+		if (g_redir_block == 1)
+			close(STDERR_FILENO);
 	}
 	return (ft_great_dup2(pref_fd, out_fd, cmd));
 }
@@ -97,6 +101,10 @@ int		ft_great_dup2(int pref_fd, int out_fd, t_cmdlist *cmd)
 			return (-1);
 		}
 		cmd->fd1 = out_fd;
+
+		if (g_redir_block == 1)
+			close(STDOUT_FILENO);
+
 		if (cmd->fd2 == STDERR_FILENO)
 			g_cmd->stderr_copy = dup(STDERR_FILENO);
 		if (dup2(out_fd, STDERR_FILENO) == -1)
@@ -105,7 +113,14 @@ int		ft_great_dup2(int pref_fd, int out_fd, t_cmdlist *cmd)
 			return (-1);
 		}
 		cmd->fd2 = out_fd;
-		close(out_fd);
+
+		if (out_fd > 2)	
+			close(out_fd);
+
+		if (g_redir_block == 1)
+			close(STDERR_FILENO);
+
+//		close(out_fd);
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 18:25:30 by wveta             #+#    #+#             */
-/*   Updated: 2019/10/17 22:58:45 by wveta            ###   ########.fr       */
+/*   Updated: 2019/10/22 17:45:52 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,6 @@ int			ft_great_testfile(t_greatflag *f)
 			free(f->file_redir);
 			return (-1);
 		}
-		g_redir_block = f->out_fd;
 		free(f->file_redir);
 		f->file_redir = NULL;
 		return (0);

@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 19:25:12 by wveta             #+#    #+#             */
-/*   Updated: 2019/10/18 17:15:31 by wveta            ###   ########.fr       */
+/*   Updated: 2019/10/22 15:58:54 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void	ft_init_glvar(char **av)
 	g_stderr = dup(STDERR_FILENO);
 	g_terminal = STDIN_FILENO;
 	g_is_interactive = isatty(g_terminal);
+
 	if (g_is_interactive)
     {
     	while (tcgetpgrp (g_terminal) != (g_pgid = getpgrp ()))

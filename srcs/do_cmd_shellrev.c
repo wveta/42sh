@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 15:38:41 by wveta             #+#    #+#             */
-/*   Updated: 2019/10/18 20:52:11 by wveta            ###   ########.fr       */
+/*   Updated: 2019/10/23 13:13:06 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,6 @@ void		ft_do_cmd_list(t_pipe *p_head, int flpi)
 	p_head->cur_cmd->avcmd = ft_isnot(p_head->cur_cmd->avcmd);
 	g_pgid = 0;
 	tcgetattr(0, &tmodes);
-	signal(SIGTTIN, SIG_DFL);
-//	signal(SIGTTOU, SIG_DFL);
 	while (p_head->cur_cmd)
 	{
 		ft_get_heretext(p_head->cur_cmd);
@@ -92,11 +90,18 @@ void		ft_do_cmd_list(t_pipe *p_head, int flpi)
 			ft_child_pipe_exec(p_head->cur_cmd, flpi);
 		else if (p_head->cur_cmd->pid > 0)
 		{
-			if (g_pgid == 0)
-				g_pgid = p_head->cur_cmd->pid;
-			setpgid(p_head->cur_cmd->pid, g_pgid);
-			if (g_job == 0)
-				tcsetpgrp(0,  g_pgid);
+			if (g_job == 1 || flpi > 0)
+			{
+				if (g_pgid == 0)
+				{
+					g_pgid = p_head->cur_cmd->pid;
+					if (g_job == 0)
+						g_pgid = getpid();
+				}
+				setpgid(p_head->cur_cmd->pid, g_pgid);
+				if (g_job == 0)
+					tcsetpgrp(0,  g_pgid);
+			}
 			ft_if_job(p_head->cur_cmd);
 			ft_parent_pipe_next(p_head->cur_cmd, fd0, fd1, flpi);
 			p_head->cur_cmd = p_head->cur_cmd->next;
@@ -104,8 +109,6 @@ void		ft_do_cmd_list(t_pipe *p_head, int flpi)
 	}	
 	ft_parent_wait(p_head, flpi/*, p_head->first_cmd*/);
 	tcsetattr(0, TCSADRAIN, &tmodes);
-	signal(SIGTTIN, ft_signal_handler_rl);
-	signal(SIGTTOU, ft_signal_handler_rl);
 	g_pipe = NULL;
 }
 

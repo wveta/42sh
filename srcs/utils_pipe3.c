@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/07 10:50:36 by wveta             #+#    #+#             */
-/*   Updated: 2019/10/17 15:48:28 by wveta            ###   ########.fr       */
+/*   Updated: 2019/10/23 14:55:49 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,39 +101,43 @@ int		fd_set_nopipe(t_pipe *p_head)
 
 void	ft_parent_wait(t_pipe *p_head, int flpi/*, t_cmdlist *first_cmd*/)
 {
-/*	int		status;
+	int		status;
 	int		flag;
 	char	*tmp;
 	int		i;
 
-//	if (g_job == 1 && g_subshell == 0)
-//		return ;
-	if (g_job != 1 && flpi == 0)
+	ft_sig_set();
+	if (g_job == 0 && flpi == 0)
 	{
 		flag = 0;
 		tmp = malloc(sizeof(char) * 1);
 		tmp[0] = '\0';
 		while (flag == 0)
 		{
-			waitpid(p_head->first_cmd->pid, &status, 0);
-//			if (WIFEXITED(status) 
-//			&& (flag =1))
-//			{
-			if ((i = WEXITSTATUS(status)) != 0 && (flag =1))
+			waitpid(p_head->first_cmd->pid, &status, WUNTRACED);
+			
+//			if (
+//				waitpid(p_head->first_cmd->pid, &status, WNOHANG | WUNTRACED) != 0)
+//{
+//			ft_putstr("\n After waitpid \n");
+			if ((i = WEXITSTATUS(status)) != 0 && (flag = 1))
 				ft_set_shell("?", "1");
-			else if ((i = WEXITSTATUS(status)) == 0 && (flag =1))
+			else if ((i = WEXITSTATUS(status)) == 0 && (flag = 1))
 				ft_set_shell("?", "0");			
-//			}
 			else if (WIFSTOPPED(status) && (flag = 1))
 				ft_set_shell("?", ft_putfnbr(WSTOPSIG(status), tmp));
 			else if (WIFSIGNALED(status) && (flag = 1))
 				ft_set_shell("?", ft_putfnbr(WTERMSIG(status), tmp));
 			else
-				ft_set_shell("?", "1");			
+			{
+				ft_set_shell("?", "1");
+				flag = 1;
+			}
+//}	
 		}
 		free(tmp);
-		first_cmd = ft_redir_io_restore(first_cmd);
+		p_head->first_cmd = ft_redir_io_restore(p_head->first_cmd);
 		return ;
-	}*/
+	}
 	ft_pipe_wait_ch_fin(p_head->cur_cmd, p_head->first_cmd, p_head->last_cmd, flpi);
 }

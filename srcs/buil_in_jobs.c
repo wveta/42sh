@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 15:38:41 by wveta             #+#    #+#             */
-/*   Updated: 2019/10/18 20:58:23 by wveta            ###   ########.fr       */
+/*   Updated: 2019/10/23 11:33:27 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,25 +23,55 @@ void	ft_restore_io(void)
 }
 void	ft_job_fg(t_job *j)
 {
-	t_proc	*p;
+	t_proc			*p;
 	struct termios	tmodes;
+	int				status;
 
+	ft_sig_set();
 	tcgetattr(0, &tmodes);
 	tcsetpgrp(0, j->pgid);
-	j->stat_job = ft_strdup("Running           ");
+//	j->stat_job = ft_strdup("Running           ");
 	p = j->first_proc;
 	while (p)
 	{
+		if (p->completed != 1)
+		{
+			p->stopped = 0;
+		}
 		if (kill(p->pid, SIGCONT) < 0)
     		ft_print_msg(": SIGCONT error ", " ");
 		p = p->next;
 	}
-	while (1)
+
+//	while (1)
+//	{
+//			if ((ft_job_stopped(j)) || (ft_job_completed(j)))
+//				break ;
+//	}
+
+	p = j->first_proc;
+	while (p)
 	{
-			if ((ft_job_stopped(j)) || (ft_job_completed(j)))
-				break ;
+		if (p->completed != 1 && p->stopped != 1)
+		{
+			status = 0;
+			if ((waitpid(p->pid, &status, 0)) > 0 )
+			{
+				ft_put_job_status(j, p, status);
+				if ((!(p->next)) && (WIFEXITED(status)))
+				{
+					if ((WEXITSTATUS(status)) != 0)
+						ft_set_shell("?", "1");
+					else
+						ft_set_shell("?", "0");
+				}
+			}
+		}
+		p = p->next;
 	}
-	tcsetattr(0, TCSADRAIN, &tmodes);
+
+	tcsetpgrp(0, getpid());
+
 }
 
 int		ft_cmd_fg(char **av)

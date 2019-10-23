@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 15:38:41 by wveta             #+#    #+#             */
-/*   Updated: 2019/10/17 18:48:13 by wveta            ###   ########.fr       */
+/*   Updated: 2019/10/23 14:09:32 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,12 @@ void		ft_upr_sym(int flag, char *str)
 			s++;
 		}
 	}
+	if (read(STDOUT_FILENO, str, 0) == -1)
+	{
+		ft_print_msg(": echo:", " Bad file descriptor");
+		ft_set_shell("?", "1");
+	}
 	write(STDOUT_FILENO, str, len);
-
 }
 
 int			ft_echo(char **av)

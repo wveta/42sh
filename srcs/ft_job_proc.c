@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 19:25:12 by wveta             #+#    #+#             */
-/*   Updated: 2019/09/30 15:32:13 by wveta            ###   ########.fr       */
+/*   Updated: 2019/10/23 11:33:27 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ t_proc	*ft_new_proc(t_cmdlist *cur_cmd)
 		tmp->pid = cur_cmd->pid_z;
 		tmp->argv = ft_dup_char_matr(cur_cmd->avcmd);
 		tmp->status = 0;
-		tmp->completed = ' ';
-		tmp->stopped = ' ';
+		tmp->completed = 0;
+		tmp->stopped = 0;
 		tmp->next = NULL;
 	}
 	return (tmp);
