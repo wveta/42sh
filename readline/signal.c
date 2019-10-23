@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/05 20:07:10 by thaley            #+#    #+#             */
-/*   Updated: 2019/10/03 07:53:52 by thaley           ###   ########.fr       */
+/*   Updated: 2019/10/23 20:18:50 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,14 +63,12 @@ void		signal_handler_quote(void)
 
 void		signal_handler_tab(int cursor)
 {
-	ioctl(STDIN_FILENO, TIOCGWINSZ, &g_input->ws);
-	g_input->cursor_pos = 0;
-	update_cursor();
-	ft_putstr_fd(g_input->prompt, 0);
-	g_input->cursor = get_cursor_pos();
-	ft_putstr_fd(g_input->input, 0);
-	g_input->cursor_pos = cursor;
-	update_cursor();
+	(void)cursor;
+	ft_putchar_fd('\n', STDIN_FILENO);
+	ft_putstr_fd(g_input->prompt, STDERR_FILENO);
+	ft_putstr_fd(g_input->input, STDOUT_FILENO);
+	g_input->cursor_pos = g_input->prompt_len + g_input->input_len;
+	longjmp(g_cmd->ebuf2, g_cmd->jmp_code2);
 }
 
 void		signal_handler(int sign)

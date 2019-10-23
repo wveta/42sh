@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/05 20:54:11 by thaley            #+#    #+#             */
-/*   Updated: 2019/10/02 21:57:16 by thaley           ###   ########.fr       */
+/*   Updated: 2019/10/23 21:09:14 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,13 +114,13 @@ void	ft_line_up(void)
 
 	tmp = ft_strchr(g_input->input, '\n');
 	i = (int)ft_strlen(tmp);
-	if (!tmp || (i - g_input->cursor_pos) == g_input->prompt_len)
+	if ((!tmp && g_input->cursor_pos < g_input->ws.ws_col) || (i - g_input->cursor_pos) == g_input->prompt_len)
 		return ;
 	start_of_line(1);
 	if (g_input->input[(g_input->cursor_pos - g_input->prompt_len)] == '\n')
 		return ;
 	while (g_input->input[(g_input->cursor_pos - g_input->prompt_len) + 1] != '\n' &&
-		g_input->cursor_pos - g_input->prompt_len < g_input->input_len)
+		g_input->cursor_pos - g_input->prompt_len < g_input->input_len && (g_input->cursor_pos + 1) % g_input->ws.ws_col != 0)
 	{
 		g_input->cursor_pos++;
 		ft_putstr_fd(tgetstr("nd", NULL), STDIN_FILENO);
@@ -157,7 +157,7 @@ void	start_of_line(int up_down)
 	}
 	ft_putstr_fd(tgetstr("cr", NULL), STDIN_FILENO);
 	while (g_input->input[g_input->cursor_pos - g_input->prompt_len - 1] != '\n'
-		&& g_input->cursor_pos > g_input->prompt_len)
+		&& g_input->cursor_pos > g_input->prompt_len && g_input->cursor_pos % g_input->ws.ws_col != 0)
 		g_input->cursor_pos--;
 	if (g_input->cursor_pos == g_input->prompt_len)
 	{
