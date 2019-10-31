@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 15:38:41 by wveta             #+#    #+#             */
-/*   Updated: 2019/10/30 10:32:21 by wveta            ###   ########.fr       */
+/*   Updated: 2019/10/31 19:04:03 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,10 @@ int			ft_test_built_in(char *path)
 	else if (path && ft_strcmp(path, "bg") == 0)
 		return (1);
 	else if (path && ft_strcmp(path, "kill") == 0)
+		return (1);
+	else if (path && ft_strcmp(path, "alias") == 0)
+		return (1);
+	else if (path && ft_strcmp(path, "unalias") == 0)
 		return (1);
 	return (0);
 }
@@ -80,7 +84,8 @@ void		ft_do_cmd_list(t_pipe *p_head, int flpi)
 	while (p_head->cur_cmd)
 	{
 		p_head->cur_cmd->avcmd = ft_globbing(p_head->cur_cmd->avcmd);
-		ft_get_heretext(p_head->cur_cmd);
+		if (ft_get_heretext(p_head->cur_cmd) == -1)
+			return;
 		if (flpi > 0 && ((ft_set_fd_pipes(p_head, fd0, fd1) == -1)))
 			return ;
 		else if (flpi < 1 && g_job != 1 && (fd_set_nopipe(p_head) == -1))

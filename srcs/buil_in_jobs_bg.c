@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 15:38:41 by wveta             #+#    #+#             */
-/*   Updated: 2019/10/25 18:20:11 by wveta            ###   ########.fr       */
+/*   Updated: 2019/10/31 18:32:43 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ int		ft_cmd_bg(char **av)
 		{
 			if (j->flag == '+')
 			{
-				kill (-j->pgid, SIGCONT);
+//				kill (-j->pgid, SIGCONT);
+				kill (j->pgid, SIGCONT);
 				break ;
 			}
 			j = j->next;
@@ -43,7 +44,8 @@ int		ft_cmd_bg(char **av)
 			{
 				num = ft_num_to_str(j->num);
 				if (ft_strcmp(av[l], num) == 0 && ((i = 1)))
-					kill (-j->pgid, SIGCONT);
+//					kill (-j->pgid, SIGCONT);
+					kill (j->pgid, SIGCONT);
 				free(num);
 				j = j->next;
 			}
@@ -130,8 +132,5 @@ void	ft_test_tstp(pid_t pid2)
 		ft_add_proc(cmd);
 		setpgid(pid, pid);
 		tcsetpgrp(0,  g_pgid);
-//		signal(SIGTSTP, SIG_DFL);
-//		kill(g_pgid, SIGTSTP);
-//		signal(SIGTSTP, ft_signal_handler_rl);
 	}
 }

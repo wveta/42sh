@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 15:38:41 by wveta             #+#    #+#             */
-/*   Updated: 2019/10/29 17:24:18 by wveta            ###   ########.fr       */
+/*   Updated: 2019/10/31 16:13:04 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void	ft_set_cmd_exit_status(int status)
 	char	*tmp;
 	int 	i;
 
-	tmp = malloc(sizeof(char) * 1);
+	tmp = malloc(sizeof(char) * 3);
 	if (tmp)
 	{
 		tmp[0] = '\0';

@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 19:25:12 by wveta             #+#    #+#             */
-/*   Updated: 2019/09/04 21:21:43 by wveta            ###   ########.fr       */
+/*   Updated: 2019/10/30 13:10:24 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,16 @@ char	*ft_get_heof(char *ind, t_cmdlist *cmd, int i, int j)
 	}
 	else
 	{
-		heof = ft_strdup(cmd->avcmd[i + 1]);
-		cmd->avcmd[i + 1][0] = '\0';
+		if (cmd->avcmd[i + 1])
+		{
+			heof = ft_strdup(cmd->avcmd[i + 1]);
+			cmd->avcmd[i + 1][0] = '\0';
+		}
+		else
+		{
+			ft_print_msg(" : parse error ", cmd->avcmd[i]);
+			return (NULL);
+		}
 	}
 	cmd->avcmd[i][j] = '\0';
 	return (heof);

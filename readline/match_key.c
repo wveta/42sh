@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   match_key.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
+/*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/05 20:12:29 by thaley            #+#    #+#             */
-/*   Updated: 2019/10/02 21:16:17 by thaley           ###   ########.fr       */
+/*   Updated: 2019/10/31 17:59:16 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,11 @@ int		match_key(char *c)
 	if (c[0] == 7 && c[1] == '\0')
 	{
 		g_color = g_color * (-1);
+		return (0);
+	}
+	else if (c[0] == 8 && c[1] == '\0')
+	{
+		g_signal = g_signal * (-1);
 		return (0);
 	}
 	else

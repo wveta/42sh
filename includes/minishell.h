@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 11:01:23 by wveta             #+#    #+#             */
-/*   Updated: 2019/10/30 11:49:46 by wveta            ###   ########.fr       */
+/*   Updated: 2019/10/31 19:01:58 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,7 @@ pid_t					g_pidchild;
 int						g_level;
 int						g_check;
 int						g_color;
+int						g_signal;
 char					**g_shell;
 int						g_and_or;
 int						g_not;
@@ -423,5 +424,9 @@ void					ft_set_job_cont(t_job *j);
 void					ft_set_cmd_exit_status(int status);
 char					**ft_globbing(char **table);
 bool					glob_check(char *str, char *pat, char *b_str, char *b_pat);
+void					ft_signal_child(int signo);
+int						ft_alias(char **av);
+int						ft_unalias(char **av);
+char					**ft_get_alias(char **av);
 
 #endif
