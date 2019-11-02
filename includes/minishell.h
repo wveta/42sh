@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 11:01:23 by wveta             #+#    #+#             */
-/*   Updated: 2019/10/31 19:01:58 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/02 09:38:37 by udraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -425,6 +425,12 @@ void					ft_set_cmd_exit_status(int status);
 char					**ft_globbing(char **table);
 bool					glob_check(char *str, char *pat, char *b_str, char *b_pat);
 void					ft_signal_child(int signo);
+
+char					*ft_read_alias(void);
+int						ft_arr_len(char **av);
+void					ft_change_alias(char *new_alias);
+char					*ft_find_alias(char *str, char *alias);
+char					*ft_del_alias(char *alias_str, char *alias);
 int						ft_alias(char **av);
 int						ft_unalias(char **av);
 char					**ft_get_alias(char **av);
