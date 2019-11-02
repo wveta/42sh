@@ -13,7 +13,7 @@ FILES	=	built_in exec_list ft_built_cd ft_built_env main parser\
 			ft_job_print ft_job_print_next ft_job_proc ft_print_job_line\
 			buil_in_jobs ft_signals_next buil_in_jobs_bg built_in_kill\
 			globbing glob_check ft_signals_child ft_alias ft_unalias\
-			fts_for_alias ft_read_alias
+			fts_for_alias ft_read_alias ft_get_alias
 
 SRC_D	=	srcs
 INC_D	=	includes

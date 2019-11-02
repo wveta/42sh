@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/29 21:00:14 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/02 10:50:20 by udraugr-         ###   ########.fr       */
+/*   Updated: 2019/11/02 10:59:06 by udraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,13 +148,5 @@ int						ft_alias(char **av)
 	}
 	ft_change_alias(all_alias);
 	ft_strdel(&all_alias);
-	return (ret);
-}
-
-char	**ft_get_alias(char **av)
-{
-	char **ret;
-
-	ret = av;
 	return (ret);
 }
