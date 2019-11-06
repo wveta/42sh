@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 16:34:55 by wveta             #+#    #+#             */
-/*   Updated: 2019/09/20 16:31:10 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/06 18:33:04 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,35 @@ static int	ft_split_pipes_words(char *str)
 	int		i;
 	int		wcount;
 	int		qflag;
+	int		br_count;
+	int		br_flag;
 
 	i = 0;
+	br_count = 0;
+	br_flag = 0;
 	wcount = 0;
 	qflag = 0;
 	while (str && str[i])
 	{
-		if (qflag == 0 && str[i] == '|')
+
+		if (qflag == 0 && str[i] == '(')
+		{
+			br_flag = 1;
+			br_count++;
+		}
+		if (qflag == 0 && br_flag == 1 && str[i] == ')')
+		{
+			br_count--;
+			if (br_count == 0)
+			{
+				br_flag = 0;
+				wcount++;
+			}
+		}
+
+		if (qflag == 0 && br_flag == 0 && str[i] == '|')
 			wcount++;
-		else if (qflag == 0 && ft_isspace(str[i]) == 0 &&
+		else if (qflag == 0 && br_flag == 0 && ft_isspace(str[i]) == 0 &&
 		(i == 0 || ft_isspace(str[i - 1]) == 1
 		|| (str[i - 1] == '|' && qflag == 0)))
 			wcount++;
@@ -66,9 +86,35 @@ static int	ft_all_pipe_words(char **ret, char const *str)
 	fl = ft_pipe_split_ini();
 	while (++fl->i < (int)ft_strlen(str) && (str[fl->i]))
 	{
-		if (fl->qflag == 0 && str[fl->i] == '|')
+
+		if (fl->qflag == 0 && str[fl->i] == '(')
+		{
+			fl->br_flag = 1;
+			fl->br_count++;
+			if (fl->br_count == 1)
+				fl->start = fl->i;
+		}
+		if (fl->qflag == 0 && fl->br_flag == 1 && str[fl->i] == ')')
+		{
+			if (fl->i - fl->start == 1)
+			{
+				ft_print_msg(" : parse error : ", (char *)str + fl->start);
+				free(fl);
+				return (-1);
+			}
+			fl->br_count--;
+			if (fl->br_count == 0)
+			{
+				fl->br_flag = 0;
+				fl->i++;
+				ft_pipe_split_4(fl, ret, str);
+				fl->i--;
+			}
+		}
+
+		if (fl->qflag == 0 && fl->br_flag == 0 && str[fl->i] == '|')
 			ft_pipe_split_3(fl, ret, str);
-		else if (fl->qflag == 0 && fl->flag == 1 && ft_isspace(str[fl->i])
+		else if (fl->qflag == 0 && fl->br_flag == 0 && fl->flag == 1 && ft_isspace(str[fl->i])
 			== 1 && fl->i > 0 && ft_isspace(str[fl->i - 1]) == 0)
 			ft_pipe_split_4(fl, ret, str);
 		else
@@ -81,11 +127,19 @@ static int	ft_all_pipe_words(char **ret, char const *str)
 		else if (fl->qflag == 0 && str[fl->i] == '\'')
 			fl->qflag = 2;
 	}
+	if (fl->br_flag != 0)
+	{
+		ft_print_msg(" : parse error : ", (char *)str + fl->start);
+		free(fl);
+		return (-1);
+	}
 	if (fl->flag == 1)
 		ft_get_word(ret, fl->count, fl->i - fl->start, str + fl->start);
 	free(fl);
 	return (0);
 }
+
+
 
 char		**ft_split_pipes(char *s)
 {

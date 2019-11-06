@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 15:38:41 by wveta             #+#    #+#             */
-/*   Updated: 2019/10/31 19:04:03 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/06 15:06:02 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,13 @@ void		ft_do_cmd_list(t_pipe *p_head, int flpi)
 	p_head->cur_cmd->avcmd = ft_isnot(p_head->cur_cmd->avcmd);
 	g_pgid = 0;
 	tcgetattr(0, &tmodes);
+	if (g_subshell == 0)
+	{
+		g_subsh_in0 = -1;
+		g_subsh_in1 = -1;
+		g_subsh_out0 = -1;
+		g_subsh_out1 = -1;
+	}
 	while (p_head->cur_cmd)
 	{
 		p_head->cur_cmd->avcmd = ft_globbing(p_head->cur_cmd->avcmd);

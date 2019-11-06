@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 16:17:45 by wveta             #+#    #+#             */
-/*   Updated: 2019/10/15 14:01:18 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/06 17:02:06 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int	ft_parse_cmd(char *str, int len)
 	char *cmd;
 	char **args;
 	
+	(void)len;
 	if  ((str) && ((str[0] == ';') || (str[0] == '&')))
 	{
 		ft_print_msg(": parse error near ", str);
@@ -119,7 +120,6 @@ void	ft_parse_line(char *str)
 		else if (qflag == 0 && ft_strncmp(str + i + i_cmd, "&&", 2) ==0)
 		{
 			if (ft_parse_cmd(str + i_cmd, i) == 1)
-//				return ;
 				g_skip = 1;
 			i_cmd = i_cmd + i + 2;
 			i = 1;
@@ -128,7 +128,6 @@ void	ft_parse_line(char *str)
 		else if (qflag == 0 && ft_strncmp(str + i + i_cmd, "||", 2) ==0)
 		{
 			if (ft_parse_cmd(str + i_cmd, i) == 1)
-//				return ;
 				g_skip = 1;
 			i_cmd = i_cmd + i + 2;
 			i = 1 ;

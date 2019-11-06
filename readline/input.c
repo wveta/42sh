@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
+/*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/05 21:15:50 by thaley            #+#    #+#             */
-/*   Updated: 2019/10/16 19:11:03 by thaley           ###   ########.fr       */
+/*   Updated: 2019/11/05 15:34:15 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,9 @@ void		modify_input(char *str)
 		ft_strcpy(g_input->old_input, g_input->input);
 		g_input->old_cursor = g_input->cursor_pos;
 	}
-	ft_bzero(g_input->input, g_input->input_len);
+//	
+	if (g_input->input_len > 0)
+		ft_bzero(g_input->input, g_input->input_len);
 	goto_home_of_line();
 	g_input->input_len = 0;
 	ft_putstr_fd(tgetstr("cd", NULL), STDIN_FILENO);

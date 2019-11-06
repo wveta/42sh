@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/24 15:39:37 by thaley            #+#    #+#             */
-/*   Updated: 2019/10/30 12:57:06 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/05 16:21:52 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int			parse_backslash(int start)
 
 int			check_quotes(void)
 {
-	int		i;
+/*	int		i;
 	int		save;
 
 	i = 0;
@@ -82,7 +82,24 @@ int			check_quotes(void)
 	}
 	if (save != -1)
 		return (save);
-	return (0);
+	return (0);*/
+	int 	i;
+
+	i = 0;
+	while (i < g_input->input_len)
+	{
+		if (g_input->quotes == '\0' && g_input->input[i] == '"')
+			g_input->quotes = '"';
+		else if ((g_input->quotes == '"' && g_input->input[i] == '"') ||
+			(g_input->quotes == '\'' && g_input->input[i] == '\''))
+			g_input->quotes = '\0';
+		else if (g_input->quotes == '\0' && g_input->input[i] == '\'')
+			g_input->quotes = '\'';
+		i++;
+	}
+	if (g_input->quotes == '\0')
+		return (0);
+	return (1);
 }
 
 void		check_double_quotes(int i)
@@ -119,12 +136,13 @@ int			parse_quotes(void)
 	i = parse_backslash(g_input->input_len - 1);
 	if (i % 2 != 0 && i > -1)
 		return (1);
-	i = check_quotes();
-	if (!g_input->quotes)
-		check_double_quotes(i);
-	if (g_input->quotes)
-		return (1);
-	return (0);
+//	i = check_quotes();
+//	if (!g_input->quotes)
+//		check_double_quotes(i);
+//	if (g_input->quotes)
+//		return (1);
+//	return (0);
+	return (check_quotes());
 }
 
 int			printable(char *c, int i)

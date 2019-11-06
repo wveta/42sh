@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 11:01:23 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/02 12:27:41 by udraugr-         ###   ########.fr       */
+/*   Updated: 2019/11/06 18:13:27 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,6 +173,10 @@ int						g_std_in;
 int						g_std_out;
 int						g_stderr;
 int						g_redir_block;
+int						g_subsh_in0;
+int						g_subsh_in1;
+int						g_subsh_out0;
+int						g_subsh_out1;
 typedef struct dirent	t_dir;
 
 typedef struct			s_cmd
@@ -192,6 +196,8 @@ typedef struct			s_pipeflag
 {
 	int					flag;
 	int					qflag;
+	int					br_count;
+	int					br_flag;
 	int					start;
 	int					count;
 	int					i;
@@ -435,5 +441,6 @@ int						ft_alias(char **av);
 int						ft_unalias(char **av);
 char					*take_value_alias(char *all_alias, char *alias_name);
 char					**ft_get_alias(char **av);
+void					ft_rec_log(char *str);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 11:32:55 by wveta             #+#    #+#             */
-/*   Updated: 2019/10/31 18:00:54 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/04 18:37:19 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,12 +122,22 @@ void	ft_signal_handler_rl(int signo)
 		{
 			if (pid > 0 && (WIFSIGNALED(status)))
 			{
-				tmp = malloc(sizeof(char) * 4);
+				tmp = malloc(sizeof(char) * 9);
 				tmp[0] = '\0';
-				ft_print_msg(": signal :", ft_putfnbr(WTERMSIG(status), tmp));
+				ft_print_msg(": signal chld: ", ft_putfnbr(WTERMSIG(status), tmp));
+				tmp[0] = '\0';
+				ft_print_msg(": pid: ", ft_putfnbr(pid, tmp));
 				free(tmp);
 			}
 		}
+		else if (g_signal == 1)
+		{
+			tmp = malloc(sizeof(char) * 4);
+			tmp[0] = '\0';
+			ft_print_msg(": signal shell: ", ft_putfnbr(signo, tmp));
+			free(tmp);
+		}
+
 		if (signo == SIGTTIN || signo == SIGTTOU)
 			tcsetpgrp(0, getpid());
 		else if (signo == SIGTSTP)

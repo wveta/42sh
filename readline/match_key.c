@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/05 20:12:29 by thaley            #+#    #+#             */
-/*   Updated: 2019/10/31 17:59:16 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/01 11:03:54 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,21 @@ int		match_key(char *c)
 	if (c[0] == 7 && c[1] == '\0')
 	{
 		g_color = g_color * (-1);
+		ft_putstr_fd("\n", 2);
+		if (g_color == 1)
+			ft_print_msg(": set colors:", " ON");
+		else
+			ft_print_msg(": set colors:", " OFF");
 		return (0);
 	}
 	else if (c[0] == 8 && c[1] == '\0')
 	{
 		g_signal = g_signal * (-1);
+		ft_putstr_fd("\n", 2);
+		if (g_signal == 1)
+			ft_print_msg(": set signals:", " ON");
+		else
+			ft_print_msg(": set signals:", " OFF");
 		return (0);
 	}
 	else

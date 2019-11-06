@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fts_for_alias.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: udraugr- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 17:40:26 by udraugr-          #+#    #+#             */
-/*   Updated: 2019/11/02 09:46:41 by udraugr-         ###   ########.fr       */
+/*   Updated: 2019/11/04 17:44:40 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,15 @@ void				ft_change_alias(char *new_alias)
 {
 	int				len;
 	int				fd;
+	char			*tmp;
+
+	tmp = ft_get_env("HOME");
+	tmp = ft_strfjoin(tmp, "/.alias_42");
+	fd = open(tmp, O_CREAT| O_TRUNC | O_WRONLY, 0644);
+	free(tmp);
 
 	len = ft_strlen(new_alias);
-	if ((fd = open("/Users/udraugr-/.alias_42",
-					O_CREAT | O_TRUNC | O_WRONLY, 0x1FF)) == -1)
+	if (fd == -1)
 		ft_print_msg("'Open' cant read the file!", "");
 	else
 		write(fd, new_alias, len);

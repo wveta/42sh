@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/30 14:10:12 by wveta             #+#    #+#             */
-/*   Updated: 2019/10/25 18:04:24 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/01 12:33:18 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ void		ft_cd(char *path2, int flag, char **locals)
 	char *p;
 
 	p = ft_strdup(path2);
-//	if (!((tmp = ft_get_env2("HOME", locals))) || !((tmp = ft_get_env("HOME"))))
 	if (!((tmp = ft_get_env2("PWD", locals))) && !((tmp = ft_get_env("PWD"))))
 	{
 		if (!(tmp = ft_strnew(255)))

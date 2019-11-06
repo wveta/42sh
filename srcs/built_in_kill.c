@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 15:38:41 by wveta             #+#    #+#             */
-/*   Updated: 2019/10/31 16:13:04 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/06 13:20:07 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int		ft_cmd_kill(char **av)
 			j = g_job_first;
 			while (j)
 			{
-				if (j->num == num)
+				if (j->num == num || (num == 0 && j->flag == '+'))
 				{
 					num = j->pgid;
 					break ;
@@ -77,7 +77,8 @@ int		ft_cmd_kill(char **av)
 			if (num ==  ft_atoi(av[i] + 1))
 			{
 				ft_print_msg(": kill : no such job: ", av[i] + 1);
-				ft_set_shell("?", "1");			
+				ft_set_shell("?", "1");
+				continue ;		
 			}
 		}
 		else
@@ -85,7 +86,8 @@ int		ft_cmd_kill(char **av)
 			num = ft_atoi(av[i]);
 			if ((kill(num, 0)) != 0)
 			{
-				ft_print_msg(" kill : no such process: ", av[i]);					
+				ft_print_msg(" kill : no such process: ", av[i]);
+				continue ;					
 			}
 		}
 		kill(num, sig);
@@ -116,4 +118,16 @@ void	ft_set_cmd_exit_status(int status)
 			ft_set_shell("?", "1");
 		free(tmp);
 	}
+}
+
+void	ft_rec_log(char *str)
+{
+	int i;
+
+	i = open("/Users/wveta/21old/pipelog", O_WRONLY| O_CREAT | O_APPEND , 0644);
+	if (i != -1)
+	{
+		write(i, str, ft_strlen(str));
+	}
+	close(i);
 }

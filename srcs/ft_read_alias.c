@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_read_alias.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: udraugr- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 15:42:54 by udraugr-          #+#    #+#             */
-/*   Updated: 2019/11/02 10:39:17 by udraugr-         ###   ########.fr       */
+/*   Updated: 2019/11/04 17:43:15 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,14 @@ char				*ft_read_alias(void)
 	int				fd;
 	int				read_bytes;
 	char			*all_alias;
-	char			*old_all_alias;
 	char			buffer[4096];
+	char			*tmp;
 
-	if ((fd = open("/Users/udraugr-/.alias_42", O_CREAT | O_RDONLY, 0x1FF))
-			== -1)
+	tmp = ft_get_env("HOME");
+	tmp = ft_strfjoin(tmp, "/.alias_42");
+	fd = open(tmp, O_CREAT | O_RDONLY, 0644);
+	free(tmp);
+	if (fd == -1)
 		return (ft_error_terminate("Can't open alias file!", -1, 0));
 	if ((all_alias = ft_strnew(0)) == NULL)
 	{
@@ -42,13 +45,13 @@ char				*ft_read_alias(void)
 	while ((read_bytes = read(fd, buffer, 4095)) > 0)
 	{
 		buffer[read_bytes] = '\0';
-		old_all_alias = all_alias;
+		tmp = all_alias;
 		if ((all_alias = ft_strjoin(all_alias, buffer)) == NULL)
 		{
 			return (ft_error_terminate("Malloc can't allocate memory!",
-														fd, &old_all_alias));
+														fd, &tmp));
 		}
-		ft_strdel(&old_all_alias);
+		ft_strdel(&tmp);
 	}
 	close(fd);
 	if (read_bytes == -1)

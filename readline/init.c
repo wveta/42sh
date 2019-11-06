@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
+/*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/05 18:15:47 by thaley            #+#    #+#             */
-/*   Updated: 2019/10/16 19:11:03 by thaley           ###   ########.fr       */
+/*   Updated: 2019/11/05 21:01:29 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,8 @@ char			*init_loop(t_shell *shell)
 {
 	char		c[20];
 	int			i;
+	char		*tmp;
+	int			j;
 
 	g_cmd->jmp_code2 = setjmp(g_cmd->ebuf2);
 	signal(SIGWINCH, ft_signal_win_size);
@@ -101,8 +103,20 @@ char			*init_loop(t_shell *shell)
 		else if (c[0] == 10 && !c[1] && parse_quotes())
 			c[0] = multi_line();
 		if ((c[0] == 10 || c[0] == 3 || ctrl_d(c) ||
-			c[0] == 12 || c[0] == 7) && !c[1])
-			return (ft_strdup(finish_loop(c[0], shell)));
+			c[0] == 12 || c[0] == 7 || c[0] == 8) && !c[1])
+		{
+			tmp = ft_strdup(finish_loop(c[0], shell));
+			j = -1;
+			while (tmp[++j] && tmp[j + 1])
+			{
+				if ((tmp[j] == '\\') || (tmp[j] == '\n'))
+				{
+					ft_strcpy(tmp + j, tmp + j + 1);
+					j--;
+				}
+			}
+			return (tmp);
+		}
 		if (printable(c, i))
 			insert_char(c);
 	}

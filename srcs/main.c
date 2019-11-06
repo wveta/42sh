@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 10:27:38 by wveta             #+#    #+#             */
-/*   Updated: 2019/10/30 10:56:29 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/05 13:43:31 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,12 @@ char		*ft_get_name(void)
 	int		j;
 
 	pr = NULL;
-	if (!(pr = ft_strnew(255)))
-		exit_shell();
-	getcwd(pr, 255);
+	if (!(pr = ft_get_env2("PWD", g_shell)))
+	{
+		if (!(pr = ft_strnew(255)))
+			exit_shell();
+		getcwd(pr, 255);
+	}
 	j = ft_strlen(pr) - 1;
 	while (j >= 0 && pr[j])
 	{
@@ -90,7 +93,7 @@ void		ft_final_free(void)
 	free(g_cmd);
 	g_shell = ft_free_char_matr(g_shell);
 	free(g_app_full_name);
-	if (g_subshell == 1)
+	if (g_subshell > 0)
 		return ;
 	i = get_next_line(-7, NULL);
 	ft_history_put();
@@ -123,7 +126,7 @@ int			main(int argc, char **argv, char **environ)
 		ft_parse_line(line_read);
 		free(line_read);
 	}
-	g_subshell = 1;
+	g_subshell++;
 	fd = STDIN_FILENO;
 	if (argc > 1 && argv[1] && argv[1][0] != '<')
 	{

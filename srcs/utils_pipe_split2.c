@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/07 10:50:36 by wveta             #+#    #+#             */
-/*   Updated: 2019/09/20 16:34:47 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/06 17:09:06 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,6 @@ int			ft_parse_pipe(char **ret)
 		i++;
 	}
 	if (ft_strcmp(ret[i - 1], "|") == 0)
-		return ((-1) * ft_print_msg(": parse error in pipeline: ", ret[0]));
+		return ((-1) * ft_print_msg(": parse error in pipeline: ", ret[i -1]));
 	return (0);
 }
