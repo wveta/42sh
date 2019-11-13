@@ -6,7 +6,7 @@
 /*   By: udraugr- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 15:38:04 by udraugr-          #+#    #+#             */
-/*   Updated: 2019/11/02 10:27:10 by udraugr-         ###   ########.fr       */
+/*   Updated: 2019/11/12 11:55:56 by udraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char				*ft_del_alias(char *alias_str, char *alias)
 
 	find_alias = ft_find_alias(alias_str, alias);
 	alias_end = find_alias;
-	while (*alias_end && *alias_end != '\n')
+	while (*alias_end && *alias_end != -10)
 		++alias_end;
 	if (*alias_end)
 		++alias_end;
@@ -38,6 +38,17 @@ char				*ft_del_alias(char *alias_str, char *alias)
 	ft_strcpy(&new_str[find_alias - alias_str], alias_end);
 	ft_strdel(&alias_str);
 	return (new_str);
+}
+
+static void			ft_action(char **all_alias, char *av_str, int *ret)
+{
+	if ((ft_find_alias(*all_alias, av_str)) == 0)
+	{
+		ft_not_found(av_str);
+		*ret = 0;
+	}
+	else
+		*all_alias = ft_del_alias(*all_alias, av_str);
 }
 
 int					ft_unalias(char **av)
@@ -57,26 +68,13 @@ int					ft_unalias(char **av)
 		return (0);
 	ret = 1;
 	flag_del_all = 0;
-	i = 1;
-	while (i < len && ft_strcmp("-a", av[i]) == 0)
-	{
+	i = 0;
+	while (++i < len && ft_strcmp("-a", av[i]) == 0)
 		flag_del_all = 1;
-		++i;
-	}
-	while (i < len)
-	{
-		if ((ft_find_alias(all_alias, av[i])) == 0)
-		{
-			ft_not_found(av[i]);
-			ret = 0;
-		}
-		else
-			all_alias = ft_del_alias(all_alias, av[i]);
-		++i;
-	}
-	if (flag_del_all == 1)
-		ft_strdel(&all_alias);
-	ft_change_alias(all_alias);
+	i -= 1;
+	while (++i < len)
+		ft_action(&all_alias, av[i], &ret);
+	(flag_del_all == 1) ? ft_change_alias(0) : ft_change_alias(all_alias);
 	ft_strdel(&all_alias);
 	return (ret);
 }

@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 15:38:41 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/06 15:06:02 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/13 22:19:49 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ t_cmdlist	*ft_free_cmd_list(t_cmdlist *first)
 			free(tmp->find_path);
 		if (tmp->here)
 			free(tmp->here);
+		ft_del_semafor(tmp);
 		free(tmp);
 	}
 	return (NULL);
@@ -81,13 +82,6 @@ void		ft_do_cmd_list(t_pipe *p_head, int flpi)
 	p_head->cur_cmd->avcmd = ft_isnot(p_head->cur_cmd->avcmd);
 	g_pgid = 0;
 	tcgetattr(0, &tmodes);
-	if (g_subshell == 0)
-	{
-		g_subsh_in0 = -1;
-		g_subsh_in1 = -1;
-		g_subsh_out0 = -1;
-		g_subsh_out1 = -1;
-	}
 	while (p_head->cur_cmd)
 	{
 		p_head->cur_cmd->avcmd = ft_globbing(p_head->cur_cmd->avcmd);
@@ -97,12 +91,38 @@ void		ft_do_cmd_list(t_pipe *p_head, int flpi)
 			return ;
 		else if (flpi < 1 && g_job != 1 && (fd_set_nopipe(p_head) == -1))
 			return ;
+		
+char	*tmp;
+
+//
+	char * nr;
+	
+	tmp = ft_strnew(1000);
+	nr = ft_strnew(10);
+	tmp[0] = '\0';
+	tmp = ft_strjoin(tmp, "\n BEFORE FORK  ");
+	tmp = ft_strjoin(tmp, p_head->cur_cmd->avcmd[0]);
+	tmp = ft_strjoin(tmp, " UID = ");
+	nr[0] = '\0';
+	nr = ft_putfnbr(getpid(), nr);
+
+	ft_rec_log(tmp);
+	free (tmp);
+	free(nr);
+//
+
+		
 		if (ft_fork(p_head) == -1)
 			return ;
 		else if (p_head->cur_cmd->pid == 0)
+		{
 			ft_child_pipe_exec(p_head->cur_cmd, flpi);
+			if (g_sub_str && g_subshell > 0)
+				return ;
+		}
 		else if (p_head->cur_cmd->pid > 0)
 		{
+			ft_sig_set();
 			if (g_job == 1 || flpi > 0)
 			{
 				if (g_pgid == 0)
@@ -119,8 +139,22 @@ void		ft_do_cmd_list(t_pipe *p_head, int flpi)
 			ft_parent_pipe_next(p_head->cur_cmd, fd0, fd1, flpi);
 			p_head->cur_cmd = p_head->cur_cmd->next;
 		}
-	}	
-	ft_parent_wait(p_head, flpi/*, p_head->first_cmd*/);
+	}
+
+/*
+	p_head->cur_cmd = p_head->first_cmd;
+	while (p_head->cur_cmd)
+	{
+		if (p_head->cur_cmd->fd_pipe_out[0] != -1)
+			close(p_head->cur_cmd->fd_pipe_out[0]);
+		if (p_head->cur_cmd->fd_pipe_out[1] != -1)
+			close(p_head->cur_cmd->fd_pipe_out[1]);
+		p_head->cur_cmd = p_head->cur_cmd->next;
+	}
+*/
+
+	
+	ft_parent_wait(p_head, flpi);
 	tcsetattr(0, TCSADRAIN, &tmodes);
 	g_pipe = NULL;
 }
@@ -147,6 +181,7 @@ void		ft_do_cmd_shell(char **av, int start, int flagpipe)
 			start = start + nextpipe + 1;
 		else
 			break ;
+			
 	}
 	if (fl == 1)
 		ft_do_cmd_list(p_head, flagpipe);	

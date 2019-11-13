@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 14:40:31 by wveta             #+#    #+#             */
-/*   Updated: 2019/10/24 17:48:10 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/13 18:00:17 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int		ft_fd_dup_close(int in_fd, int i, int j, t_cmdlist *cmd)
 
 int		ft_fork(t_pipe *p_head)
 {
+	ft_sig_dfl();
 	if ((p_head->cur_cmd->pid = fork()) < 0)
 	{
 		ft_print_msg(" : Error in function: ", "FORK");
@@ -64,6 +65,8 @@ void	ft_init_curcmd(t_cmdlist *cur_cmd)
 		cur_cmd->find_path = NULL;
 		cur_cmd->pid_z = 0;
 		cur_cmd->status = 0;
+		cur_cmd->semafor = NULL;
+		cur_cmd->sem_name = NULL;
 	}
 }
 
@@ -81,6 +84,7 @@ void	ft_set_cmd(t_pipe *p_head)
 		p_head->cur_cmd->nr = p_head->last_cmd->nr + 1;
 		p_head->last_cmd = p_head->cur_cmd;
 	}
+	ft_new_semafor(p_head->cur_cmd);
 }
 
 int		ft_test_cmd_pipe(char **av, int start, t_pipe *p)

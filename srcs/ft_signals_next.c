@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 11:32:55 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/04 20:06:32 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/13 17:56:44 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,17 @@ void	ft_sig_set(void)
 	signal(SIGTSTP, ft_signal_handler_rl);
 	signal(SIGQUIT, ft_signal_handler_rl);
 	signal(SIGCONT, ft_signal_handler_rl);
+}
+
+void	ft_sig_dfl(void)
+{
+	signal(SIGCHLD, SIG_DFL);
+	signal(SIGINT, SIG_DFL);
+	signal(SIGTTIN, SIG_DFL);
+	signal(SIGTTOU, SIG_DFL);
+	signal(SIGTSTP, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
+	signal(SIGCONT, SIG_DFL);
 }
 
 void	ft_test_cmd_list(pid_t pid, int status)

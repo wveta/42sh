@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 19:25:12 by wveta             #+#    #+#             */
-/*   Updated: 2019/09/17 17:28:44 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/11 16:25:49 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int		ft_test_sub(char *str, int i)
 	{
 		while (j <= i)
 		{
-			if (ft_strchr("!@\"\'^*()\\.$", str[j]))
+			if (ft_strchr("!@\"\'^()\\.$", str[j]))
 				return (ft_ret_subs(str, i));
 			j++;
 		}

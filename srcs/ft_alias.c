@@ -6,36 +6,11 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/29 21:00:14 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/02 10:59:06 by udraugr-         ###   ########.fr       */
+/*   Updated: 2019/11/12 12:51:20 by udraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-static void				ft_output_alias(char *all_alias, char *av,
-										int flag_alias, int *ret)
-{
-	char				*ans;
-	int					i;
-
-	if ((ans = ft_find_alias(all_alias, av)) == NULL)
-	{
-		ft_putstr_fd("42sh: alias: ", 2);
-		ft_putstr_fd(av, 2);
-		ft_putendl(": not found");
-		*ret = 0;
-	}
-	else
-	{
-		if (flag_alias)
-			ft_putstr("alias ");
-		i = 0;
-		while (ans[i] && ans[i] != '\n')
-			++i;
-		write(1, ans, i);
-		write(1, "\n", 1);
-	}
-}
 
 static char				*ft_push_alias(char *all_alias, char *av)
 {
@@ -62,12 +37,12 @@ static char				*ft_push_alias(char *all_alias, char *av)
 	ans[len_all_alias++] = '"';
 	ft_strcpy(&ans[len_all_alias], &av[i]);
 	ans[len_ans - 2] = '"';
-	ans[len_ans - 1] = '\n';
+	ans[len_ans - 1] = -10;
 	return (ans);
 }
 
 static char				*ft_replace_alias(char *all_alias,
-												char *av, char *alias_name)
+								char *av, char *alias_name)
 {
 	char				*ans;
 	char				*tmp;
@@ -104,6 +79,19 @@ static char				*ft_add_alias(char *all_alias, char *av)
 	return (ans);
 }
 
+static int				ft_action(char **all_alias, char *av_str,
+										int flag_alias, int *ret)
+{
+	if (ft_strchr(av_str, '=') == NULL)
+		ft_output_alias(*all_alias, av_str, flag_alias, ret);
+	else
+	{
+		if ((*all_alias = ft_add_alias(*all_alias, av_str)) == NULL)
+			return (1);
+	}
+	return (0);
+}
+
 /*
 ** flag p in alias, just print alias until output;
 ** like:
@@ -123,28 +111,18 @@ int						ft_alias(char **av)
 	if ((all_alias = ft_read_alias()) == NULL)
 		return (0);
 	ret = 1;
-	i = 1;
 	flag_alias = 0;
-	while (av[i] && ft_strcmp("-p", av[i]) == 0)
-	{
+	i = 0;
+	while (av[++i] && ft_strcmp("-p", av[i]) == 0)
 		flag_alias = 1;
-		++i;
-	}
 	if (ft_arr_len(&av[i]) < 1)
-		write(1, all_alias, ft_strlen(all_alias));
+		print_all_alias(all_alias, flag_alias);
 	else
 	{
-		while (av[i])
-		{
-			if (ft_strchr(av[i], '=') == NULL)
-				ft_output_alias(all_alias, av[i], flag_alias, &ret);
-			else
-			{
-				if ((all_alias = ft_add_alias(all_alias, av[i])) == NULL)
-					break ;
-			}
-			++i;
-		}
+		i -= 1;
+		while (av[++i])
+			if (ft_action(&all_alias, av[i], flag_alias, &ret) == 1)
+				break ;
 	}
 	ft_change_alias(all_alias);
 	ft_strdel(&all_alias);

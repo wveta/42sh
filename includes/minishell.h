@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 11:01:23 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/06 18:13:27 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/13 22:01:27 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # include <fcntl.h>
 # include <termios.h>
 # include <stdbool.h>
+# include <semaphore.h>
 # include "../readline/readline.h"
 # include "readline/history.h"
 # include "../libft/libft.h"
@@ -118,6 +119,8 @@ typedef struct			s_cmdlist
 	int					built_in;
 	int					fd_pipe_in[2];
 	int					fd_pipe_out[2];
+	sem_t				*sem_0;
+	sem_t				*sem_1;
 	int					fd0;
 	int					fd1;
 	int					fd2;
@@ -130,6 +133,10 @@ typedef struct			s_cmdlist
 	int					child_pid;
 	char				*original;
 	int					status;
+	char				*sem_name;
+	sem_t				*semafor;
+	char				*bsem_name;
+	sem_t				*bsemafor;
 	struct s_cmdlist	*next;
 }						t_cmdlist;
 typedef struct			s_pipe
@@ -173,10 +180,13 @@ int						g_std_in;
 int						g_std_out;
 int						g_stderr;
 int						g_redir_block;
-int						g_subsh_in0;
-int						g_subsh_in1;
-int						g_subsh_out0;
-int						g_subsh_out1;
+char					*g_sub_str;
+sem_t					*g_semafor;
+char					*g_sem_name;
+sem_t					*g_bsemafor;
+char					*g_bsem_name;
+char					*sem_name;
+
 typedef struct dirent	t_dir;
 
 typedef struct			s_cmd
@@ -393,6 +403,7 @@ void					ft_exp_env(char *parm, char *value);
 void					ft_locals_to_env(char **locals);
 char					*ft_get_shell_str(char *in, int len);
 void				    ft_sig_set(void);
+void					ft_sig_dfl(void);
 int						ft_test_args(char *args);
 int						ft_parse_pipe(char **ret);
 int						ft_if_job(t_cmdlist *cur_cmd);
@@ -438,9 +449,19 @@ void					ft_change_alias(char *new_alias);
 char					*ft_find_alias(char *str, char *alias);
 char					*ft_del_alias(char *alias_str, char *alias);
 int						ft_alias(char **av);
+void					ft_output_alias(char *all_alias, char *av,
+										int flag_alias, int *ret);
+void					print_all_alias(char *all_alias, int flag_alias);
 int						ft_unalias(char **av);
 char					*take_value_alias(char *all_alias, char *alias_name);
 char					**ft_get_alias(char **av);
 void					ft_rec_log(char *str);
+void					ft_new_semafor(t_cmdlist *cur_cmd);
+void					ft_del_semafor(t_cmdlist *cur_cmd);
+int						ft_wait_semafor(t_cmdlist *cur_cmd);
+void					ft_add_semafor(t_pipe *p_head);
+char					*param_rem(char *val, char *flag, char *pat);
+int 					ft_close_fd(char *str, int in);
+int						ft_get_cmd_exit_status(int status);
 
 #endif

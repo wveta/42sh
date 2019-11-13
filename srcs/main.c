@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 10:27:38 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/05 13:43:31 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/12 21:41:52 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,11 +120,32 @@ int			main(int argc, char **argv, char **environ)
 		ft_sig_set();
 		if (g_check == 1)
 			exit(0);
+		g_semafor = NULL;
+		g_bsemafor = NULL;
+		g_sub_str = NULL;
+		g_sem_name = NULL;
+		g_bsem_name = NULL;
 		ft_print_jobs();
 		pr = ft_get_name();
 		line_read = rl_gets(pr);
 		ft_parse_line(line_read);
 		free(line_read);
+		if (g_subshell > 0 && g_sub_str)
+		{
+			line_read = g_sub_str;
+			ft_parse_line(line_read);
+			free(line_read);
+			sem_close(g_semafor);
+			sem_unlink(g_sem_name);
+			free(g_sem_name);
+			sem_close(g_bsemafor);
+			sem_unlink(g_bsem_name);
+			free(g_bsem_name);			
+
+			
+			ft_final_free();
+			return (0);
+		}
 	}
 	g_subshell++;
 	fd = STDIN_FILENO;

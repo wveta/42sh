@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/07 10:50:36 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/06 13:20:07 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/12 20:59:07 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,27 @@ int		ft_set_fd_pipes(t_pipe *p_head, int fd0[2], int fd1[2])
 				ft_print_msg(" : Error in function: ", "PIPE");
 				return (-1);
 			}
+//
+		char	*tmp;
+		char	*nr;
+		tmp = ft_strnew(1000);
+		tmp[0] = '\0';
+		nr = ft_strnew(1000);
+		nr[0] = '\0';
+		tmp = ft_strjoin(tmp, "\n subshell = ");
+		tmp = ft_strjoin(tmp, ft_putfnbr(g_subshell, nr));
+		tmp = ft_strjoin(tmp, " ");
+		tmp = ft_strjoin(tmp, p_head->cur_cmd->avcmd[0]);
+		tmp = ft_strjoin(tmp, " GETPIPE fd1[0] = ");
+		nr[0] = '\0';
+		tmp = ft_strjoin(tmp, ft_putfnbr(fd1[0], nr));
+		tmp = ft_strjoin(tmp, " fd1[1] = ");
+		nr[0] = '\0';
+		tmp = ft_strjoin(tmp, ft_putfnbr(fd1[1], nr));
+		ft_rec_log(tmp);
+		free(tmp);
+		free(nr);
+//			
 			ft_set_cmd_pipe(3, p_head->cur_cmd, fd0, fd1);
 		}
 		else
@@ -48,7 +69,7 @@ int		ft_set_fd_pipes(t_pipe *p_head, int fd0[2], int fd1[2])
 		if (ft_set_fd_pipes_2(p_head, fd0, fd1) == -1)
 			return (-1);
 	}
-	//
+	/*
 		char	*tmp;
 		char 	*tmp2;
 		char	*nr;
@@ -94,7 +115,7 @@ int		ft_set_fd_pipes(t_pipe *p_head, int fd0[2], int fd1[2])
 		free(tmp);
 		free(nr);
 		
-	//
+	*/
 	return (0);
 }
 
@@ -107,6 +128,28 @@ int		ft_set_fd_pipes_2(t_pipe *p_head, int fd0[2], int fd1[2])
 			ft_print_msg(" : Error in function: ", "PIPE");
 			return (-1);
 		}
+//
+		char	*tmp;
+		char	*nr;
+		tmp = ft_strnew(1000);
+		tmp[0] = '\0';
+		nr = ft_strnew(1000);
+		nr[0] = '\0';
+		tmp = ft_strjoin(tmp, "\n subshell = ");
+		tmp = ft_strjoin(tmp, ft_putfnbr(g_subshell, nr));
+		tmp = ft_strjoin(tmp, " ");
+		tmp = ft_strjoin(tmp, p_head->cur_cmd->avcmd[0]);
+		tmp = ft_strjoin(tmp, " GETPIPE fd0[0] = ");
+		nr[0] = '\0';
+		tmp = ft_strjoin(tmp, ft_putfnbr(fd0[0], nr));
+		tmp = ft_strjoin(tmp, " fd0[1] = ");
+		nr[0] = '\0';
+		tmp = ft_strjoin(tmp, ft_putfnbr(fd0[1], nr));
+		ft_rec_log(tmp);
+		free(tmp);
+		free(nr);
+//			
+		
 		ft_set_cmd_pipe(5, p_head->cur_cmd, fd0, fd1);
 	}
 	ft_set_cmd_pipe(2, p_head->cur_cmd, fd0, fd1);
@@ -150,10 +193,80 @@ int		fd_set_nopipe(t_pipe *p_head)
 	return (0);
 }
 
-void	ft_parent_wait(t_pipe *p_head, int flpi/*, t_cmdlist *first_cmd*/)
+void	ft_parent_wait(t_pipe *p_head, int flpi)
 {
 	int		status;
 
+	char	*tmp;
+	char * nr;
+
+	tmp = ft_strnew(1000);
+	nr = ft_strnew(10);
+	tmp[0] = '\0';
+	tmp = ft_strjoin(tmp, "\n ft_parent_wait  SHELL UID = ");
+	nr[0] = '\0';
+	nr = ft_putfnbr(getpid(), nr);
+	tmp = ft_strjoin(tmp, nr);
+	tmp = ft_strjoin(tmp, " g_semafor = ");
+	nr[0] = '\0';
+	nr = ft_putfnbr((int)g_semafor, nr);
+	tmp = ft_strjoin(tmp, nr);
+	ft_rec_log(tmp);
+	free(tmp);
+	free(nr);
+	
+	if (g_semafor)
+	{
+		tmp = ft_strnew(1000);
+		nr = ft_strnew(10);
+		tmp[0] = '\0';
+		tmp = ft_strjoin(tmp, "\n Subshell  WAIT ");
+		tmp = ft_strjoin(tmp, " SHELL UID = ");
+		nr[0] = '\0';
+		nr = ft_putfnbr(getpid(), nr);
+		tmp = ft_strjoin(tmp, nr);
+		tmp = ft_strjoin(tmp, " g_semafor = ");
+		nr[0] = '\0';
+		nr = ft_putfnbr((int)g_semafor, nr);
+		tmp = ft_strjoin(tmp, nr);
+		ft_rec_log(tmp);
+	
+		sem_wait(g_semafor);
+
+		tmp[0] = '\0';
+		tmp = ft_strjoin(tmp, "\n Subshell GO ");
+		tmp = ft_strjoin(tmp, " SELL UID = ");
+		nr[0] = '\0';
+		nr = ft_putfnbr(getpid(), nr);
+		tmp = ft_strjoin(tmp, nr);
+		ft_rec_log(tmp);	
+		free(tmp);
+		free(nr);	
+	}
+	
+	ft_add_semafor(p_head);
+	
+	if (g_bsemafor)
+	{
+		tmp = ft_strnew(1000);
+		nr = ft_strnew(10);
+		tmp[0] = '\0';
+		tmp = ft_strjoin(tmp, "\n Subshell  post parent ");
+		tmp = ft_strjoin(tmp, " SHELL UID = ");
+		nr[0] = '\0';
+		nr = ft_putfnbr(getpid(), nr);
+		tmp = ft_strjoin(tmp, nr);
+		tmp = ft_strjoin(tmp, " g_bsemafor = ");
+		nr[0] = '\0';
+		nr = ft_putfnbr((int)g_bsemafor, nr);
+		tmp = ft_strjoin(tmp, nr);
+		ft_rec_log(tmp);
+		free(tmp);
+		free(nr);
+		
+		sem_post(g_bsemafor);
+	}
+	
 	ft_sig_set();
 	if (g_job == 0 && flpi == 0)
 	{

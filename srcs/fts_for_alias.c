@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 17:40:26 by udraugr-          #+#    #+#             */
-/*   Updated: 2019/11/04 17:44:40 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/12 10:11:43 by udraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,8 @@ void				ft_change_alias(char *new_alias)
 
 	tmp = ft_get_env("HOME");
 	tmp = ft_strfjoin(tmp, "/.alias_42");
-	fd = open(tmp, O_CREAT| O_TRUNC | O_WRONLY, 0644);
+	fd = open(tmp, O_CREAT | O_TRUNC | O_WRONLY, 0644);
 	free(tmp);
-
 	len = ft_strlen(new_alias);
 	if (fd == -1)
 		ft_print_msg("'Open' cant read the file!", "");

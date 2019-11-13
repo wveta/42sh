@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 15:38:41 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/06 13:20:07 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/13 15:01:19 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,3 +131,25 @@ void	ft_rec_log(char *str)
 	}
 	close(i);
 }
+
+int		ft_get_cmd_exit_status(int status)
+{
+	int 	rc;
+	int 	i;
+
+	rc = 0;
+	if ((WIFEXITED(status)) && (i = WEXITSTATUS(status)) != 0)
+		rc =1;
+	else if ((WIFEXITED(status)) && (i = WEXITSTATUS(status)) == 0)
+		rc = 0;			
+	else if (WIFSTOPPED(status))
+		rc = WSTOPSIG(status);
+	else if (WIFSIGNALED(status))
+		rc =WTERMSIG(status);
+	else if (WIFCONTINUED(status))
+		rc = 0;	
+	else
+		rc =1;
+	return (rc);
+}
+

@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 19:25:12 by wveta             #+#    #+#             */
-/*   Updated: 2019/09/19 18:28:28 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/11 15:26:04 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,21 +83,28 @@ char	*ft_get_parm_rr(char *s)
 	char	*val;
 	int		j;
 	char	*tmp;
+	char	*flag;
 
 	if (((j = ft_strchr(s, '#') - s)) > 1)
 	{
 		tmp = ft_strnew(j + 1);
 		tmp = ft_strncpy(tmp, s, j);
 		if (s[j + 1] == '#')
+		{
+			flag = ft_strdup("##");
 			j++;
+		}
+		else
+			flag = ft_strdup("#");
 		if ((val = ft_get_env(tmp)))
 		{
 			free(tmp);
 			tmp = ft_strnew(ft_strlen(s) - j + 1);
 			tmp = ft_strcat(tmp, s + j + 1);
-			j = ft_strlen(val) - ft_strlen(tmp);
+/*			j = ft_strlen(val) - ft_strlen(tmp);
 			if (ft_strcmp(val + j, tmp) == 0)
-				val[j] = '\0';
+				val[j] = '\0';*/
+			val = param_rem(val, flag, tmp);
 		}
 		else
 			val = ft_strdup("");
@@ -113,25 +120,33 @@ char	*ft_get_parm_prc(char *s)
 	char	*val;
 	int		j;
 	char	*tmp;
+	char	*flag;
 
 	if (((j = ft_strchr(s, '%') - s)) > 1)
 	{
 		tmp = ft_strnew(j + 1);
 		tmp = ft_strncpy(tmp, s, j);
 		if (s[j + 1] == '%')
+		{
+			flag = ft_strdup("%%");
 			j++;
+		}
+		else
+			flag = ft_strdup("%");
 		if ((val = ft_get_env(tmp)))
 		{
 			free(tmp);
 			tmp = ft_strnew(ft_strlen(s) - j + 1);
 			tmp = ft_strcat(tmp, s + j + 1);
-			if (ft_strncmp(val, tmp, ft_strlen(tmp)) == 0)
-				val = ft_strcpy(val, val + ft_strlen(tmp));
+/*			if (ft_strncmp(val, tmp, ft_strlen(tmp)) == 0)
+				val = ft_strcpy(val, val + ft_strlen(tmp));*/
+			val = param_rem(val, flag, tmp);
 		}
 		else
 			val = ft_strdup("");
 		free(tmp);
 		free(s);
+		free(flag);
 		return (val);
 	}
 	return (s);
