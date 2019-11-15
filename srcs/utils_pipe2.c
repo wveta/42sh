@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/07 10:50:36 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/13 22:09:10 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/15 10:47:37 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -393,13 +393,13 @@ void	ft_child_pipe_exec(t_cmdlist *cur_cmd, int flpi)
 	if ((i = ft_test_cmd_file(cur_cmd)) == 0)
 	{
 		ft_locals_to_env(cur_cmd->locals);
-		if ((cur_cmd->nr == 1) && g_subshell > 0)
+	/*	if ((cur_cmd->nr == 1) && g_subshell > 0)
 		{
 			tmp = ttyname(STDERR_FILENO);
 			i = open(tmp, O_RDONLY , S_IRUSR | S_IWUSR);
 			if (i != -1 && (dup2(i, STDIN_FILENO) == -1))
 				ft_print_msg(": error DUP2 STDIN: ", "subshell");
-		}
+		}*/
 
 //
 	char	*tmp;
