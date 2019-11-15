@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 15:38:41 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/13 22:19:49 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/15 15:40:43 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,8 @@ void		ft_do_cmd_list(t_pipe *p_head, int flpi)
 			return;
 		if (flpi > 0 && ((ft_set_fd_pipes(p_head, fd0, fd1) == -1)))
 			return ;
-		else if (flpi < 1 && g_job != 1 && (fd_set_nopipe(p_head) == -1))
+		else if (flpi < 1 && g_job != 1 &&
+		(fd_set_nopipe(p_head) == -1))
 			return ;
 		
 char	*tmp;

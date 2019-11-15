@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/11 12:43:20 by wveta             #+#    #+#             */
-/*   Updated: 2019/09/20 15:30:17 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/15 15:48:57 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int		ft_test_pipe(char **av, int start)
 	j = start;
 	while (av && av[j])
 	{
+		if (av[0][0] == '(' || av[0][0] == '{')
+			return (2);
 		if (ft_strequ(av[j], "|") == 1 && av[j][0] != '"' && av[j][0] != '\'')
 			return (j);
 		j++;

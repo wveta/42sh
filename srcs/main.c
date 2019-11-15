@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 10:27:38 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/12 21:41:52 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/15 12:10:42 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ int			main(int argc, char **argv, char **environ)
 	char	*pr;
 	char	**lr;
 	int		fd;
+	char	*tmp;
 
 	if (!(g_cmd = malloc(sizeof(t_cmd))))
 		exit_shell();
@@ -130,11 +131,24 @@ int			main(int argc, char **argv, char **environ)
 		line_read = rl_gets(pr);
 		ft_parse_line(line_read);
 		free(line_read);
+		tmp = NULL;
 		if (g_subshell > 0 && g_sub_str)
 		{
-			line_read = g_sub_str;
-			ft_parse_line(line_read);
-			free(line_read);
+			while (1)
+			{
+				if (tmp)
+					free(tmp);
+				tmp = ft_strdup(g_sub_str);
+				line_read = ft_strdup(g_sub_str);
+				ft_parse_line(line_read);
+				free(line_read);
+				if (ft_strcmp(tmp,g_sub_str) == 0)
+				{
+					free(tmp);
+					free(g_sub_str);
+					break;
+				}	
+			}
 			sem_close(g_semafor);
 			sem_unlink(g_sem_name);
 			free(g_sem_name);

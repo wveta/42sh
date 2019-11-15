@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/07 10:50:36 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/15 10:47:37 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/15 15:29:20 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -269,9 +269,14 @@ void	ft_child_pipe_exec(t_cmdlist *cur_cmd, int flpi)
 	tmp = ft_strnew(1000);
 	nr = ft_strnew(10);
 	tmp[0] = '\0';
-	tmp = ft_strjoin(tmp, "\n AFTER FORK START PROC ");
-	tmp = ft_strjoin(tmp, cur_cmd->avcmd[0]);
-	tmp = ft_strjoin(tmp, " UID = ");
+	tmp = ft_strjoin(tmp, "\n AFTER FORK START PROC \n");
+	i = -1;
+	while (cur_cmd->avcmd[++i])
+	{
+		tmp = ft_strjoin(tmp, cur_cmd->avcmd[i]);
+		tmp = ft_strjoin(tmp, " ");
+	}
+	tmp = ft_strjoin(tmp, "\nUID = ");
 	nr[0] = '\0';
 	nr = ft_putfnbr(getpid(), nr);
 
@@ -300,24 +305,14 @@ void	ft_child_pipe_exec(t_cmdlist *cur_cmd, int flpi)
 	signal(SIGINT, ft_signal_child);
 	signal(SIGQUIT, ft_signal_child);
 	signal(SIGTSTP, ft_signal_child);
-	if (cur_cmd->avcmd[0][0] == '(')
+	if (cur_cmd->avcmd[0][0] == '(' || cur_cmd->avcmd[0][0] == '{')
 	{
 		g_subshell++;
 
-
-//13.11	
-/*		g_subsh_in0 = cur_cmd->fd_pipe_in[0];
-		g_subsh_in1 = cur_cmd->fd_pipe_in[1];
-		g_subsh_out0 = cur_cmd->fd_pipe_out[0];
-		g_subsh_out1 = cur_cmd->fd_pipe_out[1];
-		cur_cmd->fd_pipe_in[0] = -1;
-		cur_cmd->fd_pipe_in[1] = -1;
-		cur_cmd->fd_pipe_out[0] = -1;
-		cur_cmd->fd_pipe_out[1] = -1;*/
-//
 		ft_strcpy(cur_cmd->avcmd[0], cur_cmd->avcmd[0] + 1);
 		cur_cmd->avcmd[0][ft_strlen(cur_cmd->avcmd[0]) - 1] = '\0';
 		g_sub_str = ft_strdup(cur_cmd->avcmd[0]);
+		cur_cmd->avcmd[0][0] = '\0';
 			g_semafor = cur_cmd->semafor;
 			g_bsemafor = cur_cmd->bsemafor;
 			g_sem_name = cur_cmd->sem_name;
@@ -327,7 +322,27 @@ void	ft_child_pipe_exec(t_cmdlist *cur_cmd, int flpi)
 			cur_cmd->sem_name = NULL;
 			cur_cmd->sem_name = NULL;
 			ft_pipe_dup_ch_in(cur_cmd);
-			ft_pipe_dup_ch_out(cur_cmd);		
+			ft_pipe_dup_ch_out(cur_cmd);
+			if (ft_do_redir(cur_cmd) != 0)
+				exit(1);
+	tmp = ft_strnew(1000);
+	nr = ft_strnew(10);
+	tmp[0] = '\0';
+	tmp = ft_strjoin(tmp, "\n AFTER REDIRECT \n");
+	i = -1;
+	while (cur_cmd->avcmd[++i])
+	{
+		tmp = ft_strjoin(tmp, cur_cmd->avcmd[i]);
+		tmp = ft_strjoin(tmp, " ");
+	}
+	tmp = ft_strjoin(tmp, "\nUID = ");
+	nr[0] = '\0';
+	nr = ft_putfnbr(getpid(), nr);
+
+	ft_rec_log(tmp);
+	free (tmp);
+	free(nr);
+	
 		return;
 	}
 	else

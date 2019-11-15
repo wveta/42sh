@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 16:17:45 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/12 19:45:23 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/15 12:45:50 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,11 +104,17 @@ void	ft_parse_line(char *str)
 		}
 		else if (qflag == 0 && str[i + i_cmd] == '"')
 			qflag = 1;
-		else if ((qflag == 1 && str[i + i_cmd] == '"') ||
-			(qflag == 2 && str[i + i_cmd] == '\''))
-			qflag = 0;
 		else if (qflag == 0 && str[i + i_cmd] == '\'')
 			qflag = 2;
+		else if (qflag == 0 && str[i + i_cmd] == '(')
+			qflag = 3;
+		else if (qflag == 0 && str[i + i_cmd] == '{')
+			qflag = 4;
+		else if ((qflag == 1 && str[i + i_cmd] == '"') ||
+			(qflag == 2 && str[i + i_cmd] == '\'') ||
+			(qflag == 3 && str[i + i_cmd] == ')') ||
+			(qflag == 4 && str[i + i_cmd] == '}'))
+			qflag = 0;
 		else if (qflag == 0 && (str[i + i_cmd] == ';' || 
 		ft_ampers_test(str, i, i_cmd) == 1))
 		{

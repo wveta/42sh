@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/05 18:15:47 by thaley            #+#    #+#             */
-/*   Updated: 2019/11/05 21:01:29 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/15 18:23:05 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void			init_input(char *prompt)
 	g_input->prompt_len = ft_strlen(prompt);
 	if (!ft_strncmp(prompt, "heredoc", 7))
 		g_input->heredoc++;
-	else
+	else if (g_color == 1)
 		g_input->prompt_len -= 16;
 	ioctl(STDIN_FILENO, TIOCGWINSZ, &g_input->ws);
 	g_input->cursor_pos = g_input->prompt_len;

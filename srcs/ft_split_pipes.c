@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 16:34:55 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/06 18:33:04 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/15 17:29:01 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,20 @@ static int	ft_split_pipes_words(char *str)
 	while (str && str[i])
 	{
 
-		if (qflag == 0 && str[i] == '(')
+		if (qflag == 0 && (br_flag == 0 || br_flag == 1) && 
+		str[i] == '(' && (i == 0 || str[i-1] != '$'))
 		{
 			br_flag = 1;
 			br_count++;
 		}
-		if (qflag == 0 && br_flag == 1 && str[i] == ')')
+		else if (qflag == 0 && (br_flag == 0 || br_flag == 2) && 
+		str[i] == '{' && (i == 0 || str[i-1] != '$'))
+		{
+			br_flag = 2;
+			br_count++;
+		}
+		if (qflag == 0 && ((br_flag == 1 && str[i] == ')') ||
+		(br_flag == 2 && str[i] == '}')))
 		{
 			br_count--;
 			if (br_count == 0)
@@ -87,14 +95,24 @@ static int	ft_all_pipe_words(char **ret, char const *str)
 	while (++fl->i < (int)ft_strlen(str) && (str[fl->i]))
 	{
 
-		if (fl->qflag == 0 && str[fl->i] == '(')
+		if (fl->qflag == 0 && (fl->br_flag == 0 || fl->br_flag == 1) && str[fl->i] == '('
+		&& (fl->i == 0 || str[fl->i-1] != '$'))
 		{
 			fl->br_flag = 1;
 			fl->br_count++;
 			if (fl->br_count == 1)
 				fl->start = fl->i;
 		}
-		if (fl->qflag == 0 && fl->br_flag == 1 && str[fl->i] == ')')
+		if (fl->qflag == 0 && (fl->br_flag == 0 || fl->br_flag == 2) && str[fl->i] == '{'
+		&& (fl->i == 0 || str[fl->i-1] != '$'))
+		{
+			fl->br_flag = 2;
+			fl->br_count++;
+			if (fl->br_count == 1)
+				fl->start = fl->i;
+		}
+		if (fl->qflag == 0 && ((fl->br_flag == 1 && str[fl->i] == ')') ||
+		(fl->br_flag == 2 && str[fl->i] == '}')))
 		{
 			if (fl->i - fl->start == 1)
 			{
