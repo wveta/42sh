@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 18:25:30 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/15 16:01:13 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/19 20:19:34 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int			ft_great_testfile(t_greatflag *f)
 		if (f->flag_add == 0 && (ft_strlen(f->file_redir) > 0))
 			f->out_fd = open(f->file_redir, O_WRONLY| O_CREAT| O_TRUNC, 0644);
 		else if ((ft_strlen(f->file_redir) > 0))
-			f->out_fd = open(f->file_redir, O_WRONLY| O_CREAT | O_APPEND , 0644);
+			f->out_fd = open(f->file_redir, O_WRONLY| O_CREAT | O_APPEND, 0644);
 		if (f->out_fd == -1)
 		{
 			ft_print_msg(" : Error open file ", f->file_redir);

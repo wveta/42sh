@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 19:25:12 by wveta             #+#    #+#             */
-/*   Updated: 2019/10/25 21:00:45 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/19 15:01:37 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,7 @@ int		ft_get_fd_byname(int i, t_cmdlist *cmd, char *ind)
 	}
 	cmd->avcmd[i][ind - cmd->avcmd[i]] = '\0';
 	file_redir = ft_calc_full_path(file_redir);
-	len = open(file_redir, O_RDONLY,
-	0644
-	);
+	len = open(file_redir, O_RDONLY, 0644);
 	if (len == -1)
 		ft_print_msg(" : Error open file ", file_redir);
 	free(file_redir);

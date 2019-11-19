@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/11 12:43:20 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/15 15:48:57 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/19 22:29:54 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ char	**ft_get_pipe_av(char **av, int start)
 			ret[i - start + j] = ft_opt_color(av[i], ret[i - start + j], &j);
 		i++;
 	}
+	ret = ft_press_matr(ret);
 	return (ret);
 }
 

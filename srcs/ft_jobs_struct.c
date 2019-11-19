@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 19:25:12 by wveta             #+#    #+#             */
-/*   Updated: 2019/10/17 21:11:27 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/19 22:43:39 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ void	ft_free_job(t_job *del)
 		free(del->orig_cmd);
 	if (del->first_proc)
 		ft_del_proc_list(del->first_proc);
+	if (del->stat_job)
+		free(del->stat_job);
 	free(del);
 }
 

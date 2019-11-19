@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 15:38:41 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/13 15:01:19 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/19 18:24:58 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,9 +124,10 @@ void	ft_rec_log(char *str)
 {
 	int i;
 
-	i = open("/Users/wveta/21old/pipelog", O_WRONLY| O_CREAT | O_APPEND , 0644);
+	i = open("/tmp/42shlog", O_WRONLY| O_CREAT | O_APPEND , 0644);
 	if (i != -1)
 	{
+		write(i, "\n", 1);
 		write(i, str, ft_strlen(str));
 	}
 	close(i);

@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 11:32:55 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/12 22:24:15 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/19 13:49:37 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,17 +127,6 @@ void	ft_signal_handler_rl(int signo)
 				if (g_signal == 1)
 				ft_print_msg(": signal chld: ", ft_putfnbr(WTERMSIG(status), tmp));
 				free(tmp);
-				
-				char *nr;
-				tmp = ft_strnew(1000);
-				nr = ft_strnew(10);
-				tmp[0] = '\0';
-				tmp = ft_strjoin(tmp, "\n Signal child ");
-				nr[0] = '\0';
-				nr = ft_putfnbr(WTERMSIG(status), nr);
-				tmp = ft_strjoin(tmp, nr);
-				ft_rec_log(tmp);
-
 			}
 		}
 		else if (g_signal == 1)

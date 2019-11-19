@@ -6,16 +6,14 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 11:01:23 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/13 22:01:27 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/19 20:22:03 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-
 # include <errno.h>
 # include <string.h>
-
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
@@ -30,6 +28,7 @@
 # include <termios.h>
 # include <stdbool.h>
 # include <semaphore.h>
+# include <time.h>
 # include "../readline/readline.h"
 # include "readline/history.h"
 # include "../libft/libft.h"
@@ -186,6 +185,7 @@ char					*g_sem_name;
 sem_t					*g_bsemafor;
 char					*g_bsem_name;
 char					*sem_name;
+int						g_subs_counter;
 
 typedef struct dirent	t_dir;
 
@@ -463,5 +463,6 @@ void					ft_add_semafor(t_pipe *p_head);
 char					*param_rem(char *val, char *flag, char *pat);
 int 					ft_close_fd(char *str, int in);
 int						ft_get_cmd_exit_status(int status);
+char					**ft_cnt_subs(char **av);
 
 #endif

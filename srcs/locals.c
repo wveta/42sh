@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 19:25:12 by wveta             #+#    #+#             */
-/*   Updated: 2019/10/31 18:00:54 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/19 21:09:56 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	ft_init_glvar(char **av)
 	g_check = 0;
 	g_color = 1;
 	g_signal = -1;
+	g_subs_counter = 0;
 	g_shell = NULL;
 	g_shell = ft_init_shell();
 	g_and_or = 0;
@@ -66,7 +67,7 @@ void	ft_init_glvar(char **av)
 	g_terminal = STDIN_FILENO;
 	g_is_interactive = isatty(g_terminal);
 
-	if (g_is_interactive)
+/*	if (g_is_interactive)
     {
     	while (tcgetpgrp (g_terminal) != (g_pgid = getpgrp ()))
         	kill (- g_pgid, SIGTTIN);
@@ -84,7 +85,7 @@ void	ft_init_glvar(char **av)
         }
 //		tcsetpgrp(g_terminal, g_pgid);
 		tcgetattr(g_terminal, &g_tmodes);
-    }
+    }*/
 }
 
 int		ft_exit(char **av)
@@ -116,7 +117,7 @@ int		ft_exit(char **av)
 		}
 	}
 	ft_final_free();
-	exit(0);
+	exit(rc);
 	return (rc);
 }
 

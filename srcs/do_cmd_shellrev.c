@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 15:38:41 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/15 15:40:43 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/19 18:30:15 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,27 +92,6 @@ void		ft_do_cmd_list(t_pipe *p_head, int flpi)
 		else if (flpi < 1 && g_job != 1 &&
 		(fd_set_nopipe(p_head) == -1))
 			return ;
-		
-char	*tmp;
-
-//
-	char * nr;
-	
-	tmp = ft_strnew(1000);
-	nr = ft_strnew(10);
-	tmp[0] = '\0';
-	tmp = ft_strjoin(tmp, "\n BEFORE FORK  ");
-	tmp = ft_strjoin(tmp, p_head->cur_cmd->avcmd[0]);
-	tmp = ft_strjoin(tmp, " UID = ");
-	nr[0] = '\0';
-	nr = ft_putfnbr(getpid(), nr);
-
-	ft_rec_log(tmp);
-	free (tmp);
-	free(nr);
-//
-
-		
 		if (ft_fork(p_head) == -1)
 			return ;
 		else if (p_head->cur_cmd->pid == 0)
@@ -141,20 +120,6 @@ char	*tmp;
 			p_head->cur_cmd = p_head->cur_cmd->next;
 		}
 	}
-
-/*
-	p_head->cur_cmd = p_head->first_cmd;
-	while (p_head->cur_cmd)
-	{
-		if (p_head->cur_cmd->fd_pipe_out[0] != -1)
-			close(p_head->cur_cmd->fd_pipe_out[0]);
-		if (p_head->cur_cmd->fd_pipe_out[1] != -1)
-			close(p_head->cur_cmd->fd_pipe_out[1]);
-		p_head->cur_cmd = p_head->cur_cmd->next;
-	}
-*/
-
-	
 	ft_parent_wait(p_head, flpi);
 	tcsetattr(0, TCSADRAIN, &tmodes);
 	g_pipe = NULL;

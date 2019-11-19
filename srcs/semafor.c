@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/07 10:50:36 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/13 22:06:02 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/19 14:07:33 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int		ft_wait_semafor(t_cmdlist *cur_cmd)
 	return (1);
 }
 
-int ft_close_fd(char *str, int in)
+/*int ft_close_fd(char *str, int in)
 {
 	char	*tmp;
 	char	*nr;
@@ -120,4 +120,4 @@ int ft_close_fd(char *str, int in)
 	free(tmp);
 	free(nr);
 	return (rc);
-}
+}*/

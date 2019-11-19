@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/07 10:50:36 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/15 15:29:20 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/19 14:08:28 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,109 +14,20 @@
 
 void	ft_parent_close_pipe(int code, int fd0[2], int fd1[2])
 {
-	//
-		char	*tmp;
-		char 	*tmp2;
-		char	*nr;
 	if (code == 0)
 	{
 		if (fd0[0] != -1)
-		{
 			close(fd0[0]);
-		
-		tmp2 = ft_strnew(1000);
-		tmp = ft_strnew(1000);
-		tmp[0] = '\0';
-		nr = ft_strnew(1000);
-		nr[0] = '\0';
-		tmp = ft_strjoin(tmp, "\nsubshell = ");
-		tmp = ft_strjoin(tmp, ft_putfnbr(g_subshell, nr));
-		tmp = ft_strjoin(tmp, " ");
-		tmp2[0] = '\0';
-		tmp2 = ft_strjoin(tmp2, tmp);
-		tmp2 = ft_strjoin(tmp2, " SHELL ");
-		nr[0] = '\0';
-		tmp2 = ft_strjoin(tmp2, " CLOSE fd0[0] = ");
-		tmp2 = ft_strjoin(tmp2, ft_putfnbr(fd0[0], nr));
-		ft_rec_log(tmp2);
-		free(tmp);
-		free(tmp2);
-		free(nr);
-		}
 		if (fd0[1] != -1)
-		{
 			close(fd0[1]);
-			
-		tmp2 = ft_strnew(1000);
-		tmp = ft_strnew(1000);
-		tmp[0] = '\0';
-		nr = ft_strnew(1000);
-		nr[0] = '\0';
-		tmp = ft_strjoin(tmp, "\nsubshell = ");
-		tmp = ft_strjoin(tmp, ft_putfnbr(g_subshell, nr));
-		tmp = ft_strjoin(tmp, " SHELL ");
-		tmp2[0] = '\0';
-		tmp2 = ft_strjoin(tmp2, tmp);
-		tmp2 = ft_strjoin(tmp2, " ");
-		nr[0] = '\0';
-		tmp2 = ft_strjoin(tmp2, " CLOSE fd0[1] = ");
-		tmp2 = ft_strjoin(tmp2, ft_putfnbr(fd0[1], nr));
-		ft_rec_log(tmp2);
-		free(tmp);
-		free(tmp2);
-		free(nr);		
-		
-		}
 		ft_init_arr_fd(0, fd0, fd1);
 	}
 	else
 	{
 		if (fd1[0] != -1)
-		{
 			close(fd1[0]);
-			
-		tmp2 = ft_strnew(1000);
-		tmp = ft_strnew(1000);
-		tmp[0] = '\0';
-		nr = ft_strnew(1000);
-		nr[0] = '\0';
-		tmp = ft_strjoin(tmp, "\nsubshell = ");
-		tmp = ft_strjoin(tmp, ft_putfnbr(g_subshell, nr));
-		tmp = ft_strjoin(tmp, " SHELL ");
-		tmp2[0] = '\0';
-		tmp2 = ft_strjoin(tmp2, tmp);
-		tmp2 = ft_strjoin(tmp2, " ");
-		nr[0] = '\0';
-		tmp2 = ft_strjoin(tmp2, " CLOSE fd1[0] = ");
-		tmp2 = ft_strjoin(tmp2, ft_putfnbr(fd1[0], nr));
-		ft_rec_log(tmp2);
-		free(tmp);
-		free(tmp2);
-		free(nr);	
-		}
 		if (fd1[1] != -1)
-		{
 			close(fd1[1]);
-
-		tmp2 = ft_strnew(1000);
-		tmp = ft_strnew(1000);
-		tmp[0] = '\0';
-		nr = ft_strnew(1000);
-		nr[0] = '\0';
-		tmp = ft_strjoin(tmp, "\nsubshell = ");
-		tmp = ft_strjoin(tmp, ft_putfnbr(g_subshell, nr));
-		tmp = ft_strjoin(tmp, " SHELL ");
-		tmp2[0] = '\0';
-		tmp2 = ft_strjoin(tmp2, tmp);
-		tmp2 = ft_strjoin(tmp2, " ");
-		nr[0] = '\0';
-		tmp2 = ft_strjoin(tmp2, " CLOSE fd1[1] = ");
-		tmp2 = ft_strjoin(tmp2, ft_putfnbr(fd1[1], nr));
-		ft_rec_log(tmp2);
-		free(tmp);
-		free(tmp2);
-		free(nr);	
-		}
 		ft_init_arr_fd(1, fd0, fd1);
 	}
 }
@@ -124,167 +35,17 @@ void	ft_parent_close_pipe(int code, int fd0[2], int fd1[2])
 void	ft_parent_pipe_next(t_cmdlist *cur_cmd, int fd0[2],
 		int fd1[2], int flpi)
 {
-//13.11
-//		char	*tmp;
-//		char 	*tmp2;
-//		char	*nr;
-//13.11
-	
 	if (flpi > 0 && cur_cmd->nr == 1)
 		return ;
 	if (flpi > 0 && cur_cmd->nr % 2 == 1)
 		ft_parent_close_pipe(0, fd0, fd1);
 	else if (flpi > 0 && cur_cmd->nr % 2 != 1)
 		ft_parent_close_pipe(1, fd0, fd1);
-
-
-/*13.11
-	if (g_subshell > 0)
-	{
-		if (cur_cmd->nr == 1)
-		{
-			if (g_subsh_in0 != -1)
-			{
-				close(g_subsh_in0);
-				
-		tmp2 = ft_strnew(1000);
-		tmp = ft_strnew(1000);
-		tmp[0] = '\0';
-		nr = ft_strnew(1000);
-		nr[0] = '\0';
-		tmp = ft_strjoin(tmp, "\nsubshell = ");
-		tmp = ft_strjoin(tmp, ft_putfnbr(g_subshell, nr));
-		tmp = ft_strjoin(tmp, " ");
-		tmp = ft_strjoin(tmp, cur_cmd->avcmd[0]);
-		tmp = ft_strjoin(tmp, " SHELL ");
-		tmp2[0] = '\0';
-		tmp2 = ft_strjoin(tmp2, tmp);
-		tmp2 = ft_strjoin(tmp2, " ");
-		nr[0] = '\0';
-		tmp2 = ft_strjoin(tmp2, " CLOSE g_subsh_in0 = ");
-		tmp2 = ft_strjoin(tmp2, ft_putfnbr(g_subsh_in0, nr));
-		ft_rec_log(tmp2);
-		free(tmp);
-		free(tmp2);
-		free(nr);
-		
-				g_subsh_in0 = -1;
-			}
-			if (g_subsh_in1 != -1)
-			{
-				close(g_subsh_in1);
-				
-		tmp2 = ft_strnew(1000);
-		tmp = ft_strnew(1000);
-		tmp[0] = '\0';
-		nr = ft_strnew(1000);
-		nr[0] = '\0';
-		tmp = ft_strjoin(tmp, "\nsubshell = ");
-		tmp = ft_strjoin(tmp, ft_putfnbr(g_subshell, nr));
-		tmp = ft_strjoin(tmp, " ");
-		tmp = ft_strjoin(tmp, cur_cmd->avcmd[0]);
-		tmp = ft_strjoin(tmp, " SHELL ");
-		tmp2[0] = '\0';
-		tmp2 = ft_strjoin(tmp2, tmp);
-		tmp2 = ft_strjoin(tmp2, " ");
-		nr[0] = '\0';
-		tmp2 = ft_strjoin(tmp2, " CLOSE g_subsh_in1 = ");
-		tmp2 = ft_strjoin(tmp2, ft_putfnbr(g_subsh_in1, nr));
-		ft_rec_log(tmp2);
-		free(tmp);
-		free(tmp2);
-		free(nr);
-				g_subsh_in1 = -1;
-			}
-		}
-		if (!(cur_cmd->next))
-		{
-			if (g_subsh_out0 != -1)
-			{
-				close(g_subsh_out0);
-				
-		tmp2 = ft_strnew(1000);
-		tmp = ft_strnew(1000);
-		tmp[0] = '\0';
-		nr = ft_strnew(1000);
-		nr[0] = '\0';
-		tmp = ft_strjoin(tmp, "\nsubshell = ");
-		tmp = ft_strjoin(tmp, ft_putfnbr(g_subshell, nr));
-		tmp = ft_strjoin(tmp, " ");
-		tmp = ft_strjoin(tmp, cur_cmd->avcmd[0]);
-		tmp = ft_strjoin(tmp, " ");
-		tmp2[0] = '\0';
-		tmp2 = ft_strjoin(tmp2, tmp);
-		tmp2 = ft_strjoin(tmp2, " ");
-		nr[0] = '\0';
-		tmp2 = ft_strjoin(tmp2, " CLOSE g_subsh_out0 = ");
-		tmp2 = ft_strjoin(tmp2, ft_putfnbr(g_subsh_out0, nr));
-		ft_rec_log(tmp2);
-		free(tmp);
-		free(tmp2);
-		free(nr);
-				g_subsh_out0 = -1;
-			}
-			if (g_subsh_out1 != -1)
-			{
-				close(g_subsh_out1);
-				
-		tmp2 = ft_strnew(1000);
-		tmp = ft_strnew(1000);
-		tmp[0] = '\0';
-		nr = ft_strnew(1000);
-		nr[0] = '\0';
-		tmp = ft_strjoin(tmp, "\nsubshell = ");
-		tmp = ft_strjoin(tmp, ft_putfnbr(g_subshell, nr));
-		tmp = ft_strjoin(tmp, " ");
-		tmp = ft_strjoin(tmp, cur_cmd->avcmd[0]);
-		tmp = ft_strjoin(tmp, " ");
-		tmp2[0] = '\0';
-		tmp2 = ft_strjoin(tmp2, tmp);
-		tmp2 = ft_strjoin(tmp2, " ");
-		nr[0] = '\0';
-		tmp2 = ft_strjoin(tmp2, " CLOSE g_subsh_out1 = ");
-		tmp2 = ft_strjoin(tmp2, ft_putfnbr(g_subsh_out1, nr));
-		ft_rec_log(tmp2);
-		free(tmp);
-		free(tmp2);
-		free(nr);
-
-				g_subsh_out1 = -1;
-			}
-
-		}
-	}
-*/
 }
 
 void	ft_child_pipe_exec(t_cmdlist *cur_cmd, int flpi)
 {
 	int		i;
-	char	*tmp;
-
-//
-	char * nr;
-	
-	tmp = ft_strnew(1000);
-	nr = ft_strnew(10);
-	tmp[0] = '\0';
-	tmp = ft_strjoin(tmp, "\n AFTER FORK START PROC \n");
-	i = -1;
-	while (cur_cmd->avcmd[++i])
-	{
-		tmp = ft_strjoin(tmp, cur_cmd->avcmd[i]);
-		tmp = ft_strjoin(tmp, " ");
-	}
-	tmp = ft_strjoin(tmp, "\nUID = ");
-	nr[0] = '\0';
-	nr = ft_putfnbr(getpid(), nr);
-
-	ft_rec_log(tmp);
-	free (tmp);
-	free(nr);
-//
-
 
 	ft_sig_set();
 	g_check = 1;
@@ -308,7 +69,11 @@ void	ft_child_pipe_exec(t_cmdlist *cur_cmd, int flpi)
 	if (cur_cmd->avcmd[0][0] == '(' || cur_cmd->avcmd[0][0] == '{')
 	{
 		g_subshell++;
-
+		if (ft_strlen(cur_cmd->avcmd[0]) < 3)
+		{
+			ft_print_msg(" : parse error : ", cur_cmd->avcmd[0]);
+			exit(1);
+		}
 		ft_strcpy(cur_cmd->avcmd[0], cur_cmd->avcmd[0] + 1);
 		cur_cmd->avcmd[0][ft_strlen(cur_cmd->avcmd[0]) - 1] = '\0';
 		g_sub_str = ft_strdup(cur_cmd->avcmd[0]);
@@ -325,24 +90,6 @@ void	ft_child_pipe_exec(t_cmdlist *cur_cmd, int flpi)
 			ft_pipe_dup_ch_out(cur_cmd);
 			if (ft_do_redir(cur_cmd) != 0)
 				exit(1);
-	tmp = ft_strnew(1000);
-	nr = ft_strnew(10);
-	tmp[0] = '\0';
-	tmp = ft_strjoin(tmp, "\n AFTER REDIRECT \n");
-	i = -1;
-	while (cur_cmd->avcmd[++i])
-	{
-		tmp = ft_strjoin(tmp, cur_cmd->avcmd[i]);
-		tmp = ft_strjoin(tmp, " ");
-	}
-	tmp = ft_strjoin(tmp, "\nUID = ");
-	nr[0] = '\0';
-	nr = ft_putfnbr(getpid(), nr);
-
-	ft_rec_log(tmp);
-	free (tmp);
-	free(nr);
-	
 		return;
 	}
 	else
@@ -408,43 +155,8 @@ void	ft_child_pipe_exec(t_cmdlist *cur_cmd, int flpi)
 	if ((i = ft_test_cmd_file(cur_cmd)) == 0)
 	{
 		ft_locals_to_env(cur_cmd->locals);
-	/*	if ((cur_cmd->nr == 1) && g_subshell > 0)
-		{
-			tmp = ttyname(STDERR_FILENO);
-			i = open(tmp, O_RDONLY , S_IRUSR | S_IWUSR);
-			if (i != -1 && (dup2(i, STDIN_FILENO) == -1))
-				ft_print_msg(": error DUP2 STDIN: ", "subshell");
-		}*/
-
-//
-	char	*tmp;
-	char * nr;
-	
-	tmp = ft_strnew(1000);
-	nr = ft_strnew(10);
-	tmp[0] = '\0';
-	tmp = ft_strjoin(tmp, "\n Process WAIT ");
-	tmp = ft_strjoin(tmp, cur_cmd->avcmd[0]);
-	tmp = ft_strjoin(tmp, " UID = ");
-	nr[0] = '\0';
-	nr = ft_putfnbr(getpid(), nr);
-	tmp = ft_strjoin(tmp, nr);
-	tmp = ft_strjoin(tmp, " semafor = ");
-	nr[0] = '\0';
-	nr = ft_putfnbr((int)cur_cmd->semafor, nr);
-	tmp = ft_strjoin(tmp, nr);
-	ft_rec_log(tmp);
-		
 		sem_wait(cur_cmd->semafor);
 		sem_post(cur_cmd->bsemafor);
-
-	tmp[0] = '\0';
-	tmp = ft_strjoin(tmp, "\n Process GO ");
-	tmp = ft_strjoin(tmp, cur_cmd->avcmd[0]);
-	tmp = ft_strjoin(tmp, " UID = ");
-	tmp = ft_strjoin(tmp, nr);
-	ft_rec_log(tmp);
-		
 		execve(cur_cmd->find_path, cur_cmd->avcmd, g_envi->env);
 	}
 	exit (1);
@@ -455,8 +167,6 @@ void	ft_pipe_wait_ch_fin(t_cmdlist *cur_cmd, t_cmdlist *first_cmd, t_cmdlist *la
 	int			status;
 	int			j;
 	int			q;
-	char		*tmp;
-	char		*nr;
 	
 	if (g_job == 0 && flpi > 0)
 	{
@@ -475,32 +185,10 @@ void	ft_pipe_wait_ch_fin(t_cmdlist *cur_cmd, t_cmdlist *first_cmd, t_cmdlist *la
 					{
 						if ((!(cur_cmd->next)))
 							ft_set_cmd_exit_status(status);
-//
-
-						tmp = ft_strnew(1000);
-						tmp[0] = '\0';
-						nr = ft_strnew(1000);
-						nr[0] = '\0';
-						tmp = ft_strjoin(tmp, "\n subshell = ");
-						tmp = ft_strjoin(tmp, ft_putfnbr(g_subshell, nr));
-						tmp = ft_strjoin(tmp, " ");
-						tmp = ft_strjoin(tmp, cur_cmd->avcmd[0]);
-						tmp = ft_strjoin(tmp, " RC = ");
-						tmp = ft_strjoin(tmp, ft_putfnbr(status, nr));
-						ft_rec_log(tmp);
-						free(tmp);
-						free(nr);
-//
 						cur_cmd->pid = 0;	
 					}
 				}
 				cur_cmd = cur_cmd->next;
-/*				if (last_cmd->pid == 0)
-				{
-					if (flpi == 0)
-						first_cmd = ft_redir_io_restore(first_cmd);
-					return ;
-				}*/
 			}
 			if (q == 0)
 			{
@@ -510,10 +198,7 @@ void	ft_pipe_wait_ch_fin(t_cmdlist *cur_cmd, t_cmdlist *first_cmd, t_cmdlist *la
 				return ;
 			}
 		}
-
 	}
 	else
-	{
 		first_cmd = ft_redir_io_restore(first_cmd);
-	}
 }

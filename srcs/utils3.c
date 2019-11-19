@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 14:58:38 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/12 20:54:47 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/19 14:45:49 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,13 @@ int		ft_print_msg(char *s, char *name)
 {
 	char *tmp;
 
-	tmp = ft_strnew(1000);
-	tmp[0] = '\0';
-	tmp = ft_strjoin(tmp, g_app_name);
-	tmp = ft_strjoin(tmp, s);
-	tmp = ft_strjoin(tmp, name);
-	tmp = ft_strjoin(tmp, "\n");
+	tmp = ft_strdup("");
+	tmp = ft_strfjoin(tmp, g_app_name);
+	tmp = ft_strfjoin(tmp, s);
+	tmp = ft_strfjoin(tmp, name);
+	tmp = ft_strfjoin(tmp, "\n");
 	ft_putstr_fd(tmp, 2);
 	free(tmp);
-/*	ft_putstr_fd(g_app_name, 2);
-	ft_putstr_fd(s, 2);
-	ft_putstr_fd(name, 2);
-	ft_putstr_fd("\n", 2);*/
 	return (-1);
 }
 

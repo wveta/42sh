@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 19:25:12 by wveta             #+#    #+#             */
-/*   Updated: 2019/10/21 19:22:25 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/19 16:34:01 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,8 @@ char	*ft_repl_parm(char *s, int flag, int len)
 		}
 		if (q == ' ' && flag == 1)
 			s = ft_repl_end_til(s, j, &flag);
-		else if (q != '\'' && s[j] == '$')
+		else if (q != '\'' && s[j] == '$' && s[j + 1] &&
+		(s[j + 1] == '_' || ft_isalpha(s[j + 1])))
 		{
 			if (flag == 1)
 			{
