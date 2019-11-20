@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 11:01:23 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/19 20:22:03 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/20 18:13:49 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,6 +186,7 @@ sem_t					*g_bsemafor;
 char					*g_bsem_name;
 char					*sem_name;
 int						g_subs_counter;
+int						g_calc;
 
 typedef struct dirent	t_dir;
 
@@ -464,5 +465,8 @@ char					*param_rem(char *val, char *flag, char *pat);
 int 					ft_close_fd(char *str, int in);
 int						ft_get_cmd_exit_status(int status);
 char					**ft_cnt_subs(char **av);
+char					**ft_tst_calc(char **str, int n, int start, int end);
+char					**ft_all_calc_tst(char **str);
+char					*ft_calc(char *str);
 
 #endif

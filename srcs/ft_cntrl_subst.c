@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/15 19:42:51 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/19 21:08:49 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/20 18:23:33 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ char	**ft_cnt_subs_exe(char **str, int n, int start, int end)
 		return (str);
 	pref = NULL;
 	suff = NULL;
-	if (end - start > 1)
+	if (end - start > 1 && str[n][start + 2] != '(')
 	{
 		if (start > 2)
 			pref = ft_strndup(str[n], start - 1);
@@ -78,9 +78,7 @@ char	**ft_cnt_subs_exe(char **str, int n, int start, int end)
 			suff = ft_strdup(str[n] + end + 1);
 		tmp = ft_strdup(str[n] + start + 1);
 		tmp[end - start - 1] = '\0';
-//		free(str[n]);
 		tmp = ft_go_subst(tmp);
-//		str[n] = ft_strdup("");
 		str[n][0] = '\0';
 		str[n] = ft_strfjoin(str[n], pref);
 		str[n] = ft_strfjoin(str[n], tmp);
@@ -133,7 +131,7 @@ char	**ft_cnt_subs_tst(char **str, int n)
 			if (br_count == 0)
 			{
 				br_flag = 0;
-				if (start != -1 && ((end = i)))
+				if (start != -1 && str[n][start + 1] != '('&& ((end = i)))
 				{
 					str = ft_cnt_subs_exe(str, n, start, end);
 					i = -1;
