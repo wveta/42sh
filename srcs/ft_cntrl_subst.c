@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/15 19:42:51 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/20 18:23:33 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/20 21:33:34 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ char	**ft_cnt_subs_exe(char **str, int n, int start, int end)
 		return (str);
 	pref = NULL;
 	suff = NULL;
-	if (end - start > 1 && str[n][start + 2] != '(')
+	if (end - start > 1 && str[n][start + 1] != '(')
 	{
 		if (start > 2)
 			pref = ft_strndup(str[n], start - 1);

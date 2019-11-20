@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   arithmetic.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: udraugr- <udraugr-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/15 11:42:44 by udraugr-          #+#    #+#             */
-/*   Updated: 2019/11/19 10:36:18 by udraugr-         ###   ########.fr       */
+/*   Updated: 2019/11/20 19:25:08 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CALC_H
 # define CALC_H
 
-# include "../libft/libft.h"
+# include "../../includes/minishell.h"
 
 enum {SUCCESS = 0, FAIL = -1};
 enum {VAR = 1000, NUMB = 1001, OPER = 1002};

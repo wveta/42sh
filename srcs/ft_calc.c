@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:14:54 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/20 18:46:29 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/20 19:16:26 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ char		**ft_all_calc_tst(char **str)
 
 char			*ft_calc(char *str)
 {
+	
 	printf ("%s\n", str);
 	return (str);
 }

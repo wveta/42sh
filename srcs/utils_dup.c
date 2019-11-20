@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 14:40:31 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/13 18:00:17 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/20 21:51:38 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int		ft_fd_dup_close(int in_fd, int i, int j, t_cmdlist *cmd)
 
 int		ft_fork(t_pipe *p_head)
 {
-	ft_sig_dfl();
+//	ft_sig_dfl();
 	if ((p_head->cur_cmd->pid = fork()) < 0)
 	{
 		ft_print_msg(" : Error in function: ", "FORK");

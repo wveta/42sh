@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 19:25:12 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/19 21:09:56 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/20 21:47:23 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	ft_init_glvar(char **av)
 	g_terminal = STDIN_FILENO;
 	g_is_interactive = isatty(g_terminal);
 
-/*	if (g_is_interactive)
+	if (g_is_interactive)
     {
     	while (tcgetpgrp (g_terminal) != (g_pgid = getpgrp ()))
         	kill (- g_pgid, SIGTTIN);
@@ -85,7 +85,7 @@ void	ft_init_glvar(char **av)
         }
 //		tcsetpgrp(g_terminal, g_pgid);
 		tcgetattr(g_terminal, &g_tmodes);
-    }*/
+    }
 }
 
 int		ft_exit(char **av)

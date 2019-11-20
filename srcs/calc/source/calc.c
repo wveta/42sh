@@ -1,19 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   calc.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: udraugr- <udraugr-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/15 11:43:17 by udraugr-          #+#    #+#             */
-/*   Updated: 2019/11/19 11:20:24 by udraugr-         ###   ########.fr       */
+/*   Updated: 2019/11/20 19:24:27 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../include/arithmetic.h"
 #include <stdio.h>
 
-int					main(int argc, char **argv)
+/*int					main(int argc, char **argv)
 {
 	t_list			*lexem;
 	int32_t			result;
@@ -87,6 +88,7 @@ int					main(int argc, char **argv)
 					printf("RBRACE )\n");
 			}
 		}
+		lexem = parser_str(argv[1]);
 		if (!g_error_arithmetic)
 		{
 			g_lexem = lexem;
@@ -107,4 +109,43 @@ int					main(int argc, char **argv)
 		}
 	}
 	return (0);
+}*/
+
+char				*calc_main(char *str)
+{
+	t_list			*lexem;
+	int32_t			result;
+	char			*ans;
+
+
+		result = 0;
+		g_error_arithmetic = 0;
+		lexem = parser_str(str);
+		if (g_error_arithmetic)
+		{
+			printf("42sh: %s : %s\n", str, g_error_arithmetic);
+			ft_strdel(&g_error_arithmetic);
+			return (NULL);
+		}
+		if (!g_error_arithmetic)
+		{
+			g_lexem = lexem;
+			result = expr();
+			if (!g_error_arithmetic && !g_lexem)
+			{
+				//ft_putnbr(result);
+				ans = ft_itoa(result);
+				//write(1, "\n", 1);
+			}
+			else
+			{
+				if (!g_error_arithmetic && g_lexem)
+					syntax_error_found();
+				printf("42sh: %s : %s\n", str, g_error_arithmetic);
+				ft_strdel(&g_error_arithmetic);
+				ans = 0;
+			}
+			lst_del(&lexem, destroy_lexem);
+		}
+	return (ans);
 }
