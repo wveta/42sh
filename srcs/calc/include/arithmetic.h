@@ -3,23 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   arithmetic.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
+/*   By: udraugr- <udraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/15 11:42:44 by udraugr-          #+#    #+#             */
-/*   Updated: 2019/11/20 19:25:08 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/21 12:18:55 by udraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CALC_H
 # define CALC_H
 
-# include "../../includes/minishell.h"
+# include "../../../includes/minishell.h"
 
 enum {SUCCESS = 0, FAIL = -1};
 enum {VAR = 1000, NUMB = 1001, OPER = 1002};
 enum {INCREMENT = 0, DECREMENT = 1,
 		PLUS = 2, MINUS = 3, MULTIPLICATION = 4, DIVISION = 5, MODULE = 6,
-		LE = 7, GE = 8, LESS = 9, GREATER = 10, EQUAL = 11, NOT_EQUAL = 12,
+		LE = 7, GE = 8, LESSER = 9, GREATER = 10, EQUAL = 11, NOT_EQUAL = 12,
 		AND = 13, OR = 14,
 		LBRACE = 15, RBRACE = 16};
 
@@ -75,5 +75,7 @@ int32_t				expr_suffix(void);
 int32_t				expr_barckets(void);
 int32_t				expr_return_value(void);
 void				syntax_error_found(void);
+
+char				*calculator(char *str);
 
 #endif

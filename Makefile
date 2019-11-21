@@ -16,13 +16,19 @@ FILES	:=	built_in exec_list ft_built_cd ft_built_env main parser\
 			fts_for_alias ft_read_alias ft_get_alias fts_output_alias\
 			semafor param_remove ft_cntrl_subst ft_calc
 
-SRC_D	:=	srcs/
-INC_D	:=	includes/
-OBJ_D	:=	objs/
-LIB_D	:=	libft/
-LIB_D2	:=	readline/
-SRC		:=	$(addprefix $(SRC_D), $(patsubst %, %.c, $(FILES)))
-OBJ		:=	$(addprefix $(OBJ_D), $(patsubst %, %.o, $(FILES)))
+SRC_D	:=	srcs
+INC_D	:=	includes
+OBJ_D	:=	objs
+LIB_D	:=	libft
+LIB_D2	:=	readline
+
+include	$(SRC_D)/calc/calc_files.mk
+
+SRC		:=	$(addprefix $(SRC_D)/, $(patsubst %, %.c, $(FILES)) $(SRC_CALC))
+OBJ		:=	$(addprefix $(OBJ_D)/, $(patsubst %, %.o, $(FILES)) $(OBJ_CALC)) 
+
+SUB_DIR := $(OBJ_D) $(SUB_DIR_CALC)
+
 FLAGS	:=	-g -Wall -Wextra -Werror
 LIB_LNK :=	-L$(LIB_D) -lft $(LIB_D2)/readline.a -ltermcap
 
@@ -34,18 +40,18 @@ begin_work:
 	@make -C $(LIB_D)
 	@make -C $(LIB_D2)
 
-$(OBJ_D):
+$(SUB_DIR):
 	@mkdir $@
 
-$(NAME): begin_work $(OBJ_D) $(OBJ)
+$(NAME): begin_work $(SUB_DIR) $(OBJ)
 	@gcc $(FLAGS) $(OBJ) $(LIB_LNK) -lreadline -o $(NAME)
 	@printf "\r\033[32;1mCreate $(NAME)!                                      \n\033[0m"
 	@printf "\033[?25h"
 
-$(OBJ_D)%.o: $(SRC_D)%.c $(INC_D)/minishell.h
+$(OBJ_D)/%.o: $(SRC_D)/%.c $(INC_D)/minishell.h $(HEADER_CALC)
 	@printf "\033[?25l"
-	@gcc -I$(INC_D) -I$(LIB_D) $(FLAGS) -o $@ -c $<
-	@printf "\r\033[34;1mNow compiling $@!                                    \r\033[0m"
+	@gcc -I$(INC_D) -I$(LIB_D) -I$(INCL_DIR_CALC) $(FLAGS) -o $@ -c $<
+	@printf "\r\033[34;1mNow compiling $@!                                    \033[0m"
 
 clean:
 	@make -C $(LIB_D) fclean

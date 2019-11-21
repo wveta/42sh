@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_calc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
+/*   By: udraugr- <udraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:14:54 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/20 19:16:26 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/21 12:24:16 by udraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
+#include "calc/include/arithmetic.h"
 
 char	**ft_tst_calc(char **str, int n, int start, int end)
 {
@@ -115,11 +115,19 @@ char		**ft_all_calc_tst(char **str)
 	return (str);
 }
 
-#include <stdio.h>
-
 char			*ft_calc(char *str)
 {
-	
-	printf ("%s\n", str);
+	char		*ans;
+
+	ans = calculator(str);
+	if (ans)
+	{
+		ft_strdel(&str);
+		str = ans;
+	}
+	else
+	{
+		g_calc = 1;
+	}
 	return (str);
 }
