@@ -14,7 +14,7 @@ FILES	:=	built_in exec_list ft_built_cd ft_built_env main parser\
 			buil_in_jobs ft_signals_next buil_in_jobs_bg built_in_kill\
 			globbing glob_check ft_signals_child ft_alias ft_unalias\
 			fts_for_alias ft_read_alias ft_get_alias fts_output_alias\
-			semafor param_remove ft_cntrl_subst ft_calc
+			semafor param_remove ft_cntrl_subst ft_calc check_str
 
 SRC_D	:=	srcs
 INC_D	:=	includes

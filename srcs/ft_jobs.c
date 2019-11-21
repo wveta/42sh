@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 19:25:12 by wveta             #+#    #+#             */
-/*   Updated: 2019/09/26 15:26:42 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/21 14:38:07 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,11 @@ int			ft_test_job(char *str, int start)
 {
 	int i;
 	int qflag;
+	int br_count;
 
 	i = 0;
 	qflag = 0;
+	br_count = 0;
 	while (str && str[i + start])
 	{
 		if (qflag == 0 && str[i + start] == '"')
@@ -45,6 +47,19 @@ int			ft_test_job(char *str, int start)
 			qflag = 0;
 		else if (qflag == 0 && str[i + start] == '\'')
 			qflag = 2;
+		else if ((qflag == 0  && str[i + start] == '(' && ((qflag = 3))) ||
+				(qflag == 0  && str[i + start] == '{' && ((qflag = 4))))
+			br_count++;
+		else if ((qflag == 3  && str[i + start] == '(') ||
+				(qflag == 4  && str[i + start] == '{'))
+			br_count++;
+		else if ((qflag == 3  && str[i + start] == ')') ||
+				(qflag == 4  && str[i + start] == '}'))
+		{
+			br_count--;
+			if (br_count == 0)
+				qflag = 0;
+		}
 		else if (qflag == 0 && ((ft_strncmp(str + i + start, "&&", 2) == 0)
 		|| (ft_strncmp(str + i + start, "||", 2) == 0)))
 			g_and_or_line = 1;

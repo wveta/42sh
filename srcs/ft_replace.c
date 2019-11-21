@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 19:25:12 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/20 16:39:16 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/21 19:46:44 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int		ft_repl_check(char *s, int len, char *q, int j)
 		*q = ' ';
 		tmp = s + j;
 		ft_strcpy(tmp, s + j + 1);
-		return (1);
+		return (-1);
 	}
 	else if (s[j] == '\\' && *q != '\'')
 	{

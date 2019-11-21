@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/07 10:50:36 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/20 21:51:52 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/21 21:25:50 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	ft_child_pipe_exec(t_cmdlist *cur_cmd, int flpi)
 {
 	int		i;
 
-//	ft_sig_set();
+	ft_sig_set();
 	g_check = 1;
 	if (g_subs_rc == 1)
 		exit(1);
@@ -63,9 +63,9 @@ void	ft_child_pipe_exec(t_cmdlist *cur_cmd, int flpi)
 		if (g_job == 0)
 			tcsetpgrp(0,  g_pgid);
 	}
-	signal(SIGINT, ft_signal_child);
+/*	signal(SIGINT, ft_signal_child);
 	signal(SIGQUIT, ft_signal_child);
-	signal(SIGTSTP, ft_signal_child);
+	signal(SIGTSTP, ft_signal_child);*/
 	while (cur_cmd->avcmd[0][0] && ft_isspace(cur_cmd->avcmd[0][0]))
 		ft_strcpy(cur_cmd->avcmd[0], cur_cmd->avcmd[0] + 1);
 	if (cur_cmd->avcmd[0][0] == '(' || cur_cmd->avcmd[0][0] == '{')
@@ -108,7 +108,7 @@ void	ft_child_pipe_exec(t_cmdlist *cur_cmd, int flpi)
 			exit(1);
 		if (ft_do_redir(cur_cmd) != 0)
 			exit(1);
-		cur_cmd->avcmd = ft_cmd_replays(cur_cmd->avcmd);
+/**/	
 		cur_cmd = ft_local_assig(cur_cmd);
 		if (!(cur_cmd->avcmd[0]))
 		{
@@ -116,11 +116,14 @@ void	ft_child_pipe_exec(t_cmdlist *cur_cmd, int flpi)
 			exit(0);
 		}
 //
-		cur_cmd->avcmd = ft_get_alias(cur_cmd->avcmd);
-		cur_cmd->built_in = ft_test_built_in(cur_cmd->avcmd[0]);
 		cur_cmd->avcmd = ft_all_calc_tst(cur_cmd->avcmd);
 		if (g_calc != 0)
 			exit(g_calc);
+		cur_cmd->avcmd = ft_cmd_replays(cur_cmd->avcmd);
+		cur_cmd->avcmd = ft_get_alias(cur_cmd->avcmd);
+		cur_cmd->built_in = ft_test_built_in(cur_cmd->avcmd[0]);
+		
+	
 //
 		if (cur_cmd->built_in == 0)
 		{	

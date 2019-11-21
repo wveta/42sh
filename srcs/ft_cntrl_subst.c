@@ -6,17 +6,18 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/15 19:42:51 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/20 21:33:34 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/21 18:47:04 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-char	*ft_go_subst(char *str)
+char	*ft_go_subst(char *str, int vid)
 {
 	char			*nr;
 	char			*tmp;
 	int				fd;
+	char			buf[2];
 	struct timespec	clock1;
 	struct timespec	clock2;
 
@@ -35,26 +36,28 @@ char	*ft_go_subst(char *str)
 	ft_parse_line(str);
 	str[0] = '\0';
 
-	free(nr);
 	if ((fd = open(tmp, O_RDONLY, 0644)) > -1)
 	{
 		clock1.tv_nsec = 100000000;
 		clock1.tv_sec = 0;
 		nanosleep(&clock1, &clock2);
 		ft_rec_log(tmp);
+		buf[0] = '\0';
+		free(nr);
 		nr = NULL;
-		while (get_next_line(fd, &nr))
+		while (read(fd, &buf, 1) > 0)
 		{
-			ft_rec_log(nr);
-			str = ft_strfjoin(str, nr);
-			str = ft_strfjoin(str, " ");
+			buf[1] = '\0';
+			if (vid == 0 && buf[0] == '\n')
+				buf[0] = ' ';
+			str = ft_strfjoin(str, buf);
+			buf[0] = '\0';
 		}
 		ft_rec_log("EOF");
 		str[ft_strlen(str) - 1] = '\0';
 		close(fd);
+//		remove(tmp);
 	}
-	else
-		ft_print_msg(": Error on execute: ", str);
 	free(nr);
 	free(tmp);
 	return (str);
@@ -78,7 +81,7 @@ char	**ft_cnt_subs_exe(char **str, int n, int start, int end)
 			suff = ft_strdup(str[n] + end + 1);
 		tmp = ft_strdup(str[n] + start + 1);
 		tmp[end - start - 1] = '\0';
-		tmp = ft_go_subst(tmp);
+		tmp = ft_go_subst(tmp, ft_check_ekran(str[n], start - 1));
 		str[n][0] = '\0';
 		str[n] = ft_strfjoin(str[n], pref);
 		str[n] = ft_strfjoin(str[n], tmp);
@@ -142,8 +145,8 @@ char	**ft_cnt_subs_tst(char **str, int n)
 		if ((qflag == 1 && str[n][i] == '"') ||
 		(qflag == 2 && str[n][i] == '\''))
 			qflag = 0;
-		else if (qflag == 0 && str[n][i] == '"')
-			qflag = 1;
+//		else if (qflag == 0 && str[n][i] == '"')
+//			qflag = 1;
 		else if (qflag == 0 && str[n][i] == '\'')
 			qflag = 2;
 		if (qflag == 0 && br_flag == 0 &&

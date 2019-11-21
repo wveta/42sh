@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 15:38:41 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/21 21:15:54 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/06 13:20:07 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ int		ft_cmd_kill(char **av)
 				ft_set_shell("?", "1");
 				continue ;		
 			}
-			kill(-num, sig);
 		}
 		else
 		{
@@ -90,9 +89,8 @@ int		ft_cmd_kill(char **av)
 				ft_print_msg(" kill : no such process: ", av[i]);
 				continue ;					
 			}
-			kill(num, sig);
 		}
-		
+		kill(num, sig);
 	}	
 	return (1);
 }
@@ -126,33 +124,10 @@ void	ft_rec_log(char *str)
 {
 	int i;
 
-	i = open("/tmp/42shlog", O_WRONLY| O_CREAT | O_APPEND , 0644);
+	i = open("/Users/wveta/21old/pipelog", O_WRONLY| O_CREAT | O_APPEND , 0644);
 	if (i != -1)
 	{
-		write(i, "\n", 1);
 		write(i, str, ft_strlen(str));
 	}
 	close(i);
 }
-
-int		ft_get_cmd_exit_status(int status)
-{
-	int 	rc;
-	int 	i;
-
-	rc = 0;
-	if ((WIFEXITED(status)) && (i = WEXITSTATUS(status)) != 0)
-		rc =1;
-	else if ((WIFEXITED(status)) && (i = WEXITSTATUS(status)) == 0)
-		rc = 0;			
-	else if (WIFSTOPPED(status))
-		rc = WSTOPSIG(status);
-	else if (WIFSIGNALED(status))
-		rc =WTERMSIG(status);
-	else if (WIFCONTINUED(status))
-		rc = 0;	
-	else
-		rc =1;
-	return (rc);
-}
-

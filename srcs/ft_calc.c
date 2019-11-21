@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_calc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: udraugr- <udraugr-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:14:54 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/21 12:24:16 by udraugr-         ###   ########.fr       */
+/*   Updated: 2019/11/21 21:36:59 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,14 @@ char	**ft_tst_calc(char **str, int n, int start, int end)
 			suff = ft_strdup(str[n] + end + 1);
 		tmp = ft_strdup(str[n] + start + 2);
 		tmp[end - start - 3] = '\0';
-		tmp = ft_calc(tmp);
-		str[n][0] = '\0';
-		str[n] = ft_strfjoin(str[n], pref);
-		str[n] = ft_strfjoin(str[n], tmp);
-		str[n] = ft_strfjoin(str[n], suff);
+		if (ft_check_ekran(pref, ft_strlen(pref)) < 2)
+		{
+			tmp = ft_calc(tmp);
+			str[n][0] = '\0';
+			str[n] = ft_strfjoin(str[n], pref);
+			str[n] = ft_strfjoin(str[n], tmp);
+			str[n] = ft_strfjoin(str[n], suff);
+		}
 		free(tmp);
 		free(pref);
 		free(suff);
@@ -90,7 +93,8 @@ char		**ft_all_calc_tst(char **str)
 				if (br_count == 0)
 				{
 					br_flag = 0;
-					if (start != -1 && str[n][start + 1] == '(' && ((end = i)))
+					if (start != -1 && str[n][start + 1] == '(' && ((end = i)) &&
+					ft_check_ekran(str[n], start - 1) < 2)
 					{
 						str = ft_tst_calc(str, n, start, end);
 						if (g_calc != 0)
@@ -103,8 +107,8 @@ char		**ft_all_calc_tst(char **str)
 			if ((qflag == 1 && str[n][i] == '"') ||
 			(qflag == 2 && str[n][i] == '\''))
 				qflag = 0;
-			else if (qflag == 0 && str[n][i] == '"')
-				qflag = 1;
+//			else if (qflag == 0 && str[n][i] == '"')
+//				qflag = 1;
 			else if (qflag == 0 && str[n][i] == '\'')
 				qflag = 2;
 			if (qflag == 0 && br_flag == 0 &&
@@ -128,6 +132,7 @@ char			*ft_calc(char *str)
 	else
 	{
 		g_calc = 1;
+		ft_set_shell("?", "1");
 	}
 	return (str);
 }

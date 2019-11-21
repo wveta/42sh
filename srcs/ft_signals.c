@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 11:32:55 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/19 13:49:37 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/21 12:01:21 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ void	ft_signal_handler_rl(int signo)
 	if (ft_test_sig_list(signo))
 	{
 		pid = waitpid(-1, &status, WNOHANG | WCONTINUED | WUNTRACED);
-		if (signo == SIGCHLD/* && g_signal == 1*/)
+		if (signo == SIGCHLD && g_signal == 1)
 		{
 			if (pid > 0 && (WIFSIGNALED(status)))
 			{
@@ -139,7 +139,7 @@ void	ft_signal_handler_rl(int signo)
 
 		if (signo == SIGTTIN || signo == SIGTTOU)
 			tcsetpgrp(0, getpid());
-		else if (signo == SIGTSTP)
+		else if (signo == SIGTSTP && g_parent_pid == getpid())
 			ft_test_tstp(pid);
 		ft_test_job_status(pid, status);
 		ft_test_cmd_list(pid, status);
