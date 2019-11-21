@@ -6,7 +6,7 @@
 #    By: udraugr- <udraugr-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/21 11:07:09 by udraugr-          #+#    #+#              #
-#    Updated: 2019/11/21 12:12:43 by udraugr-         ###   ########.fr        #
+#    Updated: 2019/11/21 15:35:30 by udraugr-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,8 @@ SRC_EXPR:=	\
 			expr_return_value.c\
 			expr_suffix.c\
 			expr_unar.c\
-			syntax_error_found.c
+			syntax_error_found.c\
+			var_functions.c
 			
 SRC_EXPR:= $(addprefix $(EXPR_DIR)/, $(SRC_EXPR))
 

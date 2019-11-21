@@ -6,7 +6,7 @@
 /*   By: udraugr- <udraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/15 11:42:44 by udraugr-          #+#    #+#             */
-/*   Updated: 2019/11/21 12:18:55 by udraugr-         ###   ########.fr       */
+/*   Updated: 2019/11/21 15:38:44 by udraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,10 @@ int32_t				expr_prefix(void);
 int32_t				expr_suffix(void);
 int32_t				expr_barckets(void);
 int32_t				expr_return_value(void);
+
+int32_t				take_var_value(char *name);
+void				change_var_value(char *name, int32_t operation);
+
 void				syntax_error_found(void);
 
 char				*calculator(char *str);

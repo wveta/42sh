@@ -6,7 +6,7 @@
 /*   By: udraugr- <udraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 19:12:39 by udraugr-          #+#    #+#             */
-/*   Updated: 2019/11/21 12:14:20 by udraugr-         ###   ########.fr       */
+/*   Updated: 2019/11/21 15:41:03 by udraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,8 @@ int32_t					expr_prefix(void)
 	{
 		type = ((t_oper *)g_lexem->content)->id;
 		g_lexem = g_lexem->next;
-		ans = (type == INCREMENT) ?
-			++((t_var *)g_lexem->content)->value
-			: --((t_var *)g_lexem->content)->value;
+		change_var_value(((t_var *)g_lexem->content)->name, type);
+		ans = take_var_value(((t_var *)g_lexem->content)->name);
 		g_lexem = g_lexem->next;
 		return (ans);
 	}

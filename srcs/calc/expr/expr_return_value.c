@@ -6,7 +6,7 @@
 /*   By: udraugr- <udraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 10:04:31 by udraugr-          #+#    #+#             */
-/*   Updated: 2019/11/21 12:14:20 by udraugr-         ###   ########.fr       */
+/*   Updated: 2019/11/21 15:42:01 by udraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int32_t					expr_return_value(void)
 		return (0);
 	}
 	else if (g_lexem->content_size == VAR)
-		result = ((t_var *)g_lexem->content)->value;
+		result = take_var_value(((t_var *)g_lexem->content)->name);
 	else
 		result = ((t_numb *)g_lexem->content)->numb;
 	g_lexem = g_lexem->next;
