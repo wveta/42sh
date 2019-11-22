@@ -6,7 +6,7 @@
 /*   By: udraugr- <udraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/15 11:42:44 by udraugr-          #+#    #+#             */
-/*   Updated: 2019/11/21 15:38:44 by udraugr-         ###   ########.fr       */
+/*   Updated: 2019/11/22 11:16:46 by udraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ enum {INCREMENT = 0, DECREMENT = 1,
 
 char				*g_error_arithmetic;
 t_list				*g_lexem;
+int32_t				g_correct_values;
 
 typedef struct 		s_oper
 {
@@ -59,6 +60,7 @@ int32_t				is_it_var(char *str, uint32_t len_numb);
 int32_t				it_operator(char *str, t_list **lexem);
 void				check_increment_decrement(char *str, t_list **lexem,
 										uint32_t *id, uint32_t *len_oper);
+int32_t				ft_atoi_base(char *str, int32_t base, uint32_t *len_numb);
 int32_t				it_variable(char *str, t_list **lexem);
 int32_t				it_number(char *str, t_list **lexem);
 

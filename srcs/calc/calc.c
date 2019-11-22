@@ -6,7 +6,7 @@
 /*   By: udraugr- <udraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/15 11:43:17 by udraugr-          #+#    #+#             */
-/*   Updated: 2019/11/21 12:33:15 by udraugr-         ###   ########.fr       */
+/*   Updated: 2019/11/22 11:17:14 by udraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,7 @@ char				*calculator(char *str)
 	result = 0;
 	g_error_arithmetic = 0;
 	g_lexem = 0;
+	g_correct_values = 0;
 	lexem = parser_str(str);
 	ans = 0;
 	if (g_error_arithmetic)

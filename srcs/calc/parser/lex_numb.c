@@ -6,7 +6,7 @@
 /*   By: udraugr- <udraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/16 20:04:27 by udraugr-          #+#    #+#             */
-/*   Updated: 2019/11/21 12:14:20 by udraugr-         ###   ########.fr       */
+/*   Updated: 2019/11/22 11:16:42 by udraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ static int32_t		is_digit(char c, int32_t base)
 	return (-1);
 }
 
-static int32_t	ft_atoi_base(char *str, int32_t base, uint32_t *len_numb)
+int32_t				ft_atoi_base(char *str, int32_t base, uint32_t *len_numb)
 {
-	int32_t		ans;
+	int32_t			ans;
 
 	ans = 0;
 	if (base == 16)
@@ -42,6 +42,11 @@ static int32_t	ft_atoi_base(char *str, int32_t base, uint32_t *len_numb)
 		ans = ans * base + is_digit(*str, base);
 		++(*len_numb);
 		++str;
+	}
+	if (*len_numb > 15 && !g_correct_values)
+	{
+		ft_putendl_fd("Incorect values", 2);
+		g_correct_values = !g_correct_values;
 	}
 	return (ans);
 }
