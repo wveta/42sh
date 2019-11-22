@@ -6,7 +6,7 @@
 #    By: wveta <wveta@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/03 12:47:16 by wveta             #+#    #+#              #
-#    Updated: 2019/11/13 18:13:56 by udraugr-         ###   ########.fr        #
+#    Updated: 2019/11/22 14:18:35 by wveta            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,8 @@ SRC := ft_bzero.c  ft_memset.c ft_memcpy.c ft_memccpy.c ft_memmove.c ft_memchr.c
 	ft_putnbr.c ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c ft_lstnew.c ft_lstdelone.c\
 	ft_lstdel.c ft_lstadd.c ft_lstiter.c ft_lstmap.c\
 	ft_isspace.c ft_isupper.c ft_isblank.c ft_islower.c ft_isxdigit.c\
-	ft_strfjoin.c ft_free_table.c ft_lst_sort.c ft_lstadd_last.c ft_lstsize.c ft_strndup.c
+	ft_strfjoin.c ft_free_table.c ft_lst_sort.c ft_lstadd_last.c ft_lstsize.c ft_strndup.c\
+	ft_isnumber.c ft_strchrlen.c
 
 OBJECT_LIST := $(SRC:.c=.o)
 

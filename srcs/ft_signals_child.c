@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 11:32:55 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/19 13:49:07 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/22 16:19:16 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ft_signal_child(int signo)
 	free(tmp);
 	if (signo == SIGTSTP)
 		kill(g_parent_pid, SIGTSTP);
-	signal(SIGINT, ft_signal_child);
-	signal(SIGQUIT, ft_signal_child);
+//	signal(SIGINT, ft_signal_child);
+//	signal(SIGQUIT, ft_signal_child);
 	signal(SIGTSTP, ft_signal_child);
 }

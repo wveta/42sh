@@ -5,7 +5,7 @@ expr 				: expr_or
 expr_or				: expr_or '||' expr_and
 				|              expr_and
 					;
-expr_and			: expr_and '&&' expr_logic_or
+expr_and			: expr_and '&&' expr_equal
 				|               expr_equal
 					;
 expr_equal			: expr_equal  '==' expr_relat_op

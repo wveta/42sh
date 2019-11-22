@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/30 14:10:12 by wveta             #+#    #+#             */
-/*   Updated: 2019/10/31 19:05:15 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/22 14:07:57 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_get_cmd_matr(t_listf *lst)
 	t_listf	*cur;
 
 	count = ft_len_list(lst);
-	if (!(g_cmd->cmd_list = (char **)malloc(sizeof(char *) * (count + 14 + 1))))
+	if (!(g_cmd->cmd_list = (char **)malloc(sizeof(char *) * (count + 15 + 1))))
 		exit_shell();
 	j = 0;
 	cur = lst;
@@ -47,7 +47,8 @@ void	ft_get_cmd_matr(t_listf *lst)
 	g_cmd->cmd_list[j + 11] = ft_strdup("kill");
 	g_cmd->cmd_list[j + 12] = ft_strdup("alias");
 	g_cmd->cmd_list[j + 13] = ft_strdup("unalias");
-	g_cmd->cmd_list[j + 14] = NULL;
+	g_cmd->cmd_list[j + 14] = ft_strdup("test");
+	g_cmd->cmd_list[j + 15] = NULL;
 }
 
 int		ft_get_ind_env(char *s, char **shell)

@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 15:38:41 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/21 21:15:54 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/22 16:33:31 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,7 @@ int		ft_get_cmd_exit_status(int status)
 	else if (WIFSTOPPED(status))
 		rc = WSTOPSIG(status);
 	else if (WIFSIGNALED(status))
-		rc =WTERMSIG(status);
+		rc = WTERMSIG(status);
 	else if (WIFCONTINUED(status))
 		rc = 0;	
 	else

@@ -6,11 +6,49 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 15:38:41 by wveta             #+#    #+#             */
-/*   Updated: 2019/10/31 18:32:43 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/22 20:06:31 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+void	ft_cmd_to_job()
+{
+	t_job		*cur_job;
+	t_cmdlist	*cmd;
+	pid_t 		my_pgid;
+//	int			status;
+
+	cur_job = NULL;
+	my_pgid = 0;
+	if (g_pipe && ((cmd = g_pipe->first_cmd)))
+	{
+		while(cmd)
+		{
+			if (my_pgid == 0)
+				my_pgid = cmd->pid_z;
+			if (cmd->nr == 1)
+			{
+				cur_job = ft_new_job(cmd);
+				if (!(g_job_first))
+				{
+					g_job_first = cur_job;
+					cur_job->num = 1;
+				}
+				else
+					ft_insert_job(cur_job);
+				cur_job->orig_cmd = ft_strncpy(ft_strnew((size_t)
+				(g_job_end + 1)), g_job_start, g_job_end);
+				ft_set_job_plus();
+				ft_print_start_job(cur_job);
+			}
+			ft_add_proc(cmd);
+			setpgid(cmd->pid, my_pgid);
+			tcsetpgrp(cmd->pid_z,  my_pgid);
+			cmd = cmd->next;
+		}
+	}
+}
 
 int		ft_cmd_bg(char **av)
 {
@@ -82,7 +120,6 @@ void	ft_test_tstp(pid_t pid2)
 {
 	t_job		*job;
 	t_proc		*proc;
-	t_cmdlist	*cmd;
 	t_job		*job_new;
 	pid_t		pid;
 
@@ -90,6 +127,8 @@ void	ft_test_tstp(pid_t pid2)
 	job_new = NULL;
 	if (pid2 == 0 && g_pipe)
 		pid = g_pipe->first_cmd->pid_z;
+	else
+		pid = pid2;
 	while(job)
 	{
 		if (pid == job->pgid)
@@ -103,7 +142,8 @@ void	ft_test_tstp(pid_t pid2)
 		}
 		job = job->next;
 	}
-	if (g_pipe && ((cmd = g_pipe->first_cmd)))
+	ft_cmd_to_job();
+/*	if (g_pipe && ((cmd = g_pipe->first_cmd)))
 	{
 		while(cmd)
 		{
@@ -114,7 +154,7 @@ void	ft_test_tstp(pid_t pid2)
 				free(job_new->stat_job);
 				job_new->stat_job = ft_strdup("Stopped              ");
 				break ;
-			}	
+			}
 			cmd = cmd->next;
 		}
 	}
@@ -132,5 +172,5 @@ void	ft_test_tstp(pid_t pid2)
 		ft_add_proc(cmd);
 		setpgid(pid, pid);
 		tcsetpgrp(0,  g_pgid);
-	}
+	}*/
 }

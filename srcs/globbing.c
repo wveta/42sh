@@ -68,7 +68,8 @@ static t_list	*ft_globbing_path_cycle(DIR *dir, char *path, char *pat)
 		{
 			if (!(join_line = ft_strjoin(path, entry->d_name)))
 				exit (1);
-			ft_globbing_addline(join_line, &list);	
+			ft_globbing_addline(join_line, &list);
+			free(join_line);
 		}
 	}
 	if (list)

@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 11:32:55 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/21 12:01:21 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/22 20:00:06 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,7 @@ void	ft_signal_handler_rl(int signo)
 
 		if (signo == SIGTTIN || signo == SIGTTOU)
 			tcsetpgrp(0, getpid());
-		else if (signo == SIGTSTP && g_parent_pid == getpid())
+		else if (signo == SIGTSTP || signo == 22)
 			ft_test_tstp(pid);
 		ft_test_job_status(pid, status);
 		ft_test_cmd_list(pid, status);

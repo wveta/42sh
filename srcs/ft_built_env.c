@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 18:24:59 by wveta             #+#    #+#             */
-/*   Updated: 2019/09/11 19:58:38 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/22 11:41:00 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*ft_get_env2(char *parm, char **shell)
 		{
 			if (ft_strnequ(parm, shell[i], j) == 1 &&
 			shell[i][j] == '=')
-				return (ft_strdup(shell[i] + j + 1));
+				return (ft_replays(ft_strdup(shell[i] + j + 1)));
 			i++;
 		}
 	}

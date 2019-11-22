@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 16:17:37 by wveta             #+#    #+#             */
-/*   Updated: 2019/10/29 16:15:33 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/22 14:18:27 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,5 +93,7 @@ void				ft_lst_sort(t_list **alist, int (*cmp)());
 char				*ft_strndup(const char *s, size_t n);
 int					ft_lstsize(t_list *lst);
 void				ft_lstadd_last(t_list **alst, t_list *new);
+int					ft_isnumber(char *str);
+int					ft_strchrlen(const char *s, int c);
 
 #endif

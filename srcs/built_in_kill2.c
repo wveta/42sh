@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   built_in_kill.c                                    :+:      :+:    :+:   */
+/*   built_in_kill2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 15:38:41 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/06 13:20:07 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/22 12:36:04 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int		ft_cmd_kill(char **av)
 	int 	i;
 	pid_t	num;
 	t_job	*j;
+	t_proc	*p;
 
 	ft_set_shell("?", "0");	
 	signame = ft_split_pipes("HUP INT QUIT ILL TRAP ABRT EMT FPE KILL BUS SEGV \
@@ -69,8 +70,15 @@ int		ft_cmd_kill(char **av)
 			{
 				if (j->num == num || (num == 0 && j->flag == '+'))
 				{
-					num = j->pgid;
-					break ;
+//					num = j->pgid;
+					p = j->first_proc;
+					while (p)
+					{
+						num = p->pid;
+						kill(num, sig);
+						p = p->next;
+					}
+					break;
 				}
 				j = j->next;
 			}
@@ -89,8 +97,9 @@ int		ft_cmd_kill(char **av)
 				ft_print_msg(" kill : no such process: ", av[i]);
 				continue ;					
 			}
+			kill(num, sig);
 		}
-		kill(num, sig);
+		
 	}	
 	return (1);
 }
