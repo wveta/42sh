@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 15:38:41 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/22 20:06:31 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/25 18:33:07 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,10 +125,9 @@ void	ft_test_tstp(pid_t pid2)
 
 	job = g_job_first;
 	job_new = NULL;
+	pid = pid2;
 	if (pid2 == 0 && g_pipe)
 		pid = g_pipe->first_cmd->pid_z;
-	else
-		pid = pid2;
 	while(job)
 	{
 		if (pid == job->pgid)

@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 15:38:41 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/21 20:48:11 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/25 15:54:06 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,9 @@ void	ft_job_fg(t_job *j)
 	
 	tcgetattr(0, &tmodes);
 	tcsetpgrp(0, j->pgid);
+
+//	if (kill(-j->pgid , SIGCONT) < 0)
+//    	ft_print_msg(": SIGCONT error ", " ");
 
 	p = j->first_proc;
 	while (p)

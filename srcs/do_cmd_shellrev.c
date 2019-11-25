@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 15:38:41 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/22 15:57:56 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/25 18:07:46 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,8 @@ void		ft_do_cmd_list(t_pipe *p_head, int flpi)
 	g_flpi = flpi;
 	p_head->cur_cmd = p_head->first_cmd;
 	p_head->cur_cmd->avcmd = ft_isnot(p_head->cur_cmd->avcmd);
-	g_pgid = 0;
+	if (g_subshell == 0)
+		g_pgid = 0;
 	tcgetattr(0, &tmodes);
 	while (p_head->cur_cmd)
 	{
@@ -105,18 +106,14 @@ void		ft_do_cmd_list(t_pipe *p_head, int flpi)
 		else if (p_head->cur_cmd->pid > 0)
 		{
 			ft_sig_set();
-			if (g_job == 1 || flpi > 0)
-			{
+//			if (g_job == 1 || flpi > 0)
+//			{
 				if (g_pgid == 0)
-				{
 					g_pgid = p_head->cur_cmd->pid;
-//					if (g_job == 0)
-//						g_pgid = getpid();
-				}
 				setpgid(p_head->cur_cmd->pid, g_pgid);
 				if (g_job == 0)
 					tcsetpgrp(0,  g_pgid);
-			}
+//			}
 			ft_if_job(p_head->cur_cmd);
 			ft_parent_pipe_next(p_head->cur_cmd, fd0, fd1, flpi);
 			p_head->cur_cmd = p_head->cur_cmd->next;

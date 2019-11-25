@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 11:32:55 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/22 18:12:38 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/25 19:35:57 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ void	ft_test_cmd_list(pid_t pid, int status)
 
 int		ft_test_sig_list(int signo)
 {
-	if (signo == SIGCHLD || signo == SIGINT || signo == SIGTTIN
-		|| signo == SIGTTOU || signo == SIGTSTP || signo == SIGQUIT)
+	if (g_subshell == 0 && (signo == SIGCHLD || signo == SIGINT || signo == SIGTTIN
+		|| signo == SIGTTOU || signo == SIGTSTP || signo == SIGQUIT))
 		return (1);
 	return (0);
 }
