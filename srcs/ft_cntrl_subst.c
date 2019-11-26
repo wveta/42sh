@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/15 19:42:51 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/21 18:47:04 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/26 16:15:52 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,15 +142,14 @@ char	**ft_cnt_subs_tst(char **str, int n)
 				}
 			}
 		}
-		if ((qflag == 1 && str[n][i] == '"') ||
-		(qflag == 2 && str[n][i] == '\''))
+		if ((qflag == 2 && str[n][i] == '\'' &&
+		(i == 0 || str[n][i - 1] != '\\')))
 			qflag = 0;
-//		else if (qflag == 0 && str[n][i] == '"')
-//			qflag = 1;
-		else if (qflag == 0 && str[n][i] == '\'')
+		else if (qflag == 0 && str[n][i] == '\'' &&
+		(i == 0 || str[n][i - 1] != '\\'))
 			qflag = 2;
-		if (qflag == 0 && br_flag == 0 &&
-		str[n][i] == '$' && str[n][i + 1] && str[n][i + 1] == '(')
+		if (qflag == 0 && br_flag == 0 && (i == 0 || str[n][i - 1] != '\\')
+		&& str[n][i] == '$' && str[n][i + 1] && str[n][i + 1] == '(')
 			start = i + 1;
 	}
 	return (str);

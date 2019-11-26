@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 19:25:12 by wveta             #+#    #+#             */
-/*   Updated: 2019/09/04 21:21:23 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/26 15:35:19 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int		ft_get_tless(t_cmdlist *cmd, int i, int j, char *ind)
 		}
 	}
 	ind[0] = '\0';
+	cmd->here = ft_replays(cmd->here);
 	return (0);
 }
 

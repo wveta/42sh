@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/24 15:39:37 by thaley            #+#    #+#             */
-/*   Updated: 2019/11/05 16:21:52 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/26 13:48:22 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,12 +88,15 @@ int			check_quotes(void)
 	i = 0;
 	while (i < g_input->input_len)
 	{
-		if (g_input->quotes == '\0' && g_input->input[i] == '"')
+		if (g_input->quotes == '\0' && g_input->input[i] == '"' &&
+		(i == 0 || g_input->input[i - 1] != '\\'))
 			g_input->quotes = '"';
-		else if ((g_input->quotes == '"' && g_input->input[i] == '"') ||
-			(g_input->quotes == '\'' && g_input->input[i] == '\''))
+		else if (((g_input->quotes == '"' && g_input->input[i] == '"') ||
+			(g_input->quotes == '\'' && g_input->input[i] == '\'')) &&
+		(i == 0 || g_input->input[i - 1] != '\\'))	
 			g_input->quotes = '\0';
-		else if (g_input->quotes == '\0' && g_input->input[i] == '\'')
+		else if (g_input->quotes == '\0' && g_input->input[i] == '\'' &&
+		(i == 0 || g_input->input[i - 1] != '\\'))
 			g_input->quotes = '\'';
 		i++;
 	}

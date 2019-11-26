@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:14:54 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/21 21:36:59 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/26 16:14:55 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,6 @@ char		**ft_all_calc_tst(char **str)
 	int		end;
 	int		n;
 
-	
-
 	n = -1;
 	g_calc = 0;
 	while (str && str[++n])
@@ -93,8 +91,8 @@ char		**ft_all_calc_tst(char **str)
 				if (br_count == 0)
 				{
 					br_flag = 0;
-					if (start != -1 && str[n][start + 1] == '(' && ((end = i)) &&
-					ft_check_ekran(str[n], start - 1) < 2)
+					if (start != -1 && str[n][start + 1] == '(' && ((end = i))
+					&& ft_check_ekran(str[n], start - 1) < 2)
 					{
 						str = ft_tst_calc(str, n, start, end);
 						if (g_calc != 0)
@@ -104,15 +102,14 @@ char		**ft_all_calc_tst(char **str)
 					}
 				}
 			}
-			if ((qflag == 1 && str[n][i] == '"') ||
-			(qflag == 2 && str[n][i] == '\''))
+			if ((qflag == 2 && str[n][i] == '\'') &&
+			(i == 0 || str[n][i - 1] != '\\'))
 				qflag = 0;
-//			else if (qflag == 0 && str[n][i] == '"')
-//				qflag = 1;
-			else if (qflag == 0 && str[n][i] == '\'')
+			else if (qflag == 0 && str[n][i] == '\'' &&
+			(i == 0 || str[n][i - 1] != '\\'))
 				qflag = 2;
-			if (qflag == 0 && br_flag == 0 &&
-			str[n][i] == '$' && str[n][i + 1] && str[n][i + 1] == '(')
+			if (qflag == 0 && br_flag == 0 && (i == 0 || str[n][i - 1] != '\\')
+			&& str[n][i] == '$' && str[n][i + 1] && str[n][i + 1] == '(')
 				start = i + 1;
 		}
 	}

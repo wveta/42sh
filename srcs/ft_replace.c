@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 19:25:12 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/21 19:46:44 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/26 17:30:04 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int		ft_repl_check(char *s, int len, char *q, int j)
 	{
 		tmp = s + j;
 		ft_strcpy(tmp, s + j + 1);
+		return (2);
 	}
 	return (0);
 }
@@ -65,7 +66,8 @@ char	*ft_repl_parm(char *s, int flag, int len)
 		}
 		if (q == ' ' && flag == 1)
 			s = ft_repl_end_til(s, j, &flag);
-		else if (q != '\'' && s[j] == '$' && s[j + 1] &&
+		else if (q != '\'' && s[j] == '$' &&
+		(k != 2) && s[j + 1] &&
 		(s[j + 1] == '_' || ft_isalpha(s[j + 1]) ||
 		s[j + 1] == '{'))
 		{
@@ -75,7 +77,8 @@ char	*ft_repl_parm(char *s, int flag, int len)
 				s = ft_repl_tilda(s, j);
 			}
 			s = ft_repl_env(s, &j);
-			j = -1;
+			j--;
+//			j = -1;
 		}
 		len = ft_strlen(s);
 	}

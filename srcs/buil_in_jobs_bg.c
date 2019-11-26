@@ -6,23 +6,24 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 15:38:41 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/25 18:33:07 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/26 19:41:23 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	ft_cmd_to_job()
+void	ft_cmd_to_job(int status)
 {
 	t_job		*cur_job;
 	t_cmdlist	*cmd;
 	pid_t 		my_pgid;
-//	int			status;
 
 	cur_job = NULL;
 	my_pgid = 0;
-	if (g_pipe && ((cmd = g_pipe->first_cmd)))
+	if (g_pipe && (g_pipe->first_cmd->built_in == 0 || 
+	g_pipe->first_cmd != g_pipe->last_cmd))
 	{
+		cmd = g_pipe->first_cmd;
 		while(cmd)
 		{
 			if (my_pgid == 0)
@@ -30,6 +31,7 @@ void	ft_cmd_to_job()
 			if (cmd->nr == 1)
 			{
 				cur_job = ft_new_job(cmd);
+				ft_set_job_status(cur_job, 2, status);
 				if (!(g_job_first))
 				{
 					g_job_first = cur_job;
@@ -45,6 +47,7 @@ void	ft_cmd_to_job()
 			ft_add_proc(cmd);
 			setpgid(cmd->pid, my_pgid);
 			tcsetpgrp(cmd->pid_z,  my_pgid);
+			cmd->pid = 0;
 			cmd = cmd->next;
 		}
 	}
@@ -116,7 +119,7 @@ char	*ft_get_str_cmd(char **s)
 	return (tmp);
 }
 
-void	ft_test_tstp(pid_t pid2)
+void	ft_test_tstp(pid_t pid2, int status)
 {
 	t_job		*job;
 	t_proc		*proc;
@@ -141,35 +144,5 @@ void	ft_test_tstp(pid_t pid2)
 		}
 		job = job->next;
 	}
-	ft_cmd_to_job();
-/*	if (g_pipe && ((cmd = g_pipe->first_cmd)))
-	{
-		while(cmd)
-		{
-			if (cmd->pid_z == pid)
-			{
-				job_new = ft_new_job(cmd);
-				job_new->orig_cmd = ft_get_str_cmd(cmd->avcmd);
-				free(job_new->stat_job);
-				job_new->stat_job = ft_strdup("Stopped              ");
-				break ;
-			}
-			cmd = cmd->next;
-		}
-	}
-	if (job_new)
-	{
-		if (!(g_job_first))
-		{
-			g_job_first = job_new;
-			job_new->num = 1;
-		}
-		else
-			ft_insert_job(job_new);
-		ft_set_job_plus();
-		ft_print_job_line(job_new, 0);
-		ft_add_proc(cmd);
-		setpgid(pid, pid);
-		tcsetpgrp(0,  g_pgid);
-	}*/
+	ft_cmd_to_job(status);
 }

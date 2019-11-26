@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 11:32:55 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/25 20:10:09 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/26 19:35:26 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ int		ft_set_job_status(t_job *job, int n, int status)
 	free(job->stat_job);
 	if (n == 2)
 	{
-		job->stat_job = ft_strdup("Stopped  by ");
-		job->stat_job = ft_add_strnum(job->stat_job, WSTOPSIG(status));
-		job->stat_job = ft_strfjoin(job->stat_job, "           ");
+		job->stat_job = ft_strdup("Stopped by 18");
+	//	job->stat_job = ft_add_strnum(job->stat_job, WSTOPSIG(status));
+		job->stat_job = ft_strfjoin(job->stat_job, "       ");
 		job->ready = 2;
 	}
 	else if (n == 3)
@@ -116,47 +116,25 @@ void	ft_signal_handler_rl(int signo)
 	if (ft_test_sig_list(signo))
 	{
 		pid = waitpid(-1, &status, WNOHANG | WCONTINUED | WUNTRACED);
-/*		tmp = malloc(sizeof(char) * 9);
-		tmp[0] = '\0';
-		ft_print_msg(" chld: pid ", ft_putfnbr(pid, tmp));
-		free(tmp);
-		tmp = malloc(sizeof(char) * 9);
-		tmp[0] = '\0';
-		ft_print_msg(" signo = ", ft_putfnbr(signo, tmp));
-		free(tmp);*/
 		if (signo == SIGCHLD)
 		{
+			if (g_signal == 1)
+				ft_print_sig(status);
 			if (WIFSTOPPED(status))
 			{
 				if (g_subshell == 0)
-				{
-/*					if (g_signal == 1)
-					{
-						tmp = malloc(sizeof(char) * 9);
-						tmp[0] = '\0';
-						ft_print_msg(": shell child level: ", "= 0");
-						ft_print_msg(": chld sttopped by signal: ", ft_putfnbr(WSTOPSIG(status), tmp));
-						free(tmp);
-					}*/
-					ft_test_tstp(pid);
-				}
-
+					ft_test_tstp(pid, status);
+				else
+					kill(g_parent_pid, SIGCHLD);
 			}
 			ft_test_job_status(pid, status);
 			ft_test_cmd_list(pid, status);
 		}
-/*		else if (g_signal == 1)
+		if (signo == SIGTSTP && g_subshell == 0)
 		{
-			if (g_subshell == 0)
-				ft_print_msg(": shell level: ", "= 0");
-			else
-				ft_print_msg(": shell level: ", "> 0");
-			tmp = malloc(sizeof(char) * 4);
-			tmp[0] = '\0';
-			ft_print_msg(": signal shell: ", ft_putfnbr(signo, tmp));
-			free(tmp);
+			ft_test_tstp(pid, status);
+			tcsetpgrp(0, getpid());
 		}
-*/
 		if (signo == SIGTTIN || signo == SIGTTOU)
 			tcsetpgrp(0, getpid());
 		if (signo == SIGINT || signo == SIGQUIT)

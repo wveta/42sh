@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 16:34:55 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/20 16:44:33 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/26 16:23:32 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ static int	ft_split_pipes_words(char *str)
 		{
 			br_flag = 1;
 			br_count++;
-			if (br_count == 1 && str[i - 1] == '$')
+			if (br_count == 1 && str[i - 1] == '$' &&
+			(i - 1 == 0 || str[i - 2] != '\\'))
 				flsub = 1;
 		}
 		else if (qflag == 0 && br_flag == 1 && str[i] == '(')
@@ -76,12 +77,12 @@ static int	ft_split_pipes_words(char *str)
 		(i == 0 || ft_isspace(str[i - 1]) == 1
 		|| (str[i - 1] == '|' && qflag == 0)))
 			wcount++;
-		if ((qflag == 1 && str[i] == '"') ||
-		(qflag == 2 && str[i] == '\''))
+		if ((qflag == 1 && str[i] == '"' && str[i - 1] != '\\') ||
+		(qflag == 2 && str[i] == '\'' && str[i - 1] != '\\'))
 			qflag = 0;
-		else if (qflag == 0 && str[i] == '"')
+		else if (qflag == 0 && str[i] == '"' && (i == 0 || str[i - 1] != '\\'))
 			qflag = 1;
-		else if (qflag == 0 && str[i] == '\'')
+		else if (qflag == 0 && str[i] == '\'' && (i == 0 || str[i - 1] != '\\'))
 			qflag = 2;
 		i++;
 	}
@@ -115,7 +116,8 @@ static int	ft_all_pipe_words(char **ret, char const *str)
 		{
 			fl->br_flag = 1;
 			fl->br_count++;
-			if (fl->br_count == 1 && str[fl->i - 1] == '$')
+			if (fl->br_count == 1 && str[fl->i - 1] == '$' &&
+			(fl->i - 1 == 0 || str[fl->i - 2] != '\\'))
 				flsub = 1;
 			else if (fl->br_count == 1 && flsub == 0)
 				fl->start = fl->i;
@@ -159,12 +161,14 @@ static int	ft_all_pipe_words(char **ret, char const *str)
 			ft_pipe_split_4(fl, ret, str);
 		else
 			ft_pipe_split_6(fl, str);
-		if ((fl->qflag == 1 && str[fl->i] == '"') ||
-			(fl->qflag == 2 && str[fl->i] == '\''))
+		if ((fl->qflag == 1 && str[fl->i] == '"' && str[fl->i - 1] != '\\') ||
+			(fl->qflag == 2 && str[fl->i] == '\'' && str[fl->i - 1] != '\\'))
 			fl->qflag = 0;
-		else if (fl->qflag == 0 && str[fl->i] == '"')
+		else if (fl->qflag == 0 && str[fl->i] == '"' &&
+		(fl->i == 0 || str[fl->i - 1] != '\\'))
 			fl->qflag = 1;
-		else if (fl->qflag == 0 && str[fl->i] == '\'')
+		else if (fl->qflag == 0 && str[fl->i] == '\'' &&
+		(fl->i == 0 || str[fl->i - 1] != '\\'))
 			fl->qflag = 2;
 	}
 	if (fl->br_flag != 0)

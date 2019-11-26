@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 11:32:55 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/22 16:19:16 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/26 17:43:28 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,20 @@ void	ft_signal_child(int signo)
 //	signal(SIGINT, ft_signal_child);
 //	signal(SIGQUIT, ft_signal_child);
 	signal(SIGTSTP, ft_signal_child);
+}
+
+void	ft_print_sig(int status)
+{
+	char	*tmp;
+
+	tmp = malloc(sizeof(char) * 10);
+	tmp[0] = '\0';
+	if (tmp)
+	{
+		if (WIFSTOPPED(status))
+			ft_print_msg(" : signal :", ft_putfnbr(WSTOPSIG(status), tmp));
+		else if (WIFSIGNALED(status))
+			ft_print_msg(" : signal :", ft_putfnbr(WTERMSIG(status), tmp));
+	}
+	free(tmp);
 }

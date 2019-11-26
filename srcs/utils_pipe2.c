@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/07 10:50:36 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/25 20:20:40 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/26 12:49:38 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,9 +187,14 @@ void	ft_pipe_wait_ch_fin(t_cmdlist *cur_cmd, t_cmdlist *first_cmd, t_cmdlist *la
 					if ((j = waitpid(cur_cmd->pid, &status, WNOHANG | WUNTRACED
 					)) == cur_cmd->pid)
 					{
-						if ((!(cur_cmd->next)))
-							ft_set_cmd_exit_status(status);
-						cur_cmd->pid = 0;	
+						if  (!(WIFSTOPPED(status)))
+						{
+							if ((!(cur_cmd->next)))
+								ft_set_cmd_exit_status(status);
+							cur_cmd->pid = 0;
+						}
+						else
+							kill (g_parent_pid, SIGTSTP);
 					}
 				}
 				cur_cmd = cur_cmd->next;
