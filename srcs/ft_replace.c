@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 19:25:12 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/26 17:30:04 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/27 15:07:19 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,18 @@ int		ft_repl_check(char *s, int len, char *q, int j)
 {
 	char	*tmp;
 
-	if (s[j] == '\\' && j + 1 < len && (s[j + 1] == '\''
+	if (*q == '\'')
+	{
+		if (s[j] == '\'')
+		{
+			*q = ' ';
+			tmp = s + j;
+			ft_strcpy(tmp, s + j + 1);
+			return (-1);
+		}
+		return (1);
+	}
+	else if (s[j] == '\\' && j + 1 < len && (s[j + 1] == '\''
 		|| s[j + 1] == '"' || s[j + 1] == '\\'))
 	{
 		tmp = s + j;

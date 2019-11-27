@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 22:03:52 by thaley            #+#    #+#             */
-/*   Updated: 2019/09/18 12:26:55 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/27 15:52:40 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,13 +112,24 @@ int				ft_type(char **av)
 {
 	int 	i;
 	char	*tmp;
+	char	*all_alias;
 
 	i = 1;
 	tmp = NULL;
 	while (av && av[i])
 	{
 		ft_set_shell("?", "0");
-		if (ft_test_built_in(av[i]) == 1)
+		if ((all_alias = ft_read_alias()))
+		{
+			tmp = take_value_alias(all_alias, av[i]);
+			ft_putstr(av[i]);
+			ft_putstr(" is aliased to '");
+			ft_putstr(tmp);
+			ft_putstr("'\n");
+			ft_strdel(&tmp);
+			ft_strdel(&all_alias);
+		}
+		else if (ft_test_built_in(av[i]) == 1)
 		{
 			ft_putstr(av[i]);
 			ft_putstr(" is a shell builtin\n");

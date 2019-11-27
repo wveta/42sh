@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 11:01:23 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/26 19:29:43 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/27 15:29:36 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -512,5 +512,6 @@ int						bin_test_return(int code);
 void					ft_print_sig(int status);
 void					ft_cmd_to_job(int status);
 int						ft_set_job_status(t_job *job, int n, int status);
+char					*glob_join(char *path, char *name);
 
 #endif

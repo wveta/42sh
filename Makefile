@@ -15,7 +15,8 @@ FILES	:=	built_in exec_list ft_built_cd ft_built_env main parser\
 			globbing glob_check ft_signals_child ft_alias ft_unalias\
 			fts_for_alias ft_read_alias ft_get_alias fts_output_alias\
 			semafor param_remove ft_cntrl_subst ft_calc check_str\
-			bin_test_binary bin_test_misc bin_test_unary bin_test
+			bin_test_binary bin_test_misc bin_test_unary bin_test\
+			glob_join
 
 SRC_D	:=	srcs
 INC_D	:=	includes
