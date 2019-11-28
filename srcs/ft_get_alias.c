@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/02 10:57:37 by udraugr-          #+#    #+#             */
-/*   Updated: 2019/11/12 12:08:09 by udraugr-         ###   ########.fr       */
+/*   Updated: 2019/11/28 15:06:05 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,8 @@ char					**ft_get_alias(char **av)
 	char				*all_alias;
 	char				*first;
 
+	if (av[0] && ft_strlen(av[0]) == 0)
+		return (av);
 	all_alias = ft_read_alias();
 	first = ft_strdup(av[0]);
 	while (all_alias && (ans = take_value_alias(all_alias, av[0])) != NULL)

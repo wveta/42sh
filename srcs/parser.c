@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 16:17:45 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/25 14:49:44 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/28 15:12:27 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,17 +133,13 @@ void	ft_parse_line(char *str)
 		else if (qflag == 0 && (str[i + i_cmd] == ';' || 
 		ft_ampers_test(str, i, i_cmd) == 1))
 		{
-/*			if  (br_count != 0)
-			{
-				ft_print_msg(": parse error:", str + i_cmd);
-				return ;
-			}	*/
 			if (ft_parse_cmd(str + i_cmd, i) == 1)
 				return ;
 			i_cmd = i_cmd + i + 1;
 			i = -1;
 		}
-		else if (qflag == 0 && ft_strncmp(str + i + i_cmd, "&&", 2) ==0)
+		else if (qflag == 0 && ft_strncmp(str + i + i_cmd, "&&", 2) == 0 
+		&& (i + i_cmd == 0 || str[i + i_cmd -1] != '\\'))
 		{
 			if (ft_parse_cmd(str + i_cmd, i) == 1)
 				g_skip = 1;
@@ -151,7 +147,8 @@ void	ft_parse_line(char *str)
 			i = 1;
 			g_and_or = 1;
 		}
-		else if (qflag == 0 && ft_strncmp(str + i + i_cmd, "||", 2) ==0)
+		else if (qflag == 0 && ft_strncmp(str + i + i_cmd, "||", 2) ==0 
+		&& (i + i_cmd == 0 || str[i + i_cmd -1] != '\\'))
 		{
 			if (ft_parse_cmd(str + i_cmd, i) == 1)
 				g_skip = 1;
@@ -161,11 +158,6 @@ void	ft_parse_line(char *str)
 		}
 		i++;
 	}
-/*	if  (br_count != 0)
-	{
-		ft_print_msg(": parse error:", str + i_cmd);
-			return ;
-	}	*/
 	ft_parse_cmd(str + i_cmd, i);
 	g_job = -1;
 }

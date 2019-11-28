@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 19:25:12 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/21 14:38:07 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/28 15:38:53 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,13 @@ int			ft_set_job_str(char *start, int end)
 
 int			ft_ampers_test(char *str, int i, int start)
 {
-	if (str[i + start] == '&' && str[i + start - 1] != '&' &&
+	if (str[i + start] == '&' &&
+		(i + start == 0  || (i + start >= 1 && str[i + start - 1] != '&')
+		|| (i + start >= 2 && str[i + start - 2] == '\\')) &&
 		str[i + start + 1] != '&' &&
 		(str[i + start - 1] != '<') && (str[i + start - 1] != '>') &&
-		(str[i + start + 1] != '<') && (str[i + start + 1] != '>'))
+		(str[i + start + 1] != '<') && (str[i + start + 1] != '>') &&
+		(i + start == 0 || str[i + start - 1] != '\\'))
 		return (1);
 	return (0);
 }
@@ -61,7 +64,8 @@ int			ft_test_job(char *str, int start)
 				qflag = 0;
 		}
 		else if (qflag == 0 && ((ft_strncmp(str + i + start, "&&", 2) == 0)
-		|| (ft_strncmp(str + i + start, "||", 2) == 0)))
+		|| (ft_strncmp(str + i + start, "||", 2) == 0)) &&
+		(i + start == 0 || str[i + start - 1] != '\\'))
 			g_and_or_line = 1;
 		if (qflag == 0 && (str[i + start] == ';'))
 			return (0);

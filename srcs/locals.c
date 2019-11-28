@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 19:25:12 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/20 21:47:23 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/28 21:32:50 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ void	ft_init_glvar(char **av)
 	g_job_ind = 1;
 	g_job = -1;
 	g_envi->hash_first = NULL;
-	g_subshell = 1 - isatty(STDIN_FILENO);
+//	g_subshell = 1 - isatty(STDIN_FILENO);
+	g_subshell = 0;
 	g_parent_pid = getpid();
 	g_app_name = ft_get_app_name(av[0]);
 	if ((av[0][0] == '.') || (ft_check_file(av[0], X_OK) == -1))

@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 16:34:55 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/26 16:23:32 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/28 15:24:46 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,8 @@ static int	ft_split_pipes_words(char *str)
 			}
 		}
 
-		if (qflag == 0 && br_flag == 0 && str[i] == '|')
+		if (qflag == 0 && br_flag == 0 && str[i] == '|' &&
+		(i == 0 || str[i - 1] != '\\'))
 			wcount++;
 		else if (qflag == 0 && br_flag == 0 && ft_isspace(str[i]) == 0 &&
 		(i == 0 || ft_isspace(str[i - 1]) == 1
@@ -153,7 +154,8 @@ static int	ft_all_pipe_words(char **ret, char const *str)
 			}
 		}
 
-		if (fl->qflag == 0 && fl->br_flag == 0 && str[fl->i] == '|')
+		if (fl->qflag == 0 && fl->br_flag == 0 && str[fl->i] == '|' &&
+		(fl->i == 0 || str[fl->i - 1] != '\\'))
 			ft_pipe_split_3(fl, ret, str);
 		else if (fl->qflag == 0 && fl->br_flag == 0 && fl->flag == 1 &&
 		ft_isspace(str[fl->i]) == 1 && fl->i > 0 &&
