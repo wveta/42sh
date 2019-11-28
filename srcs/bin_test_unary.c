@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 15:38:41 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/22 15:03:29 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/28 10:54:59 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,10 @@ static int	bin_test_unary_type(t_stat stat, int flag)
 		return (stat.st_mode & S_ISGID ? 0 : 1);
 	if (flag & BIN_TEST_UID)
 		return (stat.st_mode & S_ISUID ? 0 : 1);
-	return (1);	
+	return (1);
 }
 
-int		bin_test_unary(char *arg1, int flag)
+int			bin_test_unary(char *arg1, int flag)
 {
 	t_stat	stat;
 

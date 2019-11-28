@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 15:38:41 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/22 14:12:56 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/28 10:53:05 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static int	bin_test_binary_int(int num1, int num2, int flag)
 	return (1);
 }
 
-int		bin_test_binary(char *arg1, char *arg2, int flag)
+int			bin_test_binary(char *arg1, char *arg2, int flag)
 {
 	int	num1;
 	int num2;

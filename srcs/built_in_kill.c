@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 15:38:41 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/22 16:33:31 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/28 12:02:12 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@ int		ft_cmd_kill(char **av)
 {
 	int		sig;
 	char	**signame;
-	int 	i;
+	int		i;
 	pid_t	num;
 	t_job	*j;
 
-	ft_set_shell("?", "0");	
+	ft_set_shell("?", "0");
 	signame = ft_split_pipes("HUP INT QUIT ILL TRAP ABRT EMT FPE KILL BUS SEGV \
 	SYS PIPE ALRM TERM URG STOP TSTP CONT CHLD TTIN TTOU IO XCPU XFSZ VTALRM \
 	PROF WINCH INFO USR1 USR2");
@@ -41,14 +41,14 @@ int		ft_cmd_kill(char **av)
 				{
 					sig = i + 1;
 					i = 1;
-					break;
+					break ;
 				}
 			}
 		}
 		if (sig == 0)
 		{
 			ft_print_msg(": kill : invalid signal specification: ", av[1] + 1);
-			ft_set_shell("?", "1");	
+			ft_set_shell("?", "1");
 			return (1);
 		}
 	}
@@ -74,11 +74,11 @@ int		ft_cmd_kill(char **av)
 				}
 				j = j->next;
 			}
-			if (num ==  ft_atoi(av[i] + 1))
+			if (num == ft_atoi(av[i] + 1))
 			{
 				ft_print_msg(": kill : no such job: ", av[i] + 1);
 				ft_set_shell("?", "1");
-				continue ;		
+				continue ;
 			}
 			kill(-num, sig);
 		}
@@ -88,19 +88,18 @@ int		ft_cmd_kill(char **av)
 			if ((kill(num, 0)) != 0)
 			{
 				ft_print_msg(" kill : no such process: ", av[i]);
-				continue ;					
+				continue ;
 			}
 			kill(num, sig);
 		}
-		
-	}	
+	}
 	return (1);
 }
 
 void	ft_set_cmd_exit_status(int status)
 {
 	char	*tmp;
-	int 	i;
+	int		i;
 
 	tmp = malloc(sizeof(char) * 3);
 	if (tmp)
@@ -109,7 +108,7 @@ void	ft_set_cmd_exit_status(int status)
 		if ((WIFEXITED(status)) && (i = WEXITSTATUS(status)) != 0)
 			ft_set_shell("?", "1");
 		else if ((WIFEXITED(status)) && (i = WEXITSTATUS(status)) == 0)
-			ft_set_shell("?", "0");			
+			ft_set_shell("?", "0");
 		else if (WIFSTOPPED(status))
 			ft_set_shell("?", ft_putfnbr(WSTOPSIG(status), tmp));
 		else if (WIFSIGNALED(status))
@@ -126,7 +125,7 @@ void	ft_rec_log(char *str)
 {
 	int i;
 
-	i = open("/tmp/42shlog", O_WRONLY| O_CREAT | O_APPEND , 0644);
+	i = open("/tmp/42shlog", O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (i != -1)
 	{
 		write(i, "\n", 1);
@@ -137,22 +136,21 @@ void	ft_rec_log(char *str)
 
 int		ft_get_cmd_exit_status(int status)
 {
-	int 	rc;
-	int 	i;
+	int	rc;
+	int	i;
 
 	rc = 0;
 	if ((WIFEXITED(status)) && (i = WEXITSTATUS(status)) != 0)
-		rc =1;
+		rc = 1;
 	else if ((WIFEXITED(status)) && (i = WEXITSTATUS(status)) == 0)
-		rc = 0;			
+		rc = 0;
 	else if (WIFSTOPPED(status))
 		rc = WSTOPSIG(status);
 	else if (WIFSIGNALED(status))
 		rc = WTERMSIG(status);
 	else if (WIFCONTINUED(status))
-		rc = 0;	
+		rc = 0;
 	else
-		rc =1;
+		rc = 1;
 	return (rc);
 }
-

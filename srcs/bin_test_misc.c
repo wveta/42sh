@@ -6,13 +6,13 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 15:38:41 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/22 14:49:36 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/28 10:54:12 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int		bin_test_error(char *var, char *message)
+int			bin_test_error(char *var, char *message)
 {
 	if (message)
 		ft_print_msg(message, var);
@@ -20,7 +20,7 @@ int		bin_test_error(char *var, char *message)
 	return (1);
 }
 
-int		bin_test_get_unary(char *arg, int *flag)
+int			bin_test_get_unary(char *arg, int *flag)
 {
 	int	shift;
 
@@ -33,13 +33,13 @@ int		bin_test_get_unary(char *arg, int *flag)
 	return (1);
 }
 
-static int bin_test_get_binary_return(int *flag, int shift)
+static int	bin_test_get_binary_return(int *flag, int shift)
 {
 	*flag |= shift;
 	return (1);
 }
 
-int		bin_test_return(int code)
+int			bin_test_return(int code)
 {
 	if (code == 0)
 		ft_set_shell("?", "0");
@@ -48,7 +48,7 @@ int		bin_test_return(int code)
 	return (1);
 }
 
-int		bin_test_get_binary(char *arg, int *flag)
+int			bin_test_get_binary(char *arg, int *flag)
 {
 	if (ft_strequ(arg, "="))
 		return (bin_test_get_binary_return(flag, BIN_TEST_STR_EQU));
@@ -68,4 +68,3 @@ int		bin_test_get_binary(char *arg, int *flag)
 		return (bin_test_get_binary_return(flag, BIN_TEST_INT_LE));
 	return (0);
 }
-

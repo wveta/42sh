@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 15:38:41 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/22 15:28:22 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/28 10:56:09 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static int	bin_test_three_arg(char **tokens, int i)
 static int	bin_test_four_arg(char **tokens)
 {
 	int		ret;
-	
+
 	if (ft_strequ(tokens[0], "!"))
 	{
 		ret = !bin_test_three_arg(tokens, 1);
@@ -74,7 +74,7 @@ static int	bin_test_four_arg(char **tokens)
 	return (bin_test_error("", BIN_TEST_ERR_TM));
 }
 
-int		bin_test(char **tokens)
+int			bin_test(char **tokens)
 {
 	int		count;
 
