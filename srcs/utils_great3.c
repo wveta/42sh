@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 18:25:30 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/19 20:19:34 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/29 17:53:07 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ t_greatflag	*ft_ini_great_fl(void)
 
 int			ft_tst_great_fd(t_greatflag *f, t_cmdlist *cmd, int i)
 {
+	int k;
+
 	f->j = f->ind - cmd->avcmd[i];
 	f->flag_add = ft_set_flag_add(f->ind);
 	if ((f->pref_fd = ft_set_pref_fd(cmd, i, f->j)) == -2)
@@ -37,7 +39,23 @@ int			ft_tst_great_fd(t_greatflag *f, t_cmdlist *cmd, int i)
 		f->flag_all = 1;
 		if ((int)ft_strlen(cmd->avcmd[i]) ==
 			f->j + 1 + f->flag_all + f->flag_add)
-			f->pref_fd = -1;
+		{
+//			f->pref_fd = -1;
+			if (cmd->avcmd[i + 1])
+			{
+				k = -1;
+				while (cmd->avcmd[i + 1][++k])
+				{
+					if (!(ft_isdigit(cmd->avcmd[i + 1][k])))
+					{
+						k = -2;
+						break;
+					}
+				}
+				if (k != -2 && ((f->out_fd = ft_atoi(cmd->avcmd[i + 1]))))
+					cmd->avcmd[i + 1][0] = '\0';
+			}
+		}
 		else if (ft_isdigit(cmd->avcmd[i]
 				[f->j + 1 + f->flag_all + f->flag_add]) == 1)
 		{

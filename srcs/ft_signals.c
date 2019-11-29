@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 11:32:55 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/28 22:30:01 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/29 17:22:04 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,49 +109,50 @@ void	ft_test_job_status(pid_t pid, int status)
 
 void	ft_signal_handler_rl(int signo)
 {
-	pid_t		pid;
-	int			status;
+	pid_t		pid = 0;
+	int			status = 0;
 
 	ft_sig_set();
+	signal(signo, ft_signal_handler_rl);
 	if (ft_test_sig_list(signo))
 	{
+		ft_print_sig(0, signo, 0);
 		pid = waitpid(-1, &status, WNOHANG | WCONTINUED | WUNTRACED);
-		if (signo == SIGCHLD)
+		if (signo == SIGCHLD && pid > 0)
 		{
-			if (g_signal == 1)
-				ft_print_sig(status);
+			ft_print_sig(pid, signo, status);
 			if (WIFSTOPPED(status))
 			{
-				if (g_subshell == 0 && g_check == 0)
+				if (g_parent_pid == getpid())
 				{
 					if (WSTOPSIG(status) == 18)
 						ft_test_tstp(pid, status);
-					else if (WSTOPSIG(status) == 22 || WSTOPSIG(status) == 13)
-						kill(-g_pipe->first_cmd->pid_z, SIGCONT);
+//					else if (WSTOPSIG(status) == 22 || WSTOPSIG(status) == 13)
+//						kill(-g_pipe->first_cmd->pid_z, SIGCONT);
 					tcsetpgrp(0, getpid());
 				}
 				else
 				{
 					if (WSTOPSIG(status) == 18)
 						kill(g_parent_pid, SIGTSTP);
-					else if (WSTOPSIG(status) == 22 || WSTOPSIG(status) == 13)
-						kill(-g_pipe->first_cmd->pid_z, SIGCONT);
+//					else if (WSTOPSIG(status) == 22 || WSTOPSIG(status) == 13)
+//						kill(-g_pipe->first_cmd->pid_z, SIGCONT);
 				}
 			}
 			ft_test_job_status(pid, status);
 			ft_test_cmd_list(pid, status);
 		}
-		if (signo == SIGTSTP && g_subshell == 0 && g_check == 0)
+		if (signo == SIGTSTP && g_parent_pid == getpid())
 		{
 			ft_test_tstp(pid, status);
 			tcsetpgrp(0, getpid());
 		}
-		if (signo == SIGTTIN || signo == SIGTTOU)
+		if ((signo == SIGTTIN || signo == SIGTTOU) &&  g_parent_pid == getpid())
 			tcsetpgrp(0, getpid());
 		if (signo == SIGINT || signo == SIGQUIT)
 		{
 			ft_set_shell("?", "1");
-			if (g_check == 0 && g_subshell == 0)
+			if (g_check == 0 && g_parent_pid == getpid())
 				ft_putchar('\n');
 			else
 				exit(1);
@@ -159,5 +160,6 @@ void	ft_signal_handler_rl(int signo)
 		ft_test_job_status(pid, status);
 		ft_test_cmd_list(pid, status);
 	}
-	ft_sig_set();
+	//ft_sig_set();
+	//signal(signo, ft_signal_handler_rl);
 }

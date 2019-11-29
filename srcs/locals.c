@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 19:25:12 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/28 21:32:50 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/29 16:09:38 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	ft_init_glvar(char **av)
 	g_terminal = STDIN_FILENO;
 	g_is_interactive = isatty(g_terminal);
 
-	if (g_is_interactive)
+/*	if (g_is_interactive)
     {
     	while (tcgetpgrp (g_terminal) != (g_pgid = getpgrp ()))
         	kill (- g_pgid, SIGTTIN);
@@ -84,9 +84,9 @@ void	ft_init_glvar(char **av)
         	perror ("Couldn't put the shell in its own process group");
         	exit (1);
         }
-//		tcsetpgrp(g_terminal, g_pgid);
+//		tcsetpgrp(g_terminal, g_pgid);*/
 		tcgetattr(g_terminal, &g_tmodes);
-    }
+ //   }
 }
 
 int		ft_exit(char **av)

@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/07 10:50:36 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/28 22:53:31 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/29 17:22:04 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,20 +48,30 @@ void	ft_child_pipe_exec(t_cmdlist *cur_cmd, int flpi)
 	int		i;
 
 	ft_sig_set();
+//	ft_sig_dfl();
 	g_check = 1;
+		g_subshell++;
 	if (g_subs_rc == 1)
 		exit(1);
-//	if (g_job == 1 || flpi > 0)
-//	{
+	if (g_job == 1 || flpi != -777)
+	{
 		if (g_pgid == 0)
 		{
 			g_pgid = getpid();
+			if (g_job == 0)
+				g_pgid = g_parent_pid;
 		}
 		setpgid(getpid(), g_pgid);
 		if (g_job == 0)
 			tcsetpgrp(0,  g_pgid);
-//	}
-//	signal(SIGTSTP, ft_signal_child);
+	}
+	/*	if (g_pgid == 0)
+			g_pgid = getpid();
+
+		setpgid(getpid(), g_pgid);
+		if (g_job == 0)
+			tcsetpgrp(0,  g_pgid);*/
+
 	while (cur_cmd->avcmd[0][0] && ft_isspace(cur_cmd->avcmd[0][0]))
 		ft_strcpy(cur_cmd->avcmd[0], cur_cmd->avcmd[0] + 1);
 	if (cur_cmd->avcmd[0][0] == '(' || cur_cmd->avcmd[0][0] == '{')
@@ -187,7 +197,7 @@ void	ft_pipe_wait_ch_fin(t_cmdlist *cur_cmd, t_cmdlist *first_cmd, t_cmdlist *la
 					if ((j = waitpid(cur_cmd->pid, &status, WNOHANG | WUNTRACED
 					)) == cur_cmd->pid)
 					{
-						if  (!(WIFSTOPPED(status)))
+/*						if  (!(WIFSTOPPED(status)))
 						{
 							if ((!(cur_cmd->next)))
 								ft_set_cmd_exit_status(status);
@@ -195,7 +205,10 @@ void	ft_pipe_wait_ch_fin(t_cmdlist *cur_cmd, t_cmdlist *first_cmd, t_cmdlist *la
 						}
 						else if ((WIFSTOPPED(status)) && g_subshell != 0
 								&& 18 == WSTOPSIG(status))
-							kill (g_parent_pid, SIGTSTP);
+							kill (g_parent_pid, SIGTSTP);*/
+						if ((!(cur_cmd->next)))
+							ft_set_cmd_exit_status(status);
+						cur_cmd->pid = 0;	
 					}
 				}
 				cur_cmd = cur_cmd->next;

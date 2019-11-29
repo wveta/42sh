@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 15:38:41 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/28 13:44:22 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/29 20:48:21 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	ft_kill_job_by_num(int i, int sig, pid_t num, char **av)
 {
 	t_job	*j;
+	t_proc	*p;
 
 	num = ft_atoi(av[i] + 1);
 	j = g_job_first;
@@ -22,7 +23,14 @@ void	ft_kill_job_by_num(int i, int sig, pid_t num, char **av)
 	{
 		if (j->num == num || (num == 0 && j->flag == '+'))
 		{
-			num = j->pgid;
+//			num = j->pgid;
+			p = j->first_proc;
+			while (p)
+			{
+				num = p->pid;
+				kill(num, sig);
+				p = p->next;
+			}
 			break ;
 		}
 		j = j->next;
@@ -32,8 +40,8 @@ void	ft_kill_job_by_num(int i, int sig, pid_t num, char **av)
 		ft_print_msg(": kill : no such job: ", av[i] + 1);
 		ft_set_shell("?", "1");
 	}
-	else
-		kill(-num, sig);
+//	else
+//		kill(-num, sig);
 }
 
 void	ft_kill_set_proc(char **av, int i, int sig)

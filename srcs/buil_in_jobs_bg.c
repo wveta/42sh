@@ -6,14 +6,17 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 15:38:41 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/28 22:17:23 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/29 21:30:09 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	ft_job_from_cmd1(t_cmdlist *cmd, t_job *cur_job, int status)
+t_job	*ft_job_from_cmd1(t_cmdlist *cmd, int status)
 {
+	t_job *cur_job;
+
+	cur_job = NULL;
 	if (cmd->nr == 1)
 	{
 		cur_job = ft_new_job(cmd);
@@ -30,6 +33,7 @@ void	ft_job_from_cmd1(t_cmdlist *cmd, t_job *cur_job, int status)
 		ft_set_job_plus();
 		ft_print_start_job(cur_job);
 	}
+	return (cur_job);
 }
 
 void	ft_cmd_to_job(int status)
@@ -37,12 +41,12 @@ void	ft_cmd_to_job(int status)
 	t_job		*cur_job;
 	t_cmdlist	*cmd;
 	pid_t		my_pgid;
-	struct timespec	clock1;
+/*	struct timespec	clock1;
 	struct timespec	clock2;
 
 	clock1.tv_nsec = 300000000;
 	clock1.tv_sec = 0;
-	nanosleep(&clock1, &clock2);
+	nanosleep(&clock1, &clock2);*/
 	cur_job = NULL;
 	my_pgid = 0;
 	if (g_pipe && (g_pipe->first_cmd->built_in == 0 ||
@@ -51,10 +55,12 @@ void	ft_cmd_to_job(int status)
 		cmd = g_pipe->first_cmd;
 		while (cmd)
 		{
-//			if (my_pgid == 0)
-//				my_pgid = cmd->pid_z;
-			ft_job_from_cmd1(cmd, cur_job, status);
-			ft_add_proc(cmd);
+			if (my_pgid == 0)
+			{
+				my_pgid = cmd->pid_z;
+				cur_job = ft_job_from_cmd1(cmd, status);
+			}
+			ft_add_proc(cmd, cur_job);
 //			setpgid(cmd->pid, my_pgid);
 //			tcsetpgrp(cmd->pid_z, my_pgid);
 			cmd->pid = 0;

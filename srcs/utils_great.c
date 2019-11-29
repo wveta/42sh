@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 17:30:15 by wveta             #+#    #+#             */
-/*   Updated: 2019/10/22 17:45:52 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/29 20:26:05 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int		ft_test_fd(int fd, char *s)
 	{
 		if (read(fd, buf, 0) == -1)
 		{
-			ft_print_msg(" : file descriptor not found ", s);
+			ft_print_msg(" : Bad file descriptor ", s);
 			return (-1);
 		}
 	}
@@ -62,7 +62,7 @@ int		ft_great_dup1(int pref_fd, int out_fd, t_cmdlist *cmd)
 			g_cmd->stdout_copy = dup(STDOUT_FILENO);
 		if (dup2(out_fd, STDOUT_FILENO) == -1)
 		{
-			ft_print_msg(" : Err relink STDOUT: ", "DUP2");
+			ft_print_msg(" : Bad file descriptor ", "");
 			return (-1);
 		}
 		cmd->fd1 = out_fd;

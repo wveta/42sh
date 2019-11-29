@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 11:01:23 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/27 15:29:36 by wveta            ###   ########.fr       */
+/*   Updated: 2019/11/29 21:14:59 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -444,7 +444,7 @@ int						ft_if_job(t_cmdlist *cur_cmd);
 void					ft_print_start_job(t_job *cur_job);
 t_job					*ft_del_job(t_job *del);
 int						ft_set_job_str(char *start, int end);
-void					ft_add_proc(t_cmdlist *cur_cmd);
+void					ft_add_proc(t_cmdlist *cur_cmd, t_job *job);
 char					*ft_print_job_pref(t_job *cur_job);
 void					ft_update_job_status(t_job *cur);
 void					ft_print_jobs(void);
@@ -509,7 +509,7 @@ int						bin_test_get_unary(char *arg, int *flag);
 int						bin_test_get_binary(char *arg, int *flag);
 int						bin_test_error(char *var, char *message);
 int						bin_test_return(int code);
-void					ft_print_sig(int status);
+void					ft_print_sig(pid_t pid, int signo, int status);
 void					ft_cmd_to_job(int status);
 int						ft_set_job_status(t_job *job, int n, int status);
 char					*glob_join(char *path, char *name);
