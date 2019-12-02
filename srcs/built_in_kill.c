@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 15:38:41 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/28 12:06:17 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/02 15:31:50 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,18 @@ int		ft_get_cmd_exit_status(int status)
 	else
 		rc = 1;
 	return (rc);
+}
+
+char	*ft_get_app_name(char *s)
+{
+	int		j;
+
+	j = ft_strlen(s) - 1;
+	while (j >= 0 && s[j])
+	{
+		if (s[j] == '/')
+			break ;
+		j--;
+	}
+	return (s + j + 1);
 }

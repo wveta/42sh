@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 16:34:55 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/28 15:24:46 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/02 22:43:06 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ static int	ft_split_pipes_words(char *str)
 	int		qflag;
 	int		br_count;
 	int		br_flag;
+	int		b_sl;
 	int		flsub;
 
 	i = 0;
@@ -33,16 +34,18 @@ static int	ft_split_pipes_words(char *str)
 	wcount = 0;
 	qflag = 0;
 	flsub = 0;
+	b_sl = 0;
 	while (str && str[i])
 	{
-
+		if (qflag != 2 && str[i] == '\\' && ((b_sl = b_sl + 1)))
+			b_sl = b_sl % 2;
 		if (qflag == 0 && (br_flag == 0 || br_flag == 1) &&
 		str[i] == '(' && (i == 0 || ft_strchr(" ;|&$", str[i - 1])))
 		{
 			br_flag = 1;
 			br_count++;
 			if (br_count == 1 && str[i - 1] == '$' &&
-			(i - 1 == 0 || str[i - 2] != '\\'))
+			(i - 1 == 0 || b_sl == 0))
 				flsub = 1;
 		}
 		else if (qflag == 0 && br_flag == 1 && str[i] == '(')
@@ -72,19 +75,21 @@ static int	ft_split_pipes_words(char *str)
 		}
 
 		if (qflag == 0 && br_flag == 0 && str[i] == '|' &&
-		(i == 0 || str[i - 1] != '\\'))
+		(i == 0 || b_sl == 0))
 			wcount++;
 		else if (qflag == 0 && br_flag == 0 && ft_isspace(str[i]) == 0 &&
 		(i == 0 || ft_isspace(str[i - 1]) == 1
 		|| (str[i - 1] == '|' && qflag == 0)))
 			wcount++;
-		if ((qflag == 1 && str[i] == '"' && str[i - 1] != '\\') ||
-		(qflag == 2 && str[i] == '\'' && str[i - 1] != '\\'))
+		if ((qflag == 1 && str[i] == '"' && b_sl == 0) ||
+		(qflag == 2 && str[i] == '\'' && b_sl == 0))
 			qflag = 0;
-		else if (qflag == 0 && str[i] == '"' && (i == 0 || str[i - 1] != '\\'))
+		else if (qflag == 0 && str[i] == '"' && (i == 0 || b_sl == 0))
 			qflag = 1;
-		else if (qflag == 0 && str[i] == '\'' && (i == 0 || str[i - 1] != '\\'))
+		else if (qflag == 0 && str[i] == '\'' && (i == 0 || b_sl == 0))
 			qflag = 2;
+		else if (qflag == 0 && str[i] != '\\' &&  b_sl == 1)
+			b_sl = 0;
 		i++;
 	}
 	return (wcount);
@@ -106,19 +111,22 @@ static int	ft_all_pipe_words(char **ret, char const *str)
 {
 	t_pipeflag	*fl;
 	int			flsub;
+	int			b_sl;
 
 	fl = ft_pipe_split_ini();
 	flsub = 0;
+	b_sl = 0;
 	while (++fl->i < (int)ft_strlen(str) && (str[fl->i]))
 	{
-
+		if (fl->qflag != 2 && str[fl->i] == '\\' && ((b_sl = b_sl + 1)))
+			b_sl = b_sl % 2;
 		if (fl->qflag == 0 && (fl->br_flag == 0 || fl->br_flag == 1) && str
 		[fl->i] == '(' && (fl->i == 0 || ft_strchr(" ;|&$", str[fl-> i - 1])))
 		{
 			fl->br_flag = 1;
 			fl->br_count++;
 			if (fl->br_count == 1 && str[fl->i - 1] == '$' &&
-			(fl->i - 1 == 0 || str[fl->i - 2] != '\\'))
+			(fl->i - 1 == 0 || b_sl == 0))
 				flsub = 1;
 			else if (fl->br_count == 1 && flsub == 0)
 				fl->start = fl->i;
@@ -155,7 +163,7 @@ static int	ft_all_pipe_words(char **ret, char const *str)
 		}
 
 		if (fl->qflag == 0 && fl->br_flag == 0 && str[fl->i] == '|' &&
-		(fl->i == 0 || str[fl->i - 1] != '\\'))
+		(fl->i == 0 || b_sl == 0))
 			ft_pipe_split_3(fl, ret, str);
 		else if (fl->qflag == 0 && fl->br_flag == 0 && fl->flag == 1 &&
 		ft_isspace(str[fl->i]) == 1 && fl->i > 0 &&
@@ -163,15 +171,17 @@ static int	ft_all_pipe_words(char **ret, char const *str)
 			ft_pipe_split_4(fl, ret, str);
 		else
 			ft_pipe_split_6(fl, str);
-		if ((fl->qflag == 1 && str[fl->i] == '"' && str[fl->i - 1] != '\\') ||
-			(fl->qflag == 2 && str[fl->i] == '\'' && str[fl->i - 1] != '\\'))
+		if ((fl->qflag == 1 && str[fl->i] == '"' && b_sl == 0) ||
+			(fl->qflag == 2 && str[fl->i] == '\'' && b_sl == 0))
 			fl->qflag = 0;
 		else if (fl->qflag == 0 && str[fl->i] == '"' &&
-		(fl->i == 0 || str[fl->i - 1] != '\\'))
+		(fl->i == 0 || b_sl == 0))
 			fl->qflag = 1;
 		else if (fl->qflag == 0 && str[fl->i] == '\'' &&
-		(fl->i == 0 || str[fl->i - 1] != '\\'))
+		(fl->i == 0 || b_sl == 0))
 			fl->qflag = 2;
+		else if (fl->qflag == 0 && str[fl->i] != '\\' &&  b_sl == 1)
+			b_sl = 0;
 	}
 	if (fl->br_flag != 0)
 	{

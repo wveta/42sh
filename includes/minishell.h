@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 11:01:23 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/29 21:14:59 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/02 23:17:31 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -513,5 +513,19 @@ void					ft_print_sig(pid_t pid, int signo, int status);
 void					ft_cmd_to_job(int status);
 int						ft_set_job_status(t_job *job, int n, int status);
 char					*glob_join(char *path, char *name);
+void					ft_check_q(int i, int *qflag, char *str, int b_sl);
+void					ft_check_b(int i, char *str, int *br_flag,
+						int *br_count);
+void					ft_check_init(int *i, int *qflag, int *br_c,
+						int *br_f);
+void					ft_do_cmd_list_ini(t_pipe *p_head, int flpi);
+void					ft_set_pgid(t_cmdlist *cmd, int flpi);
+int						ft_do_cmd_loop(t_pipe *p_head, int fd0[2], int fd1[2],
+						int flpi);
+void					ft_add_built_to_list(int j);
+char					*ft_cre_parm_str(char *parm, char *value);
+void					ft_cacl_test_b(int *br_flag, int *br_count, int i,
+						char *str);
+void					ft_calc_test_q(int *qflag, char *str, int i, int *b_sl);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 15:38:41 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/22 18:01:51 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/02 18:16:29 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,11 @@ void		ft_upr_sym(int flag, char *str)
 		s = str;
 		while (*s)
 		{
-			if (s[0] == '\\')
+			if (s[0] == '\\' && (tmp = ft_strchr(UPR0, s[1])))
 			{
-				if ((tmp = ft_strchr(UPR0, s[1])))
-				{
-					s[0] = tmp - UPR0;
-					ft_strcpy(s + 1, s + 2);
-					len--;
-				}
+				s[0] = tmp - UPR0;
+				ft_strcpy(s + 1, s + 2);
+				len--;
 			}
 			s++;
 		}
@@ -98,28 +95,9 @@ int			ft_echo(char **av)
 	return (1);
 }
 
-int			ft_built_in(char *path, char **av, char **locals)
+int			ft_built_in2(char *path, char **av)
 {
-	g_built_rc = 0;
-	if (path && ft_strequ(path, "exit") == 1 )
-		return(ft_exit(av));
-	else if (path && g_envi->env && ft_strcmp(path, "set") == 0)
-		return (ft_print_env());
-	else if (path && ft_strncmp(path, "cd", 2) == 0)
-		return (ft_built_cd(av, locals));
-	else if (path && ft_strncmp(path, "export", 6) == 0)
-		return (ft_export(av));
-	else if (path && ft_strncmp(path, "unset", 5) == 0)
-		return (ft_unset_env(av));
-	else if (path && ft_strncmp(path, "echo", 4) == 0)
-		return (ft_echo(av));
-	else if (path && ft_strncmp(path, "type", 4) == 0)
-		return (ft_type(av));
-	else if (path && ft_strncmp(path, "printenv", 8) == 0)
-		return (ft_printenv(av));
-	else if (path && ft_strncmp(path, "hash", 4) == 0)
-		return (ft_cmd_hash(av));
-	else if (path && ft_strncmp(path, "jobs", 4) == 0)
+	if (path && ft_strncmp(path, "jobs", 4) == 0)
 		return (ft_cmd_jobs(av));
 	else if (path && ft_strncmp(path, "fg", 2) == 0)
 		return (ft_cmd_fg(av));
@@ -136,16 +114,28 @@ int			ft_built_in(char *path, char **av, char **locals)
 	return (0);
 }
 
-char		*ft_get_app_name(char *s)
+int			ft_built_in(char *path, char **av, char **locals)
 {
-	int		j;
-
-	j = ft_strlen(s) - 1;
-	while (j >= 0 && s[j])
-	{
-		if (s[j] == '/')
-			break ;
-		j--;
-	}
-	return (s + j + 1);
+	g_built_rc = 0;
+	ft_set_shell("?", "0");
+	if (path && ft_strequ(path, "exit") == 1)
+		return (ft_exit(av));
+	else if (path && g_envi->env && ft_strcmp(path, "set") == 0)
+		return (ft_print_env());
+	else if (path && ft_strncmp(path, "cd", 2) == 0)
+		return (ft_built_cd(av, locals));
+	else if (path && ft_strncmp(path, "export", 6) == 0)
+		return (ft_export(av));
+	else if (path && ft_strncmp(path, "unset", 5) == 0)
+		return (ft_unset_env(av));
+	else if (path && ft_strncmp(path, "echo", 4) == 0)
+		return (ft_echo(av));
+	else if (path && ft_strncmp(path, "type", 4) == 0)
+		return (ft_type(av));
+	else if (path && ft_strncmp(path, "printenv", 8) == 0)
+		return (ft_printenv(av));
+	else if (path && ft_strncmp(path, "hash", 4) == 0)
+		return (ft_cmd_hash(av));
+	else
+		return (ft_built_in2(path, av));
 }

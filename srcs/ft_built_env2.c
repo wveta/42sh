@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 18:24:59 by wveta             #+#    #+#             */
-/*   Updated: 2019/09/18 12:33:54 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/02 18:21:28 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,11 +118,10 @@ int		ft_export(char **av)
 		{
 			while (av[i][++j])
 			{
-				if (av[i][j] != 'n')
+				if (av[i][j] != 'n' && ((g_built_rc = 2)))
 				{
 					ft_print_msg(" : usage: export [-n]", g_app_name);
 					ft_set_shell("?", "2");
-					g_built_rc = 2;
 					return (1);
 				}
 				flag = 1;

@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 15:38:41 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/29 21:39:56 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/02 15:25:47 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ void	ft_job_fg(t_job *j)
 	tcgetattr(0, &tmodes);
 	tcsetpgrp(0, j->pgid);
 	p = j->first_proc;
-//	kill(-j->pgid, SIGCONT);
 	while (p)
 	{
 		kill(p->pid, SIGCONT);

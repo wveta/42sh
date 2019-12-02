@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 15:38:41 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/29 21:30:09 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/02 15:27:00 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,7 @@ void	ft_cmd_to_job(int status)
 	t_job		*cur_job;
 	t_cmdlist	*cmd;
 	pid_t		my_pgid;
-/*	struct timespec	clock1;
-	struct timespec	clock2;
 
-	clock1.tv_nsec = 300000000;
-	clock1.tv_sec = 0;
-	nanosleep(&clock1, &clock2);*/
 	cur_job = NULL;
 	my_pgid = 0;
 	if (g_pipe && (g_pipe->first_cmd->built_in == 0 ||
@@ -61,8 +56,6 @@ void	ft_cmd_to_job(int status)
 				cur_job = ft_job_from_cmd1(cmd, status);
 			}
 			ft_add_proc(cmd, cur_job);
-//			setpgid(cmd->pid, my_pgid);
-//			tcsetpgrp(cmd->pid_z, my_pgid);
 			cmd->pid = 0;
 			cmd = cmd->next;
 		}

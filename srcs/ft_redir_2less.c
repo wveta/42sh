@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 19:25:12 by wveta             #+#    #+#             */
-/*   Updated: 2019/10/30 13:10:24 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/02 11:53:15 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,12 @@ int		ft_get_redir_hd(t_cmdlist *cmd)
 	heof = ft_strcat(heof, tmp);
 	free(tmp);
 	heof = ft_strcat(heof, "/.c");
-	j = open(heof, O_RDWR | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
+	j = open(heof, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	write(j, cmd->here, ft_strlen(cmd->here));
 	free(cmd->here);
 	cmd->here = heof;
 	close(j);
-	j = open(heof, O_RDWR, S_IRUSR | S_IWUSR);
+	j = open(heof, O_RDONLY, 0644);
 	g_cmd->stdin_copy = dup(STDIN_FILENO);
 	if (dup2(j, STDIN_FILENO) == -1)
 	{

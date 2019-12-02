@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/29 21:00:14 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/12 12:51:20 by udraugr-         ###   ########.fr       */
+/*   Updated: 2019/12/02 17:54:23 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,15 +91,6 @@ static int				ft_action(char **all_alias, char *av_str,
 	}
 	return (0);
 }
-
-/*
-** flag p in alias, just print alias until output;
-** like:
-** __INPUT__
-** alias -p aa
-** __OUTPUT__
-** alias aa="hello"
-*/
 
 int						ft_alias(char **av)
 {

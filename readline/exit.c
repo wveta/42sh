@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
+/*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 21:47:27 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/01 06:16:21 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/02 15:11:00 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,20 @@ char		*return_func(char *str, char *input, t_shell *shell)
 		len = -1;
 		while (tmp[++len] && tmp[len + 1])
 		{
-			if /*((tmp[j] == '\\') || */(tmp[len] == '\n')/*)*/
+			if ((tmp[len] == '\\') && (tmp[len + 1] == '\n'))
+			{
+				if (tmp[len + 2])
+				{
+					ft_strcpy(tmp + len, tmp + len + 2);
+					len = len - 2;
+				}
+				else
+				{
+					tmp[len] = '\0';
+					len--;
+				}
+			}	
+			else if (tmp[len] == '\n')
 			{
 				ft_strcpy(tmp + len, tmp + len + 1);
 				len--;

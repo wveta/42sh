@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/30 14:10:12 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/01 12:33:18 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/02 18:17:44 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void		ft_cd(char *path2, int flag, char **locals)
 	char *p;
 
 	p = ft_strdup(path2);
-	if (!((tmp = ft_get_env2("PWD", locals))) && !((tmp = ft_get_env("PWD"))))
+	if (!((tmp = ft_get_env2("PWD", locals))))
 	{
 		if (!(tmp = ft_strnew(255)))
 			exit_shell(1);
@@ -117,15 +117,13 @@ int			ft_built_cd(char **av, char **locals)
 
 	i = 0;
 	flag = 0;
-	ft_set_shell("?", "0");
 	while (av[++i])
 	{
 		if ((ft_cd_flag(av[i], &flag) == 1))
 		{
-			if ((av[i + 1]) && av[i + 1][0] != '\0')
+			if ((av[i + 1]) && av[i + 1][0] != '\0' && ((g_built_rc = 1)))
 			{
 				ft_putstr_fd("cd : too many arguments\n", 2);
-				g_built_rc = 1;
 				ft_set_shell("?", "1");
 				return (1);
 			}
