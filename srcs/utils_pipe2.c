@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/07 10:50:36 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/02 17:32:45 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/03 14:07:29 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,8 @@ void	ft_child_pipe_exec(t_cmdlist *cur_cmd, int flpi)
 	int		i;
 
 	ft_sig_set();
-//	ft_sig_dfl();
 	g_check = 1;
-		g_subshell++;
+//		g_subshell++;
 	if (g_subs_rc == 1)
 		exit(1);
 	if (g_job == 1 || flpi != -777)
@@ -68,13 +67,6 @@ void	ft_child_pipe_exec(t_cmdlist *cur_cmd, int flpi)
 		if (g_job == 0)
 			tcsetpgrp(0,  g_pgid);
 	}
-	/*	if (g_pgid == 0)
-			g_pgid = getpid();
-
-		setpgid(getpid(), g_pgid);
-		if (g_job == 0)
-			tcsetpgrp(0,  g_pgid);*/
-
 	while (cur_cmd->avcmd[0][0] && ft_isspace(cur_cmd->avcmd[0][0]))
 		ft_strcpy(cur_cmd->avcmd[0], cur_cmd->avcmd[0] + 1);
 	if (cur_cmd->avcmd[0][0] == '(' || cur_cmd->avcmd[0][0] == '{')

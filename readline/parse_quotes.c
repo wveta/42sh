@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_quotes.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
+/*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 13:46:12 by thaley            #+#    #+#             */
-/*   Updated: 2019/11/27 14:40:18 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/03 12:50:55 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,29 +57,38 @@ int			parse_backslash(int start)
 int			check_quotes(void)
 {
 	int 	i;
+	int		b_sl;
 
 	i = 0;
+	b_sl = 0;
 	while (i < g_input->input_len)
 	{
+		if (g_input->quotes != '\'' && g_input->input[i] == '\\')
+		{
+			b_sl++;
+			b_sl = b_sl % 2;
+		}
 		if (g_input->start_quotes != i && g_input->quotes == '\0' && g_input->input[i] == '"' &&
-		(i == 0 || g_input->input[i - 1] != '\\'))
+		(i == 0 || b_sl == 0))
 		{
 			g_input->quotes = '"';
 			g_input->start_quotes = i;
 		}
 		else if (g_input->start_quotes != i && ((g_input->quotes == '"' && g_input->input[i] == '"') ||
 			(g_input->quotes == '\'' && g_input->input[i] == '\'')) &&
-		(i == 0 || g_input->input[i - 1] != '\\'))
+		(i == 0 || b_sl == 0))
 		{
 			g_input->quotes = '\0';
 			g_input->start_quotes = 0;
 		}
 		else if (g_input->start_quotes != i && g_input->quotes == '\0' && g_input->input[i] == '\'' &&
-		(i == 0 || g_input->input[i - 1] != '\\'))
+		(i == 0 || b_sl == 0))
 		{
 			g_input->quotes = '\'';
 			g_input->start_quotes = i;
 		}
+		if (b_sl == 1 && g_input->input[i] != '\\')
+			b_sl =0;
 		i++;
 	}
 	if (g_input->quotes == '\0')

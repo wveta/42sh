@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 11:01:23 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/02 23:17:31 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/03 12:37:53 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -256,6 +256,19 @@ typedef struct			s_greatflag
 	int					flag_add;
 	int					flag_all;
 }						t_greatflag;
+
+typedef struct 			s_quoteflag
+{
+	int					i;
+	int					qflag;
+	int					br_count;
+	int					br_flag;
+	int					start;
+	int					end;
+	int					b_sl;
+	int					n;
+	int					rc;
+}						t_quoteflag;
 
 void					exit_shell();
 int						ft_calc_matr_rows(char **in);
@@ -524,8 +537,12 @@ int						ft_do_cmd_loop(t_pipe *p_head, int fd0[2], int fd1[2],
 						int flpi);
 void					ft_add_built_to_list(int j);
 char					*ft_cre_parm_str(char *parm, char *value);
-void					ft_cacl_test_b(int *br_flag, int *br_count, int i,
-						char *str);
-void					ft_calc_test_q(int *qflag, char *str, int i, int *b_sl);
+void					ft_cacl_test_b(t_quoteflag *f, char *str);
+void					ft_calc_test_q(t_quoteflag *f, char *str);
+t_quoteflag				*ft_get_quoteflag(void);
+void					ft_ini_quoteflag(t_quoteflag	*f);
+char					**ft_test_calc(t_quoteflag *f, char	**str);
+void					ft_test_doll_calc(t_quoteflag *f, char **str);
+void					ft_set_b_sl(t_quoteflag *f, char **str);
 
 #endif

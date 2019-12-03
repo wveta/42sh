@@ -17,7 +17,7 @@ FILES	:=	built_in exec_list ft_built_cd ft_built_env main parser\
 			semafor param_remove ft_cntrl_subst ft_calc check_str\
 			bin_test_binary bin_test_misc bin_test_unary bin_test\
 			glob_join buil_in_jobs_bg_cmd built_in_kill_cmd do_cmd_shell_norm\
-			ft_calc_str_test
+			ft_calc_str_test ft_calc_str_test2
 
 SRC_D	:=	srcs
 INC_D	:=	includes

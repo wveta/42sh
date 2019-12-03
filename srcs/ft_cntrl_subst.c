@@ -6,59 +6,53 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/15 19:42:51 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/26 16:15:52 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/03 13:19:13 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-char	*ft_go_subst(char *str, int vid)
+char	*ft_read_subst(int fd, int vid, char *str)
 {
-	char			*nr;
-	char			*tmp;
-	int				fd;
-	char			buf[2];
 	struct timespec	clock1;
 	struct timespec	clock2;
+	char			buf[2];
+
+	clock1.tv_nsec = 100000000;
+	clock1.tv_sec = 0;
+	nanosleep(&clock1, &clock2);
+	buf[0] = '\0';
+	while (read(fd, &buf, 1) > 0)
+	{
+		buf[1] = '\0';
+		if (vid == 0 && buf[0] == '\n')
+			buf[0] = ' ';
+		str = ft_strfjoin(str, buf);
+		buf[0] = '\0';
+	}
+	str[ft_strlen(str) - 1] = '\0';
+	return (str);
+}
+
+char	*ft_go_subst(char *str, int vid)
+{
+	char			*tmp;
+	int				fd;
 
 	tmp = ft_strdup("/tmp/");
-	nr = ft_strnew(10);
-	nr[0] = '\0';
-	nr = ft_putfnbr(getpid(), nr);
-	tmp = ft_strfjoin(tmp, nr);
+	tmp = ft_add_strnum(tmp, getpid());
 	tmp = ft_strfjoin(tmp, "_");
-	nr[0] = '\0';
-	nr = ft_putfnbr(g_subs_counter, nr);
+	tmp = ft_add_strnum(tmp, g_subs_counter);
 	g_subs_counter++;
-	tmp = ft_strfjoin(tmp, nr);
 	str = ft_strfjoin(str, " >");
 	str = ft_strfjoin(str, tmp);
 	ft_parse_line(str);
 	str[0] = '\0';
-
 	if ((fd = open(tmp, O_RDONLY, 0644)) > -1)
 	{
-		clock1.tv_nsec = 100000000;
-		clock1.tv_sec = 0;
-		nanosleep(&clock1, &clock2);
-		ft_rec_log(tmp);
-		buf[0] = '\0';
-		free(nr);
-		nr = NULL;
-		while (read(fd, &buf, 1) > 0)
-		{
-			buf[1] = '\0';
-			if (vid == 0 && buf[0] == '\n')
-				buf[0] = ' ';
-			str = ft_strfjoin(str, buf);
-			buf[0] = '\0';
-		}
-		ft_rec_log("EOF");
-		str[ft_strlen(str) - 1] = '\0';
+		str = ft_read_subst(fd, vid, str);
 		close(fd);
-//		remove(tmp);
 	}
-	free(nr);
 	free(tmp);
 	return (str);
 }
@@ -110,7 +104,6 @@ char	**ft_cnt_subs_tst(char **str, int n)
 	qflag = 0;
 	while (str && str[n] && str[n][++i])
 	{
-
 		if (qflag == 0 && (br_flag == 0 || br_flag == 1) &&
 		str[n][i] == '(' && (i == 0 || ft_strchr(" ;|&$", str[n][i - 1])))
 		{
@@ -134,7 +127,7 @@ char	**ft_cnt_subs_tst(char **str, int n)
 			if (br_count == 0)
 			{
 				br_flag = 0;
-				if (start != -1 && str[n][start + 1] != '('&& ((end = i)))
+				if (start != -1 && str[n][start + 1] != '(' && ((end = i)))
 				{
 					str = ft_cnt_subs_exe(str, n, start, end);
 					i = -1;
