@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 16:34:55 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/02 22:43:06 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/03 15:26:54 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void		ft_setqflag(int *qflag, int val, int *wcount)
 	*wcount = *wcount + 1;
 }
 
-static int	ft_split_pipes_words(char *str)
+int			ft_split_pipes_words(char *str)
 {
 	int		i;
 	int		wcount;

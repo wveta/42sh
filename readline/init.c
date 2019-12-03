@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
+/*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 19:15:41 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/01 04:45:27 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/03 14:45:29 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void		null_all(void)
 	g_input->multiline.pos = 0;
 	g_input->multiline.start_if_line = NULL;
 	g_input->quotes = '\0';
-	g_input->start_quotes = 0;
+	g_input->start_quotes = -1;
 	g_input->old_in_check = 0;
 }
 

@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 16:17:45 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/28 15:12:27 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/03 15:56:33 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,13 @@ int	ft_parse_cmd(char *str, int len)
 	cmd = ft_strncpy(cmd, str, (size_t)len);
 	args = ft_split_pipes(cmd);
 
+	ft_putendl_fd("ZDES' !", 2);
+
 	if (args && args[0] && ft_strlen(args[0]) > 0)
 		ft_do_cmd_shell(args, 0, ft_test_pipe(args, 0));
 	args = ft_free_char_matr(args);
 	free(cmd);
+	ft_putendl_fd("ZDES'2 !", 2);
 	return (0);
 }
 

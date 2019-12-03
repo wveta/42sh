@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 13:46:12 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/03 12:50:55 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/03 14:45:29 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int			check_quotes(void)
 		(i == 0 || b_sl == 0))
 		{
 			g_input->quotes = '\0';
-			g_input->start_quotes = 0;
+			g_input->start_quotes = -1;
 		}
 		else if (g_input->start_quotes != i && g_input->quotes == '\0' && g_input->input[i] == '\'' &&
 		(i == 0 || b_sl == 0))
@@ -93,7 +93,7 @@ int			check_quotes(void)
 	}
 	if (g_input->quotes == '\0')
 	{
-		g_input->start_quotes = 0;
+		g_input->start_quotes = -1;
 		return (0);
 	}
 	return (1);

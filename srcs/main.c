@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 10:27:38 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/22 17:43:28 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/03 16:08:02 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,8 @@ int			main(int argc, char **argv, char **environ)
 {
 	char	*line_read;
 	char	*pr;
-	char	**lr;
-	int		fd;
+//	char	**lr;
+//	int		fd;
 	char	*tmp;
 
 	if (!(g_cmd = malloc(sizeof(t_cmd))))
@@ -132,6 +132,12 @@ int			main(int argc, char **argv, char **environ)
 		ft_parse_line(line_read);
 		free(line_read);
 		tmp = NULL;
+		char *tmp2;
+		tmp2 = ft_strdup(" g_subshell =  ");
+		tmp2 = ft_add_strnum(tmp2, g_subshell);
+		ft_putendl_fd(tmp2 , 2);
+		free(tmp2);
+		ft_putendl_fd(g_sub_str, 2);
 		if (g_subshell > 0 && g_sub_str)
 		{
 			while (1)
@@ -160,7 +166,7 @@ int			main(int argc, char **argv, char **environ)
 			ft_final_free();
 			return (0);
 		}
-	}
+	}/*
 	g_subshell++;
 	fd = STDIN_FILENO;
 	if (argc > 1 && argv[1] && argv[1][0] != '<')
@@ -182,7 +188,7 @@ int			main(int argc, char **argv, char **environ)
 		ft_print_jobs();
 		ft_parse_line(line_read);
 		free(line_read);
-	}
+	}*/
 	ft_final_free();
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/29 21:00:14 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/02 17:54:23 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/03 15:50:56 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,10 @@ static char				*ft_add_alias(char *all_alias, char *av)
 		ft_strdel(&alias_name);
 	}
 	if (ans == NULL)
+	{
 		ft_print_msg("alias:", " Malloc can't alloacte memory!");
+		ft_set_shell("?", "1");
+	}
 	ft_strdel(&all_alias);
 	return (ans);
 }
@@ -99,8 +102,8 @@ int						ft_alias(char **av)
 	int					flag_alias;
 	int					ret;
 
-	if ((all_alias = ft_read_alias()) == NULL)
-		return (0);
+	if ((all_alias = ft_read_alias()) == NULL && (!(ft_set_shell("?", "1"))))
+		return (1);
 	ret = 1;
 	flag_alias = 0;
 	i = 0;
@@ -117,5 +120,5 @@ int						ft_alias(char **av)
 	}
 	ft_change_alias(all_alias);
 	ft_strdel(&all_alias);
-	return (ret);
+	return (1);
 }
