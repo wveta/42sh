@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/07 10:50:36 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/03 17:02:31 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/03 19:37:29 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	ft_child_pipe_exec(t_cmdlist *cur_cmd, int flpi)
 
 	ft_sig_set();
 	g_check = 1;
-//		g_subshell++;
+		g_subshell++;
 	if (g_subs_rc == 1)
 		exit(1);
 	if ((g_job == 1 && g_subst == 0) || flpi != -777)

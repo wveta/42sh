@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 16:34:55 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/03 16:42:06 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/03 21:00:02 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,7 +202,8 @@ char		**ft_split_pipes(char *s)
 
 	if (!s)
 		return (NULL);
-	count = ft_split_pipes_words(s);
+	if ((count = ft_split_pipes_words(s)) == 0)
+		return (NULL);
 	ret = (char **)malloc(sizeof(char *) * (count + 1));
 	if (ret == NULL)
 		return (NULL);
@@ -215,6 +216,7 @@ char		**ft_split_pipes(char *s)
 			return (NULL);
 		}
 	}
-	ret	= ft_cnt_subs(ret);
+	ret = ft_cnt_subs(ret);
+	ret = ft_resize_matr(ret);
 	return (ret);
 }

@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 11:01:23 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/03 16:42:06 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/03 20:03:13 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -545,7 +545,8 @@ void					ft_ini_quoteflag(t_quoteflag	*f);
 char					**ft_test_calc(t_quoteflag *f, char	**str);
 void					ft_test_doll_calc(t_quoteflag *f, char **str);
 void					ft_set_b_sl(t_quoteflag *f, char **str);
-char 					**ft_resize_matr(char **str, int n);
+char					**ft_resize_matr(char **str);
 int						ft_split_pipes_words(char *str);
+char					**ft_resize_matr_n(char **str, int n, int add);
 
 #endif

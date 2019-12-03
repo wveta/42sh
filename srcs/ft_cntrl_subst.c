@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/15 19:42:51 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/03 16:42:06 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/03 21:13:11 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ char	**ft_cnt_subs_exe(char **str, int n, int start, int end)
 	char	*pref;
 	char	*suff;
 
-	if (start == -1 || end == -1)
+	if (start == -1 || end == -1 || start == end - 1)
 		return (str);
 	pref = NULL;
 	suff = NULL;
@@ -84,7 +84,6 @@ char	**ft_cnt_subs_exe(char **str, int n, int start, int end)
 		free(pref);
 		free(suff);
 	}
-	str = ft_resize_matr(str, n);
 	return (str);
 }
 
@@ -131,7 +130,8 @@ char	**ft_cnt_subs_tst(char **str, int n)
 				if (start != -1 && str[n][start + 1] != '(' && ((end = i)))
 				{
 					str = ft_cnt_subs_exe(str, n, start, end);
-					i = -1;
+					if (start + 1 != end)
+						i = -1;
 					continue;
 				}
 			}
