@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/07 10:50:36 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/03 14:07:29 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/03 17:02:31 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,16 +55,16 @@ void	ft_child_pipe_exec(t_cmdlist *cur_cmd, int flpi)
 //		g_subshell++;
 	if (g_subs_rc == 1)
 		exit(1);
-	if (g_job == 1 || flpi != -777)
+	if ((g_job == 1 && g_subst == 0) || flpi != -777)
 	{
 		if (g_pgid == 0)
 		{
 			g_pgid = getpid();
-			if (g_job == 0)
+			if (g_job == 0  || g_subst > 0)
 				g_pgid = g_parent_pid;
 		}
 		setpgid(getpid(), g_pgid);
-		if (g_job == 0)
+		if (g_job == 0  || g_subst > 0)
 			tcsetpgrp(0,  g_pgid);
 	}
 	while (cur_cmd->avcmd[0][0] && ft_isspace(cur_cmd->avcmd[0][0]))
@@ -136,7 +136,7 @@ void	ft_child_pipe_exec(t_cmdlist *cur_cmd, int flpi)
 	}
 	else /*if (g_job == 1)*/
 	{
-		if (g_job == 1)
+		if (g_job == 1  && g_subst == 0)
 		{
 			if (ft_do_redir(cur_cmd) != 0)
 				exit(1);
@@ -182,7 +182,7 @@ void	ft_pipe_wait_ch_fin(t_cmdlist *cur_cmd, t_cmdlist *first_cmd, t_cmdlist *la
 	int			q;
 	int			rc;
 	
-	if (g_job == 0 && flpi > 0)
+	if ((g_job == 0  || g_subst > 0) && flpi > 0)
 	{
 		rc = 0;
 		while (1)

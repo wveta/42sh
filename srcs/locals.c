@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 19:25:12 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/29 16:09:38 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/03 16:49:43 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ void	ft_init_glvar(char **av)
 	g_job_first = NULL;
 	g_job_last = NULL;
 	g_job_ind = 1;
-	g_job = -1;
+	g_job = 0;// -1;
+	g_subst = 0;
 	g_envi->hash_first = NULL;
 //	g_subshell = 1 - isatty(STDIN_FILENO);
 	g_subshell = 0;

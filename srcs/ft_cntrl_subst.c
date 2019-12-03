@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/15 19:42:51 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/03 15:24:59 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/03 16:42:06 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,7 +156,9 @@ char	**ft_cnt_subs(char **av)
 	i = -1;
 	while (av && av[++i])
 	{
+		g_subst++;
 		av = ft_cnt_subs_tst(av, i);
+		g_subst--;
 	}
 	return (av);
 }

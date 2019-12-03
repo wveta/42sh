@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 11:01:23 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/03 15:27:15 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/03 16:42:06 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,6 +220,7 @@ char					*g_bsem_name;
 char					*sem_name;
 int						g_subs_counter;
 int						g_calc;
+int						g_subst;
 
 typedef struct dirent	t_dir;
 

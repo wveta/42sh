@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 10:27:38 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/03 16:08:02 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/03 16:36:27 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,13 +131,6 @@ int			main(int argc, char **argv, char **environ)
 		line_read = rl_gets(pr);
 		ft_parse_line(line_read);
 		free(line_read);
-		tmp = NULL;
-		char *tmp2;
-		tmp2 = ft_strdup(" g_subshell =  ");
-		tmp2 = ft_add_strnum(tmp2, g_subshell);
-		ft_putendl_fd(tmp2 , 2);
-		free(tmp2);
-		ft_putendl_fd(g_sub_str, 2);
 		if (g_subshell > 0 && g_sub_str)
 		{
 			while (1)

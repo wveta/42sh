@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 16:17:45 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/03 15:56:33 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/03 16:54:34 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,10 @@ int	ft_parse_cmd(char *str, int len)
 		ft_set_job_str(str, len);
 	cmd = ft_strncpy(cmd, str, (size_t)len);
 	args = ft_split_pipes(cmd);
-
-	ft_putendl_fd("ZDES' !", 2);
-
 	if (args && args[0] && ft_strlen(args[0]) > 0)
 		ft_do_cmd_shell(args, 0, ft_test_pipe(args, 0));
 	args = ft_free_char_matr(args);
 	free(cmd);
-	ft_putendl_fd("ZDES'2 !", 2);
 	return (0);
 }
 
@@ -75,7 +71,8 @@ void	ft_init_parse_int(int *i, int *i_cmd, int *qflag, int *br_count)
 	g_job_end = 0;
 	g_and_or_line = 0;
 	g_skip = 0;
-	g_job = 0;
+	if (g_subst == 0)
+		g_job = 0;
 }
 
 void	ft_parse_line(char *str)
@@ -92,7 +89,7 @@ void	ft_parse_line(char *str)
 	{	
 		if (i == 0 && ft_test_args(str + i_cmd) == 0)
 			return ;
-		if (i == 0 && ((g_job = ft_test_job(str, i_cmd))) && g_and_or_line)
+		if (i == 0 && g_subst == 0 && ((g_job = ft_test_job(str, i_cmd))) && g_and_or_line)
 		{
 			av = ft_get_shell_str(g_job_start, g_job_end);
 			if (ft_parse_cmd(av, ft_strlen(av)) == 1)
@@ -162,5 +159,5 @@ void	ft_parse_line(char *str)
 		i++;
 	}
 	ft_parse_cmd(str + i_cmd, i);
-	g_job = -1;
+//	g_job = -1;
 }

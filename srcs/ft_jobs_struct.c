@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 19:25:12 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/29 21:15:38 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/03 16:45:00 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ int		ft_if_job(t_cmdlist *cur_cmd)
 	t_job	*cur_job;
 
 	cur_job = NULL;
-	if (g_job == 1)
+	if (g_job == 1  && g_subst == 0)
 	{
 		if (cur_cmd->nr == 1)
 		{
