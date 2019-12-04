@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 19:25:12 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/11 15:26:04 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/04 20:46:02 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	*ft_get_parm_qq(char *s)
 	int		j;
 	char	*tmp;
 
-	if (((j = ft_strchr(s, ':') - s)) > 1)
+	if (((j = ft_strchr(s, ':') - s)) > -1)
 	{
 		tmp = ft_strnew(j + 1);
 		tmp = ft_strncpy(tmp, s, j);
@@ -46,28 +46,74 @@ char	*ft_get_parm_qq(char *s)
 			{
 				val = ft_strnew(ft_strlen(s) - (j + 1) + 1);
 				val = ft_strcpy(val, s + j + 2);
-				if (s[j + 1] == '=')
+
+	int jj;
+	jj = 0;
+		while (jj < (int)ft_strlen(val))
+		{
+			if (ft_strchr(" \"\'\\$", val[jj]) > 0)
+			{
+				val = ft_replays(val);
+				if (g_subs_rc == 1)
+				{
+					free(tmp);
+					free(val);
+					ft_set_shell("?", "1");
+					if (g_subshell == 0)
+						return (s);
+					else
+						exit_shell(1);
+				}
+
+			}
+			jj++;
+		}
+
+				if (s[j + 1] == '=' && tmp && ft_strlen(tmp) > 0)
 					ft_set_shell(tmp, val);
+				else if  (s[j + 1] == '=' && (!tmp || ft_strlen(tmp) == 0))
+				{
+					g_subs_rc = 1;
+					ft_print_msg(": parameter not exist: ", s);
+					ft_set_shell("?", "1");
+					free(tmp);
+					free(val);
+					if (g_subshell == 0)
+						return (s);
+					else
+						exit_shell(1);
+				}
 				else if (s[j + 1] == '?' && val[0] == '\0')
 				{
+					g_subs_rc = 1;
+					ft_print_msg(": parameter null or not set: ", tmp);
+					ft_set_shell("?", "1");
+					free(tmp);
+					free(val);
 					if (g_subshell == 0)
-					{
-						g_subs_rc = 1;
-						ft_print_msg(": parameter null or not set: ", tmp);
-						free(tmp);
-						free(val);
 						return (s);
-					}
 					else
 						exit_shell(1);
 				}
 			}
 		}
-		else if (s[j + 1] == '+')
+		if (s[j + 1] == '+' && val)
 		{
-			free(val);
-			val = ft_strnew(ft_strlen(s) - (j + 1) + 1);
-			val = ft_strcpy(val, s + j + 2);
+			if (tmp && ft_strlen(tmp) > 0)
+			{
+				free(val);
+				val = ft_strnew(ft_strlen(s) - (j + 1) + 1);
+				val = ft_strcpy(val, s + j + 2);
+			}
+			else
+			{
+				g_subs_rc = 1;
+				ft_print_msg(": parameter not exist: ", s);
+				ft_set_shell("?", "1");
+				free(tmp);
+				free(val);
+				return (s);
+			}
 		}
 		free(tmp);
 		free(s);
@@ -157,8 +203,6 @@ char	*ft_repl_subs(char *s, int *k, int i)
 	char	*tmp;
 	char	*ret;
 
-	if (ft_test_sub(s + *k + 2, i - 2) == 1)
-		return (s);
 	tmp = ft_strncpy(ft_alloc_char(i - 1), s + *k + 2, i - 2);
 	tmp[i - 2] = '\0';
 	if (tmp[0] == '#')
@@ -171,6 +215,8 @@ char	*ft_repl_subs(char *s, int *k, int i)
 		tmp = ft_get_parm_prc(tmp);
 	else
 	{
+		if (ft_test_sub(s + *k + 2, i - 2) == 1)
+			return (s);
 		free(tmp);
 		tmp = ft_get_parm_simple(s, k, i);
 	}

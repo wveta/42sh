@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 19:25:12 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/04 17:14:04 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/04 21:53:09 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ char	*ft_repl_parm(char *s, int flag, int len)
 			s = ft_repl_end_til(s, j, &flag);
 		else if (q != '\'' && s[j] == '$' &&
 		(k != 2) && s[j + 1] &&
-		(s[j + 1] == '_' || ft_isalpha(s[j + 1]) ||
+		(s[j + 1] == '_' || ft_isalpha(s[j + 1]) || s[j + 1] == '?' ||
 		s[j + 1] == '{'))
 		{
 			if (flag == 1)
@@ -128,6 +128,7 @@ char	**ft_cmd_replays(char **str)
 			str[i] = ft_replays(str[i]);
 			i++;
 		}
+		str = ft_press_matr(str);
 		return (str);
 	}
 	return (ret);

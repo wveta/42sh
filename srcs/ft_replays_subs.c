@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 19:25:12 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/19 16:30:07 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/04 20:56:57 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,11 @@ char	*ft_repl_env(char *s, int *k)
 	char	*tmp;
 	char	*val;
 
-	if (s[*k + 1] == '{' && ((i = (ft_strchr(s + *k, '}') - (s + *k))) > 1))
+	if (s[*k + 1] == '{' && 
+//	((i = (ft_strchr(s + *k, '}') - (s + *k))) > 1))
+	(i = ft_strlen(s + *k) - 1))
 		return (ft_repl_subs(s, k, i));
-	if (!(s[*k + 1] == '_' || ft_isalpha(s[*k + 1])))
+	if (!(s[*k + 1] == '_' || ft_isalpha(s[*k + 1]) || s[*k + 1] == '?'))
 		return (s);
 	i = ft_repl_sym(s, *k);
 	tmp = ft_alloc_char(i);
