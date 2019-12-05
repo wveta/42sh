@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/15 19:42:51 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/03 21:13:11 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/05 12:42:24 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ char	**ft_cnt_subs_tst(char **str, int n)
 	int		br_flag;
 	int		start;
 	int		end;
+	int		b_sl;
 
 	i = -1;
 	start = -1;
@@ -102,10 +103,15 @@ char	**ft_cnt_subs_tst(char **str, int n)
 	br_count = 0;
 	br_flag = 0;
 	qflag = 0;
+	b_sl = 0;
 	while (str && str[n] && str[n][++i])
 	{
+		if (qflag != 2 && str[n][i] == '\\' && ((b_sl = b_sl + 1)))
+			b_sl = b_sl % 2;
 		if (qflag == 0 && (br_flag == 0 || br_flag == 1) &&
-		str[n][i] == '(' && (i == 0 || ft_strchr(" ;|&$", str[n][i - 1])))
+		str[n][i] == '(' &&
+//		(i == 0 || ft_strchr(" ;|&$", str[n][i - 1])))
+		b_sl == 0)
 		{
 			br_flag = 1;
 			br_count++;
@@ -113,14 +119,16 @@ char	**ft_cnt_subs_tst(char **str, int n)
 		else if (qflag == 0 && br_flag == 1 && str[n][i] == '(')
 			br_count++;
 		else if (qflag == 0 && (br_flag == 0 || br_flag == 2) &&
-		str[n][i] == '{' && (i == 0 || ft_strchr(" ;|&", str[n][i - 1])))
+		str[n][i] == '{' &&
+//		 (i == 0 || ft_strchr(" ;|&", str[n][i - 1])))
+		b_sl == 0)
 		{
 			br_flag = 2;
 			br_count++;
 		}
-		else if (qflag == 0 && br_flag == 1 && str[n][i] == '{')
+		else if (qflag == 0 && br_flag == 2 && str[n][i] == '{' && b_sl == 0)
 			br_count++;
-		if (qflag == 0 && ((br_flag == 1 && str[n][i] == ')') ||
+		if (qflag == 0 && b_sl == 0 && ((br_flag == 1 && str[n][i] == ')') ||
 		(br_flag == 2 && str[n][i] == '}')))
 		{
 			br_count--;
@@ -136,13 +144,15 @@ char	**ft_cnt_subs_tst(char **str, int n)
 				}
 			}
 		}
-		if ((qflag == 2 && str[n][i] == '\'' &&
+		if ((qflag == 2 && b_sl == 0 && str[n][i] == '\'' &&
 		(i == 0 || str[n][i - 1] != '\\')))
 			qflag = 0;
-		else if (qflag == 0 && str[n][i] == '\'' &&
-		(i == 0 || str[n][i - 1] != '\\'))
+		else if (qflag == 0 && b_sl == 0 && str[n][i] == '\'')
+//		 &&
+//		(i == 0 || str[n][i - 1] != '\\'))
 			qflag = 2;
-		if (qflag == 0 && br_flag == 0 && (i == 0 || str[n][i - 1] != '\\')
+		if (qflag == 0 && br_flag == 0  && b_sl == 0
+//		&& (i == 0 || str[n][i - 1] != '\\')
 		&& str[n][i] == '$' && str[n][i + 1] && str[n][i + 1] == '(')
 			start = i + 1;
 	}

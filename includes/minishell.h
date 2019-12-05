@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 11:01:23 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/03 20:03:13 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/05 20:18:26 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -445,7 +445,7 @@ void					ft_hash_cmd_add(char *path, char *name);
 int						ft_hash_usage(char *av);
 char					*ft_get_hash_path(char *path);
 int						ft_test_sub(char *str, int i);
-char					*ft_get_parm_simple(char *s, int *k, int i);
+char					*ft_get_parm_simple(char *s/*, int *k, int i*/);
 int						ft_test_job(char *str, int start);
 void					ft_exp_env(char *parm, char *value);
 void					ft_locals_to_env(char **locals);
@@ -548,5 +548,8 @@ void					ft_set_b_sl(t_quoteflag *f, char **str);
 char					**ft_resize_matr(char **str);
 int						ft_split_pipes_words(char *str);
 char					**ft_resize_matr_n(char **str, int n, int add);
+int						ft_test_parname(char *str);
+char					*ft_print_badsub(char *s, int i, char *tmp);
+int						ft_subst_lbr(char *s);
 
 #endif

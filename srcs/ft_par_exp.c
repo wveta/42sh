@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 19:25:12 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/04 20:46:02 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/05 20:18:26 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ char	*ft_get_parm_ll(char *tmp)
 	char	*val;
 
 	ft_strcpy(tmp, tmp + 1);
+	if (ft_test_parname(tmp))
+		return (tmp = ft_print_badsub(tmp, 0, NULL));
 	if ((val = ft_get_env(tmp)))
 	{
 		tmp[0] = '\0';
@@ -35,65 +37,54 @@ char	*ft_get_parm_qq(char *s)
 	char	*val;
 	int		j;
 	char	*tmp;
+	int 	jj;
 
 	if (((j = ft_strchr(s, ':') - s)) > -1)
 	{
 		tmp = ft_strnew(j + 1);
 		tmp = ft_strncpy(tmp, s, j);
+		if (ft_test_parname(tmp))
+		{
+			free(tmp);
+			return (s = ft_print_badsub(s, 0, NULL));
+		}
 		if (!(val = ft_get_env(tmp)))
 		{
 			if (s[j + 1] == '-' || s[j + 1] == '=' || s[j + 1] == '?')
 			{
 				val = ft_strnew(ft_strlen(s) - (j + 1) + 1);
 				val = ft_strcpy(val, s + j + 2);
-
-	int jj;
-	jj = 0;
-		while (jj < (int)ft_strlen(val))
-		{
-			if (ft_strchr(" \"\'\\$", val[jj]) > 0)
-			{
-				val = ft_replays(val);
-				if (g_subs_rc == 1)
+				jj = 0;
+				while (jj < (int)ft_strlen(val))
 				{
-					free(tmp);
-					free(val);
-					ft_set_shell("?", "1");
-					if (g_subshell == 0)
-						return (s);
-					else
-						exit_shell(1);
+					if (ft_strchr(" \"\'\\$", val[jj]) > 0)
+					{
+						val = ft_replays(val);
+						if (g_subs_rc == 1)
+						{
+							free(tmp);
+							free(val);
+							ft_set_shell("?", "1");
+							if (g_subshell == 0)
+								return (s);
+							else
+								exit_shell(1);
+						}
+					}
+					jj++;
 				}
-
-			}
-			jj++;
-		}
-
 				if (s[j + 1] == '=' && tmp && ft_strlen(tmp) > 0)
 					ft_set_shell(tmp, val);
 				else if  (s[j + 1] == '=' && (!tmp || ft_strlen(tmp) == 0))
 				{
-					g_subs_rc = 1;
-					ft_print_msg(": parameter not exist: ", s);
-					ft_set_shell("?", "1");
 					free(tmp);
 					free(val);
-					if (g_subshell == 0)
-						return (s);
-					else
-						exit_shell(1);
+					return (s = ft_print_badsub(s, 0, NULL));
 				}
 				else if (s[j + 1] == '?' && val[0] == '\0')
 				{
-					g_subs_rc = 1;
-					ft_print_msg(": parameter null or not set: ", tmp);
-					ft_set_shell("?", "1");
-					free(tmp);
 					free(val);
-					if (g_subshell == 0)
-						return (s);
-					else
-						exit_shell(1);
+					return (s = ft_print_badsub(s, 1, tmp));
 				}
 			}
 		}
@@ -104,6 +95,26 @@ char	*ft_get_parm_qq(char *s)
 				free(val);
 				val = ft_strnew(ft_strlen(s) - (j + 1) + 1);
 				val = ft_strcpy(val, s + j + 2);
+				jj = 0;
+				while (jj < (int)ft_strlen(val))
+				{
+					if (ft_strchr(" \"\'\\$", val[jj]) > 0)
+					{
+						val = ft_replays(val);
+						if (g_subs_rc == 1)
+						{
+							free(tmp);
+							free(val);
+							ft_set_shell("?", "1");
+							if (g_subshell == 0)
+								return (s);
+							else
+								exit_shell(1);
+						}
+					}
+					jj++;
+				}
+
 			}
 			else
 			{
@@ -135,6 +146,11 @@ char	*ft_get_parm_rr(char *s)
 	{
 		tmp = ft_strnew(j + 1);
 		tmp = ft_strncpy(tmp, s, j);
+		if (ft_test_parname(tmp))
+		{
+			free(tmp);
+			return (s = ft_print_badsub(s, 0, NULL));
+		}
 		if (s[j + 1] == '#')
 		{
 			flag = ft_strdup("##");
@@ -172,6 +188,11 @@ char	*ft_get_parm_prc(char *s)
 	{
 		tmp = ft_strnew(j + 1);
 		tmp = ft_strncpy(tmp, s, j);
+		if (ft_test_parname(tmp))
+		{
+			free(tmp);
+			return (s = ft_print_badsub(s, 0, NULL));
+		}
 		if (s[j + 1] == '%')
 		{
 			flag = ft_strdup("%%");
@@ -202,9 +223,15 @@ char	*ft_repl_subs(char *s, int *k, int i)
 {
 	char	*tmp;
 	char	*ret;
+	int		j;
 
-	tmp = ft_strncpy(ft_alloc_char(i - 1), s + *k + 2, i - 2);
-	tmp[i - 2] = '\0';
+	if ((j = ft_subst_lbr(s + *k + 2)) == -1)
+		j = ft_strlen(s + *k + 2);
+	tmp = ft_alloc_char(j + 1);
+	tmp[j] = '\0';
+	tmp = ft_strncpy(tmp, s + *k + 2, 
+//	i - 2);
+	j);
 	if (tmp[0] == '#')
 		tmp = ft_get_parm_ll(tmp);
 	else if (ft_strchr(tmp, ':'))
@@ -217,14 +244,15 @@ char	*ft_repl_subs(char *s, int *k, int i)
 	{
 		if (ft_test_sub(s + *k + 2, i - 2) == 1)
 			return (s);
-		free(tmp);
-		tmp = ft_get_parm_simple(s, k, i);
+//		free(tmp);
+		tmp = ft_get_parm_simple(/*s, k, i*/tmp);
 	}
 	ret = ft_alloc_char(*(k) + ft_strlen(tmp) + ft_strlen(s + *(k) + i) + 1);
 	ret[0] = '\0';
 	ret = ft_strncat(ret, s, *(k));
 	ret = ft_strcat(ret, tmp);
-	ret = ft_strcat(ret, s + *k + i + 1);
+	if ((int)ft_strlen(s) >  *k + 2 + j + 1)
+		ret = ft_strcat(ret, s + *k + 2 + j + 1);
 	free(tmp);
 	free(s);
 	return (ret);

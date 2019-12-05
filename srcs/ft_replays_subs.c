@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 19:25:12 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/04 20:56:57 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/05 20:18:26 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int		ft_test_sub(char *str, int i)
 	{
 		while (j <= i)
 		{
-			if (ft_strchr("!@\"\'^()\\.$", str[j]))
+			if (ft_strchr(" !@\"\'^()\\.$", str[j]))
 				return (ft_ret_subs(str, i));
 			j++;
 		}
@@ -44,30 +44,21 @@ int		ft_test_sub(char *str, int i)
 	return (ft_ret_subs(str, i));
 }
 
-char	*ft_get_parm_simple(char *s, int *k, int i)
+char	*ft_get_parm_simple(/*char *s, int *k, int i, */char *tmp)
 {
-	char	*tmp;
+//	char	*tmp;
 	char	*val;
-	int		len;
+//	int		len;
 
-	tmp = ft_alloc_char(i - 1);
-	tmp = ft_strncpy(tmp, s + *k + 2, i - 2);
-	tmp[i - 2] = '\0';
-	i = i + 1;
-	len = 0;
+//	tmp = ft_alloc_char(i - 1);
+//	tmp = ft_strncpy(tmp, s + *k + 2, i - 2);
+//	tmp[i - 2] = '\0';
+//	i = i + 1;
+//	len = 0;
 	if (!(val = ft_get_env(tmp)))
 		val = ft_strdup("");
-	len = ft_strlen(val);
+//	len = ft_strlen(val);
 	free(tmp);
-/*	tmp = ft_alloc_char(ft_strlen(s) + len - (i - 1) + 1);
-	tmp[0] = '\0';
-	tmp = ft_strncat(tmp, s, *k);
-	if (len > 0 && ((tmp = ft_strcat(tmp, val))))
-		free(val);
-	tmp = ft_strcat(tmp, s + *k + i);*/
-//	if (len == 0 && (*k) > 0)
-//		(*k)--;
-//	return (tmp);
 	return (val);
 }
 
@@ -77,9 +68,7 @@ char	*ft_repl_env(char *s, int *k)
 	char	*tmp;
 	char	*val;
 
-	if (s[*k + 1] == '{' && 
-//	((i = (ft_strchr(s + *k, '}') - (s + *k))) > 1))
-	(i = ft_strlen(s + *k) - 1))
+	if (s[*k + 1] == '{' && (i = ft_strlen(s + *k) - 1))
 		return (ft_repl_subs(s, k, i));
 	if (!(s[*k + 1] == '_' || ft_isalpha(s[*k + 1]) || s[*k + 1] == '?'))
 		return (s);
@@ -100,7 +89,7 @@ char	*ft_repl_env(char *s, int *k)
 		return (tmp);
 	}
 	else
-		s[0] = '\0';	
+		s[0] = '\0';
 	free(tmp);
 	return (s);
 }

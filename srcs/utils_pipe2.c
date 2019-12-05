@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/07 10:50:36 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/03 19:37:29 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/05 20:55:52 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,16 +55,16 @@ void	ft_child_pipe_exec(t_cmdlist *cur_cmd, int flpi)
 		g_subshell++;
 	if (g_subs_rc == 1)
 		exit(1);
-	if ((g_job == 1 && g_subst == 0) || flpi != -777)
+	if ((g_job == 1/* && g_subst == 0*/) || flpi != -777)
 	{
 		if (g_pgid == 0)
 		{
 			g_pgid = getpid();
-			if (g_job == 0  || g_subst > 0)
+			if (g_job == 0 /* || g_subst > 0*/)
 				g_pgid = g_parent_pid;
 		}
 		setpgid(getpid(), g_pgid);
-		if (g_job == 0  || g_subst > 0)
+		if (g_job == 0 /* || g_subst > 0*/)
 			tcsetpgrp(0,  g_pgid);
 	}
 	while (cur_cmd->avcmd[0][0] && ft_isspace(cur_cmd->avcmd[0][0]))
@@ -134,9 +134,9 @@ void	ft_child_pipe_exec(t_cmdlist *cur_cmd, int flpi)
 			&& ft_built_in(cur_cmd->avcmd[0], cur_cmd->avcmd, cur_cmd->locals) == 1)
 			exit(g_built_rc);
 	}
-	else /*if (g_job == 1)*/
+	else if (g_job == 1)
 	{
-		if (g_job == 1  && g_subst == 0)
+		if (g_job == 1 /* && g_subst == 0*/)
 		{
 			if (ft_do_redir(cur_cmd) != 0)
 				exit(1);

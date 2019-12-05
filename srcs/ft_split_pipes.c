@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 16:34:55 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/04 22:24:03 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/05 12:02:40 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,18 @@ int			ft_split_pipes_words(char *str)
 		if (qflag == 0 && (br_flag == 0 || br_flag == 1) &&
 		str[i] == '(' && 
 		b_sl == 0)
-//		(i == 0 || ft_strchr(" ;|&$", str[i - 1])))
 		{
 			br_flag = 1;
+			br_count++;
+			if (br_count == 1 && str[i - 1] == '$' &&
+			(i - 1 == 0 || b_sl == 0))
+				flsub = 1;
+		}
+		else if (qflag == 0 && (br_flag == 0 || br_flag == 2) &&
+		str[i] == '{' && 
+		b_sl == 0)
+		{
+			br_flag = 2;
 			br_count++;
 			if (br_count == 1 && str[i - 1] == '$' &&
 			(i - 1 == 0 || b_sl == 0))
@@ -71,7 +80,7 @@ int			ft_split_pipes_words(char *str)
 			if (br_count == 0)
 			{
 				br_flag = 0;
-				if ((str[i] == ')') && (flsub == 1))
+				if (flsub == 1)
 					flsub = 0;
 				else
 					wcount++;
@@ -131,11 +140,21 @@ static int	ft_all_pipe_words(char **ret, char const *str)
 	{
 		if (fl->qflag != 2 && str[fl->i] == '\\' && ((b_sl = b_sl + 1)))
 			b_sl = b_sl % 2;
-		if (fl->qflag == 0 && (fl->br_flag == 0 || fl->br_flag == 1) && str
-		[fl->i] == '(' && b_sl == 0)
-//		(fl->i == 0 || ft_strchr(" ;|&$", str[fl-> i - 1])))
+		if (fl->qflag == 0 && (fl->br_flag == 0 || fl->br_flag == 1) &&
+		str[fl->i] == '(' && b_sl == 0)
 		{
 			fl->br_flag = 1;
+			fl->br_count++;
+			if (fl->br_count == 1 && str[fl->i - 1] == '$' &&
+			(fl->i - 1 == 0 || b_sl == 0))
+				flsub = 1;
+			else if (fl->br_count == 1 && flsub == 0)
+				fl->start = fl->i;
+		}
+		else if (fl->qflag == 0 && (fl->br_flag == 0 || fl->br_flag == 2) &&
+		str[fl->i] == '{' && b_sl == 0)
+		{
+			fl->br_flag = 2;
 			fl->br_count++;
 			if (fl->br_count == 1 && str[fl->i - 1] == '$' &&
 			(fl->i - 1 == 0 || b_sl == 0))
@@ -146,7 +165,7 @@ static int	ft_all_pipe_words(char **ret, char const *str)
 		else if (fl->qflag == 0 && fl->br_flag == 1 && str[fl->i] == '('
 		&& b_sl == 0)
 			fl->br_count++;
-		if (fl->qflag == 0 && (fl->br_flag == 0 || fl->br_flag == 2) && str
+		else if (fl->qflag == 0 && (fl->br_flag == 0 || fl->br_flag == 2) && str
 		[fl->i] == '{' && b_sl == 0 &&
 		(fl->i == 0 || ft_strchr(" ;|&", str[fl->i - 1])))
 //		(fl->i == 0 || ft_strchr(" ;|&$", str[fl->i - 1])))
@@ -171,7 +190,7 @@ static int	ft_all_pipe_words(char **ret, char const *str)
 			if (fl->br_count == 0)
 			{
 				fl->br_flag = 0;
-				if ((str[fl->i] == ')') && (flsub = 1))
+				if (flsub == 1)
 					flsub = 0;
 				else
 				{
@@ -201,15 +220,9 @@ static int	ft_all_pipe_words(char **ret, char const *str)
 		else if (fl->qflag == 0 && str[fl->i] == '\'' &&
 		(fl->i == 0 || b_sl == 0))
 			fl->qflag = 2;
-		else if (fl->qflag == 0 && str[fl->i] != '\\' &&  b_sl == 1)
+		else if (fl->qflag == 0 && str[fl->i] != '\\' && b_sl == 1)
 			b_sl = 0;
 	}
-/*	if (fl->br_flag != 0)
-	{
-//		ft_print_msg(" : parse error : ", (char *)str + fl->start);
-		free(fl);
-		return (-1);
-	}*/
 	if (fl->flag == 1)
 		ft_get_word(ret, fl->count, fl->i - fl->start, str + fl->start);
 	free(fl);
