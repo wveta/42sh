@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 16:34:55 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/05 12:02:40 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/05 21:23:06 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,6 +233,7 @@ char		**ft_split_pipes(char *s)
 {
 	int		count;
 	char	**ret;
+	int		myjob;
 
 	if (!s)
 		return (NULL);
@@ -250,7 +251,9 @@ char		**ft_split_pipes(char *s)
 			return (NULL);
 		}
 	}
+	myjob = g_job;
 	ret = ft_cnt_subs(ret);
+	g_job = myjob;
 	ret = ft_resize_matr(ret);
 	ret = ft_press_matr(ret);
 	return (ret);

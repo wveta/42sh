@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/07 10:50:36 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/05 20:55:52 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/05 21:19:30 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,7 +182,7 @@ void	ft_pipe_wait_ch_fin(t_cmdlist *cur_cmd, t_cmdlist *first_cmd, t_cmdlist *la
 	int			q;
 	int			rc;
 	
-	if ((g_job == 0  || g_subst > 0) && flpi > 0)
+	if ((g_job == 0 /* || g_subst > 0*/) && flpi > 0)
 	{
 		rc = 0;
 		while (1)

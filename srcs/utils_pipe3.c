@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/07 10:50:36 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/05 20:55:52 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/05 21:14:31 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ void	ft_parent_wait(t_pipe *p_head, int flpi)
 	if (g_bsemafor)
 		sem_post(g_bsemafor);
 	ft_sig_set();
-	if ((g_job == 0  || g_subst > 0) && flpi == 0)
+	if ((g_job == 0  /*|| g_subst > 0*/) && flpi == 0)
 	{
 		while (p_head->first_cmd->pid != 0)
 			status = 0;
