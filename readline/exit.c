@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
+/*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 21:47:27 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/06 13:07:30 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/06 17:09:22 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void		add_to_hist(void)
 	g_hist->cmd[g_hist->amount][len - 1] = '\n';
 	g_hist->amount++;
 	g_hist->pos = g_hist->amount;
+	g_hist->cmd[g_hist->amount] = NULL;
 	if ((fd = open(g_hist->path, O_RDWR | O_CREAT | O_APPEND, S_IRUSR | S_IWUSR)) <= 0)
 		return ;
 	write(fd, g_hist->cmd[g_hist->amount - 1], ft_strlen(g_hist->cmd[g_hist->amount - 1]));
@@ -39,7 +40,9 @@ char		*return_func(char *str, char *input, t_shell *shell)
 	len = 0;
 	if (str[0] == ENTER && !str[1] && !g_input->heredoc && g_input->input_len > 0)
 		add_to_hist();
-	if (str[0] == 4 && !str[1])
+	if (str[0] == 4 && !str[1] && g_input->heredoc)
+		tmp = ft_strdup(str);
+	else if (str[0] == 4 && !str[1])
 		tmp = ft_strdup("exit");
 	else
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
+/*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 19:15:41 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/06 13:21:41 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/06 17:15:32 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,12 +93,12 @@ void		init_input(char *prompt)
 	if (!(g_input = (t_input *)malloc(sizeof(t_input))))
 		mall_check() ;
 	g_input->prompt = ft_strdup(prompt);
-	if (!ft_strncmp(prompt, "heredoc", 7))
-		g_input->heredoc = 1;
 	ioctl(STDIN_FILENO, TIOCGWINSZ, &g_input->ws);
 	ft_putstr_fd(tgetstr("bw", NULL), STDERR_FILENO);
 	ft_putstr_fd(tgetstr("am", NULL), STDERR_FILENO);
 	null_all();
+	if (!ft_strncmp(prompt, "heredoc", 7))
+		g_input->heredoc = 1;
 }
 
 t_shell		*init_term(t_shell *shell)

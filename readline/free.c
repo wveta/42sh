@@ -50,7 +50,7 @@ void		null_autocmpl(void)
 	i = 0;
 	if (g_input->autocompl.seach_res)
 	{
-		while (i < g_input->autocompl.amount && g_input->autocompl.seach_res[i])
+		while (g_input->autocompl.seach_res[i])
 		{
 			free(g_input->autocompl.seach_res[i]);
 			i++;

@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 11:32:55 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/29 17:22:04 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/06 16:00:15 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,14 @@
 char	*ft_add_strnum(char *str, int i)
 {
 	char	*tmp;
+	char	*tmp2;
 
 	if (str)
 	{
 		tmp = ft_num_to_str(i);
-		str = ft_strfjoin(str, tmp);
+		tmp2 = ft_strdup(str);
+		free(str);
+		str = ft_strfjoin(tmp2, tmp);
 		free(tmp);
 	}
 	return (str);
@@ -127,16 +130,12 @@ void	ft_signal_handler_rl(int signo)
 				{
 					if (WSTOPSIG(status) == 18)
 						ft_test_tstp(pid, status);
-//					else if (WSTOPSIG(status) == 22 || WSTOPSIG(status) == 13)
-//						kill(-g_pipe->first_cmd->pid_z, SIGCONT);
 					tcsetpgrp(0, getpid());
 				}
 				else
 				{
 					if (WSTOPSIG(status) == 18)
 						kill(g_parent_pid, SIGTSTP);
-//					else if (WSTOPSIG(status) == 22 || WSTOPSIG(status) == 13)
-//						kill(-g_pipe->first_cmd->pid_z, SIGCONT);
 				}
 			}
 			ft_test_job_status(pid, status);
@@ -147,7 +146,7 @@ void	ft_signal_handler_rl(int signo)
 			ft_test_tstp(pid, status);
 			tcsetpgrp(0, getpid());
 		}
-		if ((signo == SIGTTIN || signo == SIGTTOU) &&  g_parent_pid == getpid())
+		if ((signo == SIGTTIN || signo == SIGTTOU) && g_parent_pid == getpid())
 			tcsetpgrp(0, getpid());
 		if (signo == SIGINT || signo == SIGQUIT)
 		{
@@ -160,6 +159,4 @@ void	ft_signal_handler_rl(int signo)
 		ft_test_job_status(pid, status);
 		ft_test_cmd_list(pid, status);
 	}
-	//ft_sig_set();
-	//signal(signo, ft_signal_handler_rl);
 }

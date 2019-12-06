@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   history.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
+/*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 21:09:13 by thaley            #+#    #+#             */
-/*   Updated: 2019/11/25 19:18:12 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/06 15:00:48 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ static void	hist_from_file(void)
 		free(buf);
 		buf = NULL;
 	}
+	g_hist->cmd[g_hist->amount] = NULL;
 }
 
 void		create_history(void)
@@ -67,7 +68,10 @@ void		create_history(void)
 		mall_check();
 	if (!(g_hist->cmd = (char **)malloc(sizeof(char *) * 101)))
 		mall_check();
-	ft_bzero(g_hist->cmd, 101);
+	int i = -1;
+	while (++i < 101)
+		g_hist->cmd[i] = NULL;
+	// ft_bzero(g_hist->cmd, 101);
 	if ((tmp = ft_get_my_home()))
 	{
 		g_hist->path = ft_strjoin(tmp, "/.history");

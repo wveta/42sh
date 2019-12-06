@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
+/*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 19:44:22 by thaley            #+#    #+#             */
-/*   Updated: 2019/11/25 19:16:51 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/06 15:20:53 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ int				get_next_line(const int fd, char **line)
 	char			buf[BUFF_SIZE + 1];
 	int				ret;
 
-	if (fd < 0 && list && !ft_new_list(fd, list))
+	if (fd < 0 && list /*&& !ft_new_list(fd, list)*/)
 		return (0);
 	if (fd < 0 || !line || (read(fd, buf, 0)))
 		return (-1);

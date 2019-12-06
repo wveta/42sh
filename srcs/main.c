@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 10:27:38 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/03 16:36:27 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/06 14:14:45 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ void		ft_final_free(void)
 	if (g_subshell > 0)
 		return ;
 	i = get_next_line(-7, NULL);
-	ft_history_put();
 }
 
 int			main(int argc, char **argv, char **environ)

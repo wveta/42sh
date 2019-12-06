@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 11:01:23 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/05 20:18:26 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/06 16:54:46 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <signal.h>
 # include <sys/types.h>
 # include <pwd.h>
+# include <uuid/uuid.h>
 # include <sys/stat.h>
 # include <setjmp.h>
 # include <fcntl.h>
