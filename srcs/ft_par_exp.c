@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 19:25:12 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/06 14:07:37 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/06 18:38:59 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,11 @@ char	*ft_get_parm_qq(char *s)
 				jj = 0;
 				while (jj < (int)ft_strlen(val))
 				{
-					if (val[jj] == '$' && (ft_check_ekran(val, jj)) == 0)
+					if (val[jj] == '$' && (ft_check_ekran(val, jj)) == 0 &&
+						val[jj + 1] && val[jj + 1] == '{')
 					{
 						tmp2 = ft_strdup(val + jj);
+						k = 0;
 						tmp2 = ft_repl_subs(tmp2, &k, ft_strlen(tmp2));
 						val[jj] = '\0';
 						val = ft_strfjoin(val, tmp2);
@@ -104,10 +106,11 @@ char	*ft_get_parm_qq(char *s)
 				jj = 0;
 				while (jj < (int)ft_strlen(val))
 				{
-
-					if (val[jj] == '$' && (ft_check_ekran(val, jj)) == 0)
+					if (val[jj] == '$' && (ft_check_ekran(val, jj)) == 0 &&
+						val[jj + 1] && val[jj + 1] == '{')
 					{
 						tmp2 = ft_strdup(val + jj);
+						k = 0;
 						tmp2 = ft_repl_subs(tmp2, &k, ft_strlen(tmp2));
 						val[jj] = '\0';
 						val = ft_strfjoin(val, tmp2);
@@ -136,7 +139,7 @@ char	*ft_get_parm_qq(char *s)
 				return (s);
 			}
 		}
-		free(tmp);
+//		free(tmp);
 		free(s);
 		if (!(val))
 			val = ft_strdup("");
@@ -256,7 +259,7 @@ char	*ft_repl_subs(char *s, int *k, int i)
 			return (s);
 		tmp = ft_get_parm_simple(tmp);
 	}
-	ret = ft_alloc_char(*(k) + ft_strlen(tmp) + ft_strlen(s + *(k) + i) + 1);
+	ret = ft_alloc_char(*(k) + ft_strlen(tmp) + ft_strlen(s) + 1);
 	ret[0] = '\0';
 	ret = ft_strncat(ret, s, *(k));
 	ret = ft_strcat(ret, tmp);
