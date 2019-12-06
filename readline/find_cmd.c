@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 04:45:51 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/01 05:35:25 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/06 13:24:25 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void		count_cmd_match(char *key)
 			g_input->autocompl.amount++;
 		i++;
 	}
-	g_input->autocompl.seach_res = (char **)malloc(sizeof(char *) * (g_input->autocompl.amount));
+	g_input->autocompl.seach_res = (char **)malloc(sizeof(char *) * (g_input->autocompl.amount + 1));
 }
 
 void		find_cmd(char *key)

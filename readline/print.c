@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 21:09:47 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/01 08:51:09 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/06 13:50:43 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,6 @@ int			take_curs(int curs_pos)
 	}
 	else
 		curs = i;
-	curs == 0 ? curs = i : 0;
 	return (curs);
 }
 

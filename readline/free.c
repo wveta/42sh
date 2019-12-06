@@ -1,5 +1,34 @@
 #include "readline.h"
 
+void		free_all(t_shell *shell)
+{
+	int		i;
+
+	i = -1;
+	if (shell)
+	{
+		ft_free(shell->term);
+		free(shell);
+	}
+	if (g_hist)
+	{
+		while (g_hist->cmd[++i])
+			ft_free(g_hist->cmd[i]);
+		free(g_hist->cmd);
+		ft_free(g_hist->path);
+		free(g_hist);
+	}
+	if (g_input)
+	{
+		ft_free(g_input->prompt);
+		free_int_arr();
+		free(g_input);
+	}
+	shell = NULL;
+	g_hist = NULL;
+	g_input = NULL;
+}
+
 void		ft_free(char *str)
 {
 	if (str && *str)
@@ -9,7 +38,8 @@ void		ft_free(char *str)
 
 void		free_int_arr(void)
 {
-	free(g_input->multiline.start_if_line);
+	if (g_input->multiline.start_if_line)
+		free(g_input->multiline.start_if_line);
 	g_input->multiline.start_if_line = NULL;
 }
 

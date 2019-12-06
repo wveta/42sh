@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 19:09:43 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/01 07:11:33 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/06 12:26:56 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ char		*read_line(char *prompt)
 	ft_putstr_fd(prompt, STDERR_FILENO);
 	ret = read_loop(shell);
 	go_end_pos();
-	// free_all();
+	free_all(shell);
 	write(1, "\n", 1);
 	return (ret);
 }

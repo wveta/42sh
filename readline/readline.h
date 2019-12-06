@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 17:54:28 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/01 07:46:04 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/06 12:26:52 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ void			move_line_up(void);
 **	free.c
 */
 
+void			free_all(t_shell *shell);
 void			free_int_arr(void);
 void			ft_free(char *str);
 void			null_autocmpl(void);

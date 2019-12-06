@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
+/*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 19:15:41 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/03 14:45:29 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/06 13:21:41 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ static int	prompt_len_color(char *prompt)
 	count = 0;
 	while(prompt[i])
 	{
-		if (prompt[i] == '\e' && prompt[i + 1] == '[' \
+		if (prompt[i] == '\e' && (prompt[i + 1] && prompt[i + 1] == '[') \
 			&& (prompt[i + 2] && ft_isdigit(prompt[i + 2])))
 		{
-			while (prompt[i] && prompt[i - 1] != 'm')
+			while (prompt[i] && (i == 0 || prompt[i - 1] != 'm'))
 				i++;
 		}
 		else
