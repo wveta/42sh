@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 19:25:12 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/05 20:18:26 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/06 14:07:37 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,9 @@ char	*ft_get_parm_qq(char *s)
 	char	*val;
 	int		j;
 	char	*tmp;
+	char	*tmp2;
 	int 	jj;
+	int		k = 0;
 
 	if (((j = ft_strchr(s, ':') - s)) > -1)
 	{
@@ -57,9 +59,13 @@ char	*ft_get_parm_qq(char *s)
 				jj = 0;
 				while (jj < (int)ft_strlen(val))
 				{
-					if (ft_strchr(" \"\'\\$", val[jj]) > 0)
+					if (val[jj] == '$' && (ft_check_ekran(val, jj)) == 0)
 					{
-						val = ft_replays(val);
+						tmp2 = ft_strdup(val + jj);
+						tmp2 = ft_repl_subs(tmp2, &k, ft_strlen(tmp2));
+						val[jj] = '\0';
+						val = ft_strfjoin(val, tmp2);
+						free(tmp2);
 						if (g_subs_rc == 1)
 						{
 							free(tmp);
@@ -98,9 +104,14 @@ char	*ft_get_parm_qq(char *s)
 				jj = 0;
 				while (jj < (int)ft_strlen(val))
 				{
-					if (ft_strchr(" \"\'\\$", val[jj]) > 0)
+
+					if (val[jj] == '$' && (ft_check_ekran(val, jj)) == 0)
 					{
-						val = ft_replays(val);
+						tmp2 = ft_strdup(val + jj);
+						tmp2 = ft_repl_subs(tmp2, &k, ft_strlen(tmp2));
+						val[jj] = '\0';
+						val = ft_strfjoin(val, tmp2);
+						free(tmp2);
 						if (g_subs_rc == 1)
 						{
 							free(tmp);
@@ -114,7 +125,6 @@ char	*ft_get_parm_qq(char *s)
 					}
 					jj++;
 				}
-
 			}
 			else
 			{
@@ -225,13 +235,13 @@ char	*ft_repl_subs(char *s, int *k, int i)
 	char	*ret;
 	int		j;
 
+	if (ft_test_parname(s + 2))
+		return (s = ft_print_badsub(s, 0, NULL));
 	if ((j = ft_subst_lbr(s + *k + 2)) == -1)
 		j = ft_strlen(s + *k + 2);
 	tmp = ft_alloc_char(j + 1);
 	tmp[j] = '\0';
-	tmp = ft_strncpy(tmp, s + *k + 2, 
-//	i - 2);
-	j);
+	tmp = ft_strncpy(tmp, s + *k + 2, j);
 	if (tmp[0] == '#')
 		tmp = ft_get_parm_ll(tmp);
 	else if (ft_strchr(tmp, ':'))
@@ -244,14 +254,13 @@ char	*ft_repl_subs(char *s, int *k, int i)
 	{
 		if (ft_test_sub(s + *k + 2, i - 2) == 1)
 			return (s);
-//		free(tmp);
-		tmp = ft_get_parm_simple(/*s, k, i*/tmp);
+		tmp = ft_get_parm_simple(tmp);
 	}
 	ret = ft_alloc_char(*(k) + ft_strlen(tmp) + ft_strlen(s + *(k) + i) + 1);
 	ret[0] = '\0';
 	ret = ft_strncat(ret, s, *(k));
 	ret = ft_strcat(ret, tmp);
-	if ((int)ft_strlen(s) >  *k + 2 + j + 1)
+	if ((int)ft_strlen(s) > *k + 2 + j + 1)
 		ret = ft_strcat(ret, s + *k + 2 + j + 1);
 	free(tmp);
 	free(s);

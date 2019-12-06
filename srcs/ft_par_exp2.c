@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 19:25:12 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/05 18:54:34 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/06 13:18:07 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,38 @@
 int		ft_test_parname(char *str)
 {
 	int i;
+	int j;
+	int	f_sub;
 
-	i = -1;
-	while(str && str[++i])
+	i = 0;
+	j = -1;
+	f_sub = 1;
+	while(str && str[++j])
 	{
-		if ((i == 0 && (!(ft_isalpha(str[i]))) && (!(ft_strchr("_?", str[i]))))
-		|| ft_strchr(" ", str[i]) || (!(ft_isalnum(str[i]))))
+		if (f_sub == 1)
+		{
+			if (ft_strchr("}:#%", str[j]) && (ft_check_ekran(str, j)) == 0)
+				f_sub = 0;
+			else if (ft_strchr("$", str[j]) && ft_check_ekran(str, j) == 0)
+				return (1);
+			else if ((i == 0 &&
+				(!ft_isalpha(str[j])) && (!ft_strchr("_?", str[j]))) ||
+				(i > 0 && 
+				(ft_strchr(" ", str[j]) ||
+				(!(ft_isalnum(str[j]) || ft_strchr("_?", str[j]))))))
 			return (1);
+			i++;
+		}
+		else
+		{
+			if (str[j] == '$' && ft_check_ekran(str, j) == 0 &&
+			str[j + 1] && str[j + 1] == '{')
+			{
+				f_sub = 1;
+				i = 0;
+				j++;
+			}
+		}
 	}
 	return (0);
 }
