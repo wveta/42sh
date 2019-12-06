@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
+/*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 21:47:27 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/02 15:11:00 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/06 13:07:30 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void		add_to_hist(void)
 	g_hist->cmd[g_hist->amount][len - 1] = '\n';
 	g_hist->amount++;
 	g_hist->pos = g_hist->amount;
-	if ((fd = open(g_hist->path, O_RDWR | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR)) <= 0)
+	if ((fd = open(g_hist->path, O_RDWR | O_CREAT | O_APPEND, S_IRUSR | S_IWUSR)) <= 0)
 		return ;
 	write(fd, g_hist->cmd[g_hist->amount - 1], ft_strlen(g_hist->cmd[g_hist->amount - 1]));
 	close(fd);

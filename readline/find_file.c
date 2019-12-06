@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 01:16:11 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/01 05:52:00 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/06 13:27:24 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void		count_file_match(char *path, char *key)
 				g_input->autocompl.amount++;
 		}
 	}
-	g_input->autocompl.seach_res = (char **)malloc(sizeof(char *) * (g_input->autocompl.amount));
+	g_input->autocompl.seach_res = (char **)malloc(sizeof(char *) * (g_input->autocompl.amount + 1));
 	closedir(dir);
 }
 
@@ -53,6 +53,7 @@ void		find_match(char *path, char *key)
 				g_input->autocompl.seach_res[i++] = ft_strdup(dn->d_name);
 		}
 	}
+	closedir(dir);
 	g_input->autocompl.seach_res[g_input->autocompl.amount] = NULL;
 }
 

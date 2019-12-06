@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 17:08:06 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/01 08:34:37 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/06 13:54:00 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void		move_left(void)
 	if (g_input->multiline.pos > 0 &&\
 		g_input->multiline.start_if_line[g_input->multiline.pos] == g_input->curs_pos)
 		move_end_of_line(0);
-	else if (check_curs != 0 && check_curs % g_input->ws.ws_col == 0)
+	else if (g_input->curs_pos % g_input->ws.ws_col == 0)
 	{
 		g_input->curs_pos--;
 		move_curs_end();
@@ -58,7 +58,7 @@ void		move_right(void)
 	if (g_input->multiline.pos < g_input->multiline.num_of_lines &&
 		g_input->input[g_input->curs_pos - g_input->prompt_len] == '\n')
 		move_end_of_line(1);
-	else if (check_curs + 1 % g_input->ws.ws_col == 0)
+	else if ((check_curs + 1) % g_input->ws.ws_col == 0)
 	{
 		g_input->curs_pos++;
 		ft_putstr_fd(tgetstr("do", NULL), STDERR_FILENO);

@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 17:49:20 by thaley            #+#    #+#             */
-/*   Updated: 2019/11/27 17:19:49 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/06 13:34:42 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,7 @@ static void	input_from_hist(char *hist, int old)
 	go_home_pos();
 	while (g_input->curs_pos - g_input->prompt_len < g_input->input_len &&\
 		g_input->input[g_input->curs_pos - g_input->prompt_len] != '\n')
-	{
-		g_input->curs_pos++;
-		ft_putstr_fd(tgetstr("nd", NULL), STDERR_FILENO);
-	}
+		move_right();
 	if (old)
 	{
 		ft_bzero(g_input->old_input, MAX_CMDS);
