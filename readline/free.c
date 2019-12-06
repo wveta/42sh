@@ -53,6 +53,7 @@ void		null_autocmpl(void)
 		while (g_input->autocompl.seach_res[i])
 		{
 			free(g_input->autocompl.seach_res[i]);
+			g_input->autocompl.seach_res[i] = NULL;
 			i++;
 		}
 		free(g_input->autocompl.seach_res);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
+/*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 21:47:27 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/06 17:09:22 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/06 20:52:28 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void		add_to_hist(void)
 
 	len = 0;
 	len = g_input->input_len + 2;
+	if (g_hist->amount == 100)
+		g_hist->cmd = remake_hist();
 	g_hist->cmd[g_hist->amount] = ft_strnew(len);
 	g_hist->cmd[g_hist->amount] = ft_strcpy(g_hist->cmd[g_hist->amount], g_input->input);
 	g_hist->cmd[g_hist->amount][len - 2] = 7;

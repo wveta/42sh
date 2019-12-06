@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 21:09:47 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/06 13:50:43 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/06 23:34:24 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ void		take_line_start(void)
 	g_input->multiline.start_if_line[0] = i + g_input->prompt_len;
 	while (i < g_input->input_len)
 	{
-		if (g_input->input[i] == '\n' && g_input->input[i + 1])
+		if (count < g_input->multiline.num_of_lines\
+			&& g_input->input[i] == '\n' && g_input->input[i + 1])
 		{
 			if (i + 1 + g_input->prompt_len % g_input->ws.ws_col == 0)
 				g_input->multiline.start_if_line[count] = i + 2 + g_input->prompt_len;
@@ -100,12 +101,28 @@ int			take_curs(int curs_pos)
 	else if (i >= g_input->ws.ws_col)
 	{
 		while (i / g_input->ws.ws_col)
-			i /= g_input->ws.ws_col;
+			i %= g_input->ws.ws_col;
 		curs = i;
 	}
 	else
 		curs = i;
 	return (curs);
+}
+
+int			count_n(char *str)
+{
+	int		i;
+	int		n;
+
+	i = 0;
+	n = 0;
+	while (str[i])
+	{
+		if (str[i] == '\n' && str[i + 1])
+			n++;
+		i++;
+	}
+	return (n);
 }
 
 void		print(char *str)
@@ -151,7 +168,7 @@ void		print(char *str)
 			curs++;
 			if (tmp[i] == '\n')
 			{
-				if (curs % g_input->ws.ws_col == 0)
+				if (curs > 0 && curs % g_input->ws.ws_col == 0)
 				{
 					// g_input->curs_pos++;
 					// g_input->input_len++;
@@ -168,7 +185,7 @@ void		print(char *str)
 		}
 		i++;
 	}
-	if (ft_strchr(g_input->input, '\n'))
+	if (count_n(g_input->input))
 		count_lines();
 	else
 	{

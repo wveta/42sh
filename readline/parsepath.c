@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/24 21:06:43 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/01 04:47:57 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/06 19:25:01 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,61 @@ char		*find_tail(char *str)
 	return (ret);
 }
 
+char		*ft_strnjoin(char *s1, char *s2, int len)
+{
+	int		i;
+	int		j;
+	char	*ret;
+
+	i = 0;
+	j = 0;
+	if (!(ret = (char *)malloc(sizeof(char) * (len + 1))))
+		return (NULL);
+	if (s1)
+	{
+		while (s1[i] && i < len)
+		{
+			ret[i] = s1[i];
+			i++;
+		}
+	}
+	if (s2)
+	{
+		while (s2[j] && i < len)
+		{
+			ret[i] = s2[j];
+			j++;
+			i++;
+		}
+	}
+	ret[i] = '\0';
+	return (ret);
+}
+
+char		*take_path(char *key)
+{
+	int		i;
+	int		count;
+	char	*tmp;
+	char	*ret;
+
+	ret = NULL;
+	tmp = NULL;
+	i = -1;
+	count = 0;
+	while (key[++i])
+		key[i] == '/' ? count++ : 0;
+	ret = ft_get_env("PWD");
+	tmp = ft_strfjoin(ret, "/");
+	i = ft_strlen(key);
+	if (i > 0 && key[i - 1] == '/')
+		i--;
+	i += ft_strlen(tmp);
+	ret = ft_strnjoin(tmp, key, i);
+	ft_free(tmp);
+	return (ret);
+}
+
 char		*parse_path(char *tmp)
 {
 	char	*path;
@@ -76,7 +131,12 @@ char		*parse_path(char *tmp)
 	else if (tmp[0] == '.')
 		path = calc_path(tmp);
 	else if (tmp[0] != '/')
-		path = ft_get_env("PWD");
+	{
+		if (!tail)
+			path = ft_get_env("PWD");
+		else
+			path = take_path(tmp);
+	}
 	if (!tail && g_input->autocompl.key_check < 2 && tmp[0] != '/')
 		tail = ft_strdup(tmp);
 	if (!path)

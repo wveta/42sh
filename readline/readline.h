@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 17:54:28 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/06 12:26:52 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/06 22:14:55 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ int				take_curs(int curs_pos);
 **	history.c
 */
 
+char			**remake_hist(void);
 void			create_history(void);
-void			ft_history_put(void);
 
 /*
 **	exit.c

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
+/*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 19:15:41 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/06 17:15:32 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/06 19:06:48 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void		null_all(void)
 	ft_bzero(g_input->input, MAX_CMDS);
 	ft_bzero(g_input->old_input, MAX_CMDS);
 	ft_bzero(g_input->copy, MAX_CMDS);
+	g_input->autocompl.seach_res = NULL;
 	null_autocmpl();
 	g_input->prompt_len = prompt_len_color(g_input->prompt);
 	g_input->curs_pos = g_input->prompt_len;
