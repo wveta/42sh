@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
+/*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 16:17:37 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/22 14:18:27 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/08 01:48:29 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,5 +95,6 @@ int					ft_lstsize(t_list *lst);
 void				ft_lstadd_last(t_list **alst, t_list *new);
 int					ft_isnumber(char *str);
 int					ft_strchrlen(const char *s, int c);
+char				*ft_strnjoin(char *s1, char *s2, int len);
 
 #endif

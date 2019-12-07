@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 19:15:41 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/06 19:06:48 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/08 02:14:41 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	prompt_len_color(char *prompt)
 
 	i = 0;
 	count = 0;
-	while(prompt[i])
+	while (prompt[i])
 	{
 		if (prompt[i] == '\e' && (prompt[i + 1] && prompt[i + 1] == '[') \
 			&& (prompt[i + 2] && ft_isdigit(prompt[i + 2])))
@@ -49,7 +49,7 @@ void		null_all(void)
 	g_input->heredoc = 0;
 	g_input->multiline.num_of_lines = 0;
 	g_input->multiline.pos = 0;
-	g_input->multiline.start_if_line = NULL;
+	g_input->multiline.start_of_line = NULL;
 	g_input->quotes = '\0';
 	g_input->start_quotes = -1;
 	g_input->old_in_check = 0;
@@ -59,30 +59,24 @@ static void	open_fd(void)
 {
 	char	*tmp;
 	int		fd1;
-	int 	fd2;
-	
+	int		fd2;
+
 	tmp = NULL;
 	if (!isatty(STDIN_FILENO))
 		exit(EXIT_FAILURE);
 	if (!isatty(STDOUT_FILENO))
 	{
 		tmp = ttyname(STDIN_FILENO);
-		fd1 = open(tmp, O_RDWR | O_APPEND , S_IRUSR | S_IWUSR);
+		fd1 = open(tmp, O_RDWR | O_APPEND, S_IRUSR | S_IWUSR);
 		if (fd1 == -1)
-		{
-			ft_print_msg(" : Error open STDOUT: ", tmp);
-			exit(EXIT_FAILURE);
-		}
+			bad_fd_error(1, tmp);
 	}
 	if (!isatty(STDERR_FILENO))
 	{
 		tmp = ttyname(STDIN_FILENO);
 		fd2 = open(tmp, O_RDWR | O_APPEND, S_IRUSR | S_IWUSR);
 		if (fd2 == -1)
-		{
-			ft_print_msg(" : Error open STDERR: ", tmp);
-			exit(EXIT_FAILURE);
-		}	
+			bad_fd_error(2, tmp);
 	}
 }
 
@@ -92,7 +86,7 @@ void		init_input(char *prompt)
 	if (!g_hist)
 		create_history();
 	if (!(g_input = (t_input *)malloc(sizeof(t_input))))
-		mall_check() ;
+		mall_check();
 	g_input->prompt = ft_strdup(prompt);
 	ioctl(STDIN_FILENO, TIOCGWINSZ, &g_input->ws);
 	ft_putstr_fd(tgetstr("bw", NULL), STDERR_FILENO);

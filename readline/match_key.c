@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 20:06:58 by thaley            #+#    #+#             */
-/*   Updated: 2019/11/29 22:02:37 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/08 01:36:42 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static int	match_move_key(char *str)
 		move_line_down();
 	else
 		return (0);
-	return (1);	
+	return (1);
 }
 
 int			match_key(char *str)

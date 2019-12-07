@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
+/*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 19:44:22 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/06 15:20:53 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/08 01:07:20 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,21 +32,18 @@ static	int		ft_read_file(const int fd, char *buf, t_gnlist **list)
 	return (ret);
 }
 
-static	void	ft_line_rec(char **line, t_gnlist **list)
+static	void	ft_line_rec(char **line, t_gnlist **list, size_t len)
 {
 	char	*str;
-	size_t	len;
 	char	*tmp;
 
-	len = 0;
 	str = (char *)((*list)->content);
 	while ((str) && str[len] != '\n' && str[len] != '\0')
 		len++;
 	if (len == 0)
 	{
-		if (!(*line = (char*)malloc(1)))
+		if (!(*line = ft_strnew(1)))
 			return ;
-		*line[0] = '\0';
 	}
 	else
 	{
@@ -85,6 +82,9 @@ static t_gnlist	*ft_new_list(int fd, t_gnlist *list)
 
 static int		ft_result(int ret, t_gnlist **tmp, char *buf, char **line)
 {
+	size_t	len;
+
+	len = 0;
 	if (ret == 0 && (!((*tmp)->content) || (ft_strlen((*tmp)->content) == 0)))
 	{
 		if (!((*tmp)->content) || (ft_strlen((*tmp)->content) == 0))
@@ -96,7 +96,7 @@ static int		ft_result(int ret, t_gnlist **tmp, char *buf, char **line)
 	}
 	else
 	{
-		ft_line_rec(line, tmp);
+		ft_line_rec(line, tmp, len);
 		buf[0] = '\0';
 		return (1);
 	}
@@ -109,7 +109,7 @@ int				get_next_line(const int fd, char **line)
 	char			buf[BUFF_SIZE + 1];
 	int				ret;
 
-	if (fd < 0 && list /*&& !ft_new_list(fd, list)*/)
+	if (fd < 0 && list)
 		return (0);
 	if (fd < 0 || !line || (read(fd, buf, 0)))
 		return (-1);

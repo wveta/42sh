@@ -6,19 +6,19 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 01:16:11 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/06 13:27:24 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/08 00:28:22 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "readline.h"
 
-void		count_file_match(char *path, char *key)
+void		count_file_match(char *key)
 {
 	struct dirent	*dn;
 	DIR				*dir;
 
 	dir = NULL;
-	if (!(dir = opendir(path)))
+	if (!(dir = opendir(g_input->autocompl.path)))
 		return ;
 	while ((dn = readdir(dir)))
 	{
@@ -30,18 +30,19 @@ void		count_file_match(char *path, char *key)
 				g_input->autocompl.amount++;
 		}
 	}
-	g_input->autocompl.seach_res = (char **)malloc(sizeof(char *) * (g_input->autocompl.amount + 1));
+	g_input->autocompl.seach_res = (char **)malloc(sizeof(char *)\
+								* (g_input->autocompl.amount + 1));
 	closedir(dir);
 }
 
-void		find_match(char *path, char *key)
+void		find_match(char *key)
 {
 	struct dirent	*dn;
 	DIR				*dir;
 	int				i;
 
 	i = 0;
-	if (!(dir = opendir(path)))
+	if (!(dir = opendir(g_input->autocompl.path)))
 		return ; //error msg
 	while ((dn = readdir(dir)))
 	{
@@ -57,7 +58,7 @@ void		find_match(char *path, char *key)
 	g_input->autocompl.seach_res[g_input->autocompl.amount] = NULL;
 }
 
-void		all_files_in_path(char *path)
+void		all_files_in_path(void)
 {
 	DIR				*dir;
 	struct dirent	*dn;
@@ -65,8 +66,8 @@ void		all_files_in_path(char *path)
 
 	i = 0;
 	dir = NULL;
-	count_file_match(path, NULL);
-	if (!(dir = opendir(path)))
+	count_file_match(NULL);
+	if (!(dir = opendir(g_input->autocompl.path)))
 		return ; //print_error_msg
 	while ((dn = readdir(dir)))
 	{
@@ -81,17 +82,15 @@ void		all_files_in_path(char *path)
 
 void		find_file(char *key)
 {
-	char			*path;
 	char			*tmp;
 
-	path = NULL;
 	tmp = NULL;
 	if (g_input->autocompl.tab_count < 2)
 	{
 		if (!key)
 		{
-			path = ft_get_env("PWD");
-			all_files_in_path(path);
+			g_input->autocompl.path = ft_get_env("PWD");
+			all_files_in_path();
 		}
 		else
 			tmp = parse_path(key);

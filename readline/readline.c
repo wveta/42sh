@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 19:09:43 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/06 12:26:56 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/08 02:15:36 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@ int			is_print(char *str)
 	return (1);
 }
 
-char		*read_loop(t_shell *shell)
+char		*read_loop(void)
 {
 	char	c[20];
-	
+
 	g_cmd->jmp_code2 = setjmp(g_cmd->ebuf2);
 	signal(SIGWINCH, ft_signal_win_size);
 	while (1)
@@ -52,7 +52,7 @@ char		*read_loop(t_shell *shell)
 		if (match_key(c) || autocmp(c))
 			continue ;
 		else if (is_end_char(c[0]) && !c[1])
-			return (return_func(c, g_input->input, shell));
+			return (return_func(c, g_input->input));
 		else
 			print(c);
 	}
@@ -68,8 +68,9 @@ char		*read_line(char *prompt)
 	init_input(prompt);
 	shell = init_term(shell);
 	ft_putstr_fd(prompt, STDERR_FILENO);
-	ret = read_loop(shell);
+	ret = read_loop();
 	go_end_pos();
+	tcsetattr(0, TCSADRAIN, &shell->old_param);
 	free_all(shell);
 	write(1, "\n", 1);
 	return (ret);

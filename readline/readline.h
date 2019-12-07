@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 17:54:28 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/06 22:14:55 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/08 02:10:53 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,9 @@ void			create_history(void);
 **	exit.c
 */
 
-char			*return_func(char *str, char *input, t_shell *shell);
+char			*return_func(char *str, char *input);
 void			mall_check(void);
+void			bad_fd_error(int fd, char *tmp);
 
 /*
 **	move_left_right.c
@@ -119,6 +120,7 @@ void			free_all(t_shell *shell);
 void			free_int_arr(void);
 void			ft_free(char *str);
 void			null_autocmpl(void);
+void			null_multiline(void);
 
 /*
 **	parse_quotes.c
@@ -143,8 +145,8 @@ int				autocmp(char *str);
 */
 
 void			find_file(char *key);
-void			count_file_match(char *path, char *key);
-void			find_match(char *path, char *key);
+void			count_file_match(char *key);
+void			find_match(char *key);
 
 /*
 **	sort.c
@@ -170,5 +172,17 @@ char			*parse_path(char *tmp);
 */
 
 void			find_cmd(char *key);
+
+/*
+**	find_key.c
+*/
+
+char			*find_key(int curs);
+
+/*
+**	count_lines.c
+*/
+
+void			count_lines(void);
 
 #endif

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   free.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/12/08 01:01:14 by thaley            #+#    #+#             */
+/*   Updated: 2019/12/08 02:15:17 by thaley           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "readline.h"
 
 void		free_all(t_shell *shell)
@@ -38,9 +50,9 @@ void		ft_free(char *str)
 
 void		free_int_arr(void)
 {
-	if (g_input->multiline.start_if_line)
-		free(g_input->multiline.start_if_line);
-	g_input->multiline.start_if_line = NULL;
+	if (g_input->multiline.start_of_line)
+		free(g_input->multiline.start_of_line);
+	g_input->multiline.start_of_line = NULL;
 }
 
 void		null_autocmpl(void)
@@ -58,6 +70,8 @@ void		null_autocmpl(void)
 		}
 		free(g_input->autocompl.seach_res);
 	}
+	ft_free(g_input->autocompl.path);
+	g_input->autocompl.path = NULL;
 	g_input->autocompl.seach_res = NULL;
 	g_input->autocompl.amount = 0;
 	g_input->autocompl.cmd = 0;
@@ -65,4 +79,12 @@ void		null_autocmpl(void)
 	g_input->autocompl.key_check = 0;
 	g_input->autocompl.save_curs = 0;
 	g_input->autocompl.tab_count = 0;
+}
+
+void		null_multiline(void)
+{
+	g_input->multiline.num_of_lines = 0;
+	g_input->multiline.pos = 0;
+	if (g_input->multiline.start_of_line)
+		free_int_arr();
 }

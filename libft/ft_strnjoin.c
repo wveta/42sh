@@ -1,33 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdel.c                                        :+:      :+:    :+:   */
+/*   ft_strnjoin.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/11 18:28:05 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/08 01:49:39 by thaley           ###   ########.fr       */
+/*   Created: 2019/12/08 01:47:55 by thaley            #+#    #+#             */
+/*   Updated: 2019/12/08 01:48:08 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstdel(t_list **lst, void (*f)(void *, size_t))
+char		*ft_strnjoin(char *s1, char *s2, int len)
 {
-	t_list			*tmp;
-	t_list			*del;
+	int		i;
+	int		j;
+	char	*ret;
 
-	if (!lst && !*lst)
-		return ;
-	tmp = *lst;
-	*lst = 0;
-	while (tmp)
+	i = 0;
+	j = 0;
+	if (!(ret = (char *)malloc(sizeof(char) * (len + 1))))
+		return (NULL);
+	if (s1)
 	{
-		if (tmp->content)
-			f(tmp->content, tmp->content_size);
-		tmp->content = 0;
-		del = tmp;
-		tmp = tmp->next;
-		ft_memdel((void **)&del);
+		while (s1[i] && i < len)
+		{
+			ret[i] = s1[i];
+			i++;
+		}
 	}
+	if (s2)
+	{
+		while (s2[j++] && i++ < len)
+			ret[i] = s2[j];
+	}
+	ret[i] = '\0';
+	return (ret);
 }

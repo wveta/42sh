@@ -6,22 +6,38 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 21:09:13 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/07 22:20:04 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/08 01:17:05 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "readline.h"
+
+static void	remake_hist_file(char **tmp)
+{
+	int		fd;
+	int		j;
+
+	fd = 0;
+	j = 0;
+	fd = open(g_hist->path, O_RDWR | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
+	if (fd <= 0)
+		return ;
+	while (tmp[j])
+	{
+		write(fd, tmp[j], ft_strlen(tmp[j]));
+		j++;
+	}
+	close(fd);
+}
 
 char		**remake_hist(void)
 {
 	int		i;
 	int		j;
 	char	**tmp;
-	int		fd;	
 
 	j = 0;
 	i = 0;
-	fd = 0;
 	tmp = (char **)malloc(sizeof(char *) * 101);
 	while (++i < 101)
 		tmp[i] = NULL;
@@ -37,17 +53,25 @@ char		**remake_hist(void)
 	g_hist->cmd = NULL;
 	g_hist->amount = j;
 	tmp[j] = NULL;
-	j = 0;
-	fd = open(g_hist->path, O_RDWR | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
-	if (fd <= 0)
-		return (tmp);
-	while (tmp[j])
-	{
-		write(fd, tmp[j], ft_strlen(tmp[j]));
-		j++;
-	}
-	close(fd);
+	remake_hist_file(tmp);
 	return (tmp);
+}
+
+static void	write_in_matr(int len, char *buf)
+{
+	len = ft_strlen(buf);
+	if (g_hist->amount == 55)
+		g_hist->pos = 0;
+	if (len == 0 && buf[0] == '\0')
+		g_hist->cmd[g_hist->amount] = ft_strfjoin(\
+				g_hist->cmd[g_hist->amount], "\n");
+	else
+		g_hist->cmd[g_hist->amount] = ft_strfjoin(\
+				g_hist->cmd[g_hist->amount], buf);
+	if (len >= 2 && buf[len - 2] == 7)
+		g_hist->amount++;
+	if (g_hist->amount == 100)
+		g_hist->cmd = remake_hist();
 }
 
 static void	hist_from_file(void)
@@ -65,17 +89,7 @@ static void	hist_from_file(void)
 		return ;
 	while ((get_next_line(fd, &buf)) > 0)
 	{
-		len = ft_strlen(buf);
-		if (g_hist->amount == 55)
-			g_hist->pos = 0;
-		if (len == 0 && buf[0] == '\0')
-			g_hist->cmd[g_hist->amount] = ft_strfjoin(g_hist->cmd[g_hist->amount], "\n");
-		else
-			g_hist->cmd[g_hist->amount] = ft_strfjoin(g_hist->cmd[g_hist->amount], buf);
-		if (len >= 2 && buf[len - 2] == 7)
-			g_hist->amount++;
-		if (g_hist->amount == 100)
-			g_hist->cmd = remake_hist();
+		write_in_matr(len, buf);
 		free(buf);
 		buf = NULL;
 	}
@@ -86,13 +100,14 @@ static void	hist_from_file(void)
 void		create_history(void)
 {
 	char	*tmp;
+	int		i;
 
 	tmp = NULL;
+	i = -1;
 	if (!(g_hist = (t_hist *)malloc(sizeof(t_hist))))
 		mall_check();
 	if (!(g_hist->cmd = (char **)malloc(sizeof(char *) * 101)))
 		mall_check();
-	int i = -1;
 	while (++i < 101)
 		g_hist->cmd[i] = NULL;
 	if ((tmp = ft_get_my_home()))

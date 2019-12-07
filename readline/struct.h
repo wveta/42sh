@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 17:58:21 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/01 03:17:44 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/08 02:15:11 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ t_hist				*g_hist;
 typedef struct		s_tab
 {
 	char			**seach_res;
+	char			*path;
 	int				save_curs;
 	int				amount;
 	int				file;
@@ -46,7 +47,7 @@ typedef struct		s_multi
 {
 	int				num_of_lines;
 	int				pos;
-	int				*start_if_line;
+	int				*start_of_line;
 }					t_multi;
 
 typedef struct		s_input

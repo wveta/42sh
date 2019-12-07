@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 01:38:22 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/01 05:38:28 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/08 01:51:38 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,22 @@ void		return_cursor(void)
 	g_input->curs_pos = g_input->autocompl.save_curs;
 	if (g_input->curs_pos - g_input->prompt_len < g_input->input_len)
 	{
-		while ((g_input->curs_pos - g_input->prompt_len) + i != g_input->input_len)
+		while ((g_input->curs_pos - g_input->prompt_len)\
+				+ i != g_input->input_len)
 		{
 			ft_putstr_fd(tgetstr("le", NULL), STDERR_FILENO);
 			i++;
 		}
 	}
+}
+
+static void	finish_print(void)
+{
+	write(STDERR_FILENO, "\n", 1);
+	ft_putstr_fd(g_input->prompt, STDERR_FILENO);
+	ft_putstr_fd(g_input->input, STDERR_FILENO);
+	return_cursor();
+	null_autocmpl();
 }
 
 void		print_array(char **arr)
@@ -53,18 +63,25 @@ void		print_array(char **arr)
 			ft_putstr_fd("   ", STDERR_FILENO);
 		i++;
 	}
-	write(STDERR_FILENO, "\n", 1);
-	ft_putstr_fd(g_input->prompt, STDERR_FILENO);
-	ft_putstr_fd(g_input->input, STDERR_FILENO);
-	return_cursor();
-	null_autocmpl();
+	finish_print();
 }
 
 void		change_input(char **str, char *key)
 {
 	int		i;
+	DIR		*dir;
+	char	*tmp;
 
 	i = 0;
+	tmp = NULL;
+	tmp = ft_strfjoin(g_input->autocompl.path, "/");
+	g_input->autocompl.path = ft_strjoin(tmp, str[0]);
+	dir = opendir(g_input->autocompl.path);
+	if (dir)
+	{
+		closedir(dir);
+		str[0] = ft_strfjoin(str[0], "/");
+	}
 	if (key)
 	{
 		while (str[0][i] && key[i] && str[0][i] == key[i])

@@ -6,7 +6,7 @@
 #    By: thaley <thaley@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/20 13:59:52 by thaley            #+#    #+#              #
-#    Updated: 2019/12/01 05:57:32 by thaley           ###   ########.fr        #
+#    Updated: 2019/12/08 02:11:01 by thaley           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,8 @@ NAME		:= readline.a
 FILES		:= readline init match_key get_next_line\
 	print exit move_left_right history delete home_end\
 	hist_move line free parse_quotes signal autocomplition\
-	find_file ascii_sort print_autocmpl parsepath find_cmd
+	find_file ascii_sort print_autocmpl parsepath find_cmd\
+	find_key count_lines
 
 SRC			:= $(patsubst %, %.c, $(FILES))
 OBJ			:= $(patsubst %, %.o, $(FILES))

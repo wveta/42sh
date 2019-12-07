@@ -3,37 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parse_quotes.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
+/*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 13:46:12 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/03 14:45:29 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/08 01:41:56 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "readline.h"
-
-// int			ft_isspace2(char st)
-// {
-// 	if (st == '\0' || st == ' ' || st == '\n' || st == '\t' ||
-// 		st == '\r' || st == '\v' || st == '\f')
-// 		return (1);
-// 	return (0);
-// }
-
-// int			only_space(void)
-// {
-// 	int		i;
-
-// 	i = 0;
-// 	while (i < g_input->input_len)
-// 	{
-// 		if (ft_isspace2(g_input->input[i]))
-// 			i++;
-// 		else
-// 			return (0);
-// 	}
-// 	return (1);
-// }
 
 int			parse_backslash(int start)
 {
@@ -54,9 +31,33 @@ int			parse_backslash(int start)
 	return (count);
 }
 
+int			dop_check(int i, int b_sl)
+{
+	if (g_input->start_quotes != i && g_input->quotes == '\0'\
+		&& g_input->input[i] == '"' && (i == 0 || b_sl == 0))
+	{
+		g_input->quotes = '"';
+		g_input->start_quotes = i;
+	}
+	else if (g_input->start_quotes != i && ((g_input->quotes == '"'\
+			&& g_input->input[i] == '"') || (g_input->quotes == '\''\
+			&& g_input->input[i] == '\'')) && (i == 0 || b_sl == 0))
+	{
+		g_input->quotes = '\0';
+		g_input->start_quotes = -1;
+	}
+	else if (g_input->start_quotes != i && g_input->quotes == '\0'\
+		&& g_input->input[i] == '\'' && (i == 0 || b_sl == 0))
+	{
+		g_input->quotes = '\'';
+		g_input->start_quotes = i;
+	}
+	return (i);
+}
+
 int			check_quotes(void)
 {
-	int 	i;
+	int		i;
 	int		b_sl;
 
 	i = 0;
@@ -68,27 +69,9 @@ int			check_quotes(void)
 			b_sl++;
 			b_sl = b_sl % 2;
 		}
-		if (g_input->start_quotes != i && g_input->quotes == '\0' && g_input->input[i] == '"' &&
-		(i == 0 || b_sl == 0))
-		{
-			g_input->quotes = '"';
-			g_input->start_quotes = i;
-		}
-		else if (g_input->start_quotes != i && ((g_input->quotes == '"' && g_input->input[i] == '"') ||
-			(g_input->quotes == '\'' && g_input->input[i] == '\'')) &&
-		(i == 0 || b_sl == 0))
-		{
-			g_input->quotes = '\0';
-			g_input->start_quotes = -1;
-		}
-		else if (g_input->start_quotes != i && g_input->quotes == '\0' && g_input->input[i] == '\'' &&
-		(i == 0 || b_sl == 0))
-		{
-			g_input->quotes = '\'';
-			g_input->start_quotes = i;
-		}
+		i = dop_check(i, b_sl);
 		if (b_sl == 1 && g_input->input[i] != '\\')
-			b_sl =0;
+			b_sl = 0;
 		i++;
 	}
 	if (g_input->quotes == '\0')
@@ -98,33 +81,6 @@ int			check_quotes(void)
 	}
 	return (1);
 }
-
-// void		check_double_quotes(int i)
-// {
-// 	int		check;
-
-// 	check = 0;
-// 	while (i < g_input->input_len)
-// 	{
-// 		if (g_input->input[i] == '\"' && (i > 0 && g_input->input[i - 1] != '\\'))
-// 		{
-
-// 			if (!g_input->quotes)
-// 				g_input->quotes = g_input->input[i];
-// 			else if (g_input->quotes == g_input->input[i])
-// 				g_input->quotes = '\0';
-// 		}
-// 		else if ((g_input->input[i] == '\"' && (i > 0 && g_input->input[i - 1] == '\\')))
-// 		{
-// 			check = parse_backslash(i - 1);
-// 			if (check % 2 == 0 && g_input->quotes)
-// 				g_input->quotes = '\0';
-// 			else if (check % 2 == 0 && !g_input->quotes)
-// 				g_input->quotes = g_input->input[i];
-// 		}
-// 		i++;
-// 	}
-// }
 
 int			parse_quotes(void)
 {

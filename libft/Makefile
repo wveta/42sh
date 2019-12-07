@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: wveta <wveta@student.42.fr>                +#+  +:+       +#+         #
+#    By: thaley <thaley@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/03 12:47:16 by wveta             #+#    #+#              #
-#    Updated: 2019/11/22 14:18:35 by wveta            ###   ########.fr        #
+#    Updated: 2019/12/08 02:16:41 by thaley           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ SRC := ft_bzero.c  ft_memset.c ft_memcpy.c ft_memccpy.c ft_memmove.c ft_memchr.c
 	ft_lstdel.c ft_lstadd.c ft_lstiter.c ft_lstmap.c\
 	ft_isspace.c ft_isupper.c ft_isblank.c ft_islower.c ft_isxdigit.c\
 	ft_strfjoin.c ft_free_table.c ft_lst_sort.c ft_lstadd_last.c ft_lstsize.c ft_strndup.c\
-	ft_isnumber.c ft_strchrlen.c
+	ft_isnumber.c ft_strchrlen.c ft_strnjoin.c
 
 OBJECT_LIST := $(SRC:.c=.o)
 

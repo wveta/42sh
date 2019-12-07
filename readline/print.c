@@ -6,79 +6,11 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 21:09:47 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/06 23:34:24 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/08 02:10:25 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "readline.h"
-
-//check for right work and extra cursors
-
-void		take_line_start(void)
-{
-	int		i;
-	int		count;
-
-	i = 0;
-	count = 1;
-	g_input->multiline.start_if_line[0] = i + g_input->prompt_len;
-	while (i < g_input->input_len)
-	{
-		if (count < g_input->multiline.num_of_lines\
-			&& g_input->input[i] == '\n' && g_input->input[i + 1])
-		{
-			if (i + 1 + g_input->prompt_len % g_input->ws.ws_col == 0)
-				g_input->multiline.start_if_line[count] = i + 2 + g_input->prompt_len;
-			else
-				g_input->multiline.start_if_line[count] = i + 1 + g_input->prompt_len;
-			count++;
-		}
-		i++;
-	}
-	g_input->multiline.start_if_line[count] = 0;
-}
-
-void		count_lines(void)
-{
-	int		i;
-
-	i = 0;
-	g_input->multiline.num_of_lines = 0;
-	g_input->multiline.pos = 0;
-	if (g_input->multiline.start_if_line)
-		free_int_arr();
-	while (i < g_input->input_len)
-	{
-		if (g_input->input[i] == '\n')
-			g_input->multiline.num_of_lines++;
-		if (i == g_input->curs_pos - g_input->prompt_len)
-			g_input->multiline.pos = g_input->multiline.num_of_lines;
-		i++;
-	}
-	if (g_input->multiline.pos == 0)
-		g_input->multiline.pos = g_input->multiline.num_of_lines;
-	g_input->multiline.start_if_line = (int *)malloc(sizeof(int) * (g_input->multiline.num_of_lines + 1));
-	take_line_start();
-	if (g_input->curs_pos - g_input->prompt_len < g_input->input_len)
-	{
-		i = 0;
-		while (i + 1 <= g_input->multiline.num_of_lines)
-		{
-			if (g_input->curs_pos == g_input->multiline.start_if_line[i])
-			{
-				g_input->multiline.pos = i;
-				break ;
-			}
-			else if (g_input->curs_pos > g_input->multiline.start_if_line[i]\
-				&& g_input->curs_pos < g_input->multiline.start_if_line[i + 1])
-			{
-				g_input->multiline.pos = i;
-				break ;
-			}
-			i++;
-		}
-	}
-}
 
 int			take_curs(int curs_pos)
 {
@@ -125,33 +57,23 @@ int			count_n(char *str)
 	return (n);
 }
 
-void		print(char *str)
+char		*check_curs_pos(int *save_curs, char *buf, char *str, char *tmp)
 {
-	int		i;
-	int		save_curs;
-	int		curs;
-	char	*tmp;
-	char	buf[MAX_CMDS];
-
-	i = 0;
-	tmp = NULL;
-	save_curs = 0;
-	curs = take_curs(g_input->curs_pos);
-	ft_bzero(buf, MAX_CMDS);
-	if (!str)
-		return ;
 	if (g_input->input_len != g_input->curs_pos - g_input->prompt_len)
 	{
-		ft_strncpy(buf, g_input->input, g_input->curs_pos - g_input->prompt_len);
+		ft_strncpy(buf, g_input->input, g_input->curs_pos\
+					- g_input->prompt_len);
 		if (str[0] != '\0')
 		{
-			tmp = ft_strjoin(str, g_input->input + g_input->curs_pos - g_input->prompt_len);
-			save_curs = g_input->curs_pos + 1;
+			tmp = ft_strjoin(str, g_input->input +\
+			g_input->curs_pos - g_input->prompt_len);
+			*save_curs = g_input->curs_pos + 1;
 		}
 		else
 		{
-			tmp = ft_strdup(g_input->input + g_input->curs_pos - g_input->prompt_len);
-			save_curs = g_input->curs_pos;
+			tmp = ft_strdup(g_input->input +\
+			g_input->curs_pos - g_input->prompt_len);
+			*save_curs = g_input->curs_pos;
 		}
 		ft_bzero(g_input->input, MAX_CMDS);
 		ft_strcpy(g_input->input, buf);
@@ -159,7 +81,14 @@ void		print(char *str)
 	}
 	else
 		tmp = ft_strdup(str);
-	ft_putstr_fd(tgetstr("cd", NULL), STDERR_FILENO);
+	return (tmp);
+}
+
+void		print_loop(char *tmp, int curs)
+{
+	int		i;
+
+	i = 0;
 	while (tmp[i])
 	{
 		if (tmp[i] == '\n' || ft_isprint(tmp[i]))
@@ -169,12 +98,7 @@ void		print(char *str)
 			if (tmp[i] == '\n')
 			{
 				if (curs > 0 && curs % g_input->ws.ws_col == 0)
-				{
-					// g_input->curs_pos++;
-					// g_input->input_len++;
-					// g_input->input[(g_input->curs_pos - g_input->prompt_len)] = '\n';
 					ft_putchar_fd('\n', STDERR_FILENO);
-				}
 				curs = -1;
 			}
 			g_input->curs_pos++;
@@ -185,21 +109,32 @@ void		print(char *str)
 		}
 		i++;
 	}
+}
+
+void		print(char *str)
+{
+	int		save_curs;
+	int		curs;
+	char	*tmp;
+	char	buf[MAX_CMDS];
+
+	tmp = NULL;
+	save_curs = 0;
+	curs = take_curs(g_input->curs_pos);
+	ft_bzero(buf, MAX_CMDS);
+	if (!str)
+		return ;
+	tmp = check_curs_pos(&save_curs, buf, str, tmp);
+	ft_putstr_fd(tgetstr("cd", NULL), STDERR_FILENO);
+	print_loop(tmp, curs);
 	if (count_n(g_input->input))
 		count_lines();
 	else
-	{
-		g_input->multiline.num_of_lines = 0;
-		g_input->multiline.pos = 0;
-		if (g_input->multiline.start_if_line)
-			free_int_arr();
-	}
+		null_multiline();
 	if (save_curs > 0)
 	{
-		while(g_input->curs_pos > save_curs)
-		{
+		while (g_input->curs_pos > save_curs)
 			move_left();
-		}
 	}
 	free(tmp);
 }

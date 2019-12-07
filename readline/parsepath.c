@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/24 21:06:43 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/06 19:25:01 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/08 01:47:36 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,37 +56,6 @@ char		*find_tail(char *str)
 	return (ret);
 }
 
-char		*ft_strnjoin(char *s1, char *s2, int len)
-{
-	int		i;
-	int		j;
-	char	*ret;
-
-	i = 0;
-	j = 0;
-	if (!(ret = (char *)malloc(sizeof(char) * (len + 1))))
-		return (NULL);
-	if (s1)
-	{
-		while (s1[i] && i < len)
-		{
-			ret[i] = s1[i];
-			i++;
-		}
-	}
-	if (s2)
-	{
-		while (s2[j] && i < len)
-		{
-			ret[i] = s2[j];
-			j++;
-			i++;
-		}
-	}
-	ret[i] = '\0';
-	return (ret);
-}
-
 char		*take_path(char *key)
 {
 	int		i;
@@ -111,38 +80,38 @@ char		*take_path(char *key)
 	return (ret);
 }
 
-char		*parse_path(char *tmp)
+void		home_dir(char *tmp)
 {
-	char	*path;
-	char	*tail;
 	char	*temp;
 
-	tail = NULL;
-	path = NULL;
 	temp = NULL;
+	temp = ft_get_env("HOME");
+	g_input->autocompl.path = ft_strjoin(temp, tmp + 1);
+	ft_free(temp);
+	g_input->autocompl.key_check = 2;
+}
+
+char		*parse_path(char *tmp)
+{
+	char	*tail;
+
 	tail = find_tail(tmp);
 	if (tmp[0] == '~')
-	{
-		temp = ft_get_env("HOME");
-		path = ft_strjoin(temp, tmp + 1);
-		ft_free(temp);
-		g_input->autocompl.key_check = 2;
-	}
+		home_dir(tmp);
 	else if (tmp[0] == '.')
-		path = calc_path(tmp);
+		g_input->autocompl.path = calc_path(tmp);
 	else if (tmp[0] != '/')
 	{
 		if (!tail)
-			path = ft_get_env("PWD");
+			g_input->autocompl.path = ft_get_env("PWD");
 		else
-			path = take_path(tmp);
+			g_input->autocompl.path = take_path(tmp);
 	}
 	if (!tail && g_input->autocompl.key_check < 2 && tmp[0] != '/')
 		tail = ft_strdup(tmp);
-	if (!path)
-		path = ft_strdup(tmp);
-	count_file_match(path, tail);
-	find_match(path, tail);
-	free(path);
+	if (!g_input->autocompl.path)
+		g_input->autocompl.path = ft_strdup(tmp);
+	count_file_match(tail);
+	find_match(tail);
 	return (tail);
 }
