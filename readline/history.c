@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 21:09:13 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/06 23:37:37 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/07 22:20:04 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,12 @@ static void	hist_from_file(void)
 	while ((get_next_line(fd, &buf)) > 0)
 	{
 		len = ft_strlen(buf);
+		if (g_hist->amount == 55)
+			g_hist->pos = 0;
 		if (len == 0 && buf[0] == '\0')
-			g_hist->cmd[g_hist->amount] = ft_strjoin(g_hist->cmd[g_hist->amount], "\n");
+			g_hist->cmd[g_hist->amount] = ft_strfjoin(g_hist->cmd[g_hist->amount], "\n");
 		else
-			g_hist->cmd[g_hist->amount] = ft_strjoin(g_hist->cmd[g_hist->amount], buf);
+			g_hist->cmd[g_hist->amount] = ft_strfjoin(g_hist->cmd[g_hist->amount], buf);
 		if (len >= 2 && buf[len - 2] == 7)
 			g_hist->amount++;
 		if (g_hist->amount == 100)
@@ -93,10 +95,9 @@ void		create_history(void)
 	int i = -1;
 	while (++i < 101)
 		g_hist->cmd[i] = NULL;
-	// ft_bzero(g_hist->cmd, 101);
 	if ((tmp = ft_get_my_home()))
 	{
-		g_hist->path = ft_strfjoin(tmp, "/.history");
+		g_hist->path = ft_strjoin(tmp, "/.history");
 		free(tmp);
 	}
 	g_hist->amount = 0;
