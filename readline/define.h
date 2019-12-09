@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 18:00:14 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/07 23:01:23 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/09 12:44:06 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define DEFINE_H
 
 # define BSIZE		1
-# define MAX_BSIZE	2048
 # define MAX_CMDS	4096
 # define ENTER		10
 

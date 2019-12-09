@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 21:09:47 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/09 10:22:07 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/09 12:45:47 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ void		print_loop(char *tmp, int curs)
 	i = 0;
 	while (tmp[i])
 	{
-		if (tmp[i] == '\n' || ft_isprint(tmp[i]))
+		if ((tmp[i] == '\n' || ft_isprint(tmp[i])) && g_input->input_len < MAX_CMDS)
 		{
 			g_input->input[(g_input->curs_pos - g_input->prompt_len)] = tmp[i];
 			curs++;
@@ -143,6 +143,8 @@ void		print_loop(char *tmp, int curs)
 				right_col(0);
 			g_input->input_len++;
 		}
+		if (g_input->input_len >= MAX_CMDS)
+			ft_putchar_fd(tmp[i], STDERR_FILENO);
 		i++;
 	}
 }
