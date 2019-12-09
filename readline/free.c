@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 01:01:14 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/08 02:15:17 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/08 04:54:03 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void		free_all(t_shell *shell)
 	if (g_input)
 	{
 		ft_free(g_input->prompt);
-		free_int_arr();
+		// free_int_arr();
 		free(g_input);
 	}
 	shell = NULL;
@@ -48,12 +48,12 @@ void		ft_free(char *str)
 	str = NULL;
 }
 
-void		free_int_arr(void)
-{
-	if (g_input->multiline.start_of_line)
-		free(g_input->multiline.start_of_line);
-	g_input->multiline.start_of_line = NULL;
-}
+// void		free_int_arr(void)
+// {
+// 	if (g_input->multiline.start_of_line)
+// 		free(g_input->multiline.start_of_line);
+// 	g_input->multiline.start_of_line = NULL;
+// }
 
 void		null_autocmpl(void)
 {
@@ -85,6 +85,5 @@ void		null_multiline(void)
 {
 	g_input->multiline.num_of_lines = 0;
 	g_input->multiline.pos = 0;
-	if (g_input->multiline.start_of_line)
-		free_int_arr();
+	g_input->multiline.start_of_line = 0;
 }

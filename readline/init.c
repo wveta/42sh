@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 19:15:41 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/08 02:14:41 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/08 04:06:50 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ void		null_all(void)
 	g_input->heredoc = 0;
 	g_input->multiline.num_of_lines = 0;
 	g_input->multiline.pos = 0;
-	g_input->multiline.start_of_line = NULL;
+	g_input->multiline.start_of_line = 0;
+	g_input->multiline.fake_curs = -1;
 	g_input->quotes = '\0';
 	g_input->start_quotes = -1;
 	g_input->old_in_check = 0;

@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 17:48:56 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/06 22:29:16 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/08 03:55:36 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,13 @@ void		ft_signal_win_size(int signo)
 	}
 	ft_putstr_fd(tgetstr("cr", NULL), STDERR_FILENO);
 	ft_putstr_fd(tgetstr("cd", NULL), STDERR_FILENO);
+	if (g_input->multiline.fake_curs != -1)
+	{
+		ft_memmove(g_input->input + (g_input->multiline.fake_curs - g_input->prompt_len)\
+		, g_input->input + (g_input->multiline.fake_curs - g_input->prompt_len) + 1\
+		, MAX_CMDS - (g_input->multiline.fake_curs - g_input->prompt_len) - 1);
+		g_input->multiline.fake_curs = -1;	
+	}
 	ft_putstr_fd(g_input->prompt, STDERR_FILENO);
 	g_input->curs_pos = g_input->prompt_len;
 	g_input->input_len = 0;

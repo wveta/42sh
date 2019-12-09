@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 17:08:06 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/08 02:15:16 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/08 05:10:15 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,9 @@ void		move_left(void)
 	check_curs = take_curs(g_input->curs_pos);
 	if (g_input->curs_pos - g_input->prompt_len == 0)
 		return ;
-	if (g_input->multiline.pos > 0 &&\
-		g_input->multiline.start_of_line[g_input->multiline.pos]\
-		== g_input->curs_pos)
+	if (g_input->multiline.pos > 0 && g_input->input[(g_input->curs_pos - g_input->prompt_len) - 1] == '\n')
 		move_end_of_line(0);
-	else if (check_curs == 0 && g_input->curs_pos >= g_input->ws.ws_col)
+	else if (check_curs == 0 && (g_input->curs_pos >= g_input->ws.ws_col || g_input->multiline.pos > 0))
 	{
 		g_input->curs_pos--;
 		move_curs_end();
@@ -58,7 +56,7 @@ void		move_right(void)
 	if (g_input->curs_pos - g_input->prompt_len == g_input->input_len)
 		return ;
 	if (g_input->multiline.pos < g_input->multiline.num_of_lines &&
-		g_input->input[(g_input->curs_pos - g_input->prompt_len) - 1] == '\n')
+		g_input->input[(g_input->curs_pos - g_input->prompt_len)] == '\n')
 		move_end_of_line(1);
 	else if ((check_curs + 1) % g_input->ws.ws_col == 0)
 	{
@@ -77,13 +75,13 @@ void		move_word_left(void)
 {
 	if (g_input->curs_pos - g_input->prompt_len == 0)
 		return ;
-	while (g_input->curs_pos - g_input->prompt_len > 0 &&\
-		(g_input->input[g_input->curs_pos - g_input->prompt_len] < 33\
-		|| g_input->input[g_input->curs_pos - g_input->prompt_len - 1] < 33))
+	if (g_input->input[(g_input->curs_pos - g_input->prompt_len) - 1] < 33)
 		move_left();
-	while (g_input->curs_pos - g_input->prompt_len > 0 &&\
-		g_input->input[g_input->curs_pos - g_input->prompt_len - 1] > 32\
-		&& g_input->input[g_input->curs_pos - g_input->prompt_len - 1] < 127)
+	while (g_input->curs_pos > g_input->prompt_len &&\
+	g_input->input[g_input->curs_pos - g_input->prompt_len] < 33)
+		move_left();
+	while (g_input->curs_pos > g_input->prompt_len &&\
+	g_input->input[(g_input->curs_pos - g_input->prompt_len) - 1] > 32)
 		move_left();
 }
 
@@ -95,10 +93,10 @@ void		move_word_right(void)
 	if (curs == g_input->input_len)
 		return ;
 	while (g_input->curs_pos - g_input->prompt_len < g_input->input_len\
-		&& g_input->input[g_input->curs_pos - g_input->prompt_len] < 33)
-		move_right();
-	while (g_input->curs_pos - g_input->prompt_len < g_input->input_len\
 		&& g_input->input[g_input->curs_pos - g_input->prompt_len] > 32\
 		&& g_input->input[g_input->curs_pos - g_input->prompt_len] < 127)
+		move_right();
+	while (g_input->curs_pos - g_input->prompt_len < g_input->input_len\
+		&& g_input->input[g_input->curs_pos - g_input->prompt_len] < 33)
 		move_right();
 }
