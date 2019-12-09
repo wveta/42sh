@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/29 17:44:06 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/07 23:06:19 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/09 11:18:37 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int		autocmp(char *str)
 	{
 		find_name();
 		if (!g_input->autocompl.tab_count)
-			null_autocmpl();
+			null_autocmpl(1);
 		return (1);
 	}
 	return (0);

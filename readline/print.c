@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 21:09:47 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/08 08:40:52 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/09 10:22:07 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,10 @@ void		check_fake(void)
 		return ;
 	go_home_pos();
 	g_input->input_len--;
-	ft_memmove(g_input->input + (g_input->multiline.fake_curs - g_input->prompt_len)\
-	, g_input->input + (g_input->multiline.fake_curs - g_input->prompt_len) + 1\
-	, MAX_CMDS - (g_input->multiline.fake_curs - g_input->prompt_len) - 1);
+	ft_memmove(g_input->input + (g_input->multiline.fake_curs -\
+	g_input->prompt_len), g_input->input + (g_input->multiline.fake_curs -\
+	g_input->prompt_len) + 1, MAX_CMDS -\
+	(g_input->multiline.fake_curs - g_input->prompt_len) - 1);
 	g_input->multiline.fake_curs = -1;
 }
 
@@ -98,12 +99,30 @@ char		*check_curs_pos(int *save_curs, char *buf, char *str, char *tmp)
 	return (tmp);
 }
 
+void		right_col(int n)
+{
+	if (n)
+	{
+		ft_putstr_fd(tgetstr("do", NULL), STDERR_FILENO);
+		g_input->input_len++;
+		g_input->curs_pos++;
+		g_input->input[(g_input->curs_pos -\
+		g_input->prompt_len)] = '\n';
+		g_input->multiline.fake_curs = g_input->curs_pos;
+	}
+	else
+	{
+		g_input->multiline.start_of_line > 0 ? 0\
+		: (g_input->multiline.start_of_line = g_input->curs_pos);
+		ft_putstr_fd(tgetstr("do", NULL), STDERR_FILENO);
+	}
+}
+
 void		print_loop(char *tmp, int curs)
 {
 	int		i;
 
 	i = 0;
-	g_input->multiline.num_of_lines = 0;
 	while (tmp[i])
 	{
 		if (tmp[i] == '\n' || ft_isprint(tmp[i]))
@@ -112,24 +131,16 @@ void		print_loop(char *tmp, int curs)
 			curs++;
 			if (tmp[i] == '\n')
 			{
-				g_input->multiline.start_of_line > 0 ? 0 : (g_input->multiline.start_of_line = g_input->curs_pos + 1);
+				g_input->multiline.start_of_line > 0 ? 0 :\
+				(g_input->multiline.start_of_line = g_input->curs_pos + 1);
 				if (curs > 0 && curs % g_input->ws.ws_col == 0)
-				{
-					ft_putstr_fd(tgetstr("do", NULL), STDERR_FILENO);
-					g_input->input_len++;
-					g_input->curs_pos++;
-					g_input->input[(g_input->curs_pos - g_input->prompt_len)] = '\n';
-					g_input->multiline.fake_curs = g_input->curs_pos;
-				}
+					right_col(1);
 				curs = -1;
 			}
 			g_input->curs_pos++;
 			ft_putchar_fd(tmp[i], STDERR_FILENO);
 			if (curs != 0 && curs % g_input->ws.ws_col == 0)
-			{
-				g_input->multiline.start_of_line > 0 ? 0 : (g_input->multiline.start_of_line = g_input->curs_pos);
-				ft_putstr_fd(tgetstr("do", NULL), STDERR_FILENO);
-			}
+				right_col(0);
 			g_input->input_len++;
 		}
 		i++;

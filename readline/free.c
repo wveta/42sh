@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 01:01:14 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/08 04:54:03 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/09 11:19:55 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,8 @@ void		free_all(t_shell *shell)
 
 void		ft_free(char *str)
 {
-	if (str && *str)
+	if (str != NULL)
 		free(str);
-	str = NULL;
 }
 
 // void		free_int_arr(void)
@@ -55,12 +54,12 @@ void		ft_free(char *str)
 // 	g_input->multiline.start_of_line = NULL;
 // }
 
-void		null_autocmpl(void)
+void		null_autocmpl(int time)
 {
 	int		i;
 
 	i = 0;
-	if (g_input->autocompl.seach_res)
+	if (g_input->autocompl.seach_res && time)
 	{
 		while (g_input->autocompl.seach_res[i])
 		{
@@ -70,7 +69,8 @@ void		null_autocmpl(void)
 		}
 		free(g_input->autocompl.seach_res);
 	}
-	ft_free(g_input->autocompl.path);
+	if (time)
+		ft_free(g_input->autocompl.path);
 	g_input->autocompl.path = NULL;
 	g_input->autocompl.seach_res = NULL;
 	g_input->autocompl.amount = 0;

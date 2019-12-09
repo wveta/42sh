@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/24 21:06:43 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/08 01:47:36 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/09 11:13:04 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ char		*take_path(char *key)
 	i += ft_strlen(tmp);
 	ret = ft_strnjoin(tmp, key, i);
 	ft_free(tmp);
+	tmp = NULL;
 	return (ret);
 }
 
@@ -88,6 +89,7 @@ void		home_dir(char *tmp)
 	temp = ft_get_env("HOME");
 	g_input->autocompl.path = ft_strjoin(temp, tmp + 1);
 	ft_free(temp);
+	temp = NULL;
 	g_input->autocompl.key_check = 2;
 }
 

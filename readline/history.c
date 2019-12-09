@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 21:09:13 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/08 01:17:05 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/09 11:12:38 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,13 @@ char		**remake_hist(void)
 		tmp[i] = NULL;
 	i = 0;
 	ft_free(g_hist->cmd[i]);
+	g_hist->cmd[i] = NULL;
 	while (g_hist->cmd[++i])
 	{
 		tmp[j] = ft_strdup(g_hist->cmd[i]);
 		j++;
 		ft_free(g_hist->cmd[i]);
+		g_hist->cmd[i] = NULL;
 	}
 	free(g_hist->cmd);
 	g_hist->cmd = NULL;

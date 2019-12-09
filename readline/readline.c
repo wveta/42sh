@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 19:09:43 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/08 02:15:36 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/09 11:19:14 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ char		*read_loop(void)
 		ft_bzero(c, 20);
 		read(0, &c, 20);
 		if (g_input->autocompl.tab_count == 1 && c[0] != TAB)
-			null_autocmpl();
+			null_autocmpl(1);
 		if (match_key(c) || autocmp(c))
 			continue ;
 		else if (is_end_char(c[0]) && !c[1])

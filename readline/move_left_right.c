@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 17:08:06 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/08 05:10:15 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/09 09:32:34 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,11 @@ void		move_left(void)
 	check_curs = take_curs(g_input->curs_pos);
 	if (g_input->curs_pos - g_input->prompt_len == 0)
 		return ;
-	if (g_input->multiline.pos > 0 && g_input->input[(g_input->curs_pos - g_input->prompt_len) - 1] == '\n')
+	if (g_input->multiline.pos > 0 && g_input->input[(g_input->curs_pos\
+		- g_input->prompt_len) - 1] == '\n')
 		move_end_of_line(0);
-	else if (check_curs == 0 && (g_input->curs_pos >= g_input->ws.ws_col || g_input->multiline.pos > 0))
+	else if (check_curs == 0 && (g_input->curs_pos >= g_input->ws.ws_col\
+			|| g_input->multiline.pos > 0))
 	{
 		g_input->curs_pos--;
 		move_curs_end();

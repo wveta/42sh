@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 01:38:22 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/08 01:51:38 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/09 11:19:07 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void	finish_print(void)
 	ft_putstr_fd(g_input->prompt, STDERR_FILENO);
 	ft_putstr_fd(g_input->input, STDERR_FILENO);
 	return_cursor();
-	null_autocmpl();
+	null_autocmpl(1);
 }
 
 void		print_array(char **arr)
@@ -88,5 +88,5 @@ void		change_input(char **str, char *key)
 			i++;
 	}
 	print(str[0] + i);
-	null_autocmpl();
+	null_autocmpl(1);
 }

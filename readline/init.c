@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 19:15:41 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/08 04:06:50 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/09 11:18:45 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void		null_all(void)
 	ft_bzero(g_input->old_input, MAX_CMDS);
 	ft_bzero(g_input->copy, MAX_CMDS);
 	g_input->autocompl.seach_res = NULL;
-	null_autocmpl();
+	null_autocmpl(0);
 	g_input->prompt_len = prompt_len_color(g_input->prompt);
 	g_input->curs_pos = g_input->prompt_len;
 	g_input->input_len = 0;
@@ -90,8 +90,9 @@ void		init_input(char *prompt)
 		mall_check();
 	g_input->prompt = ft_strdup(prompt);
 	ioctl(STDIN_FILENO, TIOCGWINSZ, &g_input->ws);
-	ft_putstr_fd(tgetstr("bw", NULL), STDERR_FILENO);
-	ft_putstr_fd(tgetstr("am", NULL), STDERR_FILENO);
+	// ft_putstr_fd(tgetstr("bw", NULL), STDERR_FILENO);
+	// ft_putstr_fd(tgetstr("am", NULL), STDERR_FILENO);
+	tgetflag("am");
 	null_all();
 	if (!ft_strncmp(prompt, "heredoc", 7))
 		g_input->heredoc = 1;
