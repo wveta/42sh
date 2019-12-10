@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 15:38:04 by udraugr-          #+#    #+#             */
-/*   Updated: 2019/12/10 11:53:30 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/10 12:17:09 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 
 static void			ft_not_found(char *alias_name)
 {
-	ft_putstr_fd("42sh: unalias: ", 2);
-	ft_putstr_fd(alias_name, 2);
-	ft_putendl_fd(": not found", 2);
+//	ft_putstr_fd("42sh: unalias: ", 2);
+//	ft_putstr_fd(alias_name, 2);
+//	ft_putendl_fd(": not found", 2);
+	ft_print_msg(": unalias: alias not found: ", alias_name);
 }
 
 char				*ft_del_alias(char *alias_str, char *alias)

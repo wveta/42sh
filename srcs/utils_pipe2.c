@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/07 10:50:36 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/09 20:05:25 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/10 16:03:20 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,9 @@ void	ft_child_pipe_exec(t_cmdlist *cur_cmd, int flpi)
 	}
 	if (flpi > 0)
 	{
+		cur_cmd->avcmd = ft_all_calc_tst(cur_cmd->avcmd);
+		if (g_calc != 0)
+			exit(g_calc);
 		if (cur_cmd->here && ft_get_redir_hd(cur_cmd) != 0)
 			exit(1);
 		if (ft_do_redir(cur_cmd) != 0)
@@ -115,9 +118,6 @@ void	ft_child_pipe_exec(t_cmdlist *cur_cmd, int flpi)
 			exit(0);
 		}
 //
-		cur_cmd->avcmd = ft_all_calc_tst(cur_cmd->avcmd);
-		if (g_calc != 0)
-			exit(g_calc);
 		cur_cmd->avcmd = ft_cmd_replays(cur_cmd->avcmd);
 //		cur_cmd->avcmd = ft_get_alias(cur_cmd->avcmd);
 //glob		
@@ -146,13 +146,14 @@ void	ft_child_pipe_exec(t_cmdlist *cur_cmd, int flpi)
 //
 //		cur_cmd->avcmd = ft_get_alias(cur_cmd->avcmd);
 		cur_cmd->built_in = ft_test_built_in(cur_cmd->avcmd[0]);
-//
+/*
 		if (cur_cmd->built_in == 0)
 		{
 			if (!(cur_cmd->find_path = ft_get_file_path(
 				cur_cmd->avcmd[0], g_envi->first_list)))
 				cur_cmd->find_path = ft_strdup(cur_cmd->avcmd[0]);
 		}
+*/
 		if (cur_cmd->here && ft_get_redir_hd(cur_cmd) != 0)
 			exit(1);
 //

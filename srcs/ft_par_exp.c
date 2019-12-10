@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 19:25:12 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/09 17:55:13 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/10 15:48:52 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -302,7 +302,7 @@ char	*ft_repl_subs(char *s, int *k, int i)
 	int		j;
 	int		n;
 
-	if (ft_test_parname(s + 2))
+	if (ft_test_parname(s + *k + 2))
 		return (s = ft_print_badsub(s, 0, NULL));
 	if ((j = ft_subst_lbr(s + *k + 2)) == -1)
 		j = ft_strlen(s + *k + 2);
@@ -315,12 +315,12 @@ char	*ft_repl_subs(char *s, int *k, int i)
 		if (tmp[n] == '#' && n == 0 && (n = -7))
 		{
 			tmp = ft_get_parm_ll(tmp);
-			break;
+			break ;
 		}
 		else if (tmp[n] == ':' && (n = -7))
 		{
 			tmp = ft_get_parm_qq(tmp);
-			break;
+			break ;
 		}
 		else if (tmp[n] == '#' && (n = -7))
 		{

@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/15 19:42:51 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/09 12:59:00 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/10 16:33:52 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ char		**ft_resize_matr_n(char **str, int n, int add)
 		else if (j >= n && j <= n + add - 1)
 			ret[j] = tmp[j - n];
 		else
-			ret[j] = str[j - add  + 1];
+			ret[j] = str[j - add + 1];
 	}
 	free(str);
 	free(tmp);

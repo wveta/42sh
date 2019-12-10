@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 15:38:41 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/09 20:31:44 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/10 16:27:20 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,16 @@ void	ft_do_cmd_list_ini(t_pipe *p_head, int flpi)
 
 void	ft_set_pgid(t_cmdlist *cmd, int flpi)
 {
-	if ((g_job == 1 /*&& g_subst == 0*/) || flpi != -777)
+	if ((g_job == 1) || flpi != -777)
 	{
 		if (g_pgid == 0)
 		{
 			g_pgid = cmd->pid;
-			if (g_job == 0 /*|| g_subst > 0*/)
+			if (g_job == 0)
 				g_pgid = getpid();
 		}
 		setpgid(cmd->pid, g_pgid);
-		if (g_job == 0 /*|| g_subst > 0*/)
+		if (g_job == 0)
 			tcsetpgrp(0, g_pgid);
 	}
 }
@@ -42,8 +42,6 @@ int		ft_do_cmd_loop(t_pipe *p_head, int fd0[2], int fd1[2], int flpi)
 {
 	while (p_head->cur_cmd)
 	{
-//		p_head->cur_cmd->avcmd = ft_globbing(p_head->cur_cmd->avcmd);
-//		p_head->cur_cmd->avcmd = ft_get_alias(p_head->cur_cmd->avcmd);
 		if ((ft_get_heretext(p_head->cur_cmd) == -1) ||
 		(flpi > 0 && ((ft_set_fd_pipes(p_head, fd0, fd1) == -1))) ||
 		(flpi < 1 && g_job != 1 && (fd_set_nopipe(p_head) == -1)))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_alias.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: udraugr- <udraugr-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/02 10:57:37 by udraugr-          #+#    #+#             */
-/*   Updated: 2019/12/10 09:58:48 by udraugr-         ###   ########.fr       */
+/*   Updated: 2019/12/10 13:31:47 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,8 @@ static char				**ft_prep_for_add_arr(char **ans, char **av)
 	char				**tmp;
 	char				**new;
 
-	new = ft_strsplit(*ans, ' ');
+//	new = ft_strsplit(*ans, ' ');
+	new = ft_split_pipes(ans[0]);
 	ft_strdel(ans);
 	if (new == NULL)
 	{

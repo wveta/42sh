@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 15:39:53 by wveta             #+#    #+#             */
-/*   Updated: 2019/10/29 16:20:43 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/10 17:39:11 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static bool	glob_quote(char *str, char *pat, char *b_str, char *b_pat)
 	}
 	if (*pat == cmp)
 		return (glob_check(str, pat + 1, b_str, b_pat));
-	if (*str != *pat)
+	if (*str && *pat && *str != *pat)
 		return (glob_btrack(str, b_str, b_pat));
 	return (glob_btrack(str, b_str, b_pat));
 }

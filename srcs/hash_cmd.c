@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 22:03:52 by thaley            #+#    #+#             */
-/*   Updated: 2019/09/13 19:18:01 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/10 14:41:40 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,7 @@ int		ft_cmd_hash(char **av)
 		if (av[i][0] == '-' && ft_strchr(av[i], 'r'))
 		{
 			ft_hash_all_del(NULL);
-			return (1);
+//			return (1);
 		}
 		else if (av[i][0] == '-' && ft_strchr(av[i], 'd'))
 			fl = 4;
@@ -168,7 +168,8 @@ int		ft_cmd_hash(char **av)
 				&& !(av[i + 1]))
 			ft_print_one(NULL, 3);
 		else if (av[i][0] == '-')
-			return (ft_hash_usage(av[i]));
+//			return (ft_hash_usage(av[i]));
+			ft_hash_usage(av[i]);
 		else
 		{	if (start == 0)
 				start = i;
