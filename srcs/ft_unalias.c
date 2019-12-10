@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unalias.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: udraugr- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: udraugr- <udraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 15:38:04 by udraugr-          #+#    #+#             */
-/*   Updated: 2019/11/12 11:55:56 by udraugr-         ###   ########.fr       */
+/*   Updated: 2019/12/10 09:42:45 by udraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char				*ft_del_alias(char *alias_str, char *alias)
 	int				len;
 
 	find_alias = ft_find_alias(alias_str, alias);
-	alias_end = find_alias;
+	alias_end = find_alias + 1;
 	while (*alias_end && *alias_end != -10)
 		++alias_end;
 	if (*alias_end)

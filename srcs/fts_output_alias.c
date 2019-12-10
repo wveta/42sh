@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fts_output_alias.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
+/*   By: udraugr- <udraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 11:41:05 by udraugr-          #+#    #+#             */
-/*   Updated: 2019/12/03 15:45:56 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/10 10:07:56 by udraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ void					ft_output_alias(char *all_alias, char *av,
 	{
 		if (flag_alias)
 			ft_putstr("alias ");
-		i = 0;
+		i = 1;
 		while (ans[i] && ans[i] != -10)
 			++i;
-		write(1, ans, i);
+		write(1, &ans[1], i - 1);
 		write(1, "\n", 1);
 	}
 }

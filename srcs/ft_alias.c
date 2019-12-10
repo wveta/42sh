@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_alias.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
+/*   By: udraugr- <udraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/29 21:00:14 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/03 15:50:56 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/10 09:47:16 by udraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,11 @@ static char				*ft_push_alias(char *all_alias, char *av)
 
 	ans = 0;
 	len_all_alias = ft_strlen(all_alias);
-	len_ans = len_all_alias + 1 + ft_strlen(av) + 2;
+	len_ans = len_all_alias + 1 + ft_strlen(av) + 2 + 1 + 1;
 	if ((ans = ft_strnew(len_ans)) == NULL)
 		return (0);
 	ft_strcpy(ans, all_alias);
+	ans[len_all_alias++] = -10;
 	i = 0;
 	while (len_all_alias < len_ans)
 	{
@@ -36,8 +37,8 @@ static char				*ft_push_alias(char *all_alias, char *av)
 	}
 	ans[len_all_alias++] = '"';
 	ft_strcpy(&ans[len_all_alias], &av[i]);
-	ans[len_ans - 2] = '"';
-	ans[len_ans - 1] = -10;
+	ans[len_ans - 3] = '"';
+	ans[len_ans - 2] = -10;
 	return (ans);
 }
 
@@ -113,7 +114,7 @@ int						ft_alias(char **av)
 		print_all_alias(all_alias, flag_alias);
 	else
 	{
-		i -= 1;
+		--i;
 		while (av[++i])
 			if (ft_action(&all_alias, av[i], flag_alias, &ret) == 1)
 				break ;
