@@ -6,7 +6,7 @@
 /*   By: udraugr- <udraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/29 21:00:14 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/10 09:47:16 by udraugr-         ###   ########.fr       */
+/*   Updated: 2019/12/10 19:07:54 by udraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,7 @@ static char				*ft_push_alias(char *all_alias, char *av)
 	i = 0;
 	while (len_all_alias < len_ans)
 	{
-		ans[len_all_alias] = av[i];
-		++len_all_alias;
-		++i;
+		ans[len_all_alias++] = av[i++];
 		if (ans[len_all_alias - 1] == '=')
 			break ;
 	}

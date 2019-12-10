@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fts_output_alias.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
+/*   By: udraugr- <udraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 11:41:05 by udraugr-          #+#    #+#             */
-/*   Updated: 2019/12/10 13:13:46 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/10 19:08:55 by udraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,6 @@ void					ft_output_alias(char *all_alias, char *av,
 
 	if ((ans = ft_find_alias(all_alias, av)) == NULL)
 	{
-//		ft_putstr_fd("42sh: alias: ", 2);
-//		ft_putstr_fd(av, 2);
-//		ft_putendl(": not found");
 		ft_print_msg(": alias: alias not found: ", av);
 		ft_set_shell("?", "1");
 		*ret = 0;

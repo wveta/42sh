@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unalias.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
+/*   By: udraugr- <udraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 15:38:04 by udraugr-          #+#    #+#             */
-/*   Updated: 2019/12/10 12:17:09 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/10 19:08:33 by udraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 static void			ft_not_found(char *alias_name)
 {
-//	ft_putstr_fd("42sh: unalias: ", 2);
-//	ft_putstr_fd(alias_name, 2);
-//	ft_putendl_fd(": not found", 2);
 	ft_print_msg(": unalias: alias not found: ", alias_name);
 }
 
@@ -80,7 +77,7 @@ static int			unalias(char **av)
 	return (ret);
 }
 
-int				ft_unalias(char **av)
+int					ft_unalias(char **av)
 {
 	int				ans;
 
@@ -89,5 +86,5 @@ int				ft_unalias(char **av)
 		ft_set_shell("?", "1");
 	else
 		ft_set_shell("?", "0");
-		return (1);
+	return (1);
 }
