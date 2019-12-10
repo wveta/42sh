@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 18:24:59 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/02 18:21:28 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/09 14:10:32 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ void	ft_do_export(char *str, int flag, int j)
 		ft_set_shell(parm, val);
 		if (flag == 0)
 			ft_exp_env(parm, val);
+		free(parm);
+		free(val);
 	}
 	else if (j == (int)ft_strlen(str) && flag == 1)
 		ft_unset_env_parm(str);

@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/07 10:50:36 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/06 17:09:06 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/09 12:35:16 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void		ft_pipe_split_5(t_pipeflag *fl, char **ret, char const *str)
 void		ft_pipe_split_6(t_pipeflag *fl, char const *str)
 {
 	if (ft_isspace(str[fl->i]) == 0 && str[fl->i] != '\0' &&
-		fl->qflag == 0 &&
+		fl->qflag == 0 && fl->br_flag == 0 &&
 		fl->flag == 0 && (fl->i == 0 ||
 		ft_isspace(str[fl->i - 1]) == 1
 		|| str[fl->i - 1] == '|'))

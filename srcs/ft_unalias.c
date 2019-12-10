@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unalias.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: udraugr- <udraugr-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 15:38:04 by udraugr-          #+#    #+#             */
-/*   Updated: 2019/12/10 09:42:45 by udraugr-         ###   ########.fr       */
+/*   Updated: 2019/12/10 11:53:30 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static void			ft_action(char **all_alias, char *av_str, int *ret)
 		*all_alias = ft_del_alias(*all_alias, av_str);
 }
 
-int					ft_unalias(char **av)
+static int			unalias(char **av)
 {
 	char			*all_alias;
 	int				len;
@@ -77,4 +77,16 @@ int					ft_unalias(char **av)
 	(flag_del_all == 1) ? ft_change_alias(0) : ft_change_alias(all_alias);
 	ft_strdel(&all_alias);
 	return (ret);
+}
+
+int				ft_unalias(char **av)
+{
+	int				ans;
+
+	ans = unalias(av);
+	if (ans == 0)
+		ft_set_shell("?", "1");
+	else
+		ft_set_shell("?", "0");
+		return (1);
 }

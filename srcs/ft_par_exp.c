@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 19:25:12 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/06 18:38:59 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/09 17:55:13 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,10 @@ char	*ft_get_parm_ll(char *tmp)
 	}
 	else
 	{
-		tmp[0] = '0';
-		tmp[1] = '\0';
+		tmp = ft_print_badsub(tmp, 0, NULL);
+		tmp[0] = 0;
+//		tmp[0] = '0';
+//		tmp[1] = '\0';
 	}
 	return (tmp);
 }
@@ -100,6 +102,7 @@ char	*ft_get_parm_qq(char *s)
 		{
 			if (tmp && ft_strlen(tmp) > 0)
 			{
+				free(tmp);
 				free(val);
 				val = ft_strnew(ft_strlen(s) - (j + 1) + 1);
 				val = ft_strcpy(val, s + j + 2);
@@ -117,7 +120,7 @@ char	*ft_get_parm_qq(char *s)
 						free(tmp2);
 						if (g_subs_rc == 1)
 						{
-							free(tmp);
+//							free(tmp);
 							free(val);
 							ft_set_shell("?", "1");
 							if (g_subshell == 0)
@@ -139,7 +142,8 @@ char	*ft_get_parm_qq(char *s)
 				return (s);
 			}
 		}
-//		free(tmp);
+		else
+			free(tmp);
 		free(s);
 		if (!(val))
 			val = ft_strdup("");
@@ -154,6 +158,35 @@ char	*ft_get_parm_rr(char *s)
 	int		j;
 	char	*tmp;
 	char	*flag;
+
+	int		jj;
+	int		k;
+
+				jj = 0;
+				while (jj < (int)ft_strlen(s))
+				{
+					if (s[jj] == '$' && (ft_check_ekran(s, jj)) == 0 &&
+						s[jj + 1] && s[jj + 1] == '{')
+					{
+						tmp = ft_strdup(s + jj);
+						k = 0;
+						tmp = ft_repl_subs(tmp, &k, ft_strlen(tmp));
+						s[jj] = '\0';
+						s = ft_strfjoin(s, tmp);
+						free(tmp);
+						if (g_subs_rc == 1)
+						{
+							ft_set_shell("?", "1");
+							if (g_subshell == 0)
+								return (s);
+							else
+								exit_shell(1);
+						}
+					}
+					jj++;
+				}
+
+
 
 	if (((j = ft_strchr(s, '#') - s)) > 1)
 	{
@@ -176,15 +209,13 @@ char	*ft_get_parm_rr(char *s)
 			free(tmp);
 			tmp = ft_strnew(ft_strlen(s) - j + 1);
 			tmp = ft_strcat(tmp, s + j + 1);
-/*			j = ft_strlen(val) - ft_strlen(tmp);
-			if (ft_strcmp(val + j, tmp) == 0)
-				val[j] = '\0';*/
 			val = param_rem(val, flag, tmp);
 		}
 		else
 			val = ft_strdup("");
 		free(tmp);
 		free(s);
+		free(flag);
 		return (val);
 	}
 	return (s);
@@ -196,6 +227,38 @@ char	*ft_get_parm_prc(char *s)
 	int		j;
 	char	*tmp;
 	char	*flag;
+
+	int		jj;
+	int		k;
+
+				jj = 0;
+				while (jj < (int)ft_strlen(s))
+				{
+					if (s[jj] == '$' && (ft_check_ekran(s, jj)) == 0 &&
+						s[jj + 1] && s[jj + 1] == '{')
+					{
+						tmp = ft_strdup(s + jj);
+						k = 0;
+						tmp = ft_repl_subs(tmp, &k, ft_strlen(tmp));
+						s[jj] = '\0';
+						s = ft_strfjoin(s, tmp);
+						free(tmp);
+						if (g_subs_rc == 1)
+						{
+							ft_set_shell("?", "1");
+							if (g_subshell == 0)
+								return (s);
+							else
+								exit_shell(1);
+						}
+					}
+					jj++;
+				}
+
+
+
+
+
 
 	if (((j = ft_strchr(s, '%') - s)) > 1)
 	{
@@ -237,6 +300,7 @@ char	*ft_repl_subs(char *s, int *k, int i)
 	char	*tmp;
 	char	*ret;
 	int		j;
+	int		n;
 
 	if (ft_test_parname(s + 2))
 		return (s = ft_print_badsub(s, 0, NULL));
@@ -245,15 +309,31 @@ char	*ft_repl_subs(char *s, int *k, int i)
 	tmp = ft_alloc_char(j + 1);
 	tmp[j] = '\0';
 	tmp = ft_strncpy(tmp, s + *k + 2, j);
-	if (tmp[0] == '#')
-		tmp = ft_get_parm_ll(tmp);
-	else if (ft_strchr(tmp, ':'))
-		tmp = ft_get_parm_qq(tmp);
-	else if (ft_strchr(tmp, '#'))
-		tmp = ft_get_parm_rr(tmp);
-	else if (ft_strchr(tmp, '%'))
-		tmp = ft_get_parm_prc(tmp);
-	else
+	n = -1;
+	while (tmp[++n] && ft_check_ekran(tmp, n) == 0)
+	{
+		if (tmp[n] == '#' && n == 0 && (n = -7))
+		{
+			tmp = ft_get_parm_ll(tmp);
+			break;
+		}
+		else if (tmp[n] == ':' && (n = -7))
+		{
+			tmp = ft_get_parm_qq(tmp);
+			break;
+		}
+		else if (tmp[n] == '#' && (n = -7))
+		{
+			tmp = ft_get_parm_rr(tmp);
+			break;
+		}
+		else if (tmp[n] == '%' && (n = -7))
+		{
+			tmp = ft_get_parm_prc(tmp);
+			break;
+		}
+	}
+	if (n != -7)
 	{
 		if (ft_test_sub(s + *k + 2, i - 2) == 1)
 			return (s);

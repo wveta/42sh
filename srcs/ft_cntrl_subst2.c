@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/15 19:42:51 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/03 20:52:14 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/09 12:59:00 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ char		**ft_resize_matr_n(char **str, int n, int add)
 	i = ft_calc_matr_rows(str);
 	ret = str;
 	tmp = ft_split_pipes(str[n]);
+	free(str[n]);
 	ret = (char **)malloc(sizeof(char *) * (i + add));
 	ret[i + add - 1] = NULL;
 	j = -1;

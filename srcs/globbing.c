@@ -121,6 +121,7 @@ static void    ft_globbing_cycle(char *line, t_list **alist)
     t_list    *list;
     char    *path;
     char    *pat;
+
     if (!ft_globbing_split(line, &path, &pat))
         return (ft_globbing_addline(line, alist));
     if (!ft_globbing_getdir(path, &dir))

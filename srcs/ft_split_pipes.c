@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 16:34:55 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/05 21:23:06 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/09 18:03:45 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int			ft_split_pipes_words(char *str)
 		{
 			br_flag = 1;
 			br_count++;
-			if (br_count == 1 && str[i - 1] == '$' &&
+			if (br_count == 1 && i > 0 && str[i - 1] == '$' &&
 			(i - 1 == 0 || b_sl == 0))
 				flsub = 1;
 		}
@@ -55,7 +55,7 @@ int			ft_split_pipes_words(char *str)
 		{
 			br_flag = 2;
 			br_count++;
-			if (br_count == 1 && str[i - 1] == '$' &&
+			if (br_count == 1 && i > 0 && str[i - 1] == '$' &&
 			(i - 1 == 0 || b_sl == 0))
 				flsub = 1;
 		}
@@ -145,7 +145,7 @@ static int	ft_all_pipe_words(char **ret, char const *str)
 		{
 			fl->br_flag = 1;
 			fl->br_count++;
-			if (fl->br_count == 1 && str[fl->i - 1] == '$' &&
+			if (fl->br_count == 1 && fl->i > 0 && str[fl->i - 1] == '$' &&
 			(fl->i - 1 == 0 || b_sl == 0))
 				flsub = 1;
 			else if (fl->br_count == 1 && flsub == 0)
@@ -156,7 +156,7 @@ static int	ft_all_pipe_words(char **ret, char const *str)
 		{
 			fl->br_flag = 2;
 			fl->br_count++;
-			if (fl->br_count == 1 && str[fl->i - 1] == '$' &&
+			if (fl->br_count == 1 && fl->i > 0 && str[fl->i - 1] == '$' &&
 			(fl->i - 1 == 0 || b_sl == 0))
 				flsub = 1;
 			else if (fl->br_count == 1 && flsub == 0)
