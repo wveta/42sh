@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 19:25:12 by wveta             #+#    #+#             */
-/*   Updated: 2019/10/16 14:02:12 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/10 20:50:43 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,23 @@ void	ft_print_start_job(t_job *cur_job)
 	}
 }
 
-void	ft_set_job_plus()
+void	ft_job_ind_plus(t_job *job, int *last, int *prev)
+{
+	while (job)
+	{
+		if (job->ind > *last)
+		{
+			*prev = *last;
+			*last = job->ind;
+		}
+		else if (job->ind > *prev)
+			*prev = job->ind;
+		job->flag = ' ';
+		job = job->next;
+	}
+}
+
+void	ft_set_job_plus(void)
 {
 	int		last;
 	int		prev;
@@ -69,18 +85,7 @@ void	ft_set_job_plus()
 	last = 0;
 	prev = 0;
 	job = g_job_first;
-	while (job)
-	{
-		if (job->ind > last)
-		{
-			prev = last;
-			last = job->ind;
-		}
-		else if (job->ind > prev)
-			prev = job->ind;
-		job->flag = ' ';
-		job = job->next;
-	}
+	ft_job_ind_plus(job, &last, &prev);
 	job = g_job_first;
 	while (job)
 	{

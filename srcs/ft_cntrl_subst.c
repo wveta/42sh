@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/15 19:42:51 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/10 17:35:54 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/10 20:24:08 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,50 +95,10 @@ char	**ft_cnt_subs_tst(char **str, int n)
 	ft_ini_quoteflag(f);
 	while (str && str[n] && str[n][++f->i])
 	{
-		if (f->qflag != 2 && str[n][f->i] == '\\' && ((f->b_sl = f->b_sl + 1)))
-			f->b_sl = f->b_sl % 2;
-		if (f->qflag == 0 && (f->br_flag == 0 || f->br_flag == 1) &&
-		str[n][f->i] == '(' && f->b_sl == 0)
-		{
-			f->br_flag = 1;
-			f->br_count++;
-		}
-		else if (f->qflag == 0 && f->br_flag == 1 && str[n][f->i] == '(')
-			f->br_count++;
-		else if (f->qflag == 0 && (f->br_flag == 0 || f->br_flag == 2) &&
-		str[n][f->i] == '{' && f->b_sl == 0)
-		{
-			f->br_flag = 2;
-			f->br_count++;
-		}
-		else if (f->qflag == 0 && f->br_flag == 2 && str[n][f->i] == '{' && f->b_sl == 0)
-			f->br_count++;
-		if (f->qflag == 0 && f->b_sl == 0 && ((f->br_flag == 1 && str[n][f->i] == ')') ||
-		(f->br_flag == 2 && str[n][f->i] == '}')))
-		{
-			f->br_count--;
-			if (f->br_count == 0)
-			{
-				f->br_flag = 0;
-				if (f->start != -1 && str[n][f->start + 1] != '(' && ((f->end = f->i)))
-				{
-					str = ft_cnt_subs_exe(str, n, f->start, f->end);
-					if (f->start + 1 != f->end)
-						f->i = -1;
-					continue;
-				}
-			}
-		}
-		if ((f->qflag == 2 && f->b_sl == 0 && str[n][f->i] == '\'' &&
-		(f->i == 0 || str[n][f->i - 1] != '\\')))
-			f->qflag = 0;
-		else if (f->qflag == 0 && f->b_sl == 0 && str[n][f->i] == '\'')
-			f->qflag = 2;
-		if (f->qflag == 0 && f->br_flag == 0 && f->b_sl == 0
-		&& str[n][f->i] == '$' && str[n][f->i + 1] && str[n][f->i + 1] == '(')
-			f->start = f->i + 1;
-		if (f->qflag == 0 && str[n][f->i] != '\\' && f->b_sl == 1)
-				f->b_sl = 0;
+		ft_subst_tst_ps(f, str, n);
+		if (ft_subst_tst_exe(f, str, n) == 1)
+			continue;
+		ft_subst_tst_pf(f, str, n);
 	}
 	free(f);
 	return (str);

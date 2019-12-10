@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 21:09:13 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/10 16:16:50 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/10 19:29:22 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ static void	hist_from_file(void)
 		free(buf);
 		buf = NULL;
 	}
+	ft_strdel(&buf);
 	close(fd);
 	g_hist->cmd[g_hist->amount] = NULL;
 }

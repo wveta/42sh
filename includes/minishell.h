@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 11:01:23 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/06 16:54:46 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/10 20:21:37 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -552,5 +552,9 @@ char					**ft_resize_matr_n(char **str, int n, int add);
 int						ft_test_parname(char *str);
 char					*ft_print_badsub(char *s, int i, char *tmp);
 int						ft_subst_lbr(char *s);
-
+void					ft_subst_tst_ps(t_quoteflag *f, char **str, int n);
+void					ft_subst_tst_pf(t_quoteflag *f, char **str, int n);
+int						ft_subst_tst_exe(t_quoteflag *f, char **str, int n);
+char					**ft_cnt_subs_exe(char **str, int n, int start,
+						int end);
 #endif

@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 01:01:14 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/10 16:11:52 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/10 19:46:47 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void		free_all(t_shell *shell)
 		free(g_hist->cmd);
 		ft_free(g_hist->path);
 		free(g_hist);
-		g_hist = NULL;
 	}
 	if (g_input)
 	{
