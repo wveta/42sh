@@ -6,39 +6,39 @@
 /*   By: udraugr- <udraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/15 11:42:44 by udraugr-          #+#    #+#             */
-/*   Updated: 2019/11/22 11:16:46 by udraugr-         ###   ########.fr       */
+/*   Updated: 2019/12/10 18:26:49 by udraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CALC_H
-# define CALC_H
+#ifndef ARITHMETIC_H
+# define ARITHMETIC_H
 
 # include "../../../includes/minishell.h"
 
 enum {SUCCESS = 0, FAIL = -1};
 enum {VAR = 1000, NUMB = 1001, OPER = 1002};
 enum {INCREMENT = 0, DECREMENT = 1,
-		PLUS = 2, MINUS = 3, MULTIPLICATION = 4, DIVISION = 5, MODULE = 6,
-		LE = 7, GE = 8, LESSER = 9, GREATER = 10, EQUAL = 11, NOT_EQUAL = 12,
-		AND = 13, OR = 14,
-		LBRACE = 15, RBRACE = 16};
+	PLUS = 2, MINUS = 3, MULTIPLICATION = 4, DIVISION = 5, MODULE = 6,
+	LE = 7, GE = 8, LESSER = 9, GREATER = 10, EQUAL = 11, NOT_EQUAL = 12,
+	AND = 13, OR = 14,
+	LBRACE = 15, RBRACE = 16};
 
 char				*g_error_arithmetic;
 t_list				*g_lexem;
 int32_t				g_correct_values;
 
-typedef struct 		s_oper
+typedef struct		s_oper
 {
 	uint32_t		id;
 }					t_oper;
 
-typedef struct 		s_var
+typedef struct		s_var
 {
 	char			*name;
 	int32_t			value;
 }					t_var;
 
-typedef struct 		s_numb
+typedef struct		s_numb
 {
 	int32_t			numb;
 }					t_numb;

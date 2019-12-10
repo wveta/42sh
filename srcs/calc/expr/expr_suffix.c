@@ -6,7 +6,7 @@
 /*   By: udraugr- <udraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 09:29:23 by udraugr-          #+#    #+#             */
-/*   Updated: 2019/11/21 15:41:06 by udraugr-         ###   ########.fr       */
+/*   Updated: 2019/12/10 18:06:26 by udraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,10 @@ int32_t					expr_suffix(void)
 
 	if (g_lexem && g_lexem->content_size == VAR
 		&& g_lexem->next && g_lexem->next->content_size == OPER
-		&& 
+		&&
 			(
 				((t_oper *)g_lexem->next->content)->id == INCREMENT
-				|| ((t_oper *)g_lexem->next->content)->id == DECREMENT
-			)
-		)
+				|| ((t_oper *)g_lexem->next->content)->id == DECREMENT))
 	{
 		type = ((t_oper *)g_lexem->next->content)->id;
 		ans = take_var_value(((t_var *)g_lexem->content)->name);

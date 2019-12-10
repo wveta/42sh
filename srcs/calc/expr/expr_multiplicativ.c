@@ -6,7 +6,7 @@
 /*   By: udraugr- <udraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 18:43:48 by udraugr-          #+#    #+#             */
-/*   Updated: 2019/11/21 12:14:20 by udraugr-         ###   ########.fr       */
+/*   Updated: 2019/12/10 18:05:23 by udraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ static int32_t			calc(int32_t first, int32_t second, int32_t type)
 		return (first % second);
 	else
 		return (first * second);
-		
 }
 
 int32_t					expr_multiplicativ(void)
@@ -47,9 +46,7 @@ int32_t					expr_multiplicativ(void)
 			(
 				((t_oper *)g_lexem->content)->id == MULTIPLICATION
 				|| ((t_oper *)g_lexem->content)->id == DIVISION
-				|| ((t_oper *)g_lexem->content)->id == MODULE
-			)
-		)
+				|| ((t_oper *)g_lexem->content)->id == MODULE))
 	{
 		type = ((t_oper *)g_lexem->content)->id;
 		g_lexem = g_lexem->next;

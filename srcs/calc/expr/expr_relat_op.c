@@ -6,7 +6,7 @@
 /*   By: udraugr- <udraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 18:01:46 by udraugr-          #+#    #+#             */
-/*   Updated: 2019/11/21 12:14:20 by udraugr-         ###   ########.fr       */
+/*   Updated: 2019/12/10 18:05:39 by udraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,7 @@ int32_t					expr_relat_op(void)
 				((t_oper *)g_lexem->content)->id == LESSER
 				|| ((t_oper *)g_lexem->content)->id == LE
 				|| ((t_oper *)g_lexem->content)->id == GREATER
-				|| ((t_oper *)g_lexem->content)->id == GE
-			) 
-		)
+				|| ((t_oper *)g_lexem->content)->id == GE))
 	{
 		type = ((t_oper *)g_lexem->content)->id;
 		g_lexem = g_lexem->next;

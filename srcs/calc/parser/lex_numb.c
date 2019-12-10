@@ -6,7 +6,7 @@
 /*   By: udraugr- <udraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/16 20:04:27 by udraugr-          #+#    #+#             */
-/*   Updated: 2019/11/22 11:16:42 by udraugr-         ###   ########.fr       */
+/*   Updated: 2019/12/10 17:54:59 by udraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static int32_t		is_digit(char c, int32_t base)
 {
 	char			*digits;
-	int32_t		i;
+	int32_t			i;
 
 	digits = "0123456789ABCDEF\0";
 	i = 0;
@@ -37,7 +37,7 @@ int32_t				ft_atoi_base(char *str, int32_t base, uint32_t *len_numb)
 		*len_numb += 2;
 	else if (base == 8)
 		++(*len_numb);
- 	while (*str && is_digit(*str, base) >= 0)
+	while (*str && is_digit(*str, base) >= 0)
 	{
 		ans = ans * base + is_digit(*str, base);
 		++(*len_numb);
@@ -51,12 +51,12 @@ int32_t				ft_atoi_base(char *str, int32_t base, uint32_t *len_numb)
 	return (ans);
 }
 
-int32_t			it_number(char *str, t_list **lexem)
+int32_t				it_number(char *str, t_list **lexem)
 {
-	int32_t				numb;
-	uint32_t			len_numb;
-	t_numb				*new_numb;
-	t_list				*new;
+	int32_t			numb;
+	uint32_t		len_numb;
+	t_numb			*new_numb;
+	t_list			*new;
 
 	len_numb = 0;
 	if (ft_strncmp("0x", str, 2) == 0)
