@@ -1,38 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   globbing.c                                    :+:      :+:    :+:   */
+/*   globbing.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
+/*   By: udraugr- <udraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/15 15:39:53 by wveta             #+#    #+#             */
-/*   Updated: 2019/10/17 22:58:45 by wveta            ###   ########.fr       */
+/*   Created: 2019/12/11 10:10:19 by udraugr-          #+#    #+#             */
+/*   Updated: 2019/12/11 10:18:00 by udraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void		del_str(void *content, size_t size)
+void			del_str(void *content, size_t size)
 {
 	ft_memdel(&content);
 	(void)size;
 }
 
-static void	ft_globbing_addline(char *line, t_list **alist)
+static void		ft_globbing_addline(char *line, t_list **alist)
 {
 	t_list	*list;
 
 	if (!(list = ft_memalloc(sizeof(t_list))))
-		exit (1);
+		exit(1);
 	list->content = ft_strdup(line);
 	list->next = 0;
 	ft_lstadd_last(alist, list);
 }
 
-static bool	ft_globbing_split(char *line, char **path, char **pat)
+static bool		ft_globbing_split(char *line, char **path, char **pat)
 {
 	size_t	i;
-	int	len;
+	int		len;
 
 	i = -1;
 	len = -1;
@@ -43,11 +43,11 @@ static bool	ft_globbing_split(char *line, char **path, char **pat)
 			len = i;
 	if (!line[len + 1])
 		return (false);
-	if (len != -1)	
+	if (len != -1)
 		if (!(*path = ft_strndup(line, len + 1)))
-			exit (1);
+			exit(1);
 	if (!(*pat = ft_strdup(line + len + 1)))
-		exit (1);
+		exit(1);
 	return (true);
 }
 
@@ -61,16 +61,16 @@ static t_list	*ft_globbing_path_cycle(DIR *dir, char *path, char *pat)
 	while ((entry = readdir(dir)))
 	{
 		if (pat[0] != '.' && entry->d_name[0] == '.')
-   			continue;
+			continue ;
 		if (ft_strcmp(entry->d_name, "..") &&\
 				ft_strcmp(entry->d_name, ".") &&\
 				glob_check(entry->d_name, pat, 0, 0))
 		{
 			if (!(
-				 join_line = glob_join(path, entry->d_name)
+					join_line = glob_join(path, entry->d_name)
 //				join_line = ft_strjoin(path, entry->d_name)
 				))
-				exit (1);
+				exit(1);
 			ft_globbing_addline(join_line, &list);
 			free(join_line);
 		}
@@ -80,7 +80,7 @@ static t_list	*ft_globbing_path_cycle(DIR *dir, char *path, char *pat)
 	return (list);
 }
 
-static int	ft_globbing_getdir(char *path, DIR **dir)
+static int		ft_globbing_getdir(char *path, DIR **dir)
 {
 	if (!path)
 		if (!(*dir = opendir(".")))
@@ -88,7 +88,7 @@ static int	ft_globbing_getdir(char *path, DIR **dir)
 	if (path && *path)
 		if (!(*dir = opendir(path)))
 			return (0);
-	return (1);	
+	return (1);
 }
 
 /*static void	ft_globbing_cycle(char *line, t_list **alist)
@@ -115,58 +115,58 @@ static int	ft_globbing_getdir(char *path, DIR **dir)
 		ft_strdel(&pat);
 }*/
 
-static void    ft_globbing_cycle(char *line, t_list **alist)
+static void		ft_globbing_cycle(char *line, t_list **alist)
 {
-    DIR        *dir;
-    t_list    *list;
-    char    *path;
-    char    *pat;
+	DIR			*dir;
+	t_list		*list;
+	char		*path;
+	char		*pat;
 
-    if (!ft_globbing_split(line, &path, &pat))
-        return (ft_globbing_addline(line, alist));
-    if (!ft_globbing_getdir(path, &dir))
-        ft_globbing_addline(line, alist);
-    else
-    {
-        if ((list = ft_globbing_path_cycle(dir, path, pat)))
-            ft_lstadd_last(alist, list);
-        else
-            ft_globbing_addline(line, alist);
-    }
-    if (dir)
-        closedir(dir);
-    if (path)
-        ft_strdel(&path);
-    if (pat)
-        ft_strdel(&pat);
+	if (!ft_globbing_split(line, &path, &pat))
+		return (ft_globbing_addline(line, alist));
+	if (!ft_globbing_getdir(path, &dir))
+		ft_globbing_addline(line, alist);
+	else
+	{
+		if ((list = ft_globbing_path_cycle(dir, path, pat)))
+			ft_lstadd_last(alist, list);
+		else
+			ft_globbing_addline(line, alist);
+	}
+	if (dir)
+		closedir(dir);
+	if (path)
+		ft_strdel(&path);
+	if (pat)
+		ft_strdel(&pat);
 }
 
-void		ft_globbing_listtoline(t_list *list, char ***table)
+void			ft_globbing_listtoline(t_list *list, char ***table)
 {
-	char	**ret;
-	int		i;		
+	char		**ret;
+	int			i;
 
 	i = ft_lstsize(list);
 	if (!(ret = ft_memalloc(sizeof(char*) * (i + 1))))
-		exit (1);
+		exit(1);
 	i = -1;
-	while(list)
+	while (list)
 	{
 		if (!(ret[++i] = ft_strdup(list->content)))
-			exit (1);
+			exit(1);
 		list = list->next;
 	}
 	*table = ret;
 }
 
-char		**ft_globbing(char **table)
+char			**ft_globbing(char **table)
 {
-	t_list	*list;
-	int		i;
+	t_list		*list;
+	int			i;
 	char		**ret;
 
 	if (!table || !*table)
-		return (0);;
+		return (0);
 	i = -1;
 	list = 0;
 	while (table[++i])

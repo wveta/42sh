@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_pipe_split2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
+/*   By: udraugr- <udraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/07 10:50:36 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/09 12:35:16 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/11 09:43:33 by udraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,12 @@ int			ft_parse_pipe(char **ret)
 	{
 		if (ft_strcmp(ret[i], "|") == 0)
 		{
-			if  (i == 0 ||  ft_strcmp(ret[i - 1], "|") == 0)
-				return ((-1) * ft_print_msg(": parse error in pipeline: ", ret[0]));
+			if (i == 0 || ft_strcmp(ret[i - 1], "|") == 0)
+				return (-ft_print_msg(": parse error in pipeline: ", ret[0]));
 		}
 		i++;
 	}
 	if (ft_strcmp(ret[i - 1], "|") == 0)
-		return ((-1) * ft_print_msg(": parse error in pipeline: ", ret[i -1]));
+		return ((-1) * ft_print_msg(": parse error in pipeline: ", ret[i - 1]));
 	return (0);
 }

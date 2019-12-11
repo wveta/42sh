@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_pipe3.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
+/*   By: udraugr- <udraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/07 10:50:36 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/10 15:58:12 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/11 09:41:02 by udraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,7 @@ int		fd_set_nopipe(t_pipe *p_head)
 		p_head->cur_cmd->locals = ft_put_locals(p_head->cur_cmd->locals);
 		return (-1);
 	}
-
-//		
+//
 	p_head->cur_cmd->avcmd = ft_cmd_replays(p_head->cur_cmd->avcmd);
 	if (g_subs_rc == 1)
 		return (-1);
@@ -102,7 +101,9 @@ int		fd_set_nopipe(t_pipe *p_head)
 			exit(1);
 	}
 	ft_set_shell("_", p_head->cur_cmd->avcmd[0]);
-	if (ft_built_in(p_head->cur_cmd->avcmd[0], p_head->cur_cmd->avcmd, p_head->cur_cmd->locals) == 1)
+	if (ft_built_in(p_head->cur_cmd->avcmd[0],
+					p_head->cur_cmd->avcmd,
+					p_head->cur_cmd->locals) == 1)
 	{
 		p_head->cur_cmd = ft_redir_io_restore(p_head->cur_cmd);
 		return (-1);
@@ -117,11 +118,10 @@ void	ft_parent_wait(t_pipe *p_head, int flpi)
 	if (g_semafor)
 		sem_wait(g_semafor);
 	ft_add_semafor(p_head);
-	
 	if (g_bsemafor)
 		sem_post(g_bsemafor);
 	ft_sig_set();
-	if ((g_job == 0  /*|| g_subst > 0*/) && flpi == 0)
+	if ((g_job == 0/*|| g_subst > 0*/) && flpi == 0)
 	{
 		while (p_head->first_cmd->pid != 0)
 			status = 0;
@@ -130,6 +130,8 @@ void	ft_parent_wait(t_pipe *p_head, int flpi)
 		p_head->first_cmd = ft_redir_io_restore(p_head->first_cmd);
 		return ;
 	}
-	ft_pipe_wait_ch_fin(p_head->cur_cmd, p_head->first_cmd, p_head->last_cmd, flpi);
-
+	ft_pipe_wait_ch_fin(p_head->cur_cmd,
+						p_head->first_cmd,
+						p_head->last_cmd,
+						flpi);
 }
