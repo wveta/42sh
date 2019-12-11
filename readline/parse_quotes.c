@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 13:46:12 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/08 01:41:56 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/11 20:21:25 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ int			check_quotes(void)
 	int		b_sl;
 
 	i = 0;
+	if (g_input->start_quotes != -1)
+		i = g_input->start_quotes;
 	b_sl = 0;
 	while (i < g_input->input_len)
 	{
