@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 10:27:38 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/10 15:40:25 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/11 19:30:10 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,7 +158,7 @@ int			main(int argc, char **argv, char **environ)
 
 			
 			ft_final_free();
-			return (0);
+			return (g_rc);
 		}
 	}/*
 	g_subshell++;

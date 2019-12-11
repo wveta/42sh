@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 19:25:12 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/06 18:03:38 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/11 21:27:25 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,21 @@ int		ft_ret_subs(char *str, int i)
 int		ft_test_sub(char *str, int i)
 {
 	int j;
+	int	fl;
 
 	j = 0;
+	fl = 0;
 	if (i > 0)
 	{
 		while (j <= i && str[j])
 		{
-			if (ft_strchr("!@\"\'^()\\.$", str[j]))
+			if (fl == 0 && str[j] == '}')
+				fl = 1;
+			else if (fl == 0 && (ft_strchr("!@\"\'^()\\.$", str[j])))
 				return (ft_ret_subs(str, i));
+			else if (fl == 1 && str[j] == '$' && ft_check_ekran(str, j) == 0
+			&& str[j + 1] && str[j + 1] == '{')
+				fl = 0;
 			j++;
 		}
 		return (0);
@@ -44,20 +51,12 @@ int		ft_test_sub(char *str, int i)
 	return (ft_ret_subs(str, i));
 }
 
-char	*ft_get_parm_simple(/*char *s, int *k, int i, */char *tmp)
+char	*ft_get_parm_simple(char *tmp)
 {
-//	char	*tmp;
 	char	*val;
-//	int		len;
 
-//	tmp = ft_alloc_char(i - 1);
-//	tmp = ft_strncpy(tmp, s + *k + 2, i - 2);
-//	tmp[i - 2] = '\0';
-//	i = i + 1;
-//	len = 0;
 	if (!(val = ft_get_env(tmp)))
 		val = ft_strdup("");
-//	len = ft_strlen(val);
 	free(tmp);
 	return (val);
 }
@@ -73,15 +72,11 @@ char	*ft_repl_env(char *s, int *k)
 	if (!(s[*k + 1] == '_' || ft_isalpha(s[*k + 1]) || s[*k + 1] == '?'))
 		return (s);
 	i = ft_repl_sym(s, *k);
-	tmp = ft_alloc_char(i);
-	tmp = ft_strncpy(tmp, s + *k + 1, i - 1);
-	tmp[i - 1] = '\0';
+	tmp = ft_strndup(s + *k + 1, i - 1);
 	if ((val = ft_get_env(tmp)))
 	{
 		free(tmp);
-		tmp = ft_alloc_char(ft_strlen(s) + ft_strlen(val) - (i - 1) + 1);
-		tmp[0] = '\0';
-		tmp = ft_strncat(tmp, s, *k);
+		tmp = ft_strndup(s, *k);
 		tmp = ft_strcat(tmp, val);
 		tmp = ft_strcat(tmp, s + *k + i);
 		free(val);

@@ -6,56 +6,11 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 19:25:12 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/10 22:14:07 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/11 21:32:14 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-int		ft_repl_check(char *s, int len, char *q, int j)
-{
-	char	*tmp;
-
-	if (*q == '\'')
-	{
-		if (s[j] == '\'')
-		{
-			*q = ' ';
-			tmp = s + j;
-			ft_strcpy(tmp, s + j + 1);
-			return (-1);
-		}
-		return (1);
-	}
-	else if (s[j] == '\\' && j + 1 < len && (s[j + 1] == '\''
-		|| s[j + 1] == '"' || s[j + 1] == '\\'))
-	{
-		tmp = s + j;
-		ft_strcpy(tmp, s + j + 1);
-		return (1);
-	}
-	else if (*q == ' ' && (s[j] == '\'' || s[j] == '"'))
-	{
-		*q = s[j];
-		tmp = s + j;
-		ft_strcpy(tmp, s + j + 1);
-		return (-1);
-	}
-	else if (*q != ' ' && (s[j] == *q))
-	{
-		*q = ' ';
-		tmp = s + j;
-		ft_strcpy(tmp, s + j + 1);
-		return (-1);
-	}
-	else if (s[j] == '\\' && *q != '\'')
-	{
-		tmp = s + j;
-		ft_strcpy(tmp, s + j + 1);
-		return (2);
-	}
-	return (0);
-}
 
 char	*ft_repl_parm(char *s, int flag, int len)
 {

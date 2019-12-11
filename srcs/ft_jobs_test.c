@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 19:25:12 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/10 21:31:58 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/11 19:03:56 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ int			ft_test_job(char *str, int start)
 			ft_test_job_pf(str, start, f);
 		if (f->qflag == 0 && (str[f->i + start] == ';'))
 		{
+			free(f);
 			return (0);
 		}
 		if (f->qflag == 0 && ft_ampers_test(str, f->i, start) == 1)
