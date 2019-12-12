@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 19:15:41 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/12 21:47:16 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/12 22:00:56 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,24 +90,4 @@ void		init_input(char *prompt)
 	null_all();
 	if (!ft_strncmp(prompt, "heredoc", 7))
 		g_input->heredoc = 1;
-}
-
-t_shell		*init_term(t_shell *shell)
-{
-	if (!(shell = (t_shell *)malloc(sizeof(t_shell))))
-		return (NULL);
-	if (!(shell->term = ft_get_env("TERM")))
-		shell->term = ft_strdup("xterm-256color");
-	if (tgetent(NULL, shell->term) == -1)
-		return (NULL);
-	if (tcgetattr(0, &shell->new_param) == -1)
-		return (NULL);
-	if (tcgetattr(0, &shell->old_param) == -1)
-		return (NULL);
-	shell->new_param.c_lflag &= ~(ICANON | ECHO | ISIG);
-	shell->new_param.c_cc[VMIN] = 1;
-	shell->new_param.c_cc[VTIME] = 0;
-	if (tcsetattr(0, TCSADRAIN, &shell->new_param) == -1)
-		return (shell);
-	return (shell);
 }
