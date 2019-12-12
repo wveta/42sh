@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 11:01:23 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/12 13:26:20 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/12 22:51:48 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,6 +222,7 @@ char					*sem_name;
 int						g_subs_counter;
 int						g_calc;
 int						g_subst;
+int						g_shell_num;
 
 typedef struct dirent	t_dir;
 
@@ -247,6 +248,8 @@ typedef struct			s_pipeflag
 	int					start;
 	int					count;
 	int					i;
+	int					flsub;
+	int					b_sl;
 }						t_pipeflag;
 typedef struct			s_greatflag
 {
@@ -272,6 +275,7 @@ typedef struct 			s_quoteflag
 	int					rc;
 	int					wcount;
 	int					flsub;
+	int					i_cmd;
 }						t_quoteflag;
 
 void					exit_shell();
@@ -572,5 +576,23 @@ int						ft_get_val_plus(char *s, int j, char *tmp, char **val);
 int						ft_get_val_min(char *s, int j, char *tmp, char **val);
 int						ft_repl_check(char *s, int len, char *q, int j);
 void					ft_sig_do(int signo, int status, pid_t pid);
-
+void					ft_ini_quoteflag_spl(t_quoteflag *f);
+int						ft_all_pipe_words(char **ret, char const *str);
+t_list					*ft_globbing_path_cycle(DIR *dir, char *path, char *pat);
+bool					ft_globbing_split(char *line, char **path, char **pat);
+void					ft_globbing_addline(char *line, t_list **alist);
+void					ft_exe_subshell(void);
+char					*ft_init_loop_read(void);
+void					ft_init_shell_val(char **argv, char **environ);
+char					*ft_get_name(void);
+char					*param_remlarge(char *val, char *pat);
+void					parm_remlarge_inloop(int i, int l, char *save,
+						char *val);
+t_quoteflag				*ft_init_parse_init(void);
+int						ft_free_qf(t_quoteflag *f);
+void					ft_redir_great_close(int out_fd, int direction);
+void 					ft_tst_great_fd_loop(t_cmdlist *cmd, int i,
+						t_greatflag *f);
+int						ft_set_nopipe_start(t_pipe *p_head);
+						
 #endif

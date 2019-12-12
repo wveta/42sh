@@ -6,13 +6,13 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 19:25:12 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/09 17:04:42 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/12 20:38:39 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static char *param_remlarge_rev(char *var, char *pat)
+static char	*param_remlarge_rev(char *var, char *pat)
 {
 	int		i;
 	int		pos;
@@ -30,7 +30,7 @@ static char *param_remlarge_rev(char *var, char *pat)
 	return (var);
 }
 
-static char *param_remsmall_rev(char *var, char *pat)
+static char	*param_remsmall_rev(char *var, char *pat)
 {
 	int		i;
 
@@ -47,81 +47,41 @@ static char *param_remsmall_rev(char *var, char *pat)
 	return (var);
 }
 
-static char *param_remlarge(char *val, char *pat)
+static void	param_setval(char save, char *val)
 {
-	char	save;
-	int		i;
-	int		pos;
-	int		l;
-
-	i = 0;
-	save = '\0';
-	l = ft_strlen(val);
-	pos = -1;
-	while (val[i])
-	{
-		if (i < l)
-		{
-			save = val[i + 1];
-			val[i + 1] = 0;
-		}
-		else
-			save = '\0';
-		if (glob_check(val, pat, 0, 0))
-			pos = i;
-		if (save)	
-			val[i + 1] = save;
-		i++;
-	}
-	if (pos > -1)
-	{
-		if (pos < l)
-			ft_memmove(val, &val[pos + 1], ft_strlen(&val[pos]));
-		else
-			val[0] = '\0';
-	}
-	return (val);
+	if (save)
+		*val = save;
 }
 
-static char *param_remsmall(char *val, char *pat)
+static char	*param_remsmall(char *val, char *pat)
 {
 	char	save;
 	int		i;
 	int		l;
 
-	i = 0;
+	i = -1;
 	save = '\0';
 	l = ft_strlen(val);
-	while (val[i])
+	while (val[++i])
 	{
-		if (i < l - 1)
-		{
-			save = val[i + 1];
-			val[i + 1] = 0;
-		}
-		else
-			save = '\0';
+		parm_remlarge_inloop(i, l - 1, &save, &val[i + 1]);
 		if (glob_check(val, pat, 0, 0))
 		{
 			if (i < l)
 			{
-				if (save)
-					val[i + 1] = save;
-//				ft_memmove(val, &val[i + 1], ft_strlen(&val[i]) + 1);
+				param_setval(save, &val[i + 1]);
 				val = ft_strcpy(val, val + i + 1);
 			}
 			else
 				val[0] = '\0';
 			break ;
 		}
-		if (save)
-			val[i + 1] = save;
-		i++;
+		param_setval(save, &val[i + 1]);
 	}
 	return (val);
 }
 
-char	*param_rem(char *val, char *flag, char *pat)
+char		*param_rem(char *val, char *flag, char *pat)
 {
 	if (!val || !*val || !flag || !*flag)
 		return (NULL);

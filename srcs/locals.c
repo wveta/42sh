@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   locals.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: udraugr- <udraugr-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 19:25:12 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/12 15:01:27 by udraugr-         ###   ########.fr       */
+/*   Updated: 2019/12/12 15:09:19 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ static void	ft_init_glvar_begin(void)
 	g_envi->hash_first = NULL;
 	g_subshell = 0;
 	g_parent_pid = getpid();
+	g_shell_num = 0;
 }
 
 void		ft_init_glvar(char **av)

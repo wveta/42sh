@@ -6,20 +6,20 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 15:39:53 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/10 17:39:11 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/12 16:37:25 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static bool glob_btrack(char *str, char *b_str, char *b_pat)
+static bool	glob_btrack(char *str, char *b_str, char *b_pat)
 {
 	if (*str == 0 || !b_pat)
 		return (false);
 	return (glob_check(b_str + 1, b_pat, b_str + 1, b_pat));
 }
 
-static bool glob_liter(char *str, char *pat, char *b_str, char *b_pat)
+static bool	glob_liter(char *str, char *pat, char *b_str, char *b_pat)
 {
 	if (*str == *pat)
 	{
@@ -47,7 +47,7 @@ static bool	glob_quote(char *str, char *pat, char *b_str, char *b_pat)
 	return (glob_btrack(str, b_str, b_pat));
 }
 
-static bool glob_class(char *str, char *pat, char *b_str, char *b_pat)
+static bool	glob_class(char *str, char *pat, char *b_str, char *b_pat)
 {
 	bool	match;
 	bool	exclam;
@@ -81,7 +81,7 @@ bool		glob_check(char *str, char *pat, char *b_str, char *b_pat)
 	if (*pat == '?')
 		return (glob_check(str + 1, pat + 1, b_str, b_pat));
 	if (*pat == '*')
-		return (glob_check(str, pat + 1, str, pat + 1)); 
+		return (glob_check(str, pat + 1, str, pat + 1));
 	if (*pat == '[')
 		return (glob_class(str, pat + 1, b_str, b_pat));
 	if (*pat == '\"' || *pat == '\'')

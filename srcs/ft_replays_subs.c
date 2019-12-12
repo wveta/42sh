@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 19:25:12 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/11 21:27:25 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/12 18:09:07 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,21 @@ char	*ft_get_parm_simple(char *tmp)
 	return (val);
 }
 
+char	*ft_get_norm_tmp(char *s, int *k, char *val, int i)
+{
+	char *tmp;
+
+	if (*k > 0)
+	{
+		tmp = ft_strndup(s, *k);
+		tmp = ft_strcat(tmp, val);
+	}
+	else
+		tmp = ft_strdup(val);
+	tmp = ft_strcat(tmp, s + *k + i);
+	return (tmp);
+}
+
 char	*ft_repl_env(char *s, int *k)
 {
 	int		i;
@@ -76,9 +91,7 @@ char	*ft_repl_env(char *s, int *k)
 	if ((val = ft_get_env(tmp)))
 	{
 		free(tmp);
-		tmp = ft_strndup(s, *k);
-		tmp = ft_strcat(tmp, val);
-		tmp = ft_strcat(tmp, s + *k + i);
+		tmp = ft_get_norm_tmp(s, k, val, i);
 		free(val);
 		free(s);
 		return (tmp);

@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:14:54 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/06 15:03:54 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/12 23:00:01 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,8 @@ char	**ft_all_calc_tst(char **str)
 			ft_set_b_sl(f, str);
 			if (f->qflag == 0)
 				ft_cacl_test_b(f, str[f->n]);
-			if (((str = ft_test_calc(f, str))) && f->rc == 1)
-			{
-				free(f);
+			if (((str = ft_test_calc(f, str))) && f->rc == 1 && ft_free_qf(f))
 				return (str);
-			}
 			else if (f->rc == 2)
 				continue;
 			ft_calc_test_q(f, str[f->n]);

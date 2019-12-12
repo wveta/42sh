@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/07 10:50:36 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/06 18:14:21 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/12 16:14:50 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ t_pipeflag	*ft_pipe_split_ini(void)
 	fl->qflag = 0;
 	fl->br_count = 0;
 	fl->br_flag = 0;
+	fl->flsub = 0;
+	fl->b_sl = 0;
 	return (fl);
 }
 
