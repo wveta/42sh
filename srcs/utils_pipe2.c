@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/07 10:50:36 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/11 18:50:27 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/12 13:13:45 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,26 +54,24 @@ void	ft_child_pipe_exec(t_cmdlist *cur_cmd, int flpi)
 	g_subshell++;
 	if (g_subs_rc == 1)
 		exit(1);
-	if ((g_job == 1/* && g_subst == 0*/) || flpi != -777)
+	if ((g_job == 1) || flpi != -777)
 	{
 		if (g_pgid == 0)
 		{
 			g_pgid = getpid();
-			if (g_job == 0/* || g_subst > 0*/)
+			if (g_job == 0)
 				g_pgid = g_parent_pid;
 		}
 		setpgid(getpid(), g_pgid);
-		if (g_job == 0/* || g_subst > 0*/)
+		if (g_job == 0)
 			tcsetpgrp(0, g_pgid);
 	}
 	while (cur_cmd->avcmd[0][0] && ft_isspace(cur_cmd->avcmd[0][0]))
 		ft_strcpy(cur_cmd->avcmd[0], cur_cmd->avcmd[0] + 1);
 	if (cur_cmd->avcmd[0][0] == '(' || cur_cmd->avcmd[0][0] == '{')
 	{
-//
 		g_and_or = 0;
 		g_and_or_line = 0;
-//
 		g_subshell++;
 		if (ft_strlen(cur_cmd->avcmd[0]) < 3)
 		{
@@ -102,7 +100,6 @@ void	ft_child_pipe_exec(t_cmdlist *cur_cmd, int flpi)
 	{
 		ft_pipe_dup_ch_in(cur_cmd);
 		ft_pipe_dup_ch_out(cur_cmd);
-///
 		sem_post(cur_cmd->bsemafor);
 	}
 	if (flpi > 0)
@@ -120,13 +117,9 @@ void	ft_child_pipe_exec(t_cmdlist *cur_cmd, int flpi)
 			cur_cmd->locals = ft_put_locals(cur_cmd->locals);
 			exit(0);
 		}
-//
 		cur_cmd->avcmd = ft_cmd_replays(cur_cmd->avcmd);
-//		cur_cmd->avcmd = ft_get_alias(cur_cmd->avcmd);
-//glob
 		cur_cmd->avcmd = ft_globbing(cur_cmd->avcmd);
 		cur_cmd->built_in = ft_test_built_in(cur_cmd->avcmd[0]);
-//
 		if (cur_cmd->built_in == 0)
 		{
 			if (!(cur_cmd->find_path = ft_get_file_path(
@@ -139,33 +132,21 @@ void	ft_child_pipe_exec(t_cmdlist *cur_cmd, int flpi)
 							cur_cmd->avcmd, cur_cmd->locals) == 1)
 			exit(g_built_rc);
 	}
-	else/*if (g_job == 1)*/
+	else
 	{
-		if (g_job == 1/* && g_subst == 0*/)
+		if (g_job == 1)
 		{
 			if (ft_do_redir(cur_cmd) != 0)
 				exit(1);
 		}
-//
-//		cur_cmd->avcmd = ft_get_alias(cur_cmd->avcmd);
 		cur_cmd->built_in = ft_test_built_in(cur_cmd->avcmd[0]);
-/*
-		if (cur_cmd->built_in == 0)
-		{
-			if (!(cur_cmd->find_path = ft_get_file_path(
-				cur_cmd->avcmd[0], g_envi->first_list)))
-				cur_cmd->find_path = ft_strdup(cur_cmd->avcmd[0]);
-		}
-*/
 		if (cur_cmd->here && ft_get_redir_hd(cur_cmd) != 0)
 			exit(1);
-//
 		if ((ft_test_built_in(cur_cmd->avcmd[0]) == 1)
 			&& (ft_wait_semafor(cur_cmd))
 			&& ft_built_in(cur_cmd->avcmd[0],
 						cur_cmd->avcmd, cur_cmd->locals) == 1)
 			exit(g_built_rc);
-//
 	}
 	if ((i = ft_test_cmd_file(cur_cmd)) == 0)
 	{
@@ -193,7 +174,7 @@ void	ft_pipe_wait_ch_fin(t_cmdlist *cur_cmd,
 	int			q;
 	int			rc;
 
-	if ((g_job == 0/* || g_subst > 0*/) && flpi > 0)
+	if ((g_job == 0) && flpi > 0)
 	{
 		rc = 0;
 		while (1)
@@ -212,7 +193,6 @@ void	ft_pipe_wait_ch_fin(t_cmdlist *cur_cmd,
 						rc = rc + ft_get_cmd_exit_status(status);
 						if (!(cur_cmd->next))
 						{
-//							ft_set_cmd_exit_status(status);
 							if (rc != 0)
 								ft_set_shell("?", "1");
 							else

@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 16:17:45 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/11 20:40:27 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/12 14:33:06 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,7 +149,7 @@ void	ft_parse_line(char *str)
 		{
 			if (ft_parse_cmd(str + i_cmd, i) == 1)
 				return ;
-			if (g_sub_str && g_subshell > 0)
+			if (g_sub_str && g_subshell > 0 /*&& ft_strcmp(g_sub_str, str) !=0*/)
 				return ;
 			i_cmd = i_cmd + i + 1;
 			i = -1;
@@ -159,7 +159,7 @@ void	ft_parse_line(char *str)
 		{
 			if (ft_parse_cmd(str + i_cmd, i) == 1)
 				g_skip = 1;
-			if (g_sub_str && g_subshell > 0)
+			if (g_sub_str && g_subshell > 0 /*&& ft_strcmp(g_sub_str, str) !=0*/)
 				return ;
 			i_cmd = i_cmd + i + 2;
 			i = -1;
@@ -170,7 +170,7 @@ void	ft_parse_line(char *str)
 		{
 			if (ft_parse_cmd(str + i_cmd, i) == 1)
 				g_skip = 1;
-			if (g_sub_str && g_subshell > 0)
+			if (g_sub_str && g_subshell > 0/* && ft_strcmp(g_sub_str, str) !=0*/)
 				return ;
 			i_cmd = i_cmd + i + 2;
 			i = -1;

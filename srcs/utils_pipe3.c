@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_pipe3.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: udraugr- <udraugr-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/07 10:50:36 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/11 09:41:02 by udraugr-         ###   ########.fr       */
+/*   Updated: 2019/12/12 13:13:45 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,13 +79,9 @@ int		fd_set_nopipe(t_pipe *p_head)
 		p_head->cur_cmd->locals = ft_put_locals(p_head->cur_cmd->locals);
 		return (-1);
 	}
-//
 	p_head->cur_cmd->avcmd = ft_cmd_replays(p_head->cur_cmd->avcmd);
 	if (g_subs_rc == 1)
 		return (-1);
-//
-//	p_head->cur_cmd->avcmd = ft_get_alias(p_head->cur_cmd->avcmd);
-//glob
 	p_head->cur_cmd->avcmd = ft_globbing(p_head->cur_cmd->avcmd);
 	p_head->cur_cmd->built_in = ft_test_built_in(p_head->cur_cmd->avcmd[0]);
 	if (p_head->cur_cmd->built_in == 0)
@@ -121,7 +117,7 @@ void	ft_parent_wait(t_pipe *p_head, int flpi)
 	if (g_bsemafor)
 		sem_post(g_bsemafor);
 	ft_sig_set();
-	if ((g_job == 0/*|| g_subst > 0*/) && flpi == 0)
+	if ((g_job == 0) && flpi == 0)
 	{
 		while (p_head->first_cmd->pid != 0)
 			status = 0;
