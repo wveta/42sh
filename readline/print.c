@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 21:09:47 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/12 21:10:46 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/12 21:46:11 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,19 +48,6 @@ int			count_n(char *str)
 	return (n);
 }
 
-// void		check_fake(void)
-// {
-// 	if (g_input->multiline.fake_curs == -1)
-// 		return ;
-// 	go_home_pos();
-// 	g_input->input_len--;
-// 	ft_memmove(g_input->input + (g_input->multiline.fake_curs -\
-// 	g_input->prompt_len), g_input->input + (g_input->multiline.fake_curs -\
-// 	g_input->prompt_len) + 1, MAX_CMDS -\
-// 	(g_input->multiline.fake_curs - g_input->prompt_len) - 1);
-// 	g_input->multiline.fake_curs = -1;
-// }
-
 char		*check_curs_pos(int *save_curs, char *buf, char *str, char *tmp)
 {
 	if (g_input->input_len != g_input->curs_pos - g_input->prompt_len)
@@ -88,12 +75,6 @@ char		*check_curs_pos(int *save_curs, char *buf, char *str, char *tmp)
 	return (tmp);
 }
 
-void		right_col(int n)
-{
-	n++;
-	ft_putstr_fd(tgetstr("do", NULL), STDERR_FILENO);
-}
-
 void		print_loop(char *tmp, int curs)
 {
 	int		i;
@@ -101,16 +82,17 @@ void		print_loop(char *tmp, int curs)
 	i = 0;
 	while (tmp[i])
 	{
-		if ((tmp[i] == '\n' || ft_isprint(tmp[i])) && g_input->input_len < MAX_CMDS)
+		if ((tmp[i] == '\n' || ft_isprint(tmp[i]))\
+			&& g_input->input_len < MAX_CMDS)
 		{
 			g_input->input[(g_input->curs_pos - g_input->prompt_len)] = tmp[i];
 			g_input->curs_pos++;
 			curs = take_curs();
 			ft_putchar_fd(tmp[i], STDERR_FILENO);
 			if (curs == g_input->ws.ws_col && tmp[i] != '\n')
-				right_col(0);
+				ft_putstr_fd(tgetstr("do", NULL), STDERR_FILENO);
 			else if ((tmp[i] == '\n' && curs == g_input->ws.ws_col))
-				right_col(1);
+				ft_putstr_fd(tgetstr("do", NULL), STDERR_FILENO);
 			g_input->input_len++;
 		}
 		if (g_input->input_len >= MAX_CMDS)

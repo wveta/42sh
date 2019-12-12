@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 01:01:14 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/12 21:23:53 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/12 21:48:43 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ void		free_all(t_shell *shell)
 	if (g_input)
 	{
 		ft_free(g_input->prompt);
-		// free_int_arr();
 		free(g_input);
 	}
 	shell = NULL;
@@ -46,13 +45,6 @@ void		ft_free(char *str)
 	if (str != NULL)
 		free(str);
 }
-
-// void		free_int_arr(void)
-// {
-// 	if (g_input->multiline.start_of_line)
-// 		free(g_input->multiline.start_of_line);
-// 	g_input->multiline.start_of_line = NULL;
-// }
 
 void		null_autocmpl(int time)
 {

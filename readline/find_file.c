@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 01:16:11 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/09 11:11:13 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/12 21:48:25 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void		find_match(char *key)
 
 	i = 0;
 	if (!(dir = opendir(g_input->autocompl.path)))
-		return ; //error msg
+		return ;
 	while ((dn = readdir(dir)))
 	{
 		if (ft_strcmp(dn->d_name, ".") && ft_strcmp(dn->d_name, ".."))
@@ -68,7 +68,7 @@ void		all_files_in_path(void)
 	dir = NULL;
 	count_file_match(NULL);
 	if (!(dir = opendir(g_input->autocompl.path)))
-		return ; //print_error_msg
+		return ;
 	while ((dn = readdir(dir)))
 	{
 		if (ft_strcmp(dn->d_name, ".") && ft_strcmp(dn->d_name, ".."))

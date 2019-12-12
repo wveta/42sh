@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 19:15:41 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/11 23:27:13 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/12 21:47:16 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ t_shell		*init_term(t_shell *shell)
 	if (!(shell->term = ft_get_env("TERM")))
 		shell->term = ft_strdup("xterm-256color");
 	if (tgetent(NULL, shell->term) == -1)
-		return (NULL); //TODO: error msg
+		return (NULL);
 	if (tcgetattr(0, &shell->new_param) == -1)
 		return (NULL);
 	if (tcgetattr(0, &shell->old_param) == -1)
@@ -109,6 +109,5 @@ t_shell		*init_term(t_shell *shell)
 	shell->new_param.c_cc[VTIME] = 0;
 	if (tcsetattr(0, TCSADRAIN, &shell->new_param) == -1)
 		return (shell);
-	// tgetflag("am");
 	return (shell);
 }

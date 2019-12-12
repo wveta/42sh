@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 20:06:58 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/09 10:03:56 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/12 21:46:51 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,6 @@ static int	match_del_hist_key(char *str)
 		hist_move(0);
 	else if (!(ft_strcmp(str, DOWN_ARR)))
 		hist_move(1);
-	// else if (str[0] == CTRL_L && !str[1]) //find scroll command
-	// 	clear_screen();
 	else
 		return (0);
 	return (1);
