@@ -6,7 +6,7 @@
 /*   By: udraugr- <udraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 17:30:15 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/11 10:35:32 by udraugr-         ###   ########.fr       */
+/*   Updated: 2019/12/12 16:19:33 by udraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,31 +91,29 @@ int		ft_great_dup1(int pref_fd, int out_fd, t_cmdlist *cmd)
 
 int		ft_great_dup2(int pref_fd, int out_fd, t_cmdlist *cmd)
 {
-	if (pref_fd == -1)
+	if (pref_fd != -1)
+		return (0);
+	if (cmd->fd1 == STDOUT_FILENO)
+		g_cmd->stdout_copy = dup(STDOUT_FILENO);
+	if (dup2(out_fd, STDOUT_FILENO) == -1)
 	{
-		if (cmd->fd1 == STDOUT_FILENO)
-			g_cmd->stdout_copy = dup(STDOUT_FILENO);
-		if (dup2(out_fd, STDOUT_FILENO) == -1)
-		{
-			ft_print_msg(" : Err relink STDOUT: ", "DUP2");
-			return (-1);
-		}
-		cmd->fd1 = out_fd;
-		if (g_redir_block == 1)
-			close(STDOUT_FILENO);
-		if (cmd->fd2 == STDERR_FILENO)
-			g_cmd->stderr_copy = dup(STDERR_FILENO);
-		if (dup2(out_fd, STDERR_FILENO) == -1)
-		{
-			ft_print_msg(" : Err relink STDERR: ", "DUP2");
-			return (-1);
-		}
-		cmd->fd2 = out_fd;
-		if (out_fd > 2)
-			close(out_fd);
-		if (g_redir_block == 1)
-			close(STDERR_FILENO);
-//		close(out_fd);
+		ft_print_msg(" : Err relink STDOUT: ", "DUP2");
+		return (-1);
 	}
+	cmd->fd1 = out_fd;
+	if (g_redir_block == 1)
+		close(STDOUT_FILENO);
+	if (cmd->fd2 == STDERR_FILENO)
+		g_cmd->stderr_copy = dup(STDERR_FILENO);
+	if (dup2(out_fd, STDERR_FILENO) == -1)
+	{
+		ft_print_msg(" : Err relink STDERR: ", "DUP2");
+		return (-1);
+	}
+	cmd->fd2 = out_fd;
+	if (out_fd > 2)
+		close(out_fd);
+	if (g_redir_block == 1)
+		close(STDERR_FILENO);
 	return (0);
 }
