@@ -6,11 +6,11 @@
 /*   By: udraugr- <udraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 09:41:19 by udraugr-          #+#    #+#             */
-/*   Updated: 2019/11/21 12:14:20 by udraugr-         ###   ########.fr       */
+/*   Updated: 2019/12/10 18:02:58 by udraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/arithmetic.h"	
+#include "../include/arithmetic.h"
 
 int32_t					expr_barckets(void)
 {
@@ -21,7 +21,7 @@ int32_t					expr_barckets(void)
 	{
 		g_lexem = g_lexem->next;
 		ans = expr();
-		if (g_error_arithmetic) 
+		if (g_error_arithmetic)
 			return (0);
 		if (g_lexem && g_lexem->content_size == OPER &&
 			((t_oper *)g_lexem->content)->id == RBRACE)

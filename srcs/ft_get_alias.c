@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_alias.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
+/*   By: udraugr- <udraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/02 10:57:37 by udraugr-          #+#    #+#             */
-/*   Updated: 2019/11/28 15:06:05 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/10 19:09:22 by udraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char					*take_value_alias(char *all_alias, char *alias_name)
 	tmp = ft_find_alias(all_alias, alias_name);
 	if (tmp == NULL)
 		return (0);
-	tmp += ft_strlen(alias_name) + 2;
+	tmp += 1 + ft_strlen(alias_name) + 2;
 	i = 0;
 	while (tmp[i] && tmp[i] != -10)
 		++i;
@@ -77,7 +77,7 @@ static char				**ft_prep_for_add_arr(char **ans, char **av)
 	char				**tmp;
 	char				**new;
 
-	new = ft_strsplit(*ans, ' ');
+	new = ft_split_pipes(ans[0]);
 	ft_strdel(ans);
 	if (new == NULL)
 	{

@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 19:25:12 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/11 16:02:55 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/09 17:04:42 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,20 +52,34 @@ static char *param_remlarge(char *val, char *pat)
 	char	save;
 	int		i;
 	int		pos;
+	int		l;
 
 	i = 0;
+	save = '\0';
+	l = ft_strlen(val);
 	pos = -1;
 	while (val[i])
 	{
-		save = val[i + 1];
-		val[i + 1] = 0;
+		if (i < l)
+		{
+			save = val[i + 1];
+			val[i + 1] = 0;
+		}
+		else
+			save = '\0';
 		if (glob_check(val, pat, 0, 0))
 			pos = i;
-		val[i + 1] = save;
+		if (save)	
+			val[i + 1] = save;
 		i++;
 	}
 	if (pos > -1)
-		ft_memmove(val, &val[pos + 1], ft_strlen(&val[pos]) + 1);
+	{
+		if (pos < l)
+			ft_memmove(val, &val[pos + 1], ft_strlen(&val[pos]));
+		else
+			val[0] = '\0';
+	}
 	return (val);
 }
 
@@ -73,19 +87,35 @@ static char *param_remsmall(char *val, char *pat)
 {
 	char	save;
 	int		i;
+	int		l;
 
 	i = 0;
+	save = '\0';
+	l = ft_strlen(val);
 	while (val[i])
 	{
-		save = val[i + 1];
-		val[i + 1] = 0;
+		if (i < l - 1)
+		{
+			save = val[i + 1];
+			val[i + 1] = 0;
+		}
+		else
+			save = '\0';
 		if (glob_check(val, pat, 0, 0))
 		{
-			val[i + 1] = save;
-			ft_memmove(val, &val[i + 1], ft_strlen(&val[i]) + 1);
+			if (i < l)
+			{
+				if (save)
+					val[i + 1] = save;
+//				ft_memmove(val, &val[i + 1], ft_strlen(&val[i]) + 1);
+				val = ft_strcpy(val, val + i + 1);
+			}
+			else
+				val[0] = '\0';
 			break ;
 		}
-		val[i + 1] = save;
+		if (save)
+			val[i + 1] = save;
 		i++;
 	}
 	return (val);

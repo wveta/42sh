@@ -6,7 +6,7 @@
 /*   By: udraugr- <udraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/16 10:42:11 by udraugr-          #+#    #+#             */
-/*   Updated: 2019/11/21 12:14:20 by udraugr-         ###   ########.fr       */
+/*   Updated: 2019/12/10 18:03:21 by udraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int32_t					expr_or(void)
 {
-	int32_t			ans;
-	
+	int32_t				ans;
+
 	ans = expr_and();
 	if (g_error_arithmetic)
 		return (0);

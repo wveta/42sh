@@ -6,11 +6,40 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 19:25:12 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/06 13:18:07 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/10 21:55:54 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+int		ft_parname_loop(int *f_sub, int *i, int *j, char *str)
+{
+	if (*f_sub == 1)
+	{
+		if (ft_strchr("}:#%", str[*j]) && (ft_check_ekran(str, *j)) == 0)
+			*f_sub = 0;
+		else if (ft_strchr("$", str[*j]) && ft_check_ekran(str, *j) == 0)
+			return (1);
+		else if ((*i == 0 &&
+			(!ft_isalpha(str[*j])) && (!ft_strchr("_?", str[*j]))) ||
+			(*i > 0 &&
+			(ft_strchr(" ", str[*j]) ||
+			(!(ft_isalnum(str[*j]) || ft_strchr("_?", str[*j]))))))
+			return (1);
+		(*i)++;
+	}
+	else
+	{
+		if (str[*j] == '$' && ft_check_ekran(str, *j) == 0 &&
+		str[*j + 1] && str[*j + 1] == '{')
+		{
+			*f_sub = 1;
+			*i = 0;
+			(*j)++;
+		}
+	}
+	return (0);
+}
 
 int		ft_test_parname(char *str)
 {
@@ -21,32 +50,10 @@ int		ft_test_parname(char *str)
 	i = 0;
 	j = -1;
 	f_sub = 1;
-	while(str && str[++j])
+	while (str && str[++j])
 	{
-		if (f_sub == 1)
-		{
-			if (ft_strchr("}:#%", str[j]) && (ft_check_ekran(str, j)) == 0)
-				f_sub = 0;
-			else if (ft_strchr("$", str[j]) && ft_check_ekran(str, j) == 0)
-				return (1);
-			else if ((i == 0 &&
-				(!ft_isalpha(str[j])) && (!ft_strchr("_?", str[j]))) ||
-				(i > 0 && 
-				(ft_strchr(" ", str[j]) ||
-				(!(ft_isalnum(str[j]) || ft_strchr("_?", str[j]))))))
+		if (ft_parname_loop(&f_sub, &i, &j, str) == 1)
 			return (1);
-			i++;
-		}
-		else
-		{
-			if (str[j] == '$' && ft_check_ekran(str, j) == 0 &&
-			str[j + 1] && str[j + 1] == '{')
-			{
-				f_sub = 1;
-				i = 0;
-				j++;
-			}
-		}
 	}
 	return (0);
 }

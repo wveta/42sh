@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 19:25:12 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/19 15:01:37 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/11 21:15:23 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,9 @@ int		ft_get_fd_byname(int i, t_cmdlist *cmd, char *ind)
 	int			len;
 
 	if (((int)ft_strlen(cmd->avcmd[i]) >= ind - cmd->avcmd[i] + 2) &&
-		(cmd->avcmd[i][ind - cmd->avcmd[i] + 2] == '-'))
-	{
-		file_redir = ft_strdup("/dev/null");
+		(cmd->avcmd[i][ind - cmd->avcmd[i] + 2] == '-') &&
+		(file_redir = ft_strdup("/dev/null")))
 		g_redir_block = 1;
-	}
 	else if ((int)ft_strlen(cmd->avcmd[i]) > ind - cmd->avcmd[i] + 1)
 		file_redir = ft_strdup(ind + 1);
 	else if (cmd->avcmd[i + 1])
@@ -31,10 +29,7 @@ int		ft_get_fd_byname(int i, t_cmdlist *cmd, char *ind)
 		cmd->avcmd[i + 1][0] = '\0';
 	}
 	else
-	{
-		ft_print_msg(" : sintax error in command ", "");
-		return (-1);
-	}
+		return (ft_print_msg(" : sintax error in command ", ""));
 	cmd->avcmd[i][ind - cmd->avcmd[i]] = '\0';
 	file_redir = ft_calc_full_path(file_redir);
 	len = open(file_redir, O_RDONLY, 0644);

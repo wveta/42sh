@@ -6,7 +6,7 @@
 /*   By: udraugr- <udraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/16 20:08:52 by udraugr-          #+#    #+#             */
-/*   Updated: 2019/11/21 12:14:20 by udraugr-         ###   ########.fr       */
+/*   Updated: 2019/12/10 17:55:54 by udraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,9 @@ int32_t				it_operator(char *str, t_list **lexem)
 
 	operators = (char *[]){"++", "--", "+", "-", "*", "/", "%",
 							"<=", ">=", "<", ">",
-							"==", "!=",
-							"&&", "||",
-							"(", ")",
-							0};
+							"==", "!=", "&&", "||", "(", ")", 0};
 	id = 0;
-	while(operators[id])
+	while (operators[id])
 	{
 		len_oper = ft_strlen(operators[id]);
 		if (strncmp(str, operators[id], len_oper) == 0)

@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 15:38:41 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/02 17:46:08 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/11 19:00:09 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,9 @@ t_cmdlist	*ft_free_cmd_list(t_cmdlist *first)
 		cur = cur->next;
 		if (tmp->avcmd)
 			ft_free_char_matr(tmp->avcmd);
-		if (tmp->built_in != 1 && tmp->find_path)
+		if (tmp->locals)
+			ft_free_char_matr(tmp->locals);
+		if (tmp->find_path)
 			free(tmp->find_path);
 		if (tmp->here)
 			free(tmp->here);

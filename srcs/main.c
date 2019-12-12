@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 10:27:38 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/06 14:14:45 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/12 14:21:41 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,8 @@ void		ft_final_free(void)
 {
 	int i;
 
+	if (g_envi->hash_first)
+		ft_hash_all_del(NULL);
 	g_envi->env = ft_free_char_matr(g_envi->env);
 	ft_free_list();
 	free(g_envi);
@@ -156,7 +158,7 @@ int			main(int argc, char **argv, char **environ)
 
 			
 			ft_final_free();
-			return (0);
+			return (g_rc);
 		}
 	}/*
 	g_subshell++;

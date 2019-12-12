@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 21:09:13 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/11 19:43:15 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/12 21:23:55 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ static void	hist_from_file(void)
 		free(buf);
 		buf = NULL;
 	}
+	ft_strdel(&buf);
 	close(fd);
 	g_hist->cmd[g_hist->amount] = NULL;
 }

@@ -6,55 +6,19 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 19:25:12 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/06 19:03:49 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/12 12:10:37 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int		ft_repl_check(char *s, int len, char *q, int j)
+char	*ft_repl_til_flag(int *flag, int j, char *s, int code)
 {
-	char	*tmp;
-
-	if (*q == '\'')
-	{
-		if (s[j] == '\'')
-		{
-			*q = ' ';
-			tmp = s + j;
-			ft_strcpy(tmp, s + j + 1);
-			return (-1);
-		}
-		return (1);
-	}
-	else if (s[j] == '\\' && j + 1 < len && (s[j + 1] == '\''
-		|| s[j + 1] == '"' || s[j + 1] == '\\'))
-	{
-		tmp = s + j;
-		ft_strcpy(tmp, s + j + 1);
-		return (1);
-	}
-	else if (*q == ' ' && (s[j] == '\'' || s[j] == '"'))
-	{
-		*q = s[j];
-		tmp = s + j;
-		ft_strcpy(tmp, s + j + 1);
-		return (-1);
-	}
-	else if (*q != ' ' && (s[j] == *q))
-	{
-		*q = ' ';
-		tmp = s + j;
-		ft_strcpy(tmp, s + j + 1);
-		return (-1);
-	}
-	else if (s[j] == '\\' && *q != '\'')
-	{
-		tmp = s + j;
-		ft_strcpy(tmp, s + j + 1);
-		return (2);
-	}
-	return (0);
+	if (*flag == 1)
+		s = ft_repl_tilda(s, j);
+	if (code == 1)
+		*flag = 0;
+	return (s);
 }
 
 char	*ft_repl_parm(char *s, int flag, int len)
@@ -65,37 +29,24 @@ char	*ft_repl_parm(char *s, int flag, int len)
 
 	j = -1;
 	q = ' ';
-	while (++j < len)
+	while (++j < len && ((k = ft_repl_check(s, len, &q, j)) > -777))
 	{
-		k = ft_repl_check(s, len, &q, j);
-		if (k == 1)
+		if (k == 1 || (k == -1 && ((j = j - 1) > -777)))
 			continue;
-		else if (k == -1)
-		{
-			j--;
-			continue;
-		}
 		if (q == ' ' && flag == 1)
 			s = ft_repl_end_til(s, j, &flag);
-		else if (q != '\'' && s[j] == '$' && ft_check_ekran(s, j) == 0 &&
-		(k != 2) && s[j + 1] &&
-		(s[j + 1] == '_' || ft_isalpha(s[j + 1]) || s[j + 1] == '?' ||
-		s[j + 1] == '{'))
+		else if (q != '\'' && s[j] == '$' && (k != 2) && s[j + 1] && (s[j + 1]
+		== '_' || ft_isalpha(s[j + 1]) || s[j + 1] == '?' || s[j + 1] == '{'))
 		{
-			if (flag == 1)
-			{
-				flag = 0;
-				s = ft_repl_tilda(s, j);
-			}
+			s = ft_repl_til_flag(&flag, j, s, 1);
 			s = ft_repl_env(s, &j);
-			if (g_subs_rc == 0)
-				j--;
-			return (s);
+			if (g_subs_rc != 0)
+				return (s);
+			j--;
 		}
 		len = ft_strlen(s);
 	}
-	if (flag == 1)
-		s = ft_repl_tilda(s, j);
+	s = ft_repl_til_flag(&flag, j, s, 0);
 	return (s);
 }
 

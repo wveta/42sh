@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fts_for_alias.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
+/*   By: udraugr- <udraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 17:40:26 by udraugr-          #+#    #+#             */
-/*   Updated: 2019/11/12 10:11:43 by udraugr-         ###   ########.fr       */
+/*   Updated: 2019/12/10 09:42:45 by udraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,10 @@ char				*ft_find_alias(char *str, char *alias)
 	int				len_alias;
 
 	len_alias = ft_strlen(alias);
-	tmp = ft_strnew(len_alias + 1);
-	ft_strncpy(tmp, alias, len_alias);
-	tmp[len_alias] = '=';
+	tmp = ft_strnew(1 + len_alias + 1);
+	tmp[0] = -10;
+	ft_strncpy(&tmp[1], alias, len_alias);
+	tmp[len_alias + 1] = '=';
 	ans = ft_strstr(str, tmp);
 	ft_strdel(&tmp);
 	return (ans);

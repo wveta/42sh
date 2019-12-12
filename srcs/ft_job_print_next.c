@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 19:25:12 by wveta             #+#    #+#             */
-/*   Updated: 2019/10/17 12:24:58 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/10 20:43:47 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,30 +66,34 @@ int		ft_cmd_jobs(char **av)
 	return (1);
 }
 
+void	ft_print_job_info(t_job *job, t_job *jobdel, int fl)
+{
+	while (job)
+	{
+		ft_print_job_line(job, fl);
+		if (job->ready == 1 || job->ready == 4)
+		{
+			jobdel = job->next;
+			job = ft_del_job(job);
+			job = jobdel;
+		}
+		else
+		{
+			job->ready = 0;
+			job = job->next;
+		}
+	}
+}
+
 void	ft_print_job_list(int i, int start, int fl, char **av)
 {
 	t_job	*job;
 	t_job	*jobdel;
 
 	job = g_job_first;
+	jobdel = NULL;
 	if (i == 0 || start == 0)
-	{
-		while (job)
-		{
-			ft_print_job_line(job, fl);
-			if (job->ready == 1 || job->ready == 4)
-			{
-				jobdel = job->next;
-				job = ft_del_job(job);
-				job = jobdel;
-			}
-			else
-			{
-				job->ready = 0;
-				job = job->next;
-			}
-		}
-	}
+		ft_print_job_info(job, jobdel, fl);
 	else
 	{
 		while (av[start])

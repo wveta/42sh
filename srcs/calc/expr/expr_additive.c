@@ -6,7 +6,7 @@
 /*   By: udraugr- <udraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 18:38:35 by udraugr-          #+#    #+#             */
-/*   Updated: 2019/11/21 12:14:20 by udraugr-         ###   ########.fr       */
+/*   Updated: 2019/12/10 18:01:56 by udraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,7 @@ int32_t					expr_additive(void)
 			&&
 			(
 				((t_oper *)g_lexem->content)->id == PLUS
-				|| ((t_oper *)g_lexem->content)->id == MINUS
-			)
-		)
+				|| ((t_oper *)g_lexem->content)->id == MINUS))
 	{
 		type = ((t_oper *)g_lexem->content)->id;
 		g_lexem = g_lexem->next;

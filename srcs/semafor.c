@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   semafor.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
+/*   By: udraugr- <udraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/07 10:50:36 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/19 14:07:33 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/12 15:55:30 by udraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@ void	ft_new_semafor(t_cmdlist *cur_cmd)
 	nr = ft_strnew(10);
 	nr[0] = '\0';
 	nr = ft_putfnbr(getpid(), nr);
-	tmp = ft_strfjoin(tmp, nr);
-	tmp = ft_strfjoin(tmp, "_");
+	tmp = ft_strfjoin(ft_strfjoin(tmp, nr), "_");
 	nr[0] = '\0';
 	nr = ft_putfnbr(cur_cmd->nr, nr);
 	tmp = ft_strfjoin(tmp, nr);
@@ -40,7 +39,6 @@ void	ft_new_semafor(t_cmdlist *cur_cmd)
 		cur_cmd->bsemafor = ret;
 	}
 	free(tmp);
-	return ;	
 }
 
 void	ft_del_semafor(t_cmdlist *cur_cmd)
@@ -66,7 +64,7 @@ void	ft_add_semafor(t_pipe *p_head)
 
 	cur_cmd = p_head->first_cmd;
 	tmp_cmd = NULL;
-	while(cur_cmd)
+	while (cur_cmd)
 	{
 		if (tmp_cmd == cur_cmd->next)
 		{
@@ -74,7 +72,7 @@ void	ft_add_semafor(t_pipe *p_head)
 			sem_wait(cur_cmd->bsemafor);
 			tmp_cmd = cur_cmd;
 			if (cur_cmd == p_head->first_cmd)
-				break;
+				break ;
 			cur_cmd = p_head->first_cmd;
 		}
 		else
@@ -84,40 +82,7 @@ void	ft_add_semafor(t_pipe *p_head)
 
 int		ft_wait_semafor(t_cmdlist *cur_cmd)
 {
-	sem_wait(cur_cmd->semafor);	
+	sem_wait(cur_cmd->semafor);
 	sem_post(cur_cmd->bsemafor);
 	return (1);
 }
-
-/*int ft_close_fd(char *str, int in)
-{
-	char	*tmp;
-	char	*nr;
-	int 	rc;
-	
-	tmp = ft_strnew(1000);
-	nr = ft_strnew(20);
-	tmp[0] = '\0';
-	nr[0] = '\0';
-	if (str)
-	{
-		tmp = ft_strjoin(tmp, str);
-		tmp = ft_strjoin(tmp, " ");
-	}
-	rc = 0;
-	if (close(in) == 0)
-		{
-			tmp = ft_strjoin(tmp, "GOOD close fd = ");
-			tmp = ft_strjoin(tmp, ft_putfnbr(in, nr));
-		}
-		else
-		{
-			tmp = ft_strjoin(tmp, "ERROR close fd = ");
-			tmp = ft_strjoin(tmp, ft_putfnbr(in, nr));
-			rc = 1;
-		}
-	ft_rec_log(tmp);
-	free(tmp);
-	free(nr);
-	return (rc);
-}*/

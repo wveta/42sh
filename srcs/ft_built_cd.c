@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/30 14:10:12 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/02 18:17:44 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/10 16:29:44 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ int			ft_built_cd(char **av, char **locals)
 		{
 			if ((av[i + 1]) && av[i + 1][0] != '\0' && ((g_built_rc = 1)))
 			{
-				ft_putstr_fd("cd : too many arguments\n", 2);
+				ft_print_msg(" :cd :", " too many arguments");
 				ft_set_shell("?", "1");
 				return (1);
 			}

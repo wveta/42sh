@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/15 19:42:51 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/05 12:42:24 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/10 20:24:08 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ char	*ft_read_subst(int fd, int vid, char *str)
 		str = ft_strfjoin(str, buf);
 		buf[0] = '\0';
 	}
-	str[ft_strlen(str) - 1] = '\0';
+	if (ft_strlen(str) > 0)
+		str[ft_strlen(str) - 1] = '\0';
 	return (str);
 }
 
@@ -69,7 +70,7 @@ char	**ft_cnt_subs_exe(char **str, int n, int start, int end)
 	suff = NULL;
 	if (end - start > 1 && str[n][start + 1] != '(')
 	{
-		if (start > 2)
+		if (start > 1)
 			pref = ft_strndup(str[n], start - 1);
 		if (str[n][end + 1] != '\0')
 			suff = ft_strdup(str[n] + end + 1);
@@ -77,8 +78,7 @@ char	**ft_cnt_subs_exe(char **str, int n, int start, int end)
 		tmp[end - start - 1] = '\0';
 		tmp = ft_go_subst(tmp, ft_check_ekran(str[n], start - 1));
 		str[n][0] = '\0';
-		str[n] = ft_strfjoin(str[n], pref);
-		str[n] = ft_strfjoin(str[n], tmp);
+		str[n] = ft_strfjoin(ft_strfjoin(str[n], pref), tmp);
 		str[n] = ft_strfjoin(str[n], suff);
 		free(tmp);
 		free(pref);
@@ -89,73 +89,18 @@ char	**ft_cnt_subs_exe(char **str, int n, int start, int end)
 
 char	**ft_cnt_subs_tst(char **str, int n)
 {
-	int		i;
-	int		qflag;
-	int		br_count;
-	int		br_flag;
-	int		start;
-	int		end;
-	int		b_sl;
+	t_quoteflag	*f;
 
-	i = -1;
-	start = -1;
-	end = -1;
-	br_count = 0;
-	br_flag = 0;
-	qflag = 0;
-	b_sl = 0;
-	while (str && str[n] && str[n][++i])
+	f = ft_get_quoteflag();
+	ft_ini_quoteflag(f);
+	while (str && str[n] && str[n][++f->i])
 	{
-		if (qflag != 2 && str[n][i] == '\\' && ((b_sl = b_sl + 1)))
-			b_sl = b_sl % 2;
-		if (qflag == 0 && (br_flag == 0 || br_flag == 1) &&
-		str[n][i] == '(' &&
-//		(i == 0 || ft_strchr(" ;|&$", str[n][i - 1])))
-		b_sl == 0)
-		{
-			br_flag = 1;
-			br_count++;
-		}
-		else if (qflag == 0 && br_flag == 1 && str[n][i] == '(')
-			br_count++;
-		else if (qflag == 0 && (br_flag == 0 || br_flag == 2) &&
-		str[n][i] == '{' &&
-//		 (i == 0 || ft_strchr(" ;|&", str[n][i - 1])))
-		b_sl == 0)
-		{
-			br_flag = 2;
-			br_count++;
-		}
-		else if (qflag == 0 && br_flag == 2 && str[n][i] == '{' && b_sl == 0)
-			br_count++;
-		if (qflag == 0 && b_sl == 0 && ((br_flag == 1 && str[n][i] == ')') ||
-		(br_flag == 2 && str[n][i] == '}')))
-		{
-			br_count--;
-			if (br_count == 0)
-			{
-				br_flag = 0;
-				if (start != -1 && str[n][start + 1] != '(' && ((end = i)))
-				{
-					str = ft_cnt_subs_exe(str, n, start, end);
-					if (start + 1 != end)
-						i = -1;
-					continue;
-				}
-			}
-		}
-		if ((qflag == 2 && b_sl == 0 && str[n][i] == '\'' &&
-		(i == 0 || str[n][i - 1] != '\\')))
-			qflag = 0;
-		else if (qflag == 0 && b_sl == 0 && str[n][i] == '\'')
-//		 &&
-//		(i == 0 || str[n][i - 1] != '\\'))
-			qflag = 2;
-		if (qflag == 0 && br_flag == 0  && b_sl == 0
-//		&& (i == 0 || str[n][i - 1] != '\\')
-		&& str[n][i] == '$' && str[n][i + 1] && str[n][i + 1] == '(')
-			start = i + 1;
+		ft_subst_tst_ps(f, str, n);
+		if (ft_subst_tst_exe(f, str, n) == 1)
+			continue;
+		ft_subst_tst_pf(f, str, n);
 	}
+	free(f);
 	return (str);
 }
 

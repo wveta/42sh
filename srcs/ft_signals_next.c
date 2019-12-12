@@ -6,22 +6,11 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 11:32:55 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/03 17:02:31 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/11 22:44:12 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-void	ft_sig_set(void)
-{
-	signal(SIGCHLD, ft_signal_handler_rl);
-	signal(SIGINT, ft_signal_handler_rl);
-	signal(SIGTTIN, ft_signal_handler_rl);
-	signal(SIGTTOU, ft_signal_handler_rl);
-	signal(SIGTSTP, ft_signal_handler_rl);
-	signal(SIGQUIT, ft_signal_handler_rl);
-	signal(SIGCONT, ft_signal_handler_rl);
-}
 
 void	ft_sig_dfl(void)
 {
@@ -38,7 +27,8 @@ void	ft_test_cmd_list(pid_t pid, int status)
 {
 	t_cmdlist	*cur_cmd;
 
-	if ((g_job == 0 || g_subst > 0) && g_pipe && ((cur_cmd = g_pipe->first_cmd)))
+	if ((g_job == 0 || g_subst > 0) && g_pipe &&
+	((cur_cmd = g_pipe->first_cmd)))
 	{
 		while (cur_cmd)
 		{
