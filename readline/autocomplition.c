@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/29 17:44:06 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/09 11:18:37 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/12 21:18:32 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,8 @@ void	take_search_info(void)
 			find_file(tmp);
 		else
 			find_cmd(tmp);
-		if (tmp)
-			free(tmp);
 	}
+	ft_free(tmp);
 }
 
 void	find_name(void)

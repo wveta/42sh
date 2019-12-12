@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 01:01:14 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/09 11:19:55 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/11 23:33:03 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,5 +85,6 @@ void		null_multiline(void)
 {
 	g_input->multiline.num_of_lines = 0;
 	g_input->multiline.pos = 0;
-	g_input->multiline.start_of_line = 0;
+	ft_bzero(g_input->multiline.start, MAX_CMDS);
+	ft_bzero(g_input->multiline.end, MAX_CMDS);
 }

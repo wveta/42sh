@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 17:49:20 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/09 12:44:41 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/12 20:04:02 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@ static void	print_move_curs_back(char *tmp)
 	if (g_input->multiline.num_of_lines)
 	{
 		go_home_pos();
-		while (g_input->curs_pos - g_input->prompt_len < g_input->input_len &&\
-			g_input->input[g_input->curs_pos - g_input->prompt_len] != '\n')
+		while (g_input->curs_pos < g_input->multiline.end[0])
 			move_right();
 	}
 }
