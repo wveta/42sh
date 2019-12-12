@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 19:09:43 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/11 21:04:08 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/12 22:32:17 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,8 @@ char		*read_line(char *prompt)
 	ft_putstr_fd(prompt, STDERR_FILENO);
 	ret = read_loop();
 	go_end_pos();
-	if (g_input->input_len >= MAX_CMDS)
-		printf("++\n");
-	tcsetattr(0, TCSADRAIN, &shell->old_param);
+	if (tcsetattr(0, TCSADRAIN, &shell->old_param) < 0)
+		error_msg(-1, 3, shell);
 	free_all(shell);
 	write(1, "\n", 1);
 	return (ret);
