@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 02:09:55 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/12 21:52:48 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/12 23:01:01 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void		count_lines(void)
 	curs = g_input->prompt_len + 1;
 	while (i < g_input->input_len)
 	{
-		if (g_input->input[i] == '\n' && (curs + 1) == g_input->ws.ws_col)
+		if (g_input->input[i] == '\n' && curs == g_input->ws.ws_col)
 			curs = backsl_n_at_end(i, curs);
 		else if (g_input->input[i] == '\n' || curs == g_input->ws.ws_col)
 		{
