@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 17:54:28 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/09 12:26:26 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/12 22:31:41 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int				match_key(char *str);
 */
 
 void			print(char *str);
-int				take_curs(int curs_pos);
+int				take_curs(void);
 
 /*
 **	history.c
@@ -108,7 +108,7 @@ void			hist_move(int direction);
 **	line.c
 */
 
-void			move_end_of_line(int direction);
+void			move_end_of_line(void);
 void			move_line_down(void);
 void			move_line_up(void);
 
@@ -117,7 +117,6 @@ void			move_line_up(void);
 */
 
 void			free_all(t_shell *shell);
-// void			free_int_arr(void);
 void			ft_free(char *str);
 void			null_autocmpl(int time);
 void			null_multiline(void);
@@ -184,12 +183,7 @@ char			*find_key(int curs);
 */
 
 void			take_pos(int save_curs);
-void			count_lines(int curs);
-
-/*
-**	move.c
-*/
-
-void			go_last_simb(void);
+void			count_lines(void);
+void			error_msg(int err, int num, t_shell *shell);
 
 #endif

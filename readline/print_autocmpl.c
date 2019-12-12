@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 01:38:22 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/09 11:19:07 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/12 21:20:38 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void		change_input(char **str, char *key)
 	i = 0;
 	tmp = NULL;
 	tmp = ft_strfjoin(g_input->autocompl.path, "/");
-	g_input->autocompl.path = ft_strjoin(tmp, str[0]);
+	g_input->autocompl.path = ft_strfjoin(tmp, str[0]);
 	dir = opendir(g_input->autocompl.path);
 	if (dir)
 	{

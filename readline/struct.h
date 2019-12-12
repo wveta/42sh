@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 17:58:21 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/09 12:45:33 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/11 23:32:24 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ typedef struct		s_multi
 {
 	int				num_of_lines;
 	int				pos;
-	int				start_of_line;
-	int				fake_curs;
+	int				start[MAX_CMDS];
+	int				end[MAX_CMDS];
 }					t_multi;
 
 typedef struct		s_input

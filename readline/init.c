@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 19:15:41 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/09 12:45:58 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/12 22:00:56 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,7 @@ void		null_all(void)
 	g_input->curs_pos = g_input->prompt_len;
 	g_input->input_len = 0;
 	g_input->heredoc = 0;
-	g_input->multiline.num_of_lines = 0;
-	g_input->multiline.pos = 0;
-	g_input->multiline.start_of_line = 0;
-	g_input->multiline.fake_curs = -1;
+	null_multiline();
 	g_input->quotes = '\0';
 	g_input->start_quotes = -1;
 	g_input->old_in_check = 0;
@@ -90,30 +87,7 @@ void		init_input(char *prompt)
 		mall_check();
 	g_input->prompt = ft_strdup(prompt);
 	ioctl(STDIN_FILENO, TIOCGWINSZ, &g_input->ws);
-	// ft_putstr_fd(tgetstr("bw", NULL), STDERR_FILENO);
-	// ft_putstr_fd(tgetstr("am", NULL), STDERR_FILENO);
-	tgetflag("am");
 	null_all();
 	if (!ft_strncmp(prompt, "heredoc", 7))
 		g_input->heredoc = 1;
-}
-
-t_shell		*init_term(t_shell *shell)
-{
-	if (!(shell = (t_shell *)malloc(sizeof(t_shell))))
-		return (NULL);
-	if (!(shell->term = ft_get_env("TERM")))
-		shell->term = ft_strdup("xterm-256color");
-	if (tgetent(NULL, shell->term) == -1)
-		return (NULL); //TODO: error msg
-	if (tcgetattr(0, &shell->new_param) == -1)
-		return (NULL);
-	if (tcgetattr(0, &shell->old_param) == -1)
-		return (NULL);
-	shell->new_param.c_lflag &= ~(ICANON | ECHO | ISIG);
-	shell->new_param.c_cc[VMIN] = 1;
-	shell->new_param.c_cc[VTIME] = 0;
-	if (tcsetattr(0, TCSADRAIN, &shell->new_param) == -1)
-		return (shell);
-	return (shell);
 }
