@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 21:47:27 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/08 01:22:35 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/11 20:12:16 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,29 +15,24 @@
 void		bad_fd_error(int fd, char *tmp)
 {
 	if (fd == 1)
-	{
 		ft_print_msg(" : Error open STDOUT: ", tmp);
-		exit(EXIT_FAILURE);
-	}
 	else
-	{
 		ft_print_msg(" : Error open STDERR: ", tmp);
-		exit(EXIT_FAILURE);
-	}
+	exit(EXIT_FAILURE);
 }
 
-void		add_to_hist(void)
+void		add_to_hist(char *str)
 {
 	int		len;
 	int		fd;
 
 	len = 0;
-	len = g_input->input_len + 2;
+	len = ft_strlen(str) + 2;
 	if (g_hist->amount == 100)
 		g_hist->cmd = remake_hist();
 	g_hist->cmd[g_hist->amount] = ft_strnew(len);
 	g_hist->cmd[g_hist->amount] = ft_strcpy(g_hist->cmd[g_hist->amount]\
-								, g_input->input);
+								, str);
 	g_hist->cmd[g_hist->amount][len - 2] = 7;
 	g_hist->cmd[g_hist->amount][len - 1] = '\n';
 	g_hist->amount++;
@@ -51,6 +46,22 @@ void		add_to_hist(void)
 	close(fd);
 }
 
+char		*check_backslash(char *tmp)
+{
+	int		len;
+
+	len = -1;
+	while (tmp[++len] && tmp[len + 1])
+	{
+		if ((tmp[len] == '\\') && (tmp[len + 1] == '\n'))
+		{
+			ft_strcpy(tmp + len, tmp + len + 2);
+			len--;
+		}
+	}
+	return (tmp);
+}
+
 char		*return_func(char *str, char *input)
 {
 	char	*tmp;
@@ -58,13 +69,19 @@ char		*return_func(char *str, char *input)
 	tmp = NULL;
 	if (str[0] == ENTER && !str[1] && !g_input->heredoc\
 		&& g_input->input_len > 0)
-		add_to_hist();
+		add_to_hist(g_input->input);
 	if (str[0] == 4 && !str[1] && g_input->heredoc)
 		tmp = ft_strdup(str);
 	else if (str[0] == 4 && !str[1])
+	{
 		tmp = ft_strdup("exit");
-	else
+		add_to_hist(tmp);
+	}
+	else if (str[0] != 3)
+	{
 		tmp = ft_strdup(input);
+		tmp = check_backslash(tmp);
+	}
 	return (tmp);
 }
 

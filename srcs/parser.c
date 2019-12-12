@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: udraugr- <udraugr-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 16:17:45 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/11 09:54:53 by udraugr-         ###   ########.fr       */
+/*   Updated: 2019/12/11 20:40:27 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,8 @@ void	ft_parse_line(char *str)
 		{
 			if (ft_parse_cmd(str + i_cmd, i) == 1)
 				return ;
+			if (g_sub_str && g_subshell > 0)
+				return ;
 			i_cmd = i_cmd + i + 1;
 			i = -1;
 		}
@@ -157,8 +159,10 @@ void	ft_parse_line(char *str)
 		{
 			if (ft_parse_cmd(str + i_cmd, i) == 1)
 				g_skip = 1;
+			if (g_sub_str && g_subshell > 0)
+				return ;
 			i_cmd = i_cmd + i + 2;
-			i = 1;
+			i = -1;
 			g_and_or = 1;
 		}
 		else if (qflag == 0 && ft_strncmp(str + i + i_cmd, "||", 2) == 0
@@ -166,8 +170,10 @@ void	ft_parse_line(char *str)
 		{
 			if (ft_parse_cmd(str + i_cmd, i) == 1)
 				g_skip = 1;
+			if (g_sub_str && g_subshell > 0)
+				return ;
 			i_cmd = i_cmd + i + 2;
-			i = 1;
+			i = -1;
 			g_and_or = 2;
 		}
 		i++;

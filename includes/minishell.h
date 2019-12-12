@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 11:01:23 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/10 20:21:37 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/11 22:50:33 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -557,4 +557,18 @@ void					ft_subst_tst_pf(t_quoteflag *f, char **str, int n);
 int						ft_subst_tst_exe(t_quoteflag *f, char **str, int n);
 char					**ft_cnt_subs_exe(char **str, int n, int start,
 						int end);
+int						ft_repl_parm_sub(char **val);
+char					*ft_do_parm_subs(char *tmp, int *n);
+char					*ft_get_parm_ll(char *tmp);
+char					*ft_get_parm_qq(char *tmp);
+char					*ft_get_parm_rr(char *tmp);
+char					*ft_get_parm_prc(char *tmp);
+char					*ft_get_parm_start(char *s, int k, int *j);
+char					*ft_get_val_prc(char *s, int j, char *tmp);
+char					*ft_get_val_rr(char *s, int j, char *tmp);
+int						ft_get_val_plus(char *s, int j, char *tmp, char **val);
+int						ft_get_val_min(char *s, int j, char *tmp, char **val);
+int						ft_repl_check(char *s, int len, char *q, int j);
+void					ft_sig_do(int signo, int status, pid_t pid);
+
 #endif

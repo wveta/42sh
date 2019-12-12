@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 11:32:55 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/06 16:00:15 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/11 22:49:55 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,10 @@ int		ft_set_job_status(t_job *job, int n, int status)
 {
 	job->ready = 1;
 	free(job->stat_job);
-	if (n == 2)
+	if (n == 2 && (job->ready = 2))
 	{
 		job->stat_job = ft_strdup("Stopped by 18");
-	//	job->stat_job = ft_add_strnum(job->stat_job, WSTOPSIG(status));
 		job->stat_job = ft_strfjoin(job->stat_job, "       ");
-		job->ready = 2;
 	}
 	else if (n == 3)
 	{
@@ -112,40 +110,18 @@ void	ft_test_job_status(pid_t pid, int status)
 
 void	ft_signal_handler_rl(int signo)
 {
-	pid_t		pid = 0;
-	int			status = 0;
+	pid_t		pid;
+	int			status;
 
 	ft_sig_set();
+	pid = 0;
+	status = 0;
 	signal(signo, ft_signal_handler_rl);
 	if (ft_test_sig_list(signo))
 	{
 		ft_print_sig(0, signo, 0);
 		pid = waitpid(-1, &status, WNOHANG | WCONTINUED | WUNTRACED);
-		if (signo == SIGCHLD && pid > 0)
-		{
-			ft_print_sig(pid, signo, status);
-			if (WIFSTOPPED(status))
-			{
-				if (g_parent_pid == getpid())
-				{
-					if (WSTOPSIG(status) == 18)
-						ft_test_tstp(pid, status);
-					tcsetpgrp(0, getpid());
-				}
-				else
-				{
-					if (WSTOPSIG(status) == 18)
-						kill(g_parent_pid, SIGTSTP);
-				}
-			}
-			ft_test_job_status(pid, status);
-			ft_test_cmd_list(pid, status);
-		}
-		if (signo == SIGTSTP && g_parent_pid == getpid())
-		{
-			ft_test_tstp(pid, status);
-			tcsetpgrp(0, getpid());
-		}
+		ft_sig_do(signo, status, pid);
 		if ((signo == SIGTTIN || signo == SIGTTOU) && g_parent_pid == getpid())
 			tcsetpgrp(0, getpid());
 		if (signo == SIGINT || signo == SIGQUIT)

@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 16:34:55 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/09 18:03:45 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/11 17:03:08 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,10 @@ int			ft_split_pipes_words(char *str)
 		if (qflag != 2 && str[i] == '\\' && ((b_sl = b_sl + 1)))
 			b_sl = b_sl % 2;
 		if (qflag == 0 && (br_flag == 0 || br_flag == 1) &&
-		str[i] == '(' && 
-		b_sl == 0)
+		str[i] == '(' &&
+		b_sl == 0
+		&& (i == 0 || ft_strchr(" ;|&$", str[i - 1]))		
+		)
 		{
 			br_flag = 1;
 			br_count++;
@@ -50,8 +52,11 @@ int			ft_split_pipes_words(char *str)
 				flsub = 1;
 		}
 		else if (qflag == 0 && (br_flag == 0 || br_flag == 2) &&
-		str[i] == '{' && 
-		b_sl == 0)
+		str[i] == '{' &&
+		b_sl == 0
+//
+		&& (i == 0 || ft_strchr(" ;|&$", str[i - 1]))
+		)
 		{
 			br_flag = 2;
 			br_count++;
@@ -65,8 +70,6 @@ int			ft_split_pipes_words(char *str)
 		else if (qflag == 0 && (br_flag == 0 || br_flag == 2) &&
 		str[i] == '{' && b_sl == 0 &&
 		(i == 0 || ft_strchr(" ;|&", str[i - 1])))
-//		(i == 0 || ft_strchr(" ;|&$", str[i - 1])))
-
 		{
 			br_flag = 2;
 			br_count++;
@@ -141,7 +144,9 @@ static int	ft_all_pipe_words(char **ret, char const *str)
 		if (fl->qflag != 2 && str[fl->i] == '\\' && ((b_sl = b_sl + 1)))
 			b_sl = b_sl % 2;
 		if (fl->qflag == 0 && (fl->br_flag == 0 || fl->br_flag == 1) &&
-		str[fl->i] == '(' && b_sl == 0)
+		str[fl->i] == '(' && b_sl == 0 &&
+//		
+		(fl->i == 0 || ft_strchr(" ;|&$", str[fl->i - 1])))
 		{
 			fl->br_flag = 1;
 			fl->br_count++;
@@ -168,16 +173,11 @@ static int	ft_all_pipe_words(char **ret, char const *str)
 		else if (fl->qflag == 0 && (fl->br_flag == 0 || fl->br_flag == 2) && str
 		[fl->i] == '{' && b_sl == 0 &&
 		(fl->i == 0 || ft_strchr(" ;|&", str[fl->i - 1])))
-//		(fl->i == 0 || ft_strchr(" ;|&$", str[fl->i - 1])))
 		{
 			fl->br_flag = 2;
 			fl->br_count++;
 			if (fl->br_count == 1)
 				fl->start = fl->i;
-/*
-			if (fl->i >0 && str[fl->i - 1] && str[fl->i - 1] == '$')
-				fl->start = fl->i - 1;
-*/
 		}
 		else if (fl->qflag == 0 && fl->br_flag == 2 && str[fl->i] == '{'
 		&& b_sl == 0)
