@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/29 17:44:06 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/12 21:18:32 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/12 23:12:06 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ int		autocmp(char *str)
 {
 	if (str[0] == TAB && !str[1])
 	{
+		if (g_input->heredoc)
+			return (0);
 		find_name();
 		if (!g_input->autocompl.tab_count)
 			null_autocmpl(1);
