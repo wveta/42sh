@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/07 10:50:36 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/12 22:53:33 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/13 13:43:37 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int		ft_set_nopipe_start(t_pipe *p_head)
 	if (!(p_head->cur_cmd->avcmd[0]))
 	{
 		p_head->cur_cmd->locals = ft_put_locals(p_head->cur_cmd->locals);
+		p_head->cur_cmd = ft_redir_io_restore(p_head->cur_cmd);
 		return (-1);
 	}
 	p_head->cur_cmd->avcmd = ft_cmd_replays(p_head->cur_cmd->avcmd);

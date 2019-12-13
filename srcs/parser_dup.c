@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 16:17:45 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/12 22:37:15 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/13 13:46:37 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int		ft_parse_if_3(t_quoteflag *f, char *str)
 			return (ft_free_qf(f));
 		}
 		free(av);
-		if (g_sub_str && g_shell_num == 0)
+		if (g_sub_str && g_shell_num != 0)
 			return (ft_free_qf(f));
 		f->i_cmd = (g_job_start - str) + g_job_end + 1;
 		g_job_start = NULL;
@@ -82,7 +82,7 @@ int		ft_parse_if_1(t_quoteflag *f, char *str)
 	{
 		if (ft_parse_cmd(str + f->i_cmd, f->i) == 1)
 			return (ft_free_qf(f));
-		if (g_sub_str && g_shell_num == 0)
+		if (g_sub_str && g_shell_num != 0)
 			return (ft_free_qf(f));
 		f->i_cmd = f->i_cmd + f->i + 1;
 		f->i = -1;
@@ -99,7 +99,7 @@ int		ft_parse_if_0(t_quoteflag *f, char *str)
 	{
 		if (ft_parse_cmd(str + f->i_cmd, f->i) == 1)
 			g_skip = 1;
-		if (g_sub_str && g_shell_num == 0)
+		if (g_sub_str && g_shell_num != 0)
 			return (ft_free_qf(f));
 		f->i_cmd = f->i_cmd + f->i + 2;
 		f->i = -1;
@@ -110,7 +110,7 @@ int		ft_parse_if_0(t_quoteflag *f, char *str)
 	{
 		if (ft_parse_cmd(str + f->i_cmd, f->i) == 1)
 			g_skip = 1;
-		if (g_sub_str && g_shell_num == 0)
+		if (g_sub_str && g_shell_num != 0)
 			return (ft_free_qf(f));
 		f->i_cmd = f->i_cmd + f->i + 2;
 		f->i = -1;
