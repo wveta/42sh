@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 10:27:38 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/12 23:02:21 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/13 20:26:03 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,10 @@ void	ft_close_semafors(void)
 	sem_close(g_bsemafor);
 	sem_unlink(g_bsem_name);
 	free(g_bsem_name);
+	g_semafor = NULL;
+	g_bsemafor = NULL;
+	g_sem_name = NULL;
+	g_sem_name = NULL;
 }
 
 void	ft_init_shell_val(char **argv, char **environ)
@@ -47,6 +51,8 @@ char	*ft_init_loop_read(void)
 	g_sub_str = NULL;
 	g_sem_name = NULL;
 	g_bsem_name = NULL;
+	g_sem_fl = 0;
+	g_bsem_fl = 0;
 	ft_print_jobs();
 	pr = ft_get_name();
 	tmp = rl_gets(pr);
@@ -76,7 +82,6 @@ void	ft_exe_subshell(void)
 				break ;
 			}
 		}
-		ft_close_semafors();
 		ft_final_free();
 		exit(g_rc);
 	}

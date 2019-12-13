@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/07 10:50:36 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/13 11:00:06 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/13 19:51:30 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,8 @@ void	ft_child_pipe_varset(t_cmdlist *cur_cmd)
 	g_bsemafor = cur_cmd->bsemafor;
 	g_sem_name = cur_cmd->sem_name;
 	g_bsem_name = cur_cmd->bsem_name;
+	g_sem_fl = 1;
+	g_bsem_fl = 1;
 	cur_cmd->semafor = NULL;
 	cur_cmd->bsemafor = NULL;
 	cur_cmd->sem_name = NULL;
