@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 11:01:23 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/12 22:51:48 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/13 11:18:33 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,10 +92,10 @@
 
 typedef struct stat		t_stat;
 
-typedef struct 			s_proc
+typedef struct			s_proc
 {
-	struct s_proc		*next;       
-  	char				**argv;
+	struct s_proc		*next;
+	char				**argv;
 	pid_t				pid;
 	pid_t				pgid;
 	char				completed;
@@ -204,9 +204,9 @@ int						g_subshell;
 int						g_and_or_line;
 t_pipe					*g_pipe;
 int						g_flpi;
-pid_t 					g_pgid;
+pid_t					g_pgid;
 struct termios			g_tmodes;
-int 					g_terminal;
+int						g_terminal;
 int						g_is_interactive;
 int						g_job_ind;
 int						g_std_in;
@@ -218,7 +218,6 @@ sem_t					*g_semafor;
 char					*g_sem_name;
 sem_t					*g_bsemafor;
 char					*g_bsem_name;
-char					*sem_name;
 int						g_subs_counter;
 int						g_calc;
 int						g_subst;
@@ -262,7 +261,7 @@ typedef struct			s_greatflag
 	int					flag_all;
 }						t_greatflag;
 
-typedef struct 			s_quoteflag
+typedef struct			s_quoteflag
 {
 	int					i;
 	int					qflag;
@@ -382,8 +381,7 @@ int						ft_set_fd_pipes(t_pipe	*p_head, int fd0[2],
 int						ft_set_fd_pipes_2(t_pipe *p_head, int fd0[2],
 						int fd1[2]);
 int						fd_set_nopipe(t_pipe *p_head);
-void					ft_parent_wait(t_pipe *p_head, int flpi/*,
-						t_cmdlist *first_cmd*/);
+void					ft_parent_wait(t_pipe *p_head, int flpi);
 int						ft_fork(t_pipe *p_head);
 void					ft_init_curcmd(t_cmdlist *cur_cmd);
 void					ft_set_cmd(t_pipe *p_head);
@@ -452,12 +450,12 @@ void					ft_hash_cmd_add(char *path, char *name);
 int						ft_hash_usage(char *av);
 char					*ft_get_hash_path(char *path);
 int						ft_test_sub(char *str, int i);
-char					*ft_get_parm_simple(char *s/*, int *k, int i*/);
+char					*ft_get_parm_simple(char *s);
 int						ft_test_job(char *str, int start);
 void					ft_exp_env(char *parm, char *value);
 void					ft_locals_to_env(char **locals);
 char					*ft_get_shell_str(char *in, int len);
-void				    ft_sig_set(void);
+void					ft_sig_set(void);
 void					ft_sig_dfl(void);
 int						ft_test_args(char *args);
 int						ft_parse_pipe(char **ret);
@@ -495,7 +493,8 @@ void					ft_insert_job(t_job *cur_job);
 void					ft_set_job_cont(t_job *j);
 void					ft_set_cmd_exit_status(int status);
 char					**ft_globbing(char **table);
-bool					glob_check(char *str, char *pat, char *b_str, char *b_pat);
+bool					glob_check(char *str, char *pat, char *b_str,
+						char *b_pat);
 void					ft_signal_child(int signo);
 
 char					*ft_read_alias(void);
@@ -516,7 +515,7 @@ void					ft_del_semafor(t_cmdlist *cur_cmd);
 int						ft_wait_semafor(t_cmdlist *cur_cmd);
 void					ft_add_semafor(t_pipe *p_head);
 char					*param_rem(char *val, char *flag, char *pat);
-int 					ft_close_fd(char *str, int in);
+int						ft_close_fd(char *str, int in);
 int						ft_get_cmd_exit_status(int status);
 char					**ft_cnt_subs(char **av);
 char					**ft_tst_calc(char **str, int n, int start, int end);
@@ -578,8 +577,10 @@ int						ft_repl_check(char *s, int len, char *q, int j);
 void					ft_sig_do(int signo, int status, pid_t pid);
 void					ft_ini_quoteflag_spl(t_quoteflag *f);
 int						ft_all_pipe_words(char **ret, char const *str);
-t_list					*ft_globbing_path_cycle(DIR *dir, char *path, char *pat);
-bool					ft_globbing_split(char *line, char **path, char **pat);
+t_list					*ft_globbing_path_cycle(DIR *dir, char *path,
+						char *pat);
+bool					ft_globbing_split(char *line, char **path,
+						char **pat);
 void					ft_globbing_addline(char *line, t_list **alist);
 void					ft_exe_subshell(void);
 char					*ft_init_loop_read(void);
@@ -591,8 +592,9 @@ void					parm_remlarge_inloop(int i, int l, char *save,
 t_quoteflag				*ft_init_parse_init(void);
 int						ft_free_qf(t_quoteflag *f);
 void					ft_redir_great_close(int out_fd, int direction);
-void 					ft_tst_great_fd_loop(t_cmdlist *cmd, int i,
+void					ft_tst_great_fd_loop(t_cmdlist *cmd, int i,
 						t_greatflag *f);
 int						ft_set_nopipe_start(t_pipe *p_head);
-						
+void					ft_child_pipe_varset(t_cmdlist *cur_cmd);
+
 #endif
