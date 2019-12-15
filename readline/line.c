@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 20:26:47 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/15 18:31:25 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/15 18:45:23 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,23 @@ void		move_end_of_line(void)
 	}
 }
 
+void		cursor_back(void)
+{
+	int		curs;
+
+	curs = g_input->curs_pos;
+	ft_putstr_fd(tgetstr("cr", NULL), STDERR_FILENO);
+	ft_putstr_fd(tgetstr("cd", NULL), STDERR_FILENO);
+	ft_putstr_fd(g_input->prompt, STDERR_FILENO);
+	ft_putstr_fd(g_input->input, STDERR_FILENO);
+	if (g_input->curs_pos - g_input->prompt_len == g_input->input_len)
+		return ;
+	g_input->curs_pos = g_input->input_len + g_input->prompt_len;
+	g_input->multiline.pos = g_input->multiline.num_of_lines;
+	while (g_input->curs_pos > curs)
+		move_left();
+}
+
 void		scroll_top(void)
 {
 	int		curs;
@@ -104,8 +121,5 @@ void		scroll_top(void)
 		ft_putstr_fd(tgetstr("sr", NULL), STDERR_FILENO);
 		curs--;
 	}
-	ft_putstr_fd(tgetstr("cr", NULL), STDERR_FILENO);
-	ft_putstr_fd(tgetstr("cd", NULL), STDERR_FILENO);
-	ft_putstr_fd(g_input->prompt, STDERR_FILENO);
-	ft_putstr_fd(g_input->input, STDERR_FILENO);
+	cursor_back();
 }
