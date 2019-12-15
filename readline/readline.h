@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 17:54:28 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/12 22:31:41 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/15 18:22:35 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,5 +185,6 @@ char			*find_key(int curs);
 void			take_pos(int save_curs);
 void			count_lines(void);
 void			error_msg(int err, int num, t_shell *shell);
+void			scroll_top(void);
 
 #endif

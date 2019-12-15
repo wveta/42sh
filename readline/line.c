@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 20:26:47 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/12 21:47:55 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/15 18:31:25 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,4 +81,31 @@ void		move_end_of_line(void)
 		ft_putstr_fd(tgetstr("nd", NULL), STDERR_FILENO);
 		i++;
 	}
+}
+
+void		scroll_top(void)
+{
+	int		curs;
+	int		i;
+	char	buf[20];
+
+	i = 0;
+	curs = 0;
+	ft_bzero(buf, 20);
+	ft_putstr_fd("\e[6n", STDIN_FILENO);
+	read(STDIN_FILENO, &buf, 20);
+	while (buf[i] && !ft_isdigit(buf[i]))
+		i++;
+	curs = ft_atoi(buf + i);
+	if (curs == 1)
+		return ;
+	while (curs > 0)
+	{
+		ft_putstr_fd(tgetstr("sr", NULL), STDERR_FILENO);
+		curs--;
+	}
+	ft_putstr_fd(tgetstr("cr", NULL), STDERR_FILENO);
+	ft_putstr_fd(tgetstr("cd", NULL), STDERR_FILENO);
+	ft_putstr_fd(g_input->prompt, STDERR_FILENO);
+	ft_putstr_fd(g_input->input, STDERR_FILENO);
 }
