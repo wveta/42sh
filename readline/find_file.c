@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 01:16:11 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/12 21:48:25 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/16 19:14:32 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,8 @@ void		find_file(char *key)
 	}
 	else if (g_input->autocompl.amount == 1)
 		change_input(g_input->autocompl.seach_res, tmp);
+	else
+		g_input->autocompl.tab_count = 0;
 	ft_free(tmp);
 	tmp = NULL;
 }
