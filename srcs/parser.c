@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 16:17:45 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/17 14:38:13 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/17 16:58:35 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int			ft_parser_go(char *cmd, char *str)
 	if (ft_split_pipes_words(cmd) != 0)
 	{
 		args = ft_split_pipes(cmd);
-		if (!args)
+		if (!args && args[0])
 			return (1);
 		args = ft_get_alias(args);
 		if (args && args[0])
@@ -30,7 +30,6 @@ int			ft_parser_go(char *cmd, char *str)
 		}
 		else
 		{
-			free(cmd);
 			ft_print_msg(": parse error near ", str);
 			return (1);
 		}
@@ -77,7 +76,8 @@ int			ft_parse_cmd(char *str, int len)
 		ft_set_job_str(str, len);
 	cmd = ft_strndup(str, (size_t)len);
 	if (ft_parser_go(cmd, str) == 1)
-	{	free(cmd);
+	{
+		free(cmd);
 		return (1);
 	}
 	free(cmd);

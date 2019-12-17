@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/07 10:50:36 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/17 12:09:04 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/17 18:35:06 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,11 @@ void	ft_child_pipe_gojob(t_cmdlist *cur_cmd)
 
 void	ft_child_pipe_gopipe(t_cmdlist *cur_cmd)
 {
+//	if (g_job == 1)
+//	{
+		if (ft_do_redir(cur_cmd) != 0)
+			exit(1);
+//	}
 	cur_cmd->avcmd = ft_all_calc_tst(cur_cmd->avcmd);
 	if (g_calc != 0)
 		exit(g_calc);
@@ -119,10 +124,12 @@ void	ft_child_pipe_exec(t_cmdlist *cur_cmd, int flpi)
 		ft_pipe_dup_ch_out(cur_cmd);
 		sem_post(cur_cmd->bsemafor);
 	}
-	if (flpi > -777)
-		ft_child_pipe_gopipe(cur_cmd);
-	else
-		ft_child_pipe_gojob(cur_cmd);
+//
+	ft_child_pipe_gopipe(cur_cmd);
+//	if (flpi > 0 || g_job == 1)
+//		ft_child_pipe_gopipe(cur_cmd);
+//	else
+//		ft_child_pipe_gojob(cur_cmd);
 	i = ft_test_cmd_file(cur_cmd);
 	ft_locals_to_env(cur_cmd->locals);
 	sem_wait(cur_cmd->semafor);

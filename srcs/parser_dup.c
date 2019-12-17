@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 16:17:45 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/17 15:43:10 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/17 16:38:11 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ int		ft_parse_if_3(t_quoteflag *f, char *str)
 
 int		ft_parse_if_2(t_quoteflag *f, char *str)
 {
+	if (f->b_sl != 0)
+		return (2);
 	if (f->qflag == 0 && str[f->i + f->i_cmd] == '"')
 		f->qflag = 1;
 	else if (f->qflag == 0 && str[f->i + f->i_cmd] == '\'')
@@ -67,6 +69,8 @@ int		ft_parse_if_2(t_quoteflag *f, char *str)
 
 int		ft_parse_if_1(t_quoteflag *f, char *str)
 {
+	if (f->b_sl != 0)
+		return (2);
 	if (f->qflag == 0 &&
 		(str[f->i + f->i_cmd] == ')' || str[f->i + f->i_cmd] == '}') &&
 		f->br_count <= 0)
@@ -94,6 +98,8 @@ int		ft_parse_if_1(t_quoteflag *f, char *str)
 
 int		ft_parse_if_0(t_quoteflag *f, char *str)
 {
+	if (f->b_sl != 0)
+		return (0);
 	if (f->qflag == 0 && ft_strncmp(str + f->i + f->i_cmd, "&&", 2) == 0
 	&& (f->i + f->i_cmd == 0 || str[f->i + f->i_cmd - 1] != '\\'))
 	{
@@ -127,6 +133,9 @@ void	ft_parse_line(char *str)
 	f = ft_init_parse_init();
 	while (str && str[f->i + f->i_cmd] && ((rc = 0) == 0))
 	{
+		if (f->qflag != 2 && str[f->i + f->i_cmd] == '\\' &&
+		((f->b_sl = f->b_sl + 1)))
+			f->b_sl = f->b_sl % 2;
 		rc = ft_parse_if_3(f, str);
 		if (rc == 1)
 			return ;
@@ -140,6 +149,8 @@ void	ft_parse_line(char *str)
 				else if (rc == 2 && (ft_parse_if_0(f, str) == 1))
 					return ;
 			}
+			if (f->b_sl == 1 && str[f->i + f->i_cmd] != '\\')
+				f->b_sl = 0;
 		}
 		f->i++;
 	}
