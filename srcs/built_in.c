@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 15:38:41 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/02 18:16:29 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/17 11:14:38 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,19 +97,19 @@ int			ft_echo(char **av)
 
 int			ft_built_in2(char *path, char **av)
 {
-	if (path && ft_strncmp(path, "jobs", 4) == 0)
+	if (path && ft_strcmp(path, "jobs") == 0)
 		return (ft_cmd_jobs(av));
-	else if (path && ft_strncmp(path, "fg", 2) == 0)
+	else if (path && ft_strcmp(path, "fg") == 0)
 		return (ft_cmd_fg(av));
-	else if (path && ft_strncmp(path, "bg", 2) == 0)
+	else if (path && ft_strcmp(path, "bg") == 0)
 		return (ft_cmd_bg(av));
-	else if (path && ft_strncmp(path, "kill", 4) == 0)
+	else if (path && ft_strcmp(path, "kill") == 0)
 		return (ft_cmd_kill(av));
-	else if (path && ft_strncmp(path, "alias", 5) == 0)
+	else if (path && ft_strcmp(path, "alias") == 0)
 		return (ft_alias(av));
-	else if (path && ft_strncmp(path, "unalias", 7) == 0)
+	else if (path && ft_strcmp(path, "unalias") == 0)
 		return (ft_unalias(av));
-	else if (path && ft_strncmp(path, "test", 4) == 0)
+	else if (path && ft_strcmp(path, "test") == 0)
 		return (bin_test(av));
 	return (0);
 }
@@ -122,19 +122,19 @@ int			ft_built_in(char *path, char **av, char **locals)
 		return (ft_exit(av));
 	else if (path && g_envi->env && ft_strcmp(path, "set") == 0)
 		return (ft_print_env());
-	else if (path && ft_strncmp(path, "cd", 2) == 0)
+	else if (path && ft_strcmp(path, "cd") == 0)
 		return (ft_built_cd(av, locals));
-	else if (path && ft_strncmp(path, "export", 6) == 0)
+	else if (path && ft_strcmp(path, "export") == 0)
 		return (ft_export(av));
-	else if (path && ft_strncmp(path, "unset", 5) == 0)
+	else if (path && ft_strcmp(path, "unset") == 0)
 		return (ft_unset_env(av));
-	else if (path && ft_strncmp(path, "echo", 4) == 0)
+	else if (path && ft_strcmp(path, "echo") == 0)
 		return (ft_echo(av));
-	else if (path && ft_strncmp(path, "type", 4) == 0)
+	else if (path && ft_strcmp(path, "type") == 0)
 		return (ft_type(av));
-	else if (path && ft_strncmp(path, "printenv", 8) == 0)
+	else if (path && ft_strcmp(path, "printenv") == 0)
 		return (ft_printenv(av));
-	else if (path && ft_strncmp(path, "hash", 4) == 0)
+	else if (path && ft_strcmp(path, "hash") == 0)
 		return (ft_cmd_hash(av));
 	else
 		return (ft_built_in2(path, av));

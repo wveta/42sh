@@ -6,20 +6,28 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 10:27:38 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/13 20:26:03 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/16 19:40:43 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	ft_close_semafors(void)
+void	ft_close_g_semafors(void)
 {
-	sem_close(g_semafor);
-	sem_unlink(g_sem_name);
-	free(g_sem_name);
-	sem_close(g_bsemafor);
-	sem_unlink(g_bsem_name);
-	free(g_bsem_name);
+	if (g_semafor)
+		sem_close(g_semafor);
+	if (g_sem_name)
+	{
+		sem_unlink(g_sem_name);
+		free(g_sem_name);
+	}
+	if (g_bsemafor)
+		sem_close(g_bsemafor);
+	if (g_bsem_name)
+	{
+		sem_unlink(g_bsem_name);
+		free(g_bsem_name);
+	}
 	g_semafor = NULL;
 	g_bsemafor = NULL;
 	g_sem_name = NULL;
@@ -51,6 +59,7 @@ char	*ft_init_loop_read(void)
 	g_sub_str = NULL;
 	g_sem_name = NULL;
 	g_bsem_name = NULL;
+	g_pr_wait = 0;
 	g_sem_fl = 0;
 	g_bsem_fl = 0;
 	ft_print_jobs();

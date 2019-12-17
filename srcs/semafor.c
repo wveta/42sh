@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   semafor.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: udraugr- <udraugr-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/07 10:50:36 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/12 15:55:30 by udraugr-         ###   ########.fr       */
+/*   Updated: 2019/12/16 13:53:35 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	ft_del_semafor(t_cmdlist *cur_cmd)
 		sem_unlink(cur_cmd->sem_name);
 		free(cur_cmd->sem_name);
 	}
-	if (cur_cmd->sem_name)
+	if (cur_cmd->bsem_name)
 	{
 		sem_close(cur_cmd->bsemafor);
 		sem_unlink(cur_cmd->bsem_name);

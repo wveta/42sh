@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 15:38:41 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/11 19:00:09 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/17 13:17:29 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,11 @@ void		ft_do_cmd_list(t_pipe *p_head, int flpi)
 	ft_do_cmd_list_ini(p_head, flpi);
 	tcgetattr(0, &tmodes);
 	if (ft_do_cmd_loop(p_head, fd0, fd1, flpi) == -1)
+	{
+		tcsetattr(0, TCSADRAIN, &tmodes);
+		g_pipe = NULL;
 		return ;
+	}
 	ft_parent_wait(p_head, flpi);
 	tcsetattr(0, TCSADRAIN, &tmodes);
 	g_pipe = NULL;

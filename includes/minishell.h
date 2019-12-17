@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 11:01:23 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/13 20:20:23 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/16 21:41:34 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -224,6 +224,7 @@ int						g_subst;
 int						g_shell_num;
 int						g_sem_fl;
 int						g_bsem_fl;
+int						g_pr_wait;
 
 typedef struct dirent	t_dir;
 
@@ -598,6 +599,6 @@ void					ft_tst_great_fd_loop(t_cmdlist *cmd, int i,
 						t_greatflag *f);
 int						ft_set_nopipe_start(t_pipe *p_head);
 void					ft_child_pipe_varset(t_cmdlist *cur_cmd);
-void					ft_close_semafors(void);
+void					ft_close_g_semafors(void);
 
 #endif

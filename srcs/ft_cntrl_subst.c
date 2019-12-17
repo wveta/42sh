@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/15 19:42:51 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/10 20:24:08 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/16 21:53:51 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,21 +39,26 @@ char	*ft_go_subst(char *str, int vid)
 {
 	char			*tmp;
 	int				fd;
+	char			*wk;
 
 	tmp = ft_strdup("/tmp/");
 	tmp = ft_add_strnum(tmp, getpid());
 	tmp = ft_strfjoin(tmp, "_");
 	tmp = ft_add_strnum(tmp, g_subs_counter);
 	g_subs_counter++;
-	str = ft_strfjoin(str, " >");
-	str = ft_strfjoin(str, tmp);
+	wk = ft_strdup(">");
+	wk = ft_strfjoin(wk, tmp);
+	wk = ft_strfjoin(wk, " ");
+	wk = ft_strfjoin(wk, str);
+	free(str);
+	str = wk;
+	g_pr_wait = 1;
 	ft_parse_line(str);
+	g_pr_wait = 0;
 	str[0] = '\0';
-	if ((fd = open(tmp, O_RDONLY, 0644)) > -1)
-	{
-		str = ft_read_subst(fd, vid, str);
+	if ((fd = open(tmp, O_RDONLY, 0644)) > -1 &&
+		(str = ft_read_subst(fd, vid, str)))
 		close(fd);
-	}
 	free(tmp);
 	return (str);
 }
@@ -107,12 +112,18 @@ char	**ft_cnt_subs_tst(char **str, int n)
 char	**ft_cnt_subs(char **av)
 {
 	int		i;
+	char	*gs;
+	int		gl;
 
 	i = -1;
 	while (av && av[++i])
 	{
 		g_subst++;
+		gs = g_job_start;
+		gl = g_job_end;
 		av = ft_cnt_subs_tst(av, i);
+		g_job_start = gs;
+		g_job_end = gl;
 		g_subst--;
 	}
 	return (av);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_dup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: udraugr- <udraugr-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 14:40:31 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/12 15:58:05 by udraugr-         ###   ########.fr       */
+/*   Updated: 2019/12/16 13:44:27 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ void	ft_init_curcmd(t_cmdlist *cur_cmd)
 		cur_cmd->status = 0;
 		cur_cmd->semafor = NULL;
 		cur_cmd->sem_name = NULL;
+		cur_cmd->bsemafor = NULL;
+		cur_cmd->bsem_name = NULL;
 	}
 }
 

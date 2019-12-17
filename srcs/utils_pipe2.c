@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/07 10:50:36 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/13 19:51:30 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/17 13:17:29 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	ft_pipe_wait_ch_fin(t_cmdlist *cur_cmd, t_cmdlist *first_cmd,
 {
 	int			q;
 
-	if ((g_job == 0) && flpi > 0)
+	if ((g_job == 0 || g_subshell) && flpi > 0)
 	{
 		while (1)
 		{
@@ -98,6 +98,7 @@ void	ft_pipe_wait_ch_fin(t_cmdlist *cur_cmd, t_cmdlist *first_cmd,
 
 void	ft_child_pipe_varset(t_cmdlist *cur_cmd)
 {
+	ft_close_g_semafors();
 	g_semafor = cur_cmd->semafor;
 	g_bsemafor = cur_cmd->bsemafor;
 	g_sem_name = cur_cmd->sem_name;
@@ -107,5 +108,5 @@ void	ft_child_pipe_varset(t_cmdlist *cur_cmd)
 	cur_cmd->semafor = NULL;
 	cur_cmd->bsemafor = NULL;
 	cur_cmd->sem_name = NULL;
-	cur_cmd->sem_name = NULL;
+	cur_cmd->bsem_name = NULL;
 }

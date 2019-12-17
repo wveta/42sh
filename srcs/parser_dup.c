@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 16:17:45 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/13 13:46:37 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/16 22:38:27 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int		ft_parse_if_1(t_quoteflag *f, char *str)
 		(f->qflag == 2 && str[f->i + f->i_cmd] == '\''))
 		f->qflag = 0;
 	else if (f->qflag == 0 && (str[f->i + f->i_cmd] == ';' ||
-	ft_ampers_test(str, f->i, f->i_cmd) == 1))
+	(g_job = ft_ampers_test(str, f->i, f->i_cmd)) == 1))
 	{
 		if (ft_parse_cmd(str + f->i_cmd, f->i) == 1)
 			return (ft_free_qf(f));

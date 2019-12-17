@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 16:17:45 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/12 22:03:30 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/17 14:38:13 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int			ft_parser_go(char *cmd, char *str)
 	if (ft_split_pipes_words(cmd) != 0)
 	{
 		args = ft_split_pipes(cmd);
+		if (!args)
+			return (1);
 		args = ft_get_alias(args);
 		if (args && args[0])
 		{
@@ -71,13 +73,13 @@ int			ft_parse_cmd(char *str, int len)
 	}
 	if (!(str) || str[0] == '\0' || ft_test_andor() == 0)
 		return (0);
-	if (!(cmd = ft_strnew((size_t)len)))
-		exit_shell();
 	if (!(g_job && g_and_or_line))
 		ft_set_job_str(str, len);
-	cmd = ft_strncpy(cmd, str, (size_t)len);
+	cmd = ft_strndup(str, (size_t)len);
 	if (ft_parser_go(cmd, str) == 1)
+	{	free(cmd);
 		return (1);
+	}
 	free(cmd);
 	return (0);
 }
