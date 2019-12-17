@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 19:09:43 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/12 22:32:17 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/16 21:15:13 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,15 @@ char		*read_loop(void)
 	}
 }
 
+void		check_cursor(void)
+{
+	int		curs;
+
+	curs = take_curs();
+	if (curs != 1)
+		write(STDERR_FILENO, "\n", 1);
+}
+
 char		*read_line(char *prompt)
 {
 	char	*ret;
@@ -67,6 +76,7 @@ char		*read_line(char *prompt)
 	shell = NULL;
 	init_input(prompt);
 	shell = init_term(shell);
+	check_cursor();
 	ft_putstr_fd(prompt, STDERR_FILENO);
 	ret = read_loop();
 	go_end_pos();
