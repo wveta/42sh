@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 16:34:55 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/12 23:00:42 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/17 16:15:16 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,8 @@ void	ft_all_words1(t_pipeflag *fl, char const *str)
 			fl->start = fl->i;
 	}
 	else if (fl->qflag == 0 && (fl->br_flag == 0 || fl->br_flag == 2) &&
-	str[fl->i] == '{' && fl->b_sl == 0)
+	str[fl->i] == '{' && fl->b_sl == 0
+	&& (fl->i == 0 || ft_strchr(" ;|&$", str[fl->i - 1])))
 	{
 		fl->br_flag = 2;
 		fl->br_count++;

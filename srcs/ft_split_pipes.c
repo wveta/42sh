@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 16:34:55 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/12 21:00:18 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/17 16:09:15 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,14 @@ void		ft_ini_quoteflag_spl(t_quoteflag *f)
 
 int			ft_get_word(char **ret, int count, int size, char const *s)
 {
-	if (*(s + size) == '\0')
-		size = size + 1;
-	ret[count] = (char *)malloc(sizeof(char) * (size + 1));
-	if (ret[count] == NULL)
-		return (-1);
-	ret[count][size + 0] = '\0';
-	ret[count] = ft_strncpy(ret[count], s, (size_t)(size));
+//	if (*(s + size) == '\0')
+//		size = size + 1;
+//	ret[count] = (char *)malloc(sizeof(char) * (size + 1));
+//	if (ret[count] == NULL)
+//		return (-1);
+//	ret[count][size + 0] = '\0';
+//	ret[count] = ft_strncpy(ret[count], s, (size_t)(size));
+	ret[count] = ft_strndup(s, (size_t)(size));
 	return (0);
 }
 
