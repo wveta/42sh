@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_autocmpl.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
+/*   By: udraugr- <udraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 01:38:22 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/18 17:44:39 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/18 19:22:21 by udraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void		print_array(char **arr)
 	print_array_init(&i, &len, &count, &row);
 	go_end_pos();
 	write(STDERR_FILENO, "\n", 1);
-	while (arr[i] && i < g_input->autocompl.amount)
+	while (i < g_input->autocompl.amount && arr[i])
 	{
 		len = g_input->autocompl.max_len - ft_strlen(arr[i]);
 		ft_putstr_fd(arr[i], STDERR_FILENO);
@@ -65,7 +65,7 @@ void		print_array(char **arr)
 			write(STDERR_FILENO, " ", 1);
 		i += g_input->autocompl.col_pos;
 		row--;
-		if (row == 0 || ((!arr[i] || g_input->autocompl.amount < i)\
+		if (row == 0 || ((g_input->autocompl.amount < i || !arr[i])\
 			&& count < g_input->autocompl.col_pos - 1))
 		{
 			write(STDERR_FILENO, "\n", 1);

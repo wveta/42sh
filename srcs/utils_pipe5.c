@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_pipe5.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
+/*   By: udraugr- <udraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/07 10:50:36 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/18 17:27:05 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/18 20:00:37 by udraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	ft_child_pipe_gopipe(t_cmdlist *cur_cmd)
 	cur_cmd->built_in = ft_test_built_in(cur_cmd->avcmd[0]);
 	if (cur_cmd->built_in == 0)
 	{
+		ft_strdel(&cur_cmd->find_path);
 		if (!(cur_cmd->find_path = ft_get_file_path(
 			cur_cmd->avcmd[0], g_envi->first_list)))
 			cur_cmd->find_path = ft_strdup(cur_cmd->avcmd[0]);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
+/*   By: udraugr- <udraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 04:45:51 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/18 19:12:25 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/18 19:24:25 by udraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void		find_cmd(char *key)
 				[j++] = ft_strdup(g_cmd->cmd_list[i]);
 			i++;
 		}
-		g_input->autocompl.seach_res[g_input->autocompl.amount] = NULL;
+		//g_input->autocompl.seach_res[g_input->autocompl.amount] = NULL;
 	}
 	if (g_input->autocompl.amount > 1 && g_input->autocompl.tab_count == 2)
 	{
