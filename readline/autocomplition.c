@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/29 17:44:06 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/12 23:12:06 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/18 06:03:47 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,13 @@ void	all_cmd(void)
 	ft_putstr_fd(g_input->prompt, STDERR_FILENO);
 }
 
+void	count_cmd(void)
+{
+	g_input->autocompl.amount = 0;
+	while (g_cmd->cmd_list[g_input->autocompl.amount])
+		g_input->autocompl.amount++;
+}
+
 void	take_search_info(void)
 {
 	int		curs;
@@ -51,7 +58,9 @@ void	take_search_info(void)
 	{
 		if (g_input->autocompl.tab_count == 2)
 		{
-			all_cmd();
+			count_cmd();
+			for_print(g_cmd->cmd_list);
+			print_array(g_cmd->cmd_list);
 			g_input->autocompl.tab_count = 0;
 		}
 	}

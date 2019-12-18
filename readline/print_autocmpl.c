@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 01:38:22 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/18 03:18:59 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/18 06:01:28 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,26 +42,31 @@ void		print_array(char **arr)
 {
 	int			i;
 	int			len;
+	int			row;
+	int			count;
 
 	i = 0;
 	len = 0;
+	count = 0;
+	row = g_input->autocompl.num_in_row;
 	g_input->autocompl.save_curs = g_input->curs_pos;
 	go_end_pos();
 	write(STDERR_FILENO, "\n", 1);
-	while (arr[i])
+	while (arr[i] && i < g_input->autocompl.amount)
 	{
-		len += ft_strlen(arr[i]);
-		if (len >= g_input->ws.ws_col)
-		{
-			len = ft_strlen(arr[i]);
-			ft_putstr_fd(tgetstr("do", NULL), STDERR_FILENO);
-			ft_putstr_fd(tgetstr("cr", NULL), STDERR_FILENO);
-		}
+		len = g_input->autocompl.max_len - ft_strlen(arr[i]);
 		ft_putstr_fd(arr[i], STDERR_FILENO);
-		len += 3;
-		if (len < g_input->ws.ws_col)
-			ft_putstr_fd("   ", STDERR_FILENO);
-		i++;
+		while (len-- > 0)
+			write(STDERR_FILENO, " ", 1);
+		i += g_input->autocompl.col_pos;
+		row--;
+		if (row == 0 || ((!arr[i] || g_input->autocompl.amount < i)\
+			&& count < g_input->autocompl.col_pos - 1))
+		{
+			write(STDERR_FILENO, "\n", 1);
+			row = g_input->autocompl.num_in_row;
+			i = ++count;
+		}
 	}
 	finish_print();
 }

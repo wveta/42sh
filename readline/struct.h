@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 17:58:21 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/11 23:32:24 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/18 05:07:57 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,9 @@ typedef struct		s_tab
 	int				cmd;
 	int				key_check;
 	int				tab_count;
+	int				max_len;
+	int				num_in_row;
+	int				col_pos;
 }					t_tab;
 
 typedef struct		s_shell

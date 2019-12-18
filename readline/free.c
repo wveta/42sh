@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 01:01:14 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/12 21:48:43 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/18 06:07:20 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,7 @@ void		null_autocmpl(int time)
 		while (g_input->autocompl.seach_res[i])
 		{
 			free(g_input->autocompl.seach_res[i]);
-			g_input->autocompl.seach_res[i] = NULL;
-			i++;
+			g_input->autocompl.seach_res[i++] = NULL;
 		}
 		free(g_input->autocompl.seach_res);
 	}
@@ -71,6 +70,9 @@ void		null_autocmpl(int time)
 	g_input->autocompl.key_check = 0;
 	g_input->autocompl.save_curs = 0;
 	g_input->autocompl.tab_count = 0;
+	g_input->autocompl.max_len = 0;
+	g_input->autocompl.num_in_row = 0;
+	g_input->autocompl.col_pos = 0;
 }
 
 void		null_multiline(void)
