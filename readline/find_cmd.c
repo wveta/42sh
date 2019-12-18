@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 04:45:51 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/18 16:23:09 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/18 19:12:25 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,15 @@ void		count_cmd_match(char *key)
 			g_input->autocompl.amount++;
 		i++;
 	}
-	g_input->autocompl.seach_res = (char **)malloc(sizeof(char *)\
+	if (g_input->autocompl.amount > 0)
+	{
+		g_input->autocompl.seach_res = (char **)malloc(sizeof(char *)\
 								* (g_input->autocompl.amount + 1));
-	g_input->autocompl.seach_res[g_input->autocompl.amount] = 0;
+		g_input->autocompl.seach_res[g_input->autocompl.amount] = 0;
+	}
+	else
+		g_input->autocompl.seach_res = NULL;
+	
 }
 
 void		find_cmd(char *key)
