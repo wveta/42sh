@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 19:25:12 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/26 15:35:19 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/18 12:50:58 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,9 @@ int		ft_redir_2lesshd(t_cmdlist *cmd, int i)
 		{
 			if (!(heof = ft_get_heof(ind, cmd, i, j)))
 				return (-1);
-			cmd->here = ft_heredoc(heof);
+			ind = ft_heredoc(heof);
+			cmd->here = ft_strfjoin(cmd->here, ind);
+			free(ind);
 			free(heof);
 		}
 	}

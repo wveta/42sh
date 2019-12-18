@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 11:01:23 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/16 21:41:34 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/18 18:03:27 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -511,7 +511,7 @@ void					ft_output_alias(char *all_alias, char *av,
 void					print_all_alias(char *all_alias, int flag_alias);
 int						ft_unalias(char **av);
 char					*take_value_alias(char *all_alias, char *alias_name);
-char					**ft_get_alias(char **av);
+char					**ft_get_alias(char **av, int i);
 void					ft_rec_log(char *str);
 void					ft_new_semafor(t_cmdlist *cur_cmd);
 void					ft_del_semafor(t_cmdlist *cur_cmd);
@@ -600,5 +600,11 @@ void					ft_tst_great_fd_loop(t_cmdlist *cmd, int i,
 int						ft_set_nopipe_start(t_pipe *p_head);
 void					ft_child_pipe_varset(t_cmdlist *cur_cmd);
 void					ft_close_g_semafors(void);
+int						ft_child_check_subsh(t_cmdlist *cur_cmd);
+void					ft_child_pipe_init(t_cmdlist *cur_cmd, int flpi);
+char					**ft_get_myalias(char **args);
+char					*ft_get_lpwd(char **locals);
+int						ft_parse_if_4(char *str, t_quoteflag *f);
+int						ft_parse_if_3(t_quoteflag *f, char *str);
 
 #endif

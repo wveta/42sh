@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/07 10:50:36 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/17 18:35:06 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/18 17:27:05 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,9 @@ void	ft_child_pipe_gojob(t_cmdlist *cur_cmd)
 
 void	ft_child_pipe_gopipe(t_cmdlist *cur_cmd)
 {
-//	if (g_job == 1)
-//	{
-		if (ft_do_redir(cur_cmd) != 0)
-			exit(1);
-//	}
-	cur_cmd->avcmd = ft_all_calc_tst(cur_cmd->avcmd);
-	if (g_calc != 0)
+	if (ft_do_redir(cur_cmd) != 0)
+		exit(1);
+	if ((cur_cmd->avcmd = ft_all_calc_tst(cur_cmd->avcmd)) && g_calc != 0)
 		exit(g_calc);
 	if ((cur_cmd->here && ft_get_redir_hd(cur_cmd)) || ft_do_redir(cur_cmd))
 		exit(1);
@@ -57,9 +53,8 @@ void	ft_child_pipe_gopipe(t_cmdlist *cur_cmd)
 			cur_cmd->find_path = ft_strdup(cur_cmd->avcmd[0]);
 	}
 	if ((ft_test_built_in(cur_cmd->avcmd[0]) == 1)
-		&& (ft_wait_semafor(cur_cmd))
-		&& ft_built_in(cur_cmd->avcmd[0],
-						cur_cmd->avcmd, cur_cmd->locals) == 1)
+		&& (ft_wait_semafor(cur_cmd)) && ft_built_in(cur_cmd->avcmd[0],
+		cur_cmd->avcmd, cur_cmd->locals) == 1)
 		exit(g_built_rc);
 }
 
@@ -90,7 +85,7 @@ int		ft_child_pipe_subsh(t_cmdlist *cur_cmd)
 	return (0);
 }
 
-void	ft_child_pipe_init(int flpi)
+void	ft_child_pipe_init(t_cmdlist *cur_cmd, int flpi)
 {
 	ft_sig_set();
 	g_check = 1;
@@ -102,11 +97,11 @@ void	ft_child_pipe_init(int flpi)
 		if (g_pgid == 0)
 		{
 			g_pgid = getpid();
-			if (g_job == 0)
+			if (g_job == 0 || ft_child_check_subsh(cur_cmd))
 				g_pgid = g_parent_pid;
 		}
 		setpgid(getpid(), g_pgid);
-		if (g_job == 0)
+		if (g_job == 0 || ft_child_check_subsh(cur_cmd))
 			tcsetpgrp(0, g_pgid);
 	}
 }
@@ -115,7 +110,7 @@ void	ft_child_pipe_exec(t_cmdlist *cur_cmd, int flpi)
 {
 	int		i;
 
-	ft_child_pipe_init(flpi);
+	ft_child_pipe_init(cur_cmd, flpi);
 	if (ft_child_pipe_subsh(cur_cmd))
 		return ;
 	else
@@ -124,12 +119,7 @@ void	ft_child_pipe_exec(t_cmdlist *cur_cmd, int flpi)
 		ft_pipe_dup_ch_out(cur_cmd);
 		sem_post(cur_cmd->bsemafor);
 	}
-//
 	ft_child_pipe_gopipe(cur_cmd);
-//	if (flpi > 0 || g_job == 1)
-//		ft_child_pipe_gopipe(cur_cmd);
-//	else
-//		ft_child_pipe_gojob(cur_cmd);
 	i = ft_test_cmd_file(cur_cmd);
 	ft_locals_to_env(cur_cmd->locals);
 	sem_wait(cur_cmd->semafor);

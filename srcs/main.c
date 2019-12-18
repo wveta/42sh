@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
+/*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 10:27:38 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/18 00:46:09 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/12 18:37:51 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ char		*ft_get_name(void)
 	}
 	if (!(ret = ft_strnew(255)))
 		exit_shell();
-	j > 0 ? j++ : 0;
 	ret = ft_set_prcolor(ret, pr, j);
 	free(pr);
 	return (ret);

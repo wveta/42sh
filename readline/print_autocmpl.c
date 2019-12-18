@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_autocmpl.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
+/*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 01:38:22 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/18 06:01:28 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/18 17:44:39 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,15 @@ static void	finish_print(void)
 	null_autocmpl(1);
 }
 
+void		print_array_init(int *i, int *len, int *count, int *row)
+{
+	*i = 0;
+	*len = 0;
+	*count = 0;
+	*row = g_input->autocompl.num_in_row;
+	g_input->autocompl.save_curs = g_input->curs_pos;
+}
+
 void		print_array(char **arr)
 {
 	int			i;
@@ -45,11 +54,7 @@ void		print_array(char **arr)
 	int			row;
 	int			count;
 
-	i = 0;
-	len = 0;
-	count = 0;
-	row = g_input->autocompl.num_in_row;
-	g_input->autocompl.save_curs = g_input->curs_pos;
+	print_array_init(&i, &len, &count, &row);
 	go_end_pos();
 	write(STDERR_FILENO, "\n", 1);
 	while (arr[i] && i < g_input->autocompl.amount)

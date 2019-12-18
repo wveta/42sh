@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/30 14:10:12 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/10 16:29:44 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/18 18:01:51 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,7 @@ void		ft_cd(char *path2, int flag, char **locals)
 	char *p;
 
 	p = ft_strdup(path2);
-	if (!((tmp = ft_get_env2("PWD", locals))))
-	{
-		if (!(tmp = ft_strnew(255)))
-			exit_shell(1);
-		getcwd(tmp, 255);
-	}
+	tmp = ft_get_lpwd(locals);
 	if ((p = ft_tst_cdpath(p)) && (ft_check_dir(p) == 0) && (chdir(p) == 0))
 	{
 		if (!(full = ft_strnew(255)))

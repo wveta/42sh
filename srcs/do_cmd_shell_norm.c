@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 15:38:41 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/17 11:40:15 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/18 17:37:34 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,19 @@ void	ft_set_pgid(t_cmdlist *cmd, int flpi)
 		if (g_pgid == 0)
 		{
 			g_pgid = cmd->pid;
-			if (g_job == 0)
+			if (g_job == 0 || ft_child_check_subsh(cmd))
 				g_pgid = getpid();
 		}
 		setpgid(cmd->pid, g_pgid);
-		if (g_job == 0)
+		if (g_job == 0 || ft_child_check_subsh(cmd))
 			tcsetpgrp(0, g_pgid);
 	}
 }
 
 int		ft_do_cmd_loop(t_pipe *p_head, int fd0[2], int fd1[2], int flpi)
 {
+	if (g_job == 1 && g_sub_str)
+		g_job = 0;
 	while (p_head->cur_cmd)
 	{
 		if ((ft_get_heretext(p_head->cur_cmd) == -1) ||

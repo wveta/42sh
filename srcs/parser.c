@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 16:17:45 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/17 16:58:35 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/18 17:59:55 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int			ft_parser_go(char *cmd, char *str)
 		args = ft_split_pipes(cmd);
 		if (!args && args[0])
 			return (1);
-		args = ft_get_alias(args);
+		args = ft_get_myalias(args);
 		if (args && args[0])
 		{
 			if (ft_strlen(args[0]) > 0)
@@ -96,6 +96,7 @@ t_quoteflag	*ft_init_parse_init(void)
 		g_job = 0;
 	f = ft_get_quoteflag();
 	ft_ini_quoteflag_spl(f);
+	f->i = -1;
 	return (f);
 }
 

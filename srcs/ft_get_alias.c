@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_alias.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: udraugr- <udraugr-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/02 10:57:37 by udraugr-          #+#    #+#             */
-/*   Updated: 2019/12/10 19:09:22 by udraugr-         ###   ########.fr       */
+/*   Updated: 2019/12/18 17:29:03 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char					*take_value_alias(char *all_alias, char *alias_name)
 	return (value);
 }
 
-static char				**ft_add_arr(char **new, char **ret)
+static char				**ft_add_arr(char **new, char **ret, int i_repl)
 {
 	char				**result;
 	int					len_new;
@@ -49,11 +49,13 @@ static char				**ft_add_arr(char **new, char **ret)
 	else
 	{
 		i = -1;
-		while (++i < len_new)
-			result[i] = ft_strdup(new[i]);
-		j = 0;
-		while (++j < len_ret)
-			result[i++] = ft_strdup(ret[j]);
+		while (++i < i_repl)
+			result[i] = ft_strdup(ret[i]);
+		j = -1;
+		while (new[++j])
+			result[i++] = ft_strdup(new[j]);
+		while (ret[++i_repl])
+			result[i++] = ft_strdup(ret[i_repl]);
 		result[i] = 0;
 	}
 	return (result);
@@ -72,7 +74,7 @@ static void				ft_del_arr(char ***arr)
 	arr = 0;
 }
 
-static char				**ft_prep_for_add_arr(char **ans, char **av)
+static char				**ft_prep_for_add_arr(char **ans, char **av, int i)
 {
 	char				**tmp;
 	char				**new;
@@ -85,30 +87,30 @@ static char				**ft_prep_for_add_arr(char **ans, char **av)
 				" Malloc can't allocate the memory!");
 		return (0);
 	}
-	tmp = ft_add_arr(new, av);
+	tmp = ft_add_arr(new, av, i);
 	ft_del_arr(&new);
 	return (tmp);
 }
 
-char					**ft_get_alias(char **av)
+char					**ft_get_alias(char **av, int i)
 {
 	char				**tmp;
 	char				*ans;
 	char				*all_alias;
 	char				*first;
 
-	if (av[0] && ft_strlen(av[0]) == 0)
+	if (av[i] && ft_strlen(av[i]) == 0)
 		return (av);
 	all_alias = ft_read_alias();
-	first = ft_strdup(av[0]);
-	while (all_alias && (ans = take_value_alias(all_alias, av[0])) != NULL)
+	first = ft_strdup(av[i]);
+	while (all_alias && (ans = take_value_alias(all_alias, av[i])) != NULL)
 	{
-		tmp = ft_prep_for_add_arr(&ans, av);
+		tmp = ft_prep_for_add_arr(&ans, av, i);
 		if (tmp == NULL)
 			break ;
 		ft_del_arr(&av);
 		av = tmp;
-		if (ft_strequ(av[0], first) == 1)
+		if (ft_strequ(av[i], first) == 1)
 			break ;
 	}
 	ft_strdel(&first);

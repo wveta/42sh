@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 16:17:45 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/17 16:38:11 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/18 17:59:55 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,13 +131,9 @@ void	ft_parse_line(char *str)
 	int			rc;
 
 	f = ft_init_parse_init();
-	while (str && str[f->i + f->i_cmd] && ((rc = 0) == 0))
+	while (str && str[++f->i + f->i_cmd] && ((rc = 0) == 0))
 	{
-		if (f->qflag != 2 && str[f->i + f->i_cmd] == '\\' &&
-		((f->b_sl = f->b_sl + 1)))
-			f->b_sl = f->b_sl % 2;
-		rc = ft_parse_if_3(f, str);
-		if (rc == 1)
+		if ((rc = ft_parse_if_4(str, f)) != -777 && rc == 1)
 			return ;
 		else if (rc == 2)
 		{
@@ -152,7 +148,6 @@ void	ft_parse_line(char *str)
 			if (f->b_sl == 1 && str[f->i + f->i_cmd] != '\\')
 				f->b_sl = 0;
 		}
-		f->i++;
 	}
 	ft_parse_cmd(str + f->i_cmd, f->i);
 	g_job = -1;

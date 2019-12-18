@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_file.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
+/*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 01:16:11 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/18 06:06:21 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/18 16:23:09 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void		count_file_match(char *key)
 	}
 	g_input->autocompl.seach_res = (char **)malloc(sizeof(char *)\
 								* (g_input->autocompl.amount + 1));
+	g_input->autocompl.seach_res[g_input->autocompl.amount] = 0;
 	closedir(dir);
 }
 
@@ -71,7 +72,8 @@ void		all_files_in_path(void)
 		return ;
 	while ((dn = readdir(dir)))
 	{
-		if (ft_strcmp(dn->d_name, ".") && ft_strcmp(dn->d_name, ".."))
+		if (dn->d_name[0] != '\0' && ft_strlen(dn->d_name) > 0 &&
+			ft_strcmp(dn->d_name, ".") && ft_strcmp(dn->d_name, ".."))
 		{
 			g_input->autocompl.seach_res[i] = ft_strdup(dn->d_name);
 			i++;

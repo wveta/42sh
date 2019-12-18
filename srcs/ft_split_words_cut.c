@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 16:34:55 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/17 16:15:16 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/17 20:25:46 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,10 +82,9 @@ int		ft_all_words2(t_pipeflag *fl, char const *str, char **ret)
 void	ft_all_words1(t_pipeflag *fl, char const *str)
 {
 	if (fl->qflag == 0 && (fl->br_flag == 0 || fl->br_flag == 1) &&
-	str[fl->i] == '(' && fl->b_sl == 0 &&
-	(fl->i == 0 || ft_strchr(" ;|&$", str[fl->i - 1])))
+	str[fl->i] == '(' && fl->b_sl == 0 && (fl->i == 0 ||
+	ft_strchr(" ;|&$", str[fl->i - 1])) && (fl->br_flag = 1))
 	{
-		fl->br_flag = 1;
 		fl->br_count++;
 		if (fl->br_count == 1 && fl->i > 0 && str[fl->i - 1] == '$' &&
 		(fl->i - 1 == 0 || fl->b_sl == 0))
