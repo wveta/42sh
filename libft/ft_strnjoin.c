@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 01:47:55 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/08 01:48:08 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/18 03:17:02 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,21 +20,19 @@ char		*ft_strnjoin(char *s1, char *s2, int len)
 
 	i = 0;
 	j = 0;
-	if (!(ret = (char *)malloc(sizeof(char) * (len + 1))))
+	if (!(ret = ft_strnew(len)))
 		return (NULL);
-	if (s1)
+	while (s1 && s1[i] && len)
 	{
-		while (s1[i] && i < len)
-		{
-			ret[i] = s1[i];
-			i++;
-		}
+		ret[j++] = s1[i++];
+		len--;
 	}
-	if (s2)
+	i = 0;
+	while (s2 && s2[i] && len)
 	{
-		while (s2[j++] && i++ < len)
-			ret[i] = s2[j];
+		ret[j++] = s2[i++];
+		len--;
 	}
-	ret[i] = '\0';
+	ret[j] = '\0';
 	return (ret);
 }

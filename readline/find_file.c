@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 01:16:11 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/18 00:52:36 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/18 02:55:33 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,15 @@ void		count_file_match(char *key)
 	DIR				*dir;
 
 	dir = NULL;
+	int  i = 0;
 	if (!(dir = opendir(g_input->autocompl.path)))
 		return ;
 	while ((dn = readdir(dir)))
 	{
 		if (ft_strcmp(dn->d_name, ".") && ft_strcmp(dn->d_name, ".."))
 		{
+			if (!(ft_strcmp(dn->d_name, "andor.sh")))
+				i++;
 			if (key && !ft_strncmp(dn->d_name, key, ft_strlen(key)))
 				g_input->autocompl.amount++;
 			else if (!key)

@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 01:38:22 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/12 21:20:38 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/18 03:18:59 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,18 +70,18 @@ void		change_input(char **str, char *key)
 {
 	int		i;
 	DIR		*dir;
-	char	*tmp;
 
-	i = 0;
-	tmp = NULL;
-	tmp = ft_strfjoin(g_input->autocompl.path, "/");
-	g_input->autocompl.path = ft_strfjoin(tmp, str[0]);
+	i = ft_strlen(g_input->autocompl.path) - 1;
+	if (!g_input->autocompl.path || g_input->autocompl.path[i] != '/')
+		g_input->autocompl.path = ft_strfjoin(g_input->autocompl.path, "/");
+	g_input->autocompl.path = ft_strfjoin(g_input->autocompl.path, str[0]);
 	dir = opendir(g_input->autocompl.path);
 	if (dir)
 	{
 		closedir(dir);
 		str[0] = ft_strfjoin(str[0], "/");
 	}
+	i = 0;
 	if (key)
 	{
 		while (str[0][i] && key[i] && str[0][i] == key[i])
