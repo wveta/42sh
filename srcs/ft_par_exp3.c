@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 19:25:12 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/11 15:59:17 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/19 12:39:01 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,4 +93,21 @@ char	*ft_get_val_rr(char *s, int j, char *tmp)
 	if (tmp2)
 		free(tmp2);
 	return (val);
+}
+
+int		ft_check_parm_unrec(char *s, int j)
+{
+	char	*tmp;
+
+	if (s[j + 1] && !(ft_strchr("-=?+", s[j + 1])))
+	{
+		tmp = ft_strndup(s + j + 1, 1);
+		ft_print_msg(": unrecognized modifier: `", tmp);
+		free(tmp);
+		ft_set_shell("?", "1");
+		s[0] = '\0';
+		g_subs_rc = 1;
+		return (1);
+	}
+	return (0);
 }

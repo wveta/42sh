@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 15:38:41 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/17 11:14:38 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/19 17:37:27 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,10 @@ int			ft_built_in2(char *path, char **av)
 	else if (path && ft_strcmp(path, "unalias") == 0)
 		return (ft_unalias(av));
 	else if (path && ft_strcmp(path, "test") == 0)
-		return (bin_test(av));
+	{
+		bin_test(av);
+		return (1);
+	}
 	return (0);
 }
 

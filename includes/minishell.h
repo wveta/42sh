@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 11:01:23 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/18 18:03:27 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/19 21:50:44 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -358,7 +358,7 @@ void					ft_rest_in(t_cmdlist *cmd);
 void					ft_rest_out(t_cmdlist *cmd);
 void					ft_rest_err(t_cmdlist *cmd);
 int						ft_set_flag_add(char *ind);
-int						ft_test_fd(int fd, char *s);
+int						ft_test_fd(int fd);
 int						ft_great_dup1(int pref_fd, int out_fd, t_cmdlist *cmd);
 int						ft_great_dup2(int pref_fd, int out_fd, t_cmdlist *cmd);
 void					ft_reset_cmd_great(int j, int i, t_cmdlist *cmd);
@@ -595,9 +595,9 @@ void					parm_remlarge_inloop(int i, int l, char *save,
 t_quoteflag				*ft_init_parse_init(void);
 int						ft_free_qf(t_quoteflag *f);
 void					ft_redir_great_close(int out_fd, int direction);
-void					ft_tst_great_fd_loop(t_cmdlist *cmd, int i,
+int						ft_tst_great_fd_loop(t_cmdlist *cmd, int i,
 						t_greatflag *f);
-int						ft_set_nopipe_start(t_pipe *p_head);
+int						ft_set_nopipe_start(t_cmdlist *cur_cmd);
 void					ft_child_pipe_varset(t_cmdlist *cur_cmd);
 void					ft_close_g_semafors(void);
 int						ft_child_check_subsh(t_cmdlist *cur_cmd);
@@ -606,5 +606,8 @@ char					**ft_get_myalias(char **args);
 char					*ft_get_lpwd(char **locals);
 int						ft_parse_if_4(char *str, t_quoteflag *f);
 int						ft_parse_if_3(t_quoteflag *f, char *str);
+int						ft_check_parm_unrec(char *s, int j);
+int						ft_check_ekran_full(char *str, int pos);
+char        			*del_ekran(char *old_str);
 
 #endif

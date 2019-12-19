@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 19:25:12 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/11 15:44:00 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/19 12:32:40 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ char	*ft_get_parm_qq(char *s)
 
 	if (((j = ft_strchr(s, ':') - s)) > -1)
 	{
+		if (ft_check_parm_unrec(s, j))
+			return (s);
 		tmp = ft_strndup(s, j);
 		if (ft_test_parname(tmp))
 		{

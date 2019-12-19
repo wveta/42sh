@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 16:34:55 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/17 20:25:46 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/19 16:39:59 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int		ft_all_words2(t_pipeflag *fl, char const *str, char **ret)
 	return (0);
 }
 
-void	ft_all_words1(t_pipeflag *fl, char const *str)
+void	ft_all_words1(t_pipeflag *fl, char const *str, char **ret)
 {
 	if (fl->qflag == 0 && (fl->br_flag == 0 || fl->br_flag == 1) &&
 	str[fl->i] == '(' && fl->b_sl == 0 && (fl->i == 0 ||
@@ -90,7 +90,11 @@ void	ft_all_words1(t_pipeflag *fl, char const *str)
 		(fl->i - 1 == 0 || fl->b_sl == 0))
 			fl->flsub = 1;
 		else if (fl->br_count == 1 && fl->flsub == 0)
+		{
+			if (fl->i > 0 && str[fl->i - 1] != ' ')
+				ft_pipe_split_4(fl, ret, str);
 			fl->start = fl->i;
+		}
 	}
 	else if (fl->qflag == 0 && (fl->br_flag == 0 || fl->br_flag == 2) &&
 	str[fl->i] == '{' && fl->b_sl == 0
@@ -102,7 +106,11 @@ void	ft_all_words1(t_pipeflag *fl, char const *str)
 		(fl->i - 1 == 0 || fl->b_sl == 0))
 			fl->flsub = 1;
 		else if (fl->br_count == 1 && fl->flsub == 0)
+		{
+			if (fl->i > 0 && str[fl->i - 1] != ' ')
+				ft_pipe_split_4(fl, ret, str);
 			fl->start = fl->i;
+		}
 	}
 	else
 		ft_all_words4(fl, str);
@@ -117,7 +125,7 @@ int		ft_all_pipe_words(char **ret, char const *str)
 	{
 		if (fl->qflag != 2 && str[fl->i] == '\\' && ((fl->b_sl = fl->b_sl + 1)))
 			fl->b_sl = fl->b_sl % 2;
-		ft_all_words1(fl, str);
+		ft_all_words1(fl, str, ret);
 		if (ft_all_words2(fl, str, ret) == 1)
 			continue ;
 		ft_all_words3(fl, str, ret);

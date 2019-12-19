@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 18:25:30 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/12 22:34:08 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/19 20:56:41 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,16 @@ int			ft_tst_great_fd(t_greatflag *f, t_cmdlist *cmd, int i)
 		f->flag_all = 1;
 		if ((int)ft_strlen(cmd->avcmd[i]) ==
 			f->j + 1 + f->flag_all + f->flag_add)
-			ft_tst_great_fd_loop(cmd, i, f);
-		else if (ft_isdigit(cmd->avcmd[i]
-				[f->j + 1 + f->flag_all + f->flag_add]) == 1)
 		{
-			f->out_fd = ft_get_next_num(cmd->avcmd[i]
-				+ f->j + 1 + f->flag_all + f->flag_add);
-			if (ft_test_fd(f->out_fd, cmd->avcmd[i]) == -1)
+			if (ft_tst_great_fd_loop(cmd, i, f) == -1)
+				return (-1);
+		}
+		else /*if (ft_isdigit(cmd->avcmd[i]
+				[f->j + 1 + f->flag_all + f->flag_add]) == 1)*/
+		{
+			if ((f->out_fd = ft_get_next_num(cmd->avcmd[i]
+				+ f->j + 1 + f->flag_all + f->flag_add)) < 0 ||
+			ft_test_fd(f->out_fd) == -1)
 				return (-1);
 		}
 	}
@@ -61,7 +64,10 @@ int			ft_tst_great_getfile(t_greatflag *f, t_cmdlist *cmd, int i)
 		g_redir_block = 1;
 	}
 	else if ((int)ft_strlen(cmd->avcmd[i]) > l)
+	{
 		f->file_redir = ft_strdup(f->ind + l - f->j);
+		f->file_redir = ft_repl_tilda(f->file_redir, ft_strlen(f->file_redir));
+	}
 	else if (cmd->avcmd[i + 1])
 	{
 		f->file_redir = ft_strdup(cmd->avcmd[i + 1]);
@@ -69,7 +75,7 @@ int			ft_tst_great_getfile(t_greatflag *f, t_cmdlist *cmd, int i)
 	}
 	else
 	{
-		ft_print_msg(" : sintax error in command ", "");
+		ft_print_msg(" : syntax error in command ", "");
 		return (-1);
 	}
 	cmd->avcmd[i][f->j] = '\0';

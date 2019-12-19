@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 18:24:59 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/02 18:22:10 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/19 19:38:18 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ char	**ft_put_locals(char **av)
 	i = 0;
 	if (av)
 	{
-		while (av && av[i])
+		while (av && av[i] )
 		{
 			ft_go_export(av[i], 1);
 			free(av[i]);

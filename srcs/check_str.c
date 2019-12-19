@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 15:38:41 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/10 16:25:53 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/19 19:50:58 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,28 @@ int			ft_check_ekran(char *str, int pos)
 	if (qflag == 0 && br_flag == 0 && b_sl == 0)
 		return (0);
 	return (qflag + b_sl);
+}
+
+int			ft_check_ekran_full(char *str, int pos)
+{
+	int i;
+	int qflag;
+	int br_count;
+	int br_flag;
+	int	b_sl;
+
+	ft_check_init(&i, &qflag, &br_count, &br_flag);
+	b_sl = 0;
+	while (str && i < pos && str[i])
+	{
+		if (qflag == 0 && i > 0 && str[i - 1] && str[i] != '\\' && b_sl == 1)
+			b_sl = 0;
+		if (qflag != 2 && str[i] == '\\' && ((b_sl = b_sl + 1)))
+			b_sl = b_sl % 2;
+		ft_check_q(i, &qflag, str, b_sl);
+		if (qflag == 0)
+			ft_check_b(i, str, &br_flag, &br_count);
+		i++;
+	}
+	return (qflag + b_sl + br_flag);
 }

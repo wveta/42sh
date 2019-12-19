@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 19:25:12 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/12 18:09:07 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/19 11:43:32 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,11 @@ char	*ft_get_norm_tmp(char *s, int *k, char *val, int i)
 	if (*k > 0)
 	{
 		tmp = ft_strndup(s, *k);
-		tmp = ft_strcat(tmp, val);
+		tmp = ft_strfjoin(tmp, val);
 	}
 	else
 		tmp = ft_strdup(val);
-	tmp = ft_strcat(tmp, s + *k + i);
+	tmp = ft_strfjoin(tmp, s + *k + i);
 	return (tmp);
 }
 
@@ -97,7 +97,7 @@ char	*ft_repl_env(char *s, int *k)
 		return (tmp);
 	}
 	else
-		s[0] = '\0';
+		s[*k] = '\0';
 	free(tmp);
 	return (s);
 }

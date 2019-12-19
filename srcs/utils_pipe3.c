@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_pipe3.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: udraugr- <udraugr-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/07 10:50:36 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/18 20:00:37 by udraugr-         ###   ########.fr       */
+/*   Updated: 2019/12/19 14:56:14 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int		ft_set_fd_pipes_2(t_pipe *p_head, int fd0[2], int fd1[2])
 
 int		fd_set_nopipe(t_pipe *p_head)
 {
-	if (ft_set_nopipe_start(p_head) != 0)
+	if (ft_set_nopipe_start(p_head->cur_cmd) != 0)
 		return (-1);
 	if (p_head->cur_cmd->built_in == 0)
 	{

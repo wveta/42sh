@@ -20,7 +20,8 @@ FILES	:=	built_in exec_list ft_built_cd ft_built_env main parser\
 			ft_calc_str_test ft_calc_str_test2 ft_cntrl_subst2 ft_jobs_test\
 			ft_par_exp1 ft_par_exp3 ft_repl_check ft_split_words ft_type\
 			ft_exit ft_split_words_cut globbing_dup hash_cmd_dup main_works\
-			param_remove_dup parser_dup utils_pipe4 utils_pipe5 utils_pipe6
+			param_remove_dup parser_dup utils_pipe4 utils_pipe5 utils_pipe6\
+			del_ekran
 
 SRC_D	:=	srcs
 INC_D	:=	includes

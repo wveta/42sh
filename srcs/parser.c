@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 16:17:45 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/18 17:59:55 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/19 17:18:41 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int			ft_parser_go(char *cmd, char *str)
 	if (ft_split_pipes_words(cmd) != 0)
 	{
 		args = ft_split_pipes(cmd);
-		if (!args && args[0])
+		if (!args)
 			return (1);
 		args = ft_get_myalias(args);
 		if (args && args[0])

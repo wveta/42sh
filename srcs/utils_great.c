@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 17:30:15 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/12 22:24:47 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/19 12:58:32 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@ int		ft_set_pref_fd(t_cmdlist *cmd, int i, int j)
 	if (j == 0)
 		pref_fd = 1;
 	else if (j == 1 && cmd->avcmd[i][0] == '&')
-		pref_fd = -1;
-	else if (ft_isdigit(cmd->avcmd[i][j - 1]) == 1 && j == 1)
+		pref_fd = -1;		
+	else if (ft_isdigit(cmd->avcmd[i][j - 1]) == 1 && j > 0)
 	{
 		pref_fd = ft_get_prev_num(cmd->avcmd[i], j);
-		if (ft_test_fd(pref_fd, cmd->avcmd[i]) == -1)
+		if (ft_test_fd(pref_fd) == -1)
 			return (-2);
 	}
 	else
@@ -39,15 +39,18 @@ int		ft_set_pref_fd(t_cmdlist *cmd, int i, int j)
 	return (pref_fd);
 }
 
-int		ft_test_fd(int fd, char *s)
+int		ft_test_fd(int fd)
 {
 	char		buf[5];
+	char		*tmp;
 
 	if (fd > 2)
 	{
 		if (read(fd, buf, 0) == -1)
 		{
-			ft_print_msg(" : Bad file descriptor ", s);
+			tmp = ft_num_to_str(fd);
+			ft_print_msg(" : Bad file descriptor ", tmp);
+			free(tmp);
 			return (-1);
 		}
 	}
@@ -56,7 +59,7 @@ int		ft_test_fd(int fd, char *s)
 
 int		ft_great_dup1(int pref_fd, int out_fd, t_cmdlist *cmd)
 {
-	if (pref_fd == 1)
+	if (pref_fd == 1 || pref_fd == -1)
 	{
 		if (cmd->fd1 == STDOUT_FILENO)
 			g_cmd->stdout_copy = dup(STDOUT_FILENO);
@@ -80,6 +83,7 @@ int		ft_great_dup1(int pref_fd, int out_fd, t_cmdlist *cmd)
 		cmd->fd2 = out_fd;
 		ft_redir_great_close(out_fd, STDERR_FILENO);
 	}
+	return (0);
 	return (ft_great_dup2(pref_fd, out_fd, cmd));
 }
 
