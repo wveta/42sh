@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: udraugr- <udraugr-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 04:45:51 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/18 19:24:25 by udraugr-         ###   ########.fr       */
+/*   Updated: 2019/12/23 19:39:27 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void		count_cmd_match(char *key)
 	}
 	else
 		g_input->autocompl.seach_res = NULL;
-	
 }
 
 void		find_cmd(char *key)
@@ -51,7 +50,6 @@ void		find_cmd(char *key)
 				[j++] = ft_strdup(g_cmd->cmd_list[i]);
 			i++;
 		}
-		//g_input->autocompl.seach_res[g_input->autocompl.amount] = NULL;
 	}
 	if (g_input->autocompl.amount > 1 && g_input->autocompl.tab_count == 2)
 	{

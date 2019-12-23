@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 20:06:58 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/15 17:28:24 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/23 19:31:44 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ static int	match_del_hist_key(char *str)
 		delete_char();
 	else if (!(ft_strcmp(str, DEL)))
 		delete_char_two();
-	else if (!(ft_strcmp(str, UP_ARR)))
+	else if ((!(ft_strcmp(str, UP_ARR))) || (!(ft_strcmp(str, "\eOA"))))
 		hist_move(0);
-	else if (!(ft_strcmp(str, DOWN_ARR)))
+	else if ((!(ft_strcmp(str, DOWN_ARR))) || (!(ft_strcmp(str, "\eOB"))))
 		hist_move(1);
 	else if (str[0] == CTRL_L && !str[1])
 		scroll_top();
@@ -54,9 +54,9 @@ static int	match_del_hist_key(char *str)
 
 static int	match_move_key(char *str)
 {
-	if (!(ft_strcmp(str, LEFT_ARR)))
+	if ((!(ft_strcmp(str, LEFT_ARR))) || (!(ft_strcmp(str, "\eOD"))))
 		move_left();
-	else if (!(ft_strcmp(str, RIGHT_ARR)))
+	else if ((!(ft_strcmp(str, RIGHT_ARR))) || (!(ft_strcmp(str, "\eOC"))))
 		move_right();
 	else if (!(ft_strcmp(str, CTRL_LEFT)))
 		move_word_left();
