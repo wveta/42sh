@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 18:25:30 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/23 14:33:23 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/23 16:44:05 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,7 @@ int			ft_tst_great_fd(t_greatflag *f, t_cmdlist *cmd, int i)
 			if (ft_tst_great_fd_loop(cmd, i, f) == -1)
 				return (-1);
 		}
-		else /*if (ft_isdigit(cmd->avcmd[i]
-				[f->j + 1 + f->flag_all + f->flag_add]) == 1)*/
+		else
 		{
 			if ((f->out_fd = ft_get_next_num(cmd->avcmd[i]
 				+ f->j + 1 + f->flag_all + f->flag_add)) < 0 ||
@@ -58,11 +57,8 @@ int			ft_tst_great_getfile(t_greatflag *f, t_cmdlist *cmd, int i)
 	int l;
 
 	l = f->j + 1 + f->flag_all + f->flag_add;
-	if (f->flag_all == 1 && cmd->avcmd[i][l] == '-')
-	{
+	if (f->flag_all == 1 && cmd->avcmd[i][l] == '-' && (g_redir_block = 1))
 		f->file_redir = ft_strdup("/dev/null");
-		g_redir_block = 1;
-	}
 	else if ((int)ft_strlen(cmd->avcmd[i]) > l)
 	{
 		f->file_redir = ft_strdup(f->ind + l - f->j);
@@ -75,11 +71,7 @@ int			ft_tst_great_getfile(t_greatflag *f, t_cmdlist *cmd, int i)
 	}
 	else
 	{
-//		ft_print_msg(" : syntax error in command ", "");
-		int j;
-		j = -1;
-		while (cmd->avcmd[++j])
-		ft_print_msg(" : syntax error in command ", cmd->avcmd[j]);
+		ft_print_msg(" : parse error in command ", cmd->avcmd[i]);
 		return (-1);
 	}
 	cmd->avcmd[i][f->j] = '\0';

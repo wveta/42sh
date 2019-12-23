@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 16:17:45 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/23 12:47:01 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/23 16:53:22 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ char		*ft_get_file_path(char *path, t_listf *first_list)
 		{
 			ret = ft_strdup(cur->path);
 			ft_hash_cmd_add(ret, path, 1);
-
 			return (ret);
 		}
 		cur = cur->next;

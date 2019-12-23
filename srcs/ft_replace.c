@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 19:25:12 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/19 22:51:45 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/23 18:03:56 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,27 @@ char	*ft_repl_til_flag(int *flag, int j, char *s, int code)
 	return (s);
 }
 
+char	*ft_replays_t(char *s, int j)
+{
+	char	*tmp;
+
+	if (s[j] == '~' && ft_check_ekran(s, j) == 0 && j > 0 &&
+		s[j - 1] == '=')
+	{
+		tmp = ft_strdup(s + j);
+		tmp = ft_repl_tilda(tmp, ft_strlen(tmp));
+		s[j] = '\0';
+		s = ft_strfjoin(s, tmp);
+		free(tmp);
+	}
+	return (s);
+}
+
 char	*ft_repl_parm(char *s, int flag, int len)
 {
 	int		j;
 	char	q;
 	int		k;
-	char	*tmp;
 
 	j = -1;
 	q = ' ';
@@ -45,14 +60,8 @@ char	*ft_repl_parm(char *s, int flag, int len)
 				return (s);
 			j--;
 		}
-		else if (s[j] == '~' && ft_check_ekran(s, j) == 0 && j > 0 && s[j - 1] == '=')
-		{
-			tmp = ft_strdup(s + j);
-			tmp = ft_repl_tilda(tmp, ft_strlen(tmp));
-			s[j] = '\0';
-			s = ft_strfjoin(s, tmp);
-			free(tmp);
-		}
+		else
+			s = ft_replays_t(s, j);
 		len = ft_strlen(s);
 	}
 	s = ft_repl_til_flag(&flag, j, s, 0);
@@ -66,7 +75,8 @@ int		ft_repl_sym(char *s, int j)
 	i = 1;
 	while (s[j + i])
 	{
-		if (ft_strchr("!#%@\"\'^*()=\\.:$", s[j + i]))
+		if ((i == 1 && ft_isdigit(s[j + i])) ||
+			(!ft_isalnum(s[j + i]) && !ft_strchr("?_", s[j + i])))
 			break ;
 		i++;
 	}

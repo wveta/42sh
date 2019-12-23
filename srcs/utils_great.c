@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 17:30:15 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/19 12:58:32 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/23 16:45:27 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int		ft_set_pref_fd(t_cmdlist *cmd, int i, int j)
 	if (j == 0)
 		pref_fd = 1;
 	else if (j == 1 && cmd->avcmd[i][0] == '&')
-		pref_fd = -1;		
+		pref_fd = -1;
 	else if (ft_isdigit(cmd->avcmd[i][j - 1]) == 1 && j > 0)
 	{
 		pref_fd = ft_get_prev_num(cmd->avcmd[i], j);
@@ -84,7 +84,6 @@ int		ft_great_dup1(int pref_fd, int out_fd, t_cmdlist *cmd)
 		ft_redir_great_close(out_fd, STDERR_FILENO);
 	}
 	return (0);
-	return (ft_great_dup2(pref_fd, out_fd, cmd));
 }
 
 int		ft_great_dup2(int pref_fd, int out_fd, t_cmdlist *cmd)

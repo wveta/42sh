@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 16:34:55 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/19 15:09:29 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/23 16:55:19 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void		ft_split_words_p4(t_quoteflag *f, char *str, int *wcount)
 		(*wcount)++;
 	else if (f->qflag == 0 && f->br_flag == 0 && ft_isspace(str[f->i]) == 0 &&
 	(f->i == 0 || ft_isspace(str[f->i - 1]) == 1
-	|| (str[f->i - 1] == '|' &&  !ft_check_ekran(str, f->i - 1))))
+	|| (str[f->i - 1] == '|' && !ft_check_ekran(str, f->i - 1))))
 		(*wcount)++;
 	if ((f->qflag == 1 && str[f->i] == '"' && f->b_sl == 0) ||
 	(f->qflag == 2 && str[f->i] == '\'' && f->b_sl == 0))

@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/07 10:50:36 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/12 16:14:50 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/23 16:54:45 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,11 @@ void		ft_pipe_split_4(t_pipeflag *fl, char **ret, char const *str)
 	ft_get_word(ret, fl->count, fl->i - fl->start, str + fl->start);
 	fl->count++;
 	fl->flag = 0;
+}
+
+void		ft_pipe_split_sp(t_pipeflag *fl, char **ret, char const *str)
+{
+	if (fl->i > 0 && str[fl->i - 1] != ' ')
+		ft_pipe_split_4(fl, ret, str);
+	fl->start = fl->i;
 }

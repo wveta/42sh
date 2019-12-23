@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 16:34:55 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/19 16:39:59 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/23 16:53:13 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,11 +90,7 @@ void	ft_all_words1(t_pipeflag *fl, char const *str, char **ret)
 		(fl->i - 1 == 0 || fl->b_sl == 0))
 			fl->flsub = 1;
 		else if (fl->br_count == 1 && fl->flsub == 0)
-		{
-			if (fl->i > 0 && str[fl->i - 1] != ' ')
-				ft_pipe_split_4(fl, ret, str);
-			fl->start = fl->i;
-		}
+			ft_pipe_split_sp(fl, ret, str);
 	}
 	else if (fl->qflag == 0 && (fl->br_flag == 0 || fl->br_flag == 2) &&
 	str[fl->i] == '{' && fl->b_sl == 0
@@ -106,11 +102,7 @@ void	ft_all_words1(t_pipeflag *fl, char const *str, char **ret)
 		(fl->i - 1 == 0 || fl->b_sl == 0))
 			fl->flsub = 1;
 		else if (fl->br_count == 1 && fl->flsub == 0)
-		{
-			if (fl->i > 0 && str[fl->i - 1] != ' ')
-				ft_pipe_split_4(fl, ret, str);
-			fl->start = fl->i;
-		}
+			ft_pipe_split_sp(fl, ret, str);
 	}
 	else
 		ft_all_words4(fl, str);

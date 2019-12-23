@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 18:25:30 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/19 20:25:43 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/23 16:39:13 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,17 +63,6 @@ int		ft_tst_great_fd_loop(t_cmdlist *cmd, int i, t_greatflag *f)
 		}
 		f->out_fd = ft_atoi(cmd->avcmd[i + 1]);
 		cmd->avcmd[i + 1][0] = '\0';
-/*		k = -1;
-		while (cmd->avcmd[i + 1][++k])
-		{
-			if (!(ft_isdigit(cmd->avcmd[i + 1][k])))
-			{
-				k = -2;
-				break ;
-			}
-		}
-		if (k != -2 && ((f->out_fd = ft_atoi(cmd->avcmd[i + 1]))))
-			cmd->avcmd[i + 1][0] = '\0';*/
 	}
 	return (0);
 }
