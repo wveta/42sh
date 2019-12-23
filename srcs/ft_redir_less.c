@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 19:25:12 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/23 17:53:35 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/23 21:25:36 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,12 @@ int		ft_get_fd_bynum(int i, int j, t_cmdlist *cmd)
 	{
 		if ((int)ft_strlen(cmd->avcmd[i]) > j + 2)
 		{
-			if (ft_less_w0(in_fd, i, j, cmd) == -2)
+			if (ft_less_w0(&in_fd, i, j, cmd) == -2)
 				return (-2);
 		}
 		else if (cmd->avcmd[i + 1])
 		{
-			if (ft_less_w1(in_fd, i, cmd) == -2)
+			if (ft_less_w1(&in_fd, i, cmd) == -2)
 				return (-2);
 		}
 		else

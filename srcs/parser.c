@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 16:17:45 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/23 16:53:22 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/23 20:10:56 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int			ft_parser_go(char *cmd, char *str)
 		else
 		{
 			ft_print_msg(": parse error near ", str);
+			args = ft_free_char_matr(args);
 			return (1);
 		}
 	}

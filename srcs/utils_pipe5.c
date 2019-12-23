@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/07 10:50:36 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/23 16:17:43 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/23 21:40:38 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,28 +31,8 @@ void	ft_child_pipe_gojob(t_cmdlist *cur_cmd)
 
 void	ft_child_pipe_gopipe(t_cmdlist *cur_cmd)
 {
-	int	i;
-
 	if (g_nopipe_start == 1)
-	{
-		if ((cur_cmd->avcmd = ft_all_calc_tst(cur_cmd->avcmd)) && g_calc != 0)
-			exit(g_calc);
-		if ((cur_cmd->here && ft_get_redir_hd(cur_cmd)))
-			exit(1);
-		cur_cmd = ft_local_assig(cur_cmd);
-		if (!(cur_cmd->avcmd[0]))
-		{
-			cur_cmd->locals = ft_put_locals(cur_cmd->locals);
-			exit(0);
-		}
-		cur_cmd->avcmd = ft_globbing(cur_cmd->avcmd);
-		cur_cmd->avcmd = ft_cmd_replays(cur_cmd->avcmd);
-		if (ft_do_redir(cur_cmd) != 0)
-			exit(1);
-		i = -1;
-		while (cur_cmd->avcmd[++i])
-			cur_cmd->avcmd[i] = del_ekran(cur_cmd->avcmd[i]);
-	}
+		cur_cmd = ft_child_pipe_row32(cur_cmd);
 	cur_cmd->built_in = ft_test_built_in(cur_cmd->avcmd[0]);
 	if (cur_cmd->built_in == 0)
 	{

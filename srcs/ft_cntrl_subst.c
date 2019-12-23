@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/15 19:42:51 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/16 21:53:51 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/23 20:34:07 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,22 +41,21 @@ char	*ft_go_subst(char *str, int vid)
 	int				fd;
 	char			*wk;
 
-	tmp = ft_strdup("/tmp/");
+	tmp = ft_strdup(">/tmp/");
 	tmp = ft_add_strnum(tmp, getpid());
 	tmp = ft_strfjoin(tmp, "_");
 	tmp = ft_add_strnum(tmp, g_subs_counter);
 	g_subs_counter++;
-	wk = ft_strdup(">");
-	wk = ft_strfjoin(wk, tmp);
+	wk = ft_strdup(str);
 	wk = ft_strfjoin(wk, " ");
-	wk = ft_strfjoin(wk, str);
+	wk = ft_strfjoin(wk, tmp);
 	free(str);
 	str = wk;
 	g_pr_wait = 1;
 	ft_parse_line(str);
 	g_pr_wait = 0;
 	str[0] = '\0';
-	if ((fd = open(tmp, O_RDONLY, 0644)) > -1 &&
+	if ((fd = open(tmp + 1, O_RDONLY, 0644)) > -1 &&
 		(str = ft_read_subst(fd, vid, str)))
 		close(fd);
 	free(tmp);

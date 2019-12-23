@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 11:01:23 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/23 17:50:08 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/23 21:39:41 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -613,7 +613,8 @@ char        			*del_ekran(char *old_str);
 void					ft_pipe_split_sp(t_pipeflag *fl, char **ret,
 						char const *str);
 int 					ft_msg_c(char *s1, char *s2, int code);
-int						ft_less_w0(int	in_fd, int i, int j, t_cmdlist *cmd);
-int						ft_less_w1(int in_fd, int i, t_cmdlist *cmd);
+int						ft_less_w0(int *in_fd, int i, int j, t_cmdlist *cmd);
+int						ft_less_w1(int *in_fd, int i, t_cmdlist *cmd);
+ t_cmdlist				*ft_child_pipe_row32(t_cmdlist *cur_cmd);
 
 #endif
