@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 11:01:23 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/19 21:50:44 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/23 12:47:01 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -225,6 +225,7 @@ int						g_shell_num;
 int						g_sem_fl;
 int						g_bsem_fl;
 int						g_pr_wait;
+int						g_nopipe_start;
 
 typedef struct dirent	t_dir;
 
@@ -449,7 +450,7 @@ void					ft_print_one(char *av, int code);
 int						ft_print_hash(void);
 char					*ft_putfnbr(int nb, char *str);
 void					ft_hash_all_del(char *str);
-void					ft_hash_cmd_add(char *path, char *name);
+void					ft_hash_cmd_add(char *path, char *name, int num);
 int						ft_hash_usage(char *av);
 char					*ft_get_hash_path(char *path);
 int						ft_test_sub(char *str, int i);

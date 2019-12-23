@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 18:24:59 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/09 14:10:32 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/23 11:38:33 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ void	ft_do_export(char *str, int flag, int j)
 		val = ft_alloc_char(ft_strlen(str) - j);
 		val[0] = '\0';
 		val = ft_strcat(val, str + j + 1);
+		val = del_ekran(val);
 		ft_set_shell(parm, val);
 		if (flag == 0)
 			ft_exp_env(parm, val);
@@ -88,7 +89,7 @@ void	ft_go_export(char *str, int flag)
 	int		j;
 
 	j = ft_strlen(str);
-	if ((ptr = ft_strchr(str, '=')))
+	if ((ptr = ft_strchr(str, '=')) && !ft_check_ekran(str, ptr - str))
 		j = ptr - str;
 	if (ft_check_exp_name(str, j) == 0)
 	{

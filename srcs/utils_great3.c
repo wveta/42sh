@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 18:25:30 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/19 20:56:41 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/23 14:33:23 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,11 @@ int			ft_tst_great_getfile(t_greatflag *f, t_cmdlist *cmd, int i)
 	}
 	else
 	{
-		ft_print_msg(" : syntax error in command ", "");
+//		ft_print_msg(" : syntax error in command ", "");
+		int j;
+		j = -1;
+		while (cmd->avcmd[++j])
+		ft_print_msg(" : syntax error in command ", cmd->avcmd[j]);
 		return (-1);
 	}
 	cmd->avcmd[i][f->j] = '\0';

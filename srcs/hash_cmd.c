@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 22:03:52 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/12 17:47:23 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/23 12:47:01 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	cmd_hash_body_end(char **av, int i, int *start, int *fl)
 	else if (*fl == 3)
 	{
 		if (i > *start)
-			ft_hash_cmd_add(av[*start], av[i]);
+			ft_hash_cmd_add(av[*start], av[i], 0);
 	}
 	else if (*fl == 2 && ((i - *start > 0) || (av[i + 1])))
 		ft_print_one(av[i], 2);

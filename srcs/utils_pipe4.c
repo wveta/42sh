@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/07 10:50:36 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/19 23:22:53 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/23 12:04:28 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,6 @@ int		ft_set_nopipe_start(t_cmdlist *cur_cmd)
 	i = -1;
 	while (cur_cmd->avcmd[++i])
 		cur_cmd->avcmd[i] = del_ekran(cur_cmd->avcmd[i]);
+	g_nopipe_start = 0;
 	return (0);
 }
