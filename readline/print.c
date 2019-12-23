@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 21:09:47 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/12 21:46:11 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/23 18:59:05 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ void		print(char *str)
 	char	buf[MAX_CMDS];
 
 	tmp = NULL;
+	str = check_shift(str);
 	save_curs = 0;
 	ft_bzero(buf, MAX_CMDS);
 	if (!str)

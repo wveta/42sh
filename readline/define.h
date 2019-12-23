@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 18:00:14 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/09 12:44:06 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/23 15:49:55 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,15 @@
 # define CTRL_RIGHT	"\e[1;5C"
 # define CTRL_UP	"\e[1;5A"
 # define CTRL_DOWN	"\e[1;5B"
+
+/*
+** shift_key
+*/
+
+# define SHIFT_LFT  "\e[1;2D"
+# define SHIFT_RGT  "\e[1;2C"
+# define SHIFT_UP   "\e[1;2A"
+# define SHIFT_DO   "\e[1;2B"
 
 /*
 ** hist_key
