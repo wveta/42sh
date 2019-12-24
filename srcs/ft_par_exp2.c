@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 19:25:12 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/10 21:55:54 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/24 15:38:06 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,12 @@ int		ft_parname_loop(int *f_sub, int *i, int *j, char *str)
 	if (*f_sub == 1)
 	{
 		if (ft_strchr("}:#%", str[*j]) && (ft_check_ekran(str, *j)) == 0)
-			*f_sub = 0;
+		{
+			if (*j > 0)
+				*f_sub = 0;
+			else
+				return (1);
+		}
 		else if (ft_strchr("$", str[*j]) && ft_check_ekran(str, *j) == 0)
 			return (1);
 		else if ((*i == 0 &&

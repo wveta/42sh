@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 16:34:55 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/23 16:53:13 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/24 13:50:20 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ void	ft_all_words3(t_pipeflag *fl, char const *str, char **ret)
 	(fl->i == 0 || fl->b_sl == 0))
 		ft_pipe_split_3(fl, ret, str);
 	else if (fl->qflag == 0 && fl->br_flag == 0 && fl->flag == 1 &&
-	ft_isspace(str[fl->i]) == 1 && fl->i > 0 &&
-	ft_isspace(str[fl->i - 1]) == 0)
+	ft_isspace(str[fl->i]) == 1 && !ft_check_ekran((char *)str, fl->i)
+	&& fl->i > 0 && ft_isspace(str[fl->i - 1]) == 0)
 		ft_pipe_split_4(fl, ret, str);
 	else
 		ft_pipe_split_6(fl, str);
@@ -125,5 +125,6 @@ int		ft_all_pipe_words(char **ret, char const *str)
 	if (fl->flag == 1)
 		ft_get_word(ret, fl->count, fl->i - fl->start, str + fl->start);
 	free(fl);
+	ret = ft_press_matr(ret);
 	return (0);
 }

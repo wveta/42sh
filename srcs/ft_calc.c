@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:14:54 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/12 23:00:01 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/24 15:14:52 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ char	**ft_tst_calc(char **str, int n, int start, int end)
 			suff = ft_strdup(str[n] + end + 1);
 		tmp = ft_strdup(str[n] + start + 2);
 		tmp[end - start - 3] = '\0';
+		tmp = ft_replays(tmp);
 		if (ft_check_ekran(pref, ft_strlen(pref)) < 2 && ((tmp = ft_calc(tmp))))
 			str[n] = ft_calc_str(str[n], pref, suff, tmp);
 		free(tmp);
@@ -78,10 +79,28 @@ char	**ft_all_calc_tst(char **str)
 	return (str);
 }
 
+char	*ft_calc_subs(char *s)
+{
+	char	**ret;
+
+	if (!s)
+		return (s);
+	if (!(ret = (char **)malloc(sizeof(char *) * 2)))
+		exit(1);
+	ret[0] = ft_strdup(s);
+	ret[1] = NULL;
+	ret = ft_cnt_subs(ret);
+	free(s);
+	s = ft_strdup(ret[0]);
+	ft_free_char_matr(ret);
+	return (s);
+}
+
 char	*ft_calc(char *str)
 {
 	char	*ans;
 
+	str = ft_calc_subs(str);
 	ans = calculator(str);
 	if (ans)
 	{

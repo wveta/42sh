@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 16:34:55 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/23 22:59:03 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/24 13:44:38 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,10 @@ void		ft_split_words_p4(t_quoteflag *f, char *str, int *wcount)
 	(f->i == 0 || f->b_sl == 0))
 		(*wcount)++;
 	else if (f->qflag == 0 && f->br_flag == 0 && ft_isspace(str[f->i]) == 0 &&
-	(f->i == 0 || ft_isspace(str[f->i - 1]) == 1
+	(f->i == 0 || (ft_isspace(str[f->i - 1]) == 1 && !ft_check_ekran(str, f->i - 1))
 //	|| (str[f->i - 1] == '|' && !ft_check_ekran(str, f->i - 1))))
-	|| (ft_strchr("!)}", str[f->i - 1]) && !ft_check_ekran(str, f->i - 1))))
+	|| (ft_strchr("|)}", str[f->i - 1]) && !ft_check_ekran(str, f->i - 1)))
+	&& (f->subs_end == -1 || f->subs_end != f->i - 1))
 		(*wcount)++;
 	if ((f->qflag == 1 && str[f->i] == '"' && f->b_sl == 0) ||
 	(f->qflag == 2 && str[f->i] == '\'' && f->b_sl == 0))
@@ -44,7 +45,10 @@ int			ft_split_words_p3(t_quoteflag *f, char *str, int *wcount)
 		{
 			f->br_flag = 0;
 			if (f->flsub == 1)
+			{
 				f->flsub = 0;
+				f->subs_end = f->i;
+			}
 			else
 				(*wcount)++;
 			f->i++;
@@ -83,7 +87,10 @@ void		ft_split_words_p1(t_quoteflag *f, char *str)
 		f->br_count++;
 		if (f->br_count == 1 && f->i > 0 && str[f->i - 1] == '$' &&
 		(f->i - 1 == 0 || f->b_sl == 0))
+		{
 			f->flsub = 1;
+			f->subs_start = f->i - 1;
+		}
 	}
 	else if (f->qflag == 0 && (f->br_flag == 0 || f->br_flag == 2) &&
 	str[f->i] == '{' && f->b_sl == 0
@@ -93,7 +100,10 @@ void		ft_split_words_p1(t_quoteflag *f, char *str)
 		f->br_count++;
 		if (f->br_count == 1 && f->i > 0 && str[f->i - 1] == '$' &&
 		(f->i - 1 == 0 || f->b_sl == 0))
+		{
 			f->flsub = 1;
+			f->subs_start = f->i - 1;
+		}
 	}
 	else
 		ft_split_words_p2(f, str);

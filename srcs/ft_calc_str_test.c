@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:14:54 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/03 12:37:53 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/24 12:24:28 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void		ft_ini_quoteflag(t_quoteflag *f)
 	f->qflag = 0;
 	f->b_sl = 0;
 	f->rc = 0;
+	f->subs_start = -1;
 }
 
 char		**ft_test_calc(t_quoteflag *f, char **str)

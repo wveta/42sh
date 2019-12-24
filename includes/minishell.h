@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 11:01:23 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/23 21:39:41 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/24 12:24:28 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -278,6 +278,8 @@ typedef struct			s_quoteflag
 	int					rc;
 	int					wcount;
 	int					flsub;
+	int					subs_start;
+	int					subs_end;
 	int					i_cmd;
 }						t_quoteflag;
 

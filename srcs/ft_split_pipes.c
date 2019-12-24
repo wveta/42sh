@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 16:34:55 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/19 17:14:41 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/24 12:24:28 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ void		ft_ini_quoteflag_spl(t_quoteflag *f)
 	f->flsub = 0;
 	f->b_sl = 0;
 	f->i_cmd = 0;
+	f->subs_end = -1;
+	f->subs_start = -1;
 }
 
 int			ft_get_word(char **ret, int count, int size, char const *s)

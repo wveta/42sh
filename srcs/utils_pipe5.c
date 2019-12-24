@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/07 10:50:36 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/23 21:40:38 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/24 11:23:56 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,11 @@ int		ft_child_pipe_subsh(t_cmdlist *cur_cmd)
 		ft_pipe_dup_ch_out(cur_cmd);
 		if (g_nopipe_start == 1 && ft_set_nopipe_start(cur_cmd) == -1)
 			exit(1);
+		if ((cur_cmd->avcmd = ft_press_matr(cur_cmd->avcmd)) && ft_calc_matr_rows(cur_cmd->avcmd) > 1)
+		{
+			ft_print_msg(" : parse error : ", cur_cmd->avcmd[1]);
+			exit(1);
+		}
 		ft_strcpy(cur_cmd->avcmd[0], cur_cmd->avcmd[0] + 1);
 		cur_cmd->avcmd[0][ft_strlen(cur_cmd->avcmd[0]) - 1] = '\0';
 		g_sub_str = ft_strdup(cur_cmd->avcmd[0]);
