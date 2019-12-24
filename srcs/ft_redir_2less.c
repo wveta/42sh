@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 19:25:12 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/18 12:48:54 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/24 21:15:26 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,8 @@ char	*ft_get_heof(char *ind, t_cmdlist *cmd, int i, int j)
 	}
 	else
 	{
-		if (cmd->avcmd[i + 1])
+		if (cmd->avcmd[i + 1] && (heof = ft_strdup(cmd->avcmd[i + 1])))
 		{
-			heof = ft_strdup(cmd->avcmd[i + 1]);
 			cmd->avcmd[i + 1][0] = '\0';
 		}
 		else
@@ -37,6 +36,8 @@ char	*ft_get_heof(char *ind, t_cmdlist *cmd, int i, int j)
 		}
 	}
 	cmd->avcmd[i][j] = '\0';
+	if (ft_test_file_mame(heof) != 0)
+		return (NULL);
 	return (heof);
 }
 
@@ -68,30 +69,41 @@ int		ft_get_redir_hd(t_cmdlist *cmd)
 	return (0);
 }
 
+int		ft_redir_2less_n(t_cmdlist *cmd, int i, int j, char *ind)
+{
+	char		*heof;
+
+	if (!(heof = ft_get_heof(ind, cmd, i, j)))
+		return (-1);
+	cmd->here = ft_heredoc(heof);
+	free(heof);
+	return (ft_get_redir_hd(cmd));
+}
+
 int		ft_redir_2less(t_cmdlist *cmd, int i)
 {
 	int			j;
 	char		*ind;
-	char		*heof;
 
-	if (cmd->avcmd[i] && (cmd->avcmd[i][0] != '\'' && cmd->avcmd[i][0] != '"')
-		&& (ind = (ft_strchr(cmd->avcmd[i], '<'))))
+	j = 0;
+	while (cmd->avcmd[i] && (ind = (ft_strchr(cmd->avcmd[i] + j, '<'))))
 	{
 		j = ind - cmd->avcmd[i];
-		if (ft_strncmp(ind, TLESS, 3) == 0)
+		if (ft_check_ekran(cmd->avcmd[i], j) == 0)
 		{
-			if (ft_get_tless(cmd, i, j, ind) == -1)
-				return (-1);
-			return (ft_get_redir_hd(cmd));
+			j = ind - cmd->avcmd[i];
+			if (ft_strncmp(ind, TLESS, 3) == 0)
+			{
+				if (ft_get_tless(cmd, i, j, ind) == -1)
+					return (-1);
+				return (ft_get_redir_hd(cmd));
+			}
+			else if (ft_strncmp(ind, DLESS, 2) == 0
+			&& cmd->avcmd[i][j + 2] != '<')
+				return (ft_redir_2less_n(cmd, i, j, ind));
+			return (0);
 		}
-		else if (ft_strncmp(ind, DLESS, 2) == 0 && cmd->avcmd[i][j + 2] != '<')
-		{
-			if (!(heof = ft_get_heof(ind, cmd, i, j)))
-				return (-1);
-			cmd->here = ft_heredoc(heof);
-			free(heof);
-			return (ft_get_redir_hd(cmd));
-		}
+		j++;
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 11:01:23 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/24 12:24:28 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/24 22:33:09 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -611,12 +611,16 @@ int						ft_parse_if_4(char *str, t_quoteflag *f);
 int						ft_parse_if_3(t_quoteflag *f, char *str);
 int						ft_check_parm_unrec(char *s, int j);
 int						ft_check_ekran_full(char *str, int pos);
-char        			*del_ekran(char *old_str);
+char					*del_ekran(char *old_str);
 void					ft_pipe_split_sp(t_pipeflag *fl, char **ret,
 						char const *str);
-int 					ft_msg_c(char *s1, char *s2, int code);
+int						ft_msg_c(char *s1, char *s2, int code);
 int						ft_less_w0(int *in_fd, int i, int j, t_cmdlist *cmd);
 int						ft_less_w1(int *in_fd, int i, t_cmdlist *cmd);
- t_cmdlist				*ft_child_pipe_row32(t_cmdlist *cur_cmd);
+t_cmdlist				*ft_child_pipe_row32(t_cmdlist *cur_cmd);
+int						ft_test_file_mame(char *fname);
+char					*ft_repl_parm_n(char *s, int *flag, int *j);
+char					*ft_repl_til_flag(int *flag, int j, char *s, int code);
+int						ft_free_ret(char *s);
 
 #endif

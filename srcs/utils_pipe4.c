@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/07 10:50:36 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/23 12:04:28 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/24 17:04:52 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int		ft_set_nopipe_start(t_cmdlist *cur_cmd)
 	if (g_subs_rc == 1)
 		return (-1);
 	cur_cmd = ft_local_assig(cur_cmd);
-	if (!(cur_cmd->avcmd[0]))
+	if (!cur_cmd->avcmd || !cur_cmd->avcmd[0])
 	{
 		cur_cmd->locals = ft_put_locals(cur_cmd->locals);
 		return (-1);

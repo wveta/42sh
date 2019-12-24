@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 18:25:30 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/23 16:44:05 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/24 22:44:34 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,13 +75,14 @@ int			ft_tst_great_getfile(t_greatflag *f, t_cmdlist *cmd, int i)
 		return (-1);
 	}
 	cmd->avcmd[i][f->j] = '\0';
+	f->file_redir = del_ekran(f->file_redir);
 	f->file_redir = ft_calc_full_path(f->file_redir);
 	return (0);
 }
 
 int			ft_great_testfile(t_greatflag *f)
 {
-	if (f->file_redir)
+	if (f->file_redir && ft_test_file_mame(f->file_redir) == 0)
 	{
 		if (f->flag_add == 0 && (ft_strlen(f->file_redir) > 0))
 			f->out_fd = open(f->file_redir,
@@ -99,6 +100,8 @@ int			ft_great_testfile(t_greatflag *f)
 		f->file_redir = NULL;
 		return (0);
 	}
+	free(f->file_redir);
+	f->file_redir = NULL;
 	return (-1);
 }
 

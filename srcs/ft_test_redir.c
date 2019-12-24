@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 15:39:53 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/19 19:53:10 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/24 22:06:09 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,23 +40,24 @@ int			ft_do_redir(t_cmdlist *cmd)
 	char	*tmp;
 	int		j;
 
-	i = 0;
-	while (cmd->avcmd[i])
+	i = -1;
+	while (cmd->avcmd[++i])
 	{
 		g_redir_block = 0;
-		j = ft_strlen(cmd->avcmd[i]);
-		if ((j > 0) && ((tmp = (ft_strchr(cmd->avcmd[i], '>'))) ||
-		(tmp = (ft_strchr(cmd->avcmd[i], '<')))) &&
-		ft_check_ekran_full(cmd->avcmd[i], tmp - cmd->avcmd[i]) == 0)
+		j = 0;
+		while (ft_strlen(cmd->avcmd[i] + j) > 0 &&
+		((tmp = (ft_strchr(cmd->avcmd[i] + j, '>'))) ||
+		(tmp = (ft_strchr(cmd->avcmd[i] + j, '<')))))
 		{
-			if (ft_redir_great(cmd, i) == -1)
-				return (-1);
-			if (ft_redir_2less(cmd, i) == -1)
-				return (-1);
-			if (ft_redir_less(cmd, i) == -1)
-				return (-1);
+			j = tmp - cmd->avcmd[i];
+			if (ft_check_ekran_full(cmd->avcmd[i], j) == 0)
+			{
+				if (ft_redir_great(cmd, i) == -1 ||
+				ft_redir_2less(cmd, i) == -1 || ft_redir_less(cmd, i) == -1)
+					return (-1);
+			}
+			j++;
 		}
-		i++;
 	}
 	cmd->avcmd = ft_press_matr(cmd->avcmd);
 	return (0);

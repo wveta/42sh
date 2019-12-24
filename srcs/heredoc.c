@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 22:03:52 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/23 16:53:22 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/24 18:46:51 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ t_cmdlist		*ft_local_assig(t_cmdlist *cur_cmd)
 		{
 			if ((tmp = ft_strchr(cur_cmd->avcmd[i], '=')) &&
 				((j = tmp - cur_cmd->avcmd[i] - 1) > -1) &&
-				!ft_check_ekran(cur_cmd->avcmd[i], j + 1))
+				ft_check_ekran(cur_cmd->avcmd[i], j + 1) == 0)
 			{
 				if ((ans_assign = ft_local_assig_assign(cur_cmd, tmp, i, j)))
 					return (ans_assign);

@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 19:25:12 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/18 12:50:58 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/24 20:57:28 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,19 @@ int		ft_get_tless(t_cmdlist *cmd, int i, int j, char *ind)
 	}
 	ind[0] = '\0';
 	cmd->here = ft_replays(cmd->here);
+	return (ft_test_file_mame(cmd->here));
+}
+
+int		ft_redir_2lesshd_n(t_cmdlist *cmd, char *ind, int i, int j)
+{
+	char		*heof;
+
+	if (!(heof = ft_get_heof(ind, cmd, i, j)))
+		return (-1);
+	ind = ft_heredoc(heof);
+	cmd->here = ft_strfjoin(cmd->here, ind);
+	free(ind);
+	free(heof);
 	return (0);
 }
 
@@ -38,26 +51,27 @@ int		ft_redir_2lesshd(t_cmdlist *cmd, int i)
 {
 	int			j;
 	char		*ind;
-	char		*heof;
 
-	if (cmd->avcmd[i] && (cmd->avcmd[i][0] != '\'' && cmd->avcmd[i][0] != '"')
-		&& (ind = (ft_strchr(cmd->avcmd[i], '<'))))
+	j = 0;
+	while (cmd->avcmd[i] && (ind = (ft_strchr(cmd->avcmd[i] + j, '<'))))
 	{
 		j = ind - cmd->avcmd[i];
-		if (ft_strncmp(ind, TLESS, 3) == 0)
+		if (ft_check_ekran(cmd->avcmd[i], j) == 0)
 		{
-			if (ft_get_tless(cmd, i, j, ind) == -1)
-				return (-1);
+			if (ft_strncmp(ind, TLESS, 3) == 0)
+			{
+				if (ft_get_tless(cmd, i, j, ind) == -1)
+					return (-1);
+			}
+			else if (ft_strncmp(ind, DLESS, 2) == 0
+			&& cmd->avcmd[i][j + 2] != '<')
+			{
+				if (ft_redir_2lesshd_n(cmd, ind, i, j) == -1)
+					return (-1);
+			}
+			return (0);
 		}
-		else if (ft_strncmp(ind, DLESS, 2) == 0 && cmd->avcmd[i][j + 2] != '<')
-		{
-			if (!(heof = ft_get_heof(ind, cmd, i, j)))
-				return (-1);
-			ind = ft_heredoc(heof);
-			cmd->here = ft_strfjoin(cmd->here, ind);
-			free(ind);
-			free(heof);
-		}
+		j++;
 	}
 	return (0);
 }

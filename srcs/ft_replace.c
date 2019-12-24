@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 19:25:12 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/23 18:03:56 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/24 21:49:27 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,12 @@ char	*ft_repl_parm(char *s, int flag, int len)
 			continue;
 		if (q == ' ' && flag == 1)
 			s = ft_repl_end_til(s, j, &flag);
-		else if (q != '\'' && s[j] == '$' && (k != 2) && s[j + 1] && (s[j + 1]
-		== '_' || ft_isalpha(s[j + 1]) || s[j + 1] == '?' || s[j + 1] == '{'))
+		else if (q != '\'' && s[j] == '$' && (k != 2) && s[j + 1] &&
+		(ft_strchr("_?{", s[j + 1]) || ft_isalpha(s[j + 1])) &&
+		ft_check_ekran(s, j) == 0 && (s = ft_repl_parm_n(s, &flag, &j)))
 		{
-			s = ft_repl_til_flag(&flag, j, s, 1);
-			s = ft_repl_env(s, &j);
 			if (g_subs_rc != 0)
 				return (s);
-			j--;
 		}
 		else
 			s = ft_replays_t(s, j);

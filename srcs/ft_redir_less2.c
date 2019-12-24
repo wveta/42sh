@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 19:25:12 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/23 21:25:36 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/24 18:07:29 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,25 @@ int		ft_less_w1(int *in_fd, int i, t_cmdlist *cmd)
 		ft_set_shell("?", "1");
 		ft_print_msg(" : Bad file descriptor ", cmd->avcmd[i + 1]);
 		return (-2);
+	}
+	return (0);
+}
+
+int		ft_test_file_mame(char *fname)
+{
+	int i;
+
+	i = -1;
+	if (!fname)
+		return (-1);
+	while (fname[++i])
+	{
+		if (ft_strchr("<>,();|!&", fname[i]) && !ft_check_ekran(fname, i))
+		{
+			ft_print_msg(" : Syntax error near ", fname + i);
+			ft_set_shell("?", "1");
+			return (-1);
+		}
 	}
 	return (0);
 }

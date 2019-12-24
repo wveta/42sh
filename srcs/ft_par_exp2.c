@@ -6,11 +6,22 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 19:25:12 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/24 15:38:06 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/24 20:58:57 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+int		ft_parname_loop_n(int *i, int *j, char *str)
+{
+	if ((*i == 0 &&
+	(!ft_isalpha(str[*j])) && (!ft_strchr("_?", str[*j]))) ||
+	(*i > 0 &&
+	(ft_strchr(" ", str[*j]) ||
+	(!(ft_isalnum(str[*j]) || ft_strchr("_?", str[*j]))))))
+		return (1);
+	return (0);
+}
 
 int		ft_parname_loop(int *f_sub, int *i, int *j, char *str)
 {
@@ -25,20 +36,15 @@ int		ft_parname_loop(int *f_sub, int *i, int *j, char *str)
 		}
 		else if (ft_strchr("$", str[*j]) && ft_check_ekran(str, *j) == 0)
 			return (1);
-		else if ((*i == 0 &&
-			(!ft_isalpha(str[*j])) && (!ft_strchr("_?", str[*j]))) ||
-			(*i > 0 &&
-			(ft_strchr(" ", str[*j]) ||
-			(!(ft_isalnum(str[*j]) || ft_strchr("_?", str[*j]))))))
+		else if (ft_parname_loop_n(i, j, str) == 1)
 			return (1);
 		(*i)++;
 	}
 	else
 	{
 		if (str[*j] == '$' && ft_check_ekran(str, *j) == 0 &&
-		str[*j + 1] && str[*j + 1] == '{')
+		str[*j + 1] && str[*j + 1] == '{' && (*f_sub = 1))
 		{
-			*f_sub = 1;
 			*i = 0;
 			(*j)++;
 		}

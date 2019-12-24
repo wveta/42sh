@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 18:24:59 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/23 11:38:33 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/24 18:38:56 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	ft_go_export(char *str, int flag)
 	int		j;
 
 	j = ft_strlen(str);
-	if ((ptr = ft_strchr(str, '=')) && !ft_check_ekran(str, ptr - str))
+	if ((ptr = ft_strchr(str, '=')) && ft_check_ekran(str, ptr - str) == 0)
 		j = ptr - str;
 	if (ft_check_exp_name(str, j) == 0)
 	{
