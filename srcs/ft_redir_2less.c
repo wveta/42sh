@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 19:25:12 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/24 21:15:26 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/25 16:35:48 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int		ft_get_redir_hd(t_cmdlist *cmd)
 	char	*tmp;
 
 	heof = ft_alloc_char(500);
+	heof[0] = '\0';
 	tmp = ft_get_my_home();
 	heof = ft_strcat(heof, tmp);
 	free(tmp);

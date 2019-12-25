@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
+/*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 10:27:38 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/25 16:14:04 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/25 16:51:43 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,6 @@ void		ft_final_free(void)
 	free(g_app_full_name);
 	if (g_subshell > 0)
 		return ;
-	free(g_gnl->content);
-	free(g_gnl);
 }
 
 int			main(int argc, char **argv, char **environ)

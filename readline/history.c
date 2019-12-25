@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   history.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
+/*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 21:09:13 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/25 14:46:42 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/25 17:30:04 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ static void	hist_from_file(void)
 		return ;
 	while ((get_next_line(fd, &buf)) > 0)
 	{
+		buf = ft_strfjoin(buf, "\n");
 		write_in_matr(len, buf);
 		free(buf);
 		buf = NULL;
