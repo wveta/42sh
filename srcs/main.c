@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 10:27:38 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/23 19:16:30 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/25 16:14:04 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,6 @@ void		ft_free_list(void)
 
 void		ft_final_free(void)
 {
-	int i;
-
 	if (g_envi->hash_first)
 		ft_hash_all_del(NULL);
 	g_envi->env = ft_free_char_matr(g_envi->env);
@@ -98,7 +96,8 @@ void		ft_final_free(void)
 	free(g_app_full_name);
 	if (g_subshell > 0)
 		return ;
-	i = get_next_line(-7, NULL);
+	free(g_gnl->content);
+	free(g_gnl);
 }
 
 int			main(int argc, char **argv, char **environ)

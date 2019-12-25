@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 21:09:13 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/21 13:50:43 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/25 14:46:42 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,6 @@ char		**remake_hist(void)
 static void	write_in_matr(int len, char *buf)
 {
 	len = ft_strlen(buf);
-	if (g_hist->amount == 55)
-		g_hist->pos = 0;
 	if (len == 0 && buf[0] == '\0')
 		g_hist->cmd[g_hist->amount] = ft_strfjoin(\
 				g_hist->cmd[g_hist->amount], "\n");

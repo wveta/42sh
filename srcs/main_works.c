@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_works.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
+/*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 10:27:38 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/16 19:40:43 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/25 16:11:05 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	ft_init_shell_val(char **argv, char **environ)
 	g_envi->env = ft_dup_char_matr(environ);
 	ft_init_glvar(argv);
 	g_envi->first_list = ft_create_exe_list();
+	g_gnl = NULL;
 }
 
 char	*ft_init_loop_read(void)

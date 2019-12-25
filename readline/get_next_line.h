@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 13:44:26 by thaley            #+#    #+#             */
-/*   Updated: 2019/11/19 20:22:02 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/25 16:10:32 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,7 @@ typedef struct	s_gnlist
 }				t_gnlist;
 
 int				get_next_line(const int fd, char **line);
+
+t_gnlist			*g_gnl;
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 19:44:22 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/16 19:53:11 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/25 16:09:27 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ int				get_next_line(const int fd, char **line)
 			return (-1);
 	}
 	tmp = list;
+	g_gnl = list;
 	while (tmp->content_size != fd)
 	{
 		if (tmp->next == NULL)

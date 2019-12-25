@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 20:06:58 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/23 20:09:02 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/25 14:34:55 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static int	match_del_hist_key(char *str)
 		delete_char();
 	else if (!(ft_strcmp(str, DEL)))
 		delete_char_two();
-	else if ((!(ft_strcmp(str, UP_ARR)))) //|| (!(ft_strcmp(str, "\eOA"))))
+	else if ((!(ft_strcmp(str, UP_ARR))) || (!(ft_strcmp(str, "\eOA"))))
 		hist_move(0);
 	else if ((!(ft_strcmp(str, DOWN_ARR))) || (!(ft_strcmp(str, "\eOB"))))
 		hist_move(1);
