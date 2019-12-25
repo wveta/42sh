@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/24 21:06:43 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/16 19:10:42 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/25 13:41:25 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ char		*find_tail(char *str)
 
 	ret = NULL;
 	i = ft_strlen(str) - 1;
+	if (str[i] == '/')
+		return (ret);
 	while (i > -1)
 	{
 		if (str[i] == '/' && str[i + 1])
