@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: thaley <thaley@student.42.fr>              +#+  +:+       +#+         #
+#    By: wveta <wveta@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/20 13:59:52 by thaley            #+#    #+#              #
-#    Updated: 2019/12/23 15:50:24 by thaley           ###   ########.fr        #
+#    Updated: 2019/12/25 17:37:02 by wveta            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,12 @@ $(NAME): $(OBJ)
 	@printf "\r\033[32;1mCreate $(NAME)!                                      \n\033[0m"
 	@printf "\033[?25h"
 
-%.o: %.c $(INCL_DIR)/libft.h
+get_next_line.o: get_next_line.c $(INCL_DIR)/libft.h get_next_line.h readline.h struct.h define.h
+	@printf "\033[?25l"
+	@gcc $(FLAGS) -I$(INCL_DIR) -o $@ -c $<
+	@printf "\r\033[34;1mNow compiling $@!                                    \033[0m"
+
+%.o: %.c $(INCL_DIR)/libft.h readline.h struct.h define.h
 	@printf "\033[?25l"
 	@gcc $(FLAGS) -I$(INCL_DIR) -o $@ -c $<
 	@printf "\r\033[34;1mNow compiling $@!                                    \033[0m"
