@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 22:00:39 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/12 22:18:37 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/23 20:32:00 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ t_shell		*init_term(t_shell *shell)
 	shell->new_param.c_lflag &= ~(ICANON | ECHO | ISIG);
 	shell->new_param.c_cc[VMIN] = 1;
 	shell->new_param.c_cc[VTIME] = 0;
+	ft_putstr_fd(tgetstr("ve", NULL), STDERR_FILENO);
+	ft_putstr_fd(tgetstr("ae", NULL), STDERR_FILENO);
 	error = tcsetattr(0, TCSADRAIN, &shell->new_param);
 	if (error < 0)
 		error_msg(error, 3, shell);

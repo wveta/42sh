@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 17:49:20 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/23 19:38:45 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/25 13:31:05 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,9 @@ void		hist_move(int direction)
 {
 	if (g_input->multiline.pos ||\
 	(g_input->input_len > 0 && !g_input->old_in_check))
+		return ;
+	if ((!direction && g_hist->pos == 0) ||\
+	(direction && g_hist->pos == g_hist->amount))
 		return ;
 	if (direction && g_hist->pos < g_hist->amount)
 		g_hist->pos++;
