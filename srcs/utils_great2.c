@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 18:25:30 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/23 16:39:13 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/25 23:15:12 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int		ft_tst_great_fd_loop(t_cmdlist *cmd, int i, t_greatflag *f)
 {
 	int k;
 
-	if (cmd->avcmd[i + 1])
+	if (cmd->avcmd[i + 1] && cmd->avcmd[i + 1][0] != '-')
 	{
 		k = 0;
 		while (cmd->avcmd[i + 1][k])
@@ -65,4 +65,27 @@ int		ft_tst_great_fd_loop(t_cmdlist *cmd, int i, t_greatflag *f)
 		cmd->avcmd[i + 1][0] = '\0';
 	}
 	return (0);
+}
+
+char	*ft_get_sufx_name(char	*s, int *j, int l)
+{
+	int		i;
+	char	*ret;
+	char	*tmp;
+
+	i = -1;
+	while(s[++i + l])
+	{
+		if (ft_strchr("<>,();|!&\\", s[i + l]) && ft_check_ekran(s, i + l) == 0)
+		{
+			ret = ft_strndup(s + l, i);
+			tmp = &s[*j];
+			tmp =ft_strcpy(tmp, s + l + i);
+			*j = ft_strlen(s);
+			return (ret);
+		}
+	}
+	ret = ft_strdup(s + l);
+	s[l] = '\0';
+	return (ret);
 }

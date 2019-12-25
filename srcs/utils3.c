@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 14:58:38 by wveta             #+#    #+#             */
-/*   Updated: 2019/11/19 14:45:49 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/25 21:00:48 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int		ft_print_msg(char *s, char *name)
 	tmp = ft_strfjoin(tmp, s);
 	tmp = ft_strfjoin(tmp, name);
 	tmp = ft_strfjoin(tmp, "\n");
-	ft_putstr_fd(tmp, 2);
+	write(2, tmp, ft_strlen(tmp));
 	free(tmp);
 	return (-1);
 }

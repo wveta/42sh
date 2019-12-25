@@ -6,13 +6,13 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 19:25:12 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/24 22:35:04 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/25 22:49:52 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int		ft_get_fd_by_n(int i, t_cmdlist *cmd, char *ind)
+int		ft_get_fd_by_n(int i, t_cmdlist *cmd, char *ind, int *j)
 {
 	char		*file_redir;
 	int			len;
@@ -20,17 +20,27 @@ int		ft_get_fd_by_n(int i, t_cmdlist *cmd, char *ind)
 	if (((int)ft_strlen(cmd->avcmd[i]) >= ind - cmd->avcmd[i] + 2) &&
 		(cmd->avcmd[i][ind - cmd->avcmd[i] + 2] == '-') &&
 		(file_redir = ft_strdup("/dev/null")))
-		g_redir_block = 1;
-	else if ((int)ft_strlen(cmd->avcmd[i]) > ind - cmd->avcmd[i] + 1)
 	{
-		file_redir = ft_strdup(ind + 1);
+		ind = ft_strcpy(ind, ind + 3);
+		g_redir_block = 1;
+	}
+	else if ((int)ft_strlen(cmd->avcmd[i]) > ind - cmd->avcmd[i] + 2)
+	{
+//		file_redir = ft_strdup(ind + 1);
+		file_redir = ft_get_sufx_name(cmd->avcmd[i], j, 1);
 		file_redir = ft_repl_tilda(file_redir, ft_strlen(file_redir));
+	}
+	else if (cmd->avcmd[i + 1] && cmd->avcmd[i + 1][0] == '-' &&
+		(file_redir = ft_strdup("/dev/null")))
+	{
+		cmd->avcmd[i + 1] = ft_strcpy(cmd->avcmd[i + 1], cmd->avcmd[i + 1] + 1);
+		g_redir_block = 1;
 	}
 	else if (cmd->avcmd[i + 1] && (file_redir = ft_strdup(cmd->avcmd[i + 1])))
 		cmd->avcmd[i + 1][0] = '\0';
 	else
 		return (ft_print_msg(" : syntax error in command ", ""));
-	cmd->avcmd[i][ind - cmd->avcmd[i]] = '\0';
+//	cmd->avcmd[i][ind - cmd->avcmd[i]] = '\0';
 	file_redir = del_ekran(file_redir);
 	if (ft_test_file_mame(file_redir) != 0 && ft_free_ret(file_redir))
 		return (-1);
@@ -58,6 +68,8 @@ int		ft_get_fd_bynum(int i, int j, t_cmdlist *cmd)
 			if (ft_less_w1(&in_fd, i, cmd) == -2)
 				return (-2);
 		}
+		else if (cmd->avcmd[i + 1] && cmd->avcmd[i + 1][0] == '-')
+			return (0);
 		else
 		{
 			ft_print_msg(" : parse error near :", cmd->avcmd[i] + j + 1);
@@ -124,11 +136,12 @@ int		ft_redir_less(t_cmdlist *cmd, int i)
 			{
 				if ((in_fd = ft_get_fd_bynum(i, j, cmd)) == -2)
 					return (-1);
-				if (in_fd == -1 && ((in_fd = ft_get_fd_by_n(i, cmd, ind)) < 0))
+				if (in_fd == -1 && ((in_fd = ft_get_fd_by_n(i, cmd, ind, &j)) < 0))
 					return (-1);
-				return (ft_fd_dup_close(in_fd, i, j, cmd));
+				if (ft_fd_dup_close(in_fd, i, j, cmd) == -1)
+					return (-1);
 			}
-			return (0);
+			j = -1;
 		}
 		j++;
 	}

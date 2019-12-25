@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 18:25:30 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/24 22:44:34 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/25 21:50:16 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ int			ft_tst_great_fd(t_greatflag *f, t_cmdlist *cmd, int i)
 	f->flag_add = ft_set_flag_add(f->ind);
 	if ((f->pref_fd = ft_set_pref_fd(cmd, i, f->j)) == -2)
 		return (-1);
-	if (cmd->avcmd[i][f->j + 1 + f->flag_add] == '&')
+	if (cmd->avcmd[i][f->j + 1 + f->flag_add] == '&' && (f->flag_all = 1) &&
+	cmd->avcmd[i][f->j + 2 + f->flag_add] != '-')
 	{
-		f->flag_all = 1;
 		if ((int)ft_strlen(cmd->avcmd[i]) ==
 			f->j + 1 + f->flag_all + f->flag_add)
 		{
@@ -61,12 +61,15 @@ int			ft_tst_great_getfile(t_greatflag *f, t_cmdlist *cmd, int i)
 		f->file_redir = ft_strdup("/dev/null");
 	else if ((int)ft_strlen(cmd->avcmd[i]) > l)
 	{
-		f->file_redir = ft_strdup(f->ind + l - f->j);
+		f->file_redir = ft_get_sufx_name(cmd->avcmd[i], &(f->j), l);
 		f->file_redir = ft_repl_tilda(f->file_redir, ft_strlen(f->file_redir));
 	}
 	else if (cmd->avcmd[i + 1])
 	{
-		f->file_redir = ft_strdup(cmd->avcmd[i + 1]);
+		if (cmd->avcmd[i + 1][0] != '-')
+			f->file_redir = ft_strdup(cmd->avcmd[i + 1]);
+		else
+			f->file_redir = ft_strdup("/dev/null");
 		cmd->avcmd[i + 1][0] = '\0';
 	}
 	else
