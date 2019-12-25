@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 17:48:56 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/11 23:28:31 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/25 14:12:53 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ void		ft_signal_win_size(int signo)
 	ioctl(STDIN_FILENO, TIOCGWINSZ, &g_input->ws);
 	while (g_input->multiline.pos > 0)
 	{
-		ft_putstr_fd(tgetstr("up", NULL), STDERR_FILENO);
+		tputs(tgetstr("up", NULL), 1, putint);
 		g_input->multiline.pos--;
 	}
-	ft_putstr_fd(tgetstr("cr", NULL), STDERR_FILENO);
-	ft_putstr_fd(tgetstr("cd", NULL), STDERR_FILENO);
+	tputs(tgetstr("cr", NULL), 1, putint);
+	tputs(tgetstr("cd", NULL), 1, putint);
 	ft_putstr_fd(g_input->prompt, STDERR_FILENO);
 	g_input->curs_pos = g_input->prompt_len;
 	g_input->input_len = 0;

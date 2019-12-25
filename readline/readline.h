@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 17:54:28 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/23 19:38:34 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/25 14:06:46 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,5 +188,6 @@ void			error_msg(int err, int num, t_shell *shell);
 void			scroll_top(void);
 void			for_print(char	**str);
 char			*check_shift(char *str);
+int				putint(int c);
 
 #endif

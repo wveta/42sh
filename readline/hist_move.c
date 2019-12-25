@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 17:49:20 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/25 13:31:05 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/25 14:11:32 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	print_move_curs_back(char *tmp)
 {
 	go_home_pos();
-	ft_putstr_fd(tgetstr("cd", NULL), STDERR_FILENO);
+	tputs(tgetstr("cd", NULL), 1, putint);
 	g_input->input_len = 0;
 	null_multiline();
 	if (tmp && tmp[0] != '\0')

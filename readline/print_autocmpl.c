@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_autocmpl.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: udraugr- <udraugr-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 01:38:22 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/18 19:22:21 by udraugr-         ###   ########.fr       */
+/*   Updated: 2019/12/25 14:12:00 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void		return_cursor(void)
 		while ((g_input->curs_pos - g_input->prompt_len)\
 				+ i != g_input->input_len)
 		{
-			ft_putstr_fd(tgetstr("le", NULL), STDERR_FILENO);
+			tputs(tgetstr("le", NULL), 1, putint);
 			i++;
 		}
 	}

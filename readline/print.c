@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 21:09:47 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/23 18:59:05 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/25 14:12:30 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,9 +90,9 @@ void		print_loop(char *tmp, int curs)
 			curs = take_curs();
 			ft_putchar_fd(tmp[i], STDERR_FILENO);
 			if (curs == g_input->ws.ws_col && tmp[i] != '\n')
-				ft_putstr_fd(tgetstr("do", NULL), STDERR_FILENO);
+				tputs(tgetstr("do", NULL), 1, putint);
 			else if ((tmp[i] == '\n' && curs == g_input->ws.ws_col))
-				ft_putstr_fd(tgetstr("do", NULL), STDERR_FILENO);
+				tputs(tgetstr("do", NULL), 1, putint);
 			g_input->input_len++;
 		}
 		if (g_input->input_len >= MAX_CMDS)
@@ -116,7 +116,7 @@ void		print(char *str)
 		return ;
 	tmp = check_curs_pos(&save_curs, buf, str, tmp);
 	curs = take_curs();
-	ft_putstr_fd(tgetstr("cd", NULL), STDERR_FILENO);
+	tputs(tgetstr("cd", NULL), 1, putint);
 	null_multiline();
 	print_loop(tmp, curs);
 	count_lines();

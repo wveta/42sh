@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/29 17:44:06 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/18 06:03:47 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/25 14:10:47 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ void	all_cmd(void)
 		if (len >= g_input->ws.ws_col)
 		{
 			len = ft_strlen(g_cmd->cmd_list[i]);
-			ft_putstr_fd(tgetstr("do", NULL), STDERR_FILENO);
-			ft_putstr_fd(tgetstr("cr", NULL), STDERR_FILENO);
+			tputs(tgetstr("do", NULL), 1, putint);
+			tputs(tgetstr("cr", NULL), 1, putint);
 		}
 		len += 3;
 		ft_putstr_fd(g_cmd->cmd_list[i], STDERR_FILENO);

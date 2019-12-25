@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 17:06:59 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/07 23:09:00 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/25 14:11:17 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	delete_char_two(void)
 		, g_input->input + (g_input->curs_pos - g_input->prompt_len) + 1\
 		, MAX_CMDS - (g_input->curs_pos - g_input->prompt_len) - 1);
 	g_input->input_len--;
-	ft_putstr_fd(tgetstr("cd", NULL), STDIN_FILENO);
+	tputs(tgetstr("cd", NULL), 1, putint);
 	if (g_input->curs_pos - g_input->prompt_len < g_input->input_len)
 		print("\0");
 }
@@ -39,7 +39,7 @@ void	delete_char(void)
 			, g_input->input + (g_input->curs_pos - g_input->prompt_len) + 1,\
 				MAX_CMDS - (g_input->curs_pos - g_input->prompt_len) - 1);
 	g_input->input_len--;
-	ft_putstr_fd(tgetstr("cd", NULL), STDIN_FILENO);
+	tputs(tgetstr("cd", NULL), 1, putint);
 	if (g_input->curs_pos - g_input->prompt_len < g_input->input_len)
 		print("\0");
 }

@@ -6,11 +6,17 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 17:08:06 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/12 19:37:23 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/25 14:09:52 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "readline.h"
+
+int			putint(int c)
+{
+	write(STDERR_FILENO, &c, 1);
+	return (0);
+}
 
 void		move_left(void)
 {
@@ -22,7 +28,7 @@ void		move_left(void)
 	else
 	{
 		g_input->curs_pos--;
-		ft_putstr_fd(tgetstr("le", NULL), STDERR_FILENO);
+		tputs(tgetstr("le", NULL), 1, putint);
 	}
 }
 
@@ -33,14 +39,14 @@ void		move_right(void)
 	if (g_input->curs_pos == g_input->multiline.end[g_input->multiline.pos]\
 		&& g_input->multiline.pos < g_input->multiline.num_of_lines)
 	{
-		ft_putstr_fd(tgetstr("do", NULL), STDERR_FILENO);
+		tputs(tgetstr("do", NULL), 1, putint);
 		g_input->multiline.pos++;
 		g_input->curs_pos++;
 	}
 	else
 	{
 		g_input->curs_pos++;
-		ft_putstr_fd(tgetstr("nd", NULL), STDERR_FILENO);
+		tputs(tgetstr("nd", NULL), 1, putint);
 	}
 }
 
