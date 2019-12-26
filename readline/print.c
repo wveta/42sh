@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 21:09:47 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/26 18:02:28 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/26 18:54:42 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,12 +87,19 @@ void		print_loop(char *tmp, int curs)
 		{
 			g_input->input[(g_input->curs_pos - g_input->prompt_len)] = tmp[i];
 			g_input->curs_pos++;
-			curs = take_curs();
+			curs++;
 			ft_putchar_fd(tmp[i], STDERR_FILENO);
-			if (curs == g_input->ws.ws_col && tmp[i] != '\n')
-				tputs(tgetstr("do", NULL), 1, putint);
-			else if ((tmp[i] == '\n' && curs == g_input->ws.ws_col))
-				tputs(tgetstr("do", NULL), 1, putint);
+			if (curs == g_input->ws.ws_col || tmp[i] == '\n')
+			{
+				if (tmp[i] != '\n')
+					tputs(tgetstr("do", NULL), 1, putint);
+				else if (tmp[i] == '\n' && curs == g_input->ws.ws_col)
+					tputs(tgetstr("do", NULL), 1, putint);
+				curs = 0;
+				g_input->multiline.end[g_input->multiline.num_of_lines++] = g_input->curs_pos - 1;
+				if (tmp[i + 1])
+					g_input->multiline.start[g_input->multiline.num_of_lines] = g_input->curs_pos;
+			}
 			g_input->input_len++;
 		}
 		if (g_input->input_len >= MAX_CMDS)
@@ -115,11 +122,15 @@ void		print(char *str)
 	if (!str)
 		return ;
 	tmp = check_curs_pos(&save_curs, buf, str, tmp);
-	curs = take_curs();
+	if (g_input->multiline.pos == 0)
+		curs = g_input->curs_pos;
+	else
+		curs = g_input->curs_pos - g_input->multiline.start[g_input->multiline.pos];
 	tputs(tgetstr("cd", NULL), 1, putint);
-	null_multiline();
+	g_input->multiline.num_of_lines = g_input->multiline.pos;
 	print_loop(tmp, curs);
-	count_lines();
+	g_input->multiline.end[g_input->multiline.num_of_lines] = g_input->curs_pos;
+	g_input->multiline.pos = g_input->multiline.num_of_lines;
 	if (save_curs > 0)
 	{
 		while (g_input->curs_pos > save_curs)

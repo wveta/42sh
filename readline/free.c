@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 01:01:14 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/18 06:07:20 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/26 18:28:30 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,4 +81,5 @@ void		null_multiline(void)
 	g_input->multiline.pos = 0;
 	ft_bzero(g_input->multiline.start, MAX_CMDS);
 	ft_bzero(g_input->multiline.end, MAX_CMDS);
+	g_input->multiline.start[0] = g_input->prompt_len;
 }

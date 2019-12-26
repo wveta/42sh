@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 17:06:59 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/26 15:31:45 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/26 18:47:13 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	del_input(void)
 {
 	go_home_pos();
 	tputs(tgetstr("cd", NULL), 1, putint);
+	null_multiline();
 	ft_bzero(g_input->input, MAX_CMDS);
 	g_input->input_len = 0;
 }
