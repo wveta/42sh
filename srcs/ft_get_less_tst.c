@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 19:25:12 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/26 18:35:50 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/26 23:47:41 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ int		ft_redir_2lesshd_n(t_cmdlist *cmd, char *ind, int i, int j)
 	write(j1, tmp2, ft_strlen(tmp2));
 	free(tmp2);
 	close(j1);
-
 	tmp2 = ft_strndup(cmd->avcmd[i], j);
 	tmp2 = ft_strfjoin(tmp2, "<");
 	tmp2 = ft_strfjoin(tmp2, tmp);
@@ -75,13 +74,6 @@ int		ft_redir_2lesshd(t_cmdlist *cmd, int i)
 		j = ind - cmd->avcmd[i];
 		if (ft_check_ekran(cmd->avcmd[i], j) == 0)
 		{
-/*			if (ft_strncmp(ind, TLESS, 3) == 0)
-			{
-				if (ft_get_tless(cmd, i, j, ind) == -1)
-					return (-1);
-				j = -1;
-			}
-			else */
 			if (ft_strncmp(ind, DLESS, 2) == 0
 			&& cmd->avcmd[i][j + 2] != '<')
 			{

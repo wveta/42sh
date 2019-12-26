@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 22:03:52 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/23 12:48:35 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/26 23:28:36 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,11 @@ char	*ft_get_hash_path(char *path)
 		cur = cur->next;
 	}
 	return (NULL);
+}
+
+void	ft_set_andor(int i, t_quoteflag *f)
+{
+	f->i_cmd = f->i_cmd + f->i + 2;
+	f->i = -1;
+	g_and_or = i;
 }

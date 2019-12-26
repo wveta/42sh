@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 15:39:53 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/26 17:19:26 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/26 23:33:41 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,9 @@ int			ft_do_redir(t_cmdlist *cmd)
 			j = tmp - cmd->avcmd[i];
 			if (ft_check_ekran_full(cmd->avcmd[i], j) == 0)
 			{
-				if (ft_redir_great(cmd, i) == -1 ||
-				ft_redir_2less(cmd, i) == -1 || ft_redir_less(cmd, i) == -1)
-				{
-					cmd = ft_redir_io_restore(cmd);
+				if ((ft_redir_great(cmd, i) < 0 || ft_redir_2less(cmd, i) < 0 ||
+				ft_redir_less(cmd, i) < 0) && (cmd = ft_redir_io_restore(cmd)))
 					return (-1);
-				}
 			}
 			j++;
 		}

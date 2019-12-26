@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:14:54 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/26 13:34:59 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/26 20:45:59 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ char	**ft_all_calc_tst(char **str)
 				continue;
 			ft_calc_test_q(f, str[f->n]);
 			ft_test_doll_calc(f, str);
-			if (f->qflag == 0 && str[f->n][f->i] != '\\' && f->b_sl == 1)
+			if (f->qflag != 2 && str[f->n][f->i] != '\\' && f->b_sl == 1)
 				f->b_sl = 0;
 		}
 	}

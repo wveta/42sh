@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 16:34:55 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/26 18:24:34 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/26 23:29:07 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void		ft_split_words_p4(t_quoteflag *f, char *str, int *wcount)
 		f->qflag = 1;
 	else if (f->qflag == 0 && str[f->i] == '\'' && (f->i == 0 || f->b_sl == 0))
 		f->qflag = 2;
-	else if (f->qflag == 0 && str[f->i] != '\\' && f->b_sl == 1)
+	else if (f->qflag != 2 && str[f->i] != '\\' && f->b_sl == 1)
 		f->b_sl = 0;
 	f->i++;
 }
@@ -103,7 +103,7 @@ void		ft_split_words_p1(t_quoteflag *f, char *str)
 		ft_split_words_p2(f, str);
 }
 
-int			ft_split_pipes_words(char *str)
+int			ft_split_pipes_words77(char *str)
 {
 	t_quoteflag	*f;
 	int			wcount;
@@ -116,11 +116,7 @@ int			ft_split_pipes_words(char *str)
 		if (f->qflag == 0 && f->br_flag == 0 && str[f->i] == ')' && f->b_sl == 0
 		&& f->i > 0 && f->flsub == 0 &&
 		ft_get_nextp_world(str + f->i + 1) == '(')
-		{
-			ft_set_shell("?", "1");
-			ft_print_msg(" : parse error in command ", str + f->i);
-			return (0);
-		}
+			return (1 + ft_pr_msg_rc(" : parse error in command ", str + f->i));
 		ft_split_words_p1(f, str);
 		if (ft_split_words_p3(f, str, &wcount) == 1)
 			continue;

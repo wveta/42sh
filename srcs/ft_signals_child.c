@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 11:32:55 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/11 22:56:58 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/26 19:29:18 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	ft_print_sig(pid_t pid, int signo, int status)
 		tmp = ft_add_strnum(tmp, pid);
 	else
 		tmp = ft_add_strnum(tmp, getpid());
-	if (signo && (tmp = ft_strfjoin(tmp, " signo =")))
+	if (signo && (tmp = ft_strfjoin(tmp, " signo = ")))
 		tmp = ft_add_strnum(tmp, signo);
 	if (status)
 	{
@@ -48,7 +48,7 @@ void	ft_print_sig(pid_t pid, int signo, int status)
 		}
 	}
 	if (g_signal == 1)
-		ft_print_msg(" : Info signal :", tmp);
+		ft_print_msg(" : Info signal: ", tmp);
 	free(tmp);
 }
 

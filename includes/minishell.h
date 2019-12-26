@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 11:01:23 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/26 17:34:25 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/26 23:24:40 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -625,5 +625,12 @@ int						ft_free_ret(char *s);
 char					*ft_get_sufx_name(char	*s, int *j, int l);
 char					*ft_calc_in_calc(char *s);
 char					ft_get_nextp_world(char	*s);
+int						ft_pr_msg_rc(char *s1, char *s2);
+int						ft_get_words(void);
+void					ft_pipe_split_sps(t_pipeflag *fl, char const *str);
+void					ft_pipe_split_4s(t_pipeflag *fl, char const *str);
+void					ft_pipe_split_3s(t_pipeflag *fl, char const *str);
+int						ft_check_pipe_n(char *str, t_quoteflag *f);
+void					ft_set_andor(int i, t_quoteflag *f);
 
 #endif

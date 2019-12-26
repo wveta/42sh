@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 19:25:12 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/24 22:33:12 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/26 23:45:50 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int		ft_repl_check(char *s, int len, char *q, int j)
 		return (ft_repl_check_end(s, q, j));
 }
 
-int ft_free_ret(char *s)
+int		ft_free_ret(char *s)
 {
 	ft_free(s);
 	return (1);

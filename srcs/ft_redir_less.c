@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 19:25:12 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/26 17:19:26 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/26 23:48:53 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ int		ft_get_fd_by_n(int i, t_cmdlist *cmd, char *ind, int *j)
 	}
 	else if ((int)ft_strlen(cmd->avcmd[i]) > ind - cmd->avcmd[i] + 2)
 	{
-//		file_redir = ft_strdup(ind + 1);
 		file_redir = ft_get_sufx_name(cmd->avcmd[i], j, 1);
 		file_redir = ft_repl_tilda(file_redir, ft_strlen(file_redir));
 	}
@@ -40,16 +39,12 @@ int		ft_get_fd_by_n(int i, t_cmdlist *cmd, char *ind, int *j)
 		cmd->avcmd[i + 1][0] = '\0';
 	else
 		return (ft_print_msg(" : syntax error in command ", ""));
-//	cmd->avcmd[i][ind - cmd->avcmd[i]] = '\0';
 	file_redir = del_ekran(file_redir);
 	if (ft_test_file_mame(file_redir) != 0 && ft_free_ret(file_redir))
 		return (-1);
 	file_redir = ft_calc_full_path(file_redir);
 	if ((len = open(file_redir, O_RDONLY, 0644)) == -1)
-	{
-		ft_set_shell("?", "1");
-		ft_print_msg(" : Error open file ", file_redir);
-	}
+		ft_pr_msg_rc(" : Error open file ", file_redir);
 	free(file_redir);
 	return (len);
 }
@@ -125,23 +120,21 @@ int		ft_redir_less(t_cmdlist *cmd, int i)
 {
 	int			j;
 	char		*ind;
-	int			in_fd;
+	int			in;
 
 	j = 0;
 	while (cmd->avcmd[i] && (ind = (ft_strchr(cmd->avcmd[i] + j, '<'))))
 	{
 		j = ind - cmd->avcmd[i];
-		if (ft_check_ekran(cmd->avcmd[i], j) == 0 && (in_fd = -1))
+		if (ft_check_ekran(cmd->avcmd[i], j) == 0 && (in = -1))
 		{
 			if (ft_strncmp(ind, LESS, 1) == 0 &&
 				((int)ft_strlen(cmd->avcmd[i]) - 1 == j || (cmd->avcmd[i][j + 1]
 				!= '<' && cmd->avcmd[i][j + 1] != '>')))
 			{
-				if ((in_fd = ft_get_fd_bynum(i, j, cmd)) == -2)
-					return (-1);
-				if (in_fd == -1 && ((in_fd = ft_get_fd_by_n(i, cmd, ind, &j)) < 0))
-					return (-1);
-				if (ft_fd_dup_close(in_fd, i, j, cmd) == -1)
+				if (((in = ft_get_fd_bynum(i, j, cmd)) == -2) ||
+				(in == -1 && ((in = ft_get_fd_by_n(i, cmd, ind, &j)) < 0)) ||
+				(ft_fd_dup_close(in, i, j, cmd) == -1))
 					return (-1);
 			}
 			j = -1;
