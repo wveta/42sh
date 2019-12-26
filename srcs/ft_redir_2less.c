@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redir_2less.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
+/*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 19:25:12 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/26 11:56:49 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/26 18:14:34 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ char	*ft_heredoc(char *eof)
 			tmp = ft_strcat(tmp, "\n");
 			continue ;
 		}
-		else if (ft_strcmp(eof, line) != 0 && line[0] != 4)
+		else if (ft_strcmp(eof, line) != 0 && line[0] != 4 && line[0] != 3)
 		{
 			tmp = ft_strcat(tmp, line);
 			tmp = ft_strcat(tmp, "\n");

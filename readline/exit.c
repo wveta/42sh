@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 21:47:27 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/25 19:34:50 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/26 18:13:29 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,11 @@ char		*return_func(char *str, char *input)
 	{
 		tmp = ft_strdup(input);
 		tmp = check_backslash(tmp);
+	}
+	if (str[0] == 3 && !str[1] && g_input->heredoc)
+	{
+		tmp = ft_strnew(1);
+		tmp[0] = 3;
 	}
 	return (tmp);
 }
