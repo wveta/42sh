@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 18:24:59 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/24 18:38:56 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/26 16:08:54 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,17 @@ void	ft_do_export(char *str, int flag, int j)
 	int		i;
 	char	*val;
 	char	*parm;
+	char	*tmp;
 
 	i = ft_strlen(str);
 	if (j == (int)ft_strlen(str) && flag == 0 &&
 	((val = ft_get_env2(str, g_shell))))
-		ft_exp_env(ft_strdup(str), val);
+	{
+		tmp = ft_strdup(str);
+		ft_exp_env(tmp, val);
+		free(tmp);
+		free(val);
+	}
 	else if (j != (int)ft_strlen(str))
 	{
 		parm = ft_alloc_char(1 + j);

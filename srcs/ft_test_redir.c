@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 15:39:53 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/24 22:06:09 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/26 17:09:24 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ t_cmdlist	*ft_redir_io_restore(t_cmdlist *cmd)
 	if (cmd->fd2 != STDERR_FILENO)
 		ft_rest_err(cmd);
 	cmd->fd0 = 0;
-	cmd->fd1 = 0;
-	cmd->fd2 = 0;
+	cmd->fd1 = 1;
+	cmd->fd2 = 2;
 	return (cmd);
 }
 
@@ -54,7 +54,10 @@ int			ft_do_redir(t_cmdlist *cmd)
 			{
 				if (ft_redir_great(cmd, i) == -1 ||
 				ft_redir_2less(cmd, i) == -1 || ft_redir_less(cmd, i) == -1)
+				{
+					cmd = ft_redir_io_restore(cmd);
 					return (-1);
+				}
 			}
 			j++;
 		}

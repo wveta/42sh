@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 18:24:59 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/02 18:29:51 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/26 16:09:23 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 char	*ft_get_env2(char *parm, char **shell)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 
 	if (shell)
 	{

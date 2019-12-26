@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 14:40:31 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/25 20:04:40 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/26 16:58:11 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int		ft_fd_dup_close(int in_fd, int i, int j, t_cmdlist *cmd)
 	}
 	cmd->fd0 = in_fd;
 	close(in_fd);
-	if (g_redir_block == 1)
+	if (g_redir_block == 1 && g_parent_pid != getpid())
 		close(STDIN_FILENO);
 	if (j == 0 && cmd->avcmd[i][j] == '<')
 		cmd->avcmd[i][j] = '\0';
