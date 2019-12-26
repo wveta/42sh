@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 11:01:23 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/26 13:34:59 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/26 17:34:25 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -624,5 +624,6 @@ char					*ft_repl_til_flag(int *flag, int j, char *s, int code);
 int						ft_free_ret(char *s);
 char					*ft_get_sufx_name(char	*s, int *j, int l);
 char					*ft_calc_in_calc(char *s);
+char					ft_get_nextp_world(char	*s);
 
 #endif

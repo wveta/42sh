@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 18:25:30 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/25 21:50:16 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/26 18:23:38 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ int			ft_tst_great_getfile(t_greatflag *f, t_cmdlist *cmd, int i)
 	}
 	else
 	{
+		ft_set_shell("?", "1");
 		ft_print_msg(" : parse error in command ", cmd->avcmd[i]);
 		return (-1);
 	}
@@ -95,6 +96,7 @@ int			ft_great_testfile(t_greatflag *f)
 										O_WRONLY | O_CREAT | O_APPEND, 0644);
 		if (f->out_fd == -1)
 		{
+			ft_set_shell("?", "1");
 			ft_print_msg(" : Error open file ", f->file_redir);
 			free(f->file_redir);
 			return (-1);

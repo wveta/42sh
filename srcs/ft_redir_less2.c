@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 19:25:12 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/25 19:39:13 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/26 18:47:26 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,12 @@ int		ft_test_file_mame(char *fname)
 	int i;
 
 	i = -1;
-	if (!fname)
+	if (fname == NULL || fname[0] == '\0')
+	{
+		ft_print_msg(" : Syntax error near ", fname + i);
+		ft_set_shell("?", "1");
 		return (-1);
+	}
 	while (fname[++i])
 	{
 		if (ft_strchr("<>,();|!&", fname[i]) && !ft_check_ekran(fname, i))

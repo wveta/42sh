@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 19:25:12 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/25 22:49:52 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/26 17:19:26 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,10 @@ int		ft_get_fd_by_n(int i, t_cmdlist *cmd, char *ind, int *j)
 		return (-1);
 	file_redir = ft_calc_full_path(file_redir);
 	if ((len = open(file_redir, O_RDONLY, 0644)) == -1)
+	{
+		ft_set_shell("?", "1");
 		ft_print_msg(" : Error open file ", file_redir);
+	}
 	free(file_redir);
 	return (len);
 }

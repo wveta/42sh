@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redir_2less.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
+/*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 19:25:12 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/26 18:14:34 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/26 18:35:50 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char	*ft_get_heof(char *ind, t_cmdlist *cmd, int i, int j)
 			return (NULL);
 		}
 	}
-	if (ft_test_file_mame(heof) != 0)
+	if (ft_test_file_mame(heof) != 0 && ft_free_ret(heof))
 		return (NULL);
 	return (heof);
 }
