@@ -3,60 +3,46 @@
 /*                                                        :::      ::::::::   */
 /*   del_ekran.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
+/*   By: udraugr- <udraugr-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/19 21:00:17 by udraugr-          #+#    #+#             */
-/*   Updated: 2019/12/23 17:31:43 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/26 17:01:57 by udraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static int	calculate_new_len(char *old_str)
+static void	telo_cicla(char *old_str, int *i, int *dquote, int *squote)
 {
-	int		i;
-	int		len_new_str;
-
-	i = -1;
-	len_new_str = ft_strlen(old_str);
-	while (old_str[++i])
-	{
-		if (old_str[i] == '\\')
-		{
-			if (old_str[i + 1] == '\0')
-				return (-1);
-			++i;
-			--len_new_str;
-		}
-		else if (old_str[i] == '\'' || old_str[i] == '"')
-		{
-			--len_new_str;
-		}
-	}
-	return (len_new_str);
+	if (old_str[*i] == '\\' && !(*squote))
+    {
+        ft_memmove(&old_str[*i], &old_str[*i + 1], ft_strlen(&old_str[*i]));
+        (*i)++;
+    }
+    else if (old_str[*i] == '\'' && !(*dquote))
+    {
+        ft_memmove(&old_str[*i], &old_str[*i + 1], ft_strlen(&old_str[*i]));
+        *squote ^= 1;
+    }
+    else if (old_str[*i] == '"' && !(*squote))
+    {
+        ft_memmove(&old_str[*i], &old_str[*i + 1], ft_strlen(&old_str[*i]));
+        *dquote ^= 1;
+    }
+    else
+        ++(*i);
 }
 
-char		*del_ekran(char *old_str)
+char        *del_ekran(char *old_str)
 {
-	int		i;
-	int		j;
-	int		len_new_str;
-	char	*new_str;
+    int     squote;
+    int     dquote;
+    int     i;
 
-	if (!old_str || (len_new_str = calculate_new_len(old_str)) == -1)
-		return (0);
-	if ((new_str = ft_strnew(len_new_str)) == 0)
-		return (0);
-	i = -1;
-	j = -1;
-	while (old_str[++i])
-	{
-		if (old_str[i] == '\\')
-			++i;
-		else if (old_str[i] == '\'' || old_str[i] == '"')
-			continue ;
-		new_str[++j] = old_str[i];
-	}
-	free(old_str);
-	return (new_str);
+    squote = 0;
+    dquote = 0;
+    i = 0;
+    while (old_str[i])
+		telo_cicla(old_str, &i, &dquote, &squote);
+    return (old_str);
 }
