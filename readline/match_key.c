@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 20:06:58 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/25 14:34:55 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/26 14:55:45 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ static int	match_del_hist_key(char *str)
 		hist_move(1);
 	else if (str[0] == CTRL_L && !str[1])
 		scroll_top();
+	else if (str[0] == CTRL_K && !str[1])
+		del_input();
 	else
 		return (0);
 	return (1);
