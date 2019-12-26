@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 16:34:55 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/26 14:25:38 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/26 14:46:43 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ char		**ft_split_pipes(char *s)
 		return (NULL);
 	else
 	{
+		ret[count] = NULL;
 		ret = ft_init_matr(ret, count);
 		if (ft_all_pipe_words(ret, s) == -1 || ft_parse_pipe(ret))
 		{
