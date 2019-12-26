@@ -6,7 +6,7 @@
 #    By: thaley <thaley@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/20 13:59:52 by thaley            #+#    #+#              #
-#    Updated: 2019/12/25 19:31:30 by thaley           ###   ########.fr        #
+#    Updated: 2019/12/26 20:03:56 by thaley           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ FILES		:= readline init match_key get_next_line\
 	print exit move_left_right history delete home_end\
 	hist_move line free parse_quotes signal autocomplition\
 	find_file ascii_sort print_autocmpl parsepath find_cmd\
-	find_key count_lines init_term shift error
+	find_key count_lines init_term shift error cursor
 
 SRC			:= $(patsubst %, %.c, $(FILES))
 OBJ			:= $(patsubst %, %.o, $(FILES))
