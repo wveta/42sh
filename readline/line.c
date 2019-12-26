@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 20:26:47 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/15 18:45:23 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/26 16:41:28 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,14 @@ void		move_line_up(void)
 	while ((g_input->curs_pos - i) >\
 		g_input->multiline.start[g_input->multiline.pos])
 		i++;
-	ft_putstr_fd(tgetstr("up", NULL), STDERR_FILENO);
-	ft_putstr_fd(tgetstr("cr", NULL), STDERR_FILENO);
+	tputs(tgetstr("up", NULL), 1, putint);
+	tputs(tgetstr("cr", NULL), 1, putint);
 	g_input->multiline.pos--;
 	g_input->curs_pos = g_input->multiline.start[g_input->multiline.pos];
 	if (g_input->multiline.pos == 0)
 	{
 		while (++prompt < g_input->prompt_len)
-			ft_putstr_fd(tgetstr("nd", NULL), STDERR_FILENO);
+			tputs(tgetstr("nd", NULL), 1, putint);
 	}
 	while (i > 0 && g_input->curs_pos <\
 		g_input->multiline.end[g_input->multiline.pos])
@@ -51,7 +51,7 @@ void		move_line_down(void)
 	while ((g_input->curs_pos - i) >\
 		g_input->multiline.start[g_input->multiline.pos])
 		i++;
-	ft_putstr_fd(tgetstr("do", NULL), STDERR_FILENO);
+	tputs(tgetstr("do", NULL), 1, putint);
 	g_input->multiline.pos++;
 	g_input->curs_pos = g_input->multiline.start[g_input->multiline.pos];
 	while (i > 0 && g_input->curs_pos <\
@@ -67,20 +67,18 @@ void		move_end_of_line(void)
 	int		i;
 
 	i = -1;
-	ft_putstr_fd(tgetstr("up", NULL), STDERR_FILENO);
+	tputs(tgetstr("up", NULL), 1, putint);
 	g_input->curs_pos--;
 	g_input->multiline.pos--;
 	if (g_input->multiline.pos == 0)
-	{
-		while (++i < g_input->prompt_len)
-			ft_putstr_fd(tgetstr("nd", NULL), STDERR_FILENO);
-	}
-	i = g_input->multiline.start[g_input->multiline.pos];
-	while (i < g_input->multiline.end[g_input->multiline.pos])
-	{
-		ft_putstr_fd(tgetstr("nd", NULL), STDERR_FILENO);
-		i++;
-	}
+		i = (g_input->multiline.end[g_input->multiline.pos] -\
+		g_input->multiline.start[g_input->multiline.pos])\
+		+ g_input->prompt_len;
+	else
+		i = g_input->multiline.end[g_input->multiline.pos] -\
+		g_input->multiline.start[g_input->multiline.pos];
+	if (i > 0)
+		tputs(tgoto(tgetstr("ch", NULL), 0, i), 1, putint);
 }
 
 void		cursor_back(void)
@@ -88,8 +86,8 @@ void		cursor_back(void)
 	int		curs;
 
 	curs = g_input->curs_pos;
-	ft_putstr_fd(tgetstr("cr", NULL), STDERR_FILENO);
-	ft_putstr_fd(tgetstr("cd", NULL), STDERR_FILENO);
+	tputs(tgetstr("cr", NULL), 1, putint);
+	tputs(tgetstr("cd", NULL), 1, putint);
 	ft_putstr_fd(g_input->prompt, STDERR_FILENO);
 	ft_putstr_fd(g_input->input, STDERR_FILENO);
 	if (g_input->curs_pos - g_input->prompt_len == g_input->input_len)

@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 21:09:47 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/25 14:12:30 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/26 16:27:01 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,8 +120,6 @@ void		print(char *str)
 	null_multiline();
 	print_loop(tmp, curs);
 	count_lines();
-	if (!g_input->multiline.num_of_lines)
-		null_multiline();
 	if (save_curs > 0)
 	{
 		while (g_input->curs_pos > save_curs)
