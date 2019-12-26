@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/07 10:50:36 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/24 22:13:29 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/26 12:21:56 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ void	ft_child_pipe_gopipe(t_cmdlist *cur_cmd)
 {
 	if (g_nopipe_start == 1)
 		cur_cmd = ft_child_pipe_row32(cur_cmd);
-	if (cur_cmd->here && ft_get_redir_hd(cur_cmd) != 0)
-		exit(1);
+//	if (cur_cmd->here && ft_get_redir_hd(cur_cmd) != 0)
+//		exit(1);
 	cur_cmd->built_in = ft_test_built_in(cur_cmd->avcmd[0]);
 	if (cur_cmd->built_in == 0)
 	{

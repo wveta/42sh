@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 19:09:43 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/16 21:15:13 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/25 19:27:40 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ char		*read_loop(void)
 {
 	char	c[4096];
 
-	g_cmd->jmp_code2 = setjmp(g_cmd->ebuf2);
 	signal(SIGWINCH, ft_signal_win_size);
 	while (1)
 	{

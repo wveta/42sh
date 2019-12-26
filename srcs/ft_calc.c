@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:14:54 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/24 15:14:52 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/26 13:34:59 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ char	*ft_calc(char *str)
 	char	*ans;
 
 	str = ft_calc_subs(str);
+	str = ft_calc_in_calc(str);
 	ans = calculator(str);
 	if (ans)
 	{

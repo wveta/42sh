@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 17:48:56 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/25 14:12:53 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/25 19:27:34 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,4 @@ void		ft_signal_win_size(int signo)
 	g_input->curs_pos = g_input->prompt_len;
 	g_input->input_len = 0;
 	print(tmp);
-	longjmp(g_cmd->ebuf2, g_cmd->jmp_code2);
 }

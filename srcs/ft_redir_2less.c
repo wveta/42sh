@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 19:25:12 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/25 16:35:48 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/26 11:56:49 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,26 @@
 char	*ft_get_heof(char *ind, t_cmdlist *cmd, int i, int j)
 {
 	char	*heof;
+	int		j1;
 
+	(void)ind;
 	if ((int)ft_strlen(cmd->avcmd[i]) - 2 > j)
 	{
 		if (ft_isalnum(cmd->avcmd[i][j + 2]) != 1 &&
 		ft_print_msg(" : parse error ", cmd->avcmd[i]) == -1)
 			return (NULL);
-		heof = ft_strdup(ind + 2);
+		j1 = j;
+		heof = ft_get_sufx_name(cmd->avcmd[i], &j1, j + 2);
+		cmd->avcmd[i][j1] = '\0';
 	}
 	else
 	{
-		if (cmd->avcmd[i + 1] && (heof = ft_strdup(cmd->avcmd[i + 1])))
+		j1 = 0;
+		if (cmd->avcmd[i + 1] &&
+		(heof = ft_get_sufx_name(cmd->avcmd[i + 1], &j1, 0)))
 		{
-			cmd->avcmd[i + 1][0] = '\0';
+			cmd->avcmd[i + 1][j1] = '\0';
+			cmd->avcmd[i][j] = '\0';
 		}
 		else
 		{
@@ -35,7 +42,6 @@ char	*ft_get_heof(char *ind, t_cmdlist *cmd, int i, int j)
 			return (NULL);
 		}
 	}
-	cmd->avcmd[i][j] = '\0';
 	if (ft_test_file_mame(heof) != 0)
 		return (NULL);
 	return (heof);
