@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 18:24:59 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/26 16:08:54 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/27 10:01:27 by udraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,41 +52,6 @@ void	ft_exp_env(char *parm, char *value)
 		free(g_envi->env[i]);
 		g_envi->env[i] = str;
 	}
-}
-
-void	ft_do_export(char *str, int flag, int j)
-{
-	int		i;
-	char	*val;
-	char	*parm;
-	char	*tmp;
-
-	i = ft_strlen(str);
-	if (j == (int)ft_strlen(str) && flag == 0 &&
-	((val = ft_get_env2(str, g_shell))))
-	{
-		tmp = ft_strdup(str);
-		ft_exp_env(tmp, val);
-		free(tmp);
-		free(val);
-	}
-	else if (j != (int)ft_strlen(str))
-	{
-		parm = ft_alloc_char(1 + j);
-		parm[0] = '\0';
-		parm = ft_strncpy(parm, str, j);
-		val = ft_alloc_char(ft_strlen(str) - j);
-		val[0] = '\0';
-		val = ft_strcat(val, str + j + 1);
-		val = del_ekran(val);
-		ft_set_shell(parm, val);
-		if (flag == 0)
-			ft_exp_env(parm, val);
-		free(parm);
-		free(val);
-	}
-	else if (j == (int)ft_strlen(str) && flag == 1)
-		ft_unset_env_parm(str);
 }
 
 void	ft_go_export(char *str, int flag)

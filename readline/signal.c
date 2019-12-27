@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 17:48:56 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/27 12:39:39 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/27 14:04:55 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ void		ft_signal_win_size(int signo)
 		if (g_input->curs_pos - g_input->prompt_len < g_input->input_len\
 		&& g_input->multiline.num_of_lines)
 		{
-			while (g_input->curs_pos < g_input->multiline.start[g_input->multiline.pos])
+			while (g_input->curs_pos < g_input->multiline.start\
+					[g_input->multiline.pos])
 				g_input->multiline.pos--;
 		}
 	}

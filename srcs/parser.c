@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 16:17:45 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/23 20:10:56 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/27 17:13:40 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ int			ft_parser_go(char *cmd, char *str)
 			return (1);
 		}
 	}
+	else if (g_parent_pid != getpid())
+		ft_pr_msg_rc(" : syntax error : ", str);
 	return (0);
 }
 

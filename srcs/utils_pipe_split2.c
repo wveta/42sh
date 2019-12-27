@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/07 10:50:36 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/24 22:10:37 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/27 17:24:23 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,19 @@ int			ft_parse_pipe(char **ret)
 		return ((-1) * ft_print_msg(": parse error in pipeline: ", ret[i - 1]));
 	}
 	return (0);
+}
+
+void		ft_tst_gf_norm(t_greatflag *f, t_cmdlist *cmd, int i, int l)
+{
+	if (cmd->avcmd[i + 1][0] != '-')
+	{
+		cmd->avcmd[i][l - 1] = '\0';
+		f->file_redir = ft_get_sufx_name(cmd->avcmd[i + 1], &(f->j), 0);
+		f->file_redir = ft_repl_tilda(f->file_redir, ft_strlen(f->file_redir));
+	}
+	else
+	{
+		f->file_redir = ft_strdup("/dev/null");
+		cmd->avcmd[i + 1] = ft_strcpy(cmd->avcmd[i + 1], cmd->avcmd[i + 1] + 1);
+	}
 }

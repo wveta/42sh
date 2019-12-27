@@ -21,7 +21,8 @@ FILES	:=	built_in exec_list ft_built_cd ft_built_env main parser\
 			ft_par_exp1 ft_par_exp3 ft_repl_check ft_split_words ft_type\
 			ft_exit ft_split_words_cut globbing_dup hash_cmd_dup main_works\
 			param_remove_dup parser_dup utils_pipe4 utils_pipe5 utils_pipe6\
-			del_ekran ft_redir_less2 ft_split_words_cut2 ft_split_words_cut3
+			del_ekran ft_redir_less2 ft_split_words_cut2 ft_split_words_cut3\
+			ft_do_export ft_get_heof ft_get_fd_by_n
 
 SRC_D	:=	srcs
 INC_D	:=	includes

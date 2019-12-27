@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 16:34:55 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/26 23:13:00 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/27 12:36:21 by udraugr-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ void		ft_pipe_split_3s(t_pipeflag *fl, char const *str)
 
 int			ft_check_pipe_n(char *str, t_quoteflag *f)
 {
-	if (ft_get_nextp_world(str + f->i_cmd + f->i + 2) == '|')
+	if (ft_strlen(str) > (size_t)(f->i_cmd + f->i + 1) &&
+			ft_get_nextp_world(str + f->i_cmd + f->i + 2) == '|')
 	{
 		ft_set_shell("?", "1");
 		ft_print_msg(": parse error: ", str + f->i_cmd);

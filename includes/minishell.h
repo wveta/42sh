@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 11:01:23 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/26 23:24:40 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/27 17:18:41 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -632,5 +632,11 @@ void					ft_pipe_split_4s(t_pipeflag *fl, char const *str);
 void					ft_pipe_split_3s(t_pipeflag *fl, char const *str);
 int						ft_check_pipe_n(char *str, t_quoteflag *f);
 void					ft_set_andor(int i, t_quoteflag *f);
+void					ft_do_export(char *str, int flag, int j);
+int						ft_get_fd_by_n(int i, t_cmdlist *cmd,
+														char *ind, int *j);
+int						ft_test_f_andor(t_quoteflag *f, char *str);
+void					ft_tst_gf_norm(t_greatflag *f, t_cmdlist *cmd, int i,
+						int l);
 
 #endif

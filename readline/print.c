@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
+/*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 21:09:47 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/27 12:27:27 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/27 17:13:40 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ void		print(char *str)
 	char	buf[MAX_CMDS];
 
 	tmp = NULL;
-	str = check_shift(str);
+	if ((str = check_shift(str)) && str[0] == '\n' && ft_strlen(str) == 1)
+		go_end_pos();
 	save_curs = 0;
 	ft_bzero(buf, MAX_CMDS);
 	if (!str)

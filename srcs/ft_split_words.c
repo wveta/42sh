@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 16:34:55 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/26 23:29:07 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/27 13:50:47 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,8 @@ int			ft_split_pipes_words77(char *str)
 	while (str && str[f->i])
 	{
 		if (f->qflag == 0 && f->br_flag == 0 && str[f->i] == ')' && f->b_sl == 0
-		&& f->i > 0 && f->flsub == 0 &&
+		&& f->i > 0 && f->flsub == 0 && ft_strlen(str) >
+		(size_t)(f->i_cmd + f->i + 1) &&
 		ft_get_nextp_world(str + f->i + 1) == '(')
 			return (1 + ft_pr_msg_rc(" : parse error in command ", str + f->i));
 		ft_split_words_p1(f, str);

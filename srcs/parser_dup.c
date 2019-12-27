@@ -6,7 +6,7 @@
 /*   By: wveta <wveta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 16:17:45 by wveta             #+#    #+#             */
-/*   Updated: 2019/12/26 23:23:57 by wveta            ###   ########.fr       */
+/*   Updated: 2019/12/27 13:03:11 by wveta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int		ft_parse_if_0(t_quoteflag *f, char *str)
 	if (f->qflag == 0 && ft_strncmp(str + f->i + f->i_cmd, "&&", 2) == 0
 	&& (f->i + f->i_cmd == 0 || str[f->i + f->i_cmd - 1] != '\\'))
 	{
-		if (ft_check_pipe_n(str, f))
+		if (ft_test_f_andor(f, str) || ft_check_pipe_n(str, f))
 			return (1);
 		if (ft_parse_cmd(str + f->i_cmd, f->i) == 1)
 			g_skip = 1;
@@ -113,7 +113,7 @@ int		ft_parse_if_0(t_quoteflag *f, char *str)
 	else if (f->qflag == 0 && ft_strncmp(str + f->i + f->i_cmd, "||", 2) == 0
 	&& (f->i + f->i_cmd == 0 || str[f->i + f->i_cmd - 1] != '\\'))
 	{
-		if (ft_check_pipe_n(str, f))
+		if (ft_test_f_andor(f, str) || ft_check_pipe_n(str, f))
 			return (1);
 		if (ft_parse_cmd(str + f->i_cmd, f->i) == 1)
 			g_skip = 1;
