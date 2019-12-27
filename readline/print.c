@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 21:09:47 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/26 20:08:55 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/27 12:27:27 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 int			new_row(int i, int curs, char *tmp)
 {
 	if (tmp[i] != '\n')
-		tputs(tgetstr("do", NULL), 1, putint);
+		tputs(tgetstr("sf", NULL), 1, putint);
 	else if (tmp[i] == '\n' && curs == g_input->ws.ws_col)
-		tputs(tgetstr("do", NULL), 1, putint);
+		tputs(tgetstr("sf", NULL), 1, putint);
 	curs = 0;
 	g_input->multiline.end\
 	[g_input->multiline.num_of_lines++] = g_input->curs_pos - 1;
