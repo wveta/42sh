@@ -6,7 +6,7 @@
 /*   By: thaley <thaley@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 17:54:28 by thaley            #+#    #+#             */
-/*   Updated: 2019/12/26 14:51:31 by thaley           ###   ########.fr       */
+/*   Updated: 2019/12/26 20:01:06 by thaley           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,5 +190,8 @@ void			for_print(char	**str);
 char			*check_shift(char *str);
 int				putint(int c);
 void			del_input(void);
+char			*check_curs_pos(int *save_curs, char *buf,\
+								char *str, char *tmp);
+int				temp_cursor(void);
 
 #endif
